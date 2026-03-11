@@ -1,0 +1,254 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "src/cli.py",
+      "node_type": "module",
+      "path": "src/cli.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 0.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:07:32.570187"
+    },
+    {
+      "id": "src/orchestrator.py",
+      "node_type": "module",
+      "path": "src/orchestrator.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 0.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:07:32.570165"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py",
+      "node_type": "module",
+      "path": "src/analyzers/sql_lineage.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 3.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:02:53.508966"
+    },
+    {
+      "id": "src/analyzers/__init__.py",
+      "node_type": "module",
+      "path": "src/analyzers/__init__.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 2.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:02:51.790242"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py",
+      "node_type": "module",
+      "path": "src/analyzers/tree_sitter_analyzer.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:46:21.079843"
+    },
+    {
+      "id": "src/brownfield_cartographer/__init__.py",
+      "node_type": "module",
+      "path": "src/brownfield_cartographer/__init__.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:12:10.617952"
+    },
+    {
+      "id": "src/brownfield_cartographer/cli.py",
+      "node_type": "module",
+      "path": "src/brownfield_cartographer/cli.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:07:32.568654"
+    },
+    {
+      "id": "src/brownfield_cartographer/orchestrator.py",
+      "node_type": "module",
+      "path": "src/brownfield_cartographer/orchestrator.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 0.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:07:32.646892"
+    },
+    {
+      "id": "src/graph/knowledge_graph.py",
+      "node_type": "module",
+      "path": "src/graph/knowledge_graph.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:24:09.507131"
+    },
+    {
+      "id": "src/graph/__init__.py",
+      "node_type": "module",
+      "path": "src/graph/__init__.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:24:11.271983"
+    },
+    {
+      "id": "src/agents/surveyor.py",
+      "node_type": "module",
+      "path": "src/agents/surveyor.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:02:56.371735"
+    },
+    {
+      "id": "src/agents/hydrologist.py",
+      "node_type": "module",
+      "path": "src/agents/hydrologist.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 3.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:07:58.191105"
+    },
+    {
+      "id": "src/agents/__init__.py",
+      "node_type": "module",
+      "path": "src/agents/__init__.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 2.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:02:57.686371"
+    },
+    {
+      "id": "src/models/__init__.py",
+      "node_type": "module",
+      "path": "src/models/__init__.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:24:24.329693"
+    },
+    {
+      "id": "src/models/schemas.py",
+      "node_type": "module",
+      "path": "src/models/schemas.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:17:20.992683"
+    }
+  ],
+  "links": [
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/cli.py",
+      "target": "src/brownfield_cartographer/cli.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/brownfield_cartographer/orchestrator.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/cli.py",
+      "target": "src/brownfield_cartographer/__init__.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/cli.py",
+      "target": "src/brownfield_cartographer/orchestrator.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/orchestrator.py",
+      "target": "src/agents/hydrologist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/orchestrator.py",
+      "target": "src/agents/surveyor.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/graph/knowledge_graph.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/surveyor.py",
+      "target": "src/analyzers/tree_sitter_analyzer.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/surveyor.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/surveyor.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/hydrologist.py",
+      "target": "src/analyzers/sql_lineage.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/hydrologist.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/hydrologist.py",
+      "target": "src/models/schemas.py"
+    }
+  ]
+}

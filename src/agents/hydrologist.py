@@ -68,7 +68,7 @@ class HydrologistAgent:
 		for file_path in self.repository_path.rglob("*"):
 			if not file_path.is_file() or file_path.suffix.lower() not in suffixes:
 				continue
-			if any(part in {".git", ".venv", "__pycache__", "target", "build", "dist"} for part in file_path.parts):
+			if any(part in {".cartography", ".git", ".venv", "__pycache__", "build", "dist", "target", "tmp"} for part in file_path.parts):
 				continue
 			yield file_path
 
