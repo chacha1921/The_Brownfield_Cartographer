@@ -1,0 +1,9 @@
+sources:
+  - name: raw
+    tables:
+      - name: orders
+      - name: customers
+
+models:
+  - name: stg_orders
+  - name: orders_summary
