@@ -27,7 +27,7 @@ dependencies = [
 brownfield-cartographer = "brownfield_cartographer.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/analyzers", "src/brownfield_cartographer", "src/graph", "src/models"]
+packages = ["src/agents", "src/analyzers", "src/brownfield_cartographer", "src/graph", "src/models"]
 
 [dependency-groups]
 dev = []
