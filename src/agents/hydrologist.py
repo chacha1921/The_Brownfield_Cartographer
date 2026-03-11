@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from collections import deque
 from pathlib import Path
-import re
 
-from analyzers.sql_lineage import extract_sql_dependencies
+from analyzers.dag_config_parser import parse_dbt_yaml
+from analyzers.sql_lineage import parse_dbt_sql
 from graph.knowledge_graph import KnowledgeGraph
 from models.schemas import DatasetNode, EdgeType, TransformationNode
 
@@ -17,11 +17,12 @@ class HydrologistAgent:
 	def build_lineage_graph(self) -> KnowledgeGraph:
 		self.knowledge_graph = KnowledgeGraph()
 
-		for yaml_file in self._iter_files((".yml",)):
-			self._register_dbt_yaml_nodes(yaml_file)
+		for yaml_file in self._iter_yaml_files():
+			for node in parse_dbt_yaml(yaml_file):
+				self.knowledge_graph.add_node(node)
 
 		for sql_file in self._iter_files((".sql",)):
-			self._register_sql_lineage(sql_file)
+			self._register_dbt_sql_lineage(sql_file)
 
 		return self.knowledge_graph
 
@@ -64,74 +65,39 @@ class HydrologistAgent:
 			and self.knowledge_graph.graph.in_degree(node_id) > 0
 		]
 
+	def find_sources(self) -> list[str]:
+		return self.find_source_nodes()
+
+	def find_sinks(self) -> list[str]:
+		return self.find_sink_nodes()
+
 	def _iter_files(self, suffixes: tuple[str, ...]):
 		for file_path in self.repository_path.rglob("*"):
 			if not file_path.is_file() or file_path.suffix.lower() not in suffixes:
 				continue
-			if any(part in {".cartography", ".git", ".venv", "__pycache__", "build", "dist", "target", "tmp"} for part in file_path.parts):
+			relative_parts = file_path.relative_to(self.repository_path).parts
+			if any(part in {".cartography", ".git", ".venv", "__pycache__", "build", "dist", "target", "tmp"} for part in relative_parts):
 				continue
 			yield file_path
 
-	def _register_sql_lineage(self, sql_file: Path) -> None:
-		dependencies = extract_sql_dependencies(sql_file.read_text(encoding="utf-8"))
-		target_table = dependencies["target_table"]
-		if target_table is None:
-			return
-
-		target_node = self._ensure_dataset_node(target_table)
-		transformation_id = sql_file.relative_to(self.repository_path).as_posix()
-		transformation_node = TransformationNode(id=transformation_id)
-		self.knowledge_graph.add_node(transformation_node)
-		self.knowledge_graph.add_edge(transformation_node, target_node, EdgeType.PRODUCES)
-
-		for source_table in dependencies["source_tables"]:
-			source_node = self._ensure_dataset_node(source_table)
-			self.knowledge_graph.add_edge(source_node, transformation_node, EdgeType.CONSUMES)
-
-	def _register_dbt_yaml_nodes(self, yaml_file: Path) -> None:
-		section: str | None = None
-		source_name: str | None = None
-		in_tables_block = False
-
-		for raw_line in yaml_file.read_text(encoding="utf-8").splitlines():
-			line = raw_line.rstrip()
-			stripped = line.strip()
-
-			if not stripped or stripped.startswith("#"):
+	def _iter_yaml_files(self):
+		for file_path in self._iter_files((".yml",)):
+			if file_path.name == "dbt_project.yml":
 				continue
+			yield file_path
 
-			if stripped == "sources:":
-				section = "sources"
-				source_name = None
-				in_tables_block = False
-				continue
+	def _register_dbt_sql_lineage(self, sql_file: Path) -> None:
+		relative_sql_path = sql_file.relative_to(self.repository_path)
+		relative_sql_id = relative_sql_path.as_posix()
 
-			if stripped == "models:":
-				section = "models"
-				source_name = None
-				in_tables_block = False
-				continue
+		for edge in parse_dbt_sql(sql_file):
+			source_id = self._normalize_sql_endpoint(edge["source"], sql_file, relative_sql_id)
+			target_id = self._normalize_sql_endpoint(edge["target"], sql_file, relative_sql_id)
+			edge_type = EdgeType(edge["edge_type"])
 
-			if section == "sources":
-				if stripped == "tables:":
-					in_tables_block = True
-					continue
-
-				name_match = re.match(r"^-\s+name:\s+(.+)$", stripped)
-				if name_match:
-					value = _strip_yaml_scalar(name_match.group(1))
-					if in_tables_block and source_name:
-						self._ensure_dataset_node(f"{source_name}.{value}", storage_type="dbt_source")
-					else:
-						source_name = value
-						in_tables_block = False
-					continue
-
-			if section == "models":
-				name_match = re.match(r"^-\s+name:\s+(.+)$", stripped)
-				if name_match:
-					model_name = _strip_yaml_scalar(name_match.group(1))
-					self._ensure_dataset_node(model_name, storage_type="dbt_model")
+			self._ensure_lineage_node(source_id, edge_type=edge_type, is_source=True)
+			self._ensure_lineage_node(target_id, edge_type=edge_type, is_source=False)
+			self.knowledge_graph.add_edge(source_id, target_id, edge_type)
 
 	def _ensure_dataset_node(self, dataset_name: str, storage_type: str = "table") -> str:
 		if dataset_name not in self.knowledge_graph.graph:
@@ -144,9 +110,23 @@ class HydrologistAgent:
 			)
 		return dataset_name
 
+	def _ensure_transformation_node(self, transformation_id: str) -> str:
+		if transformation_id not in self.knowledge_graph.graph:
+			self.knowledge_graph.add_node(TransformationNode(id=transformation_id))
+		return transformation_id
 
-def _strip_yaml_scalar(value: str) -> str:
-	return value.strip().strip("\"'")
+	def _ensure_lineage_node(self, node_id: str, edge_type: EdgeType, is_source: bool) -> str:
+		if node_id.endswith(".sql"):
+			return self._ensure_transformation_node(node_id)
+
+		storage_type = "dbt_model"
+		if edge_type == EdgeType.CONSUMES and is_source and "." in node_id:
+			storage_type = "dbt_source"
+		return self._ensure_dataset_node(node_id, storage_type=storage_type)
+
+	def _normalize_sql_endpoint(self, node_id: str, sql_file: Path, relative_sql_id: str) -> str:
+		absolute_sql_id = sql_file.as_posix()
+		return relative_sql_id if node_id == absolute_sql_id else node_id
 
 
 __all__ = ["HydrologistAgent"]

@@ -5,6 +5,8 @@ from pathlib import Path
 import re
 from typing import Any, TypedDict
 
+from models.schemas import DatasetNode
+
 
 class DbtColumn(TypedDict, total=False):
 	name: str
@@ -34,6 +36,51 @@ class AirflowTask(TypedDict):
 class AirflowDagParseResult(TypedDict):
 	tasks: list[AirflowTask]
 	dependencies: list[tuple[str, str]]
+
+
+def parse_dbt_yaml(file_path: str | Path) -> list[DatasetNode]:
+	parsed_schema = parse_dbt_schema_file(file_path)
+	nodes_by_id: dict[str, DatasetNode] = {}
+
+	for source in parsed_schema["sources"]:
+		dataset_name = source["name"]
+		if source.get("source_name"):
+			dataset_name = f"{source['source_name']}.{source['name']}"
+
+		nodes_by_id[dataset_name] = DatasetNode(
+			id=dataset_name,
+			name=dataset_name,
+			storage_type="dbt_source",
+			schema_snapshot={
+				"columns": source.get("columns", []),
+				"dependencies": source.get("dependencies", []),
+			},
+			is_source_of_truth=True,
+		)
+
+	for model in parsed_schema["models"]:
+		existing_node = nodes_by_id.get(model["name"])
+		schema_snapshot = dict(existing_node.schema_snapshot) if existing_node is not None else {}
+		schema_snapshot.update(
+			{
+				"columns": model.get("columns", []),
+				"dependencies": model.get("dependencies", []),
+			}
+		)
+
+		for key in ("description",):
+			if key in model:
+				schema_snapshot[key] = model[key]
+
+		nodes_by_id[model["name"]] = DatasetNode(
+			id=model["name"],
+			name=model["name"],
+			storage_type="dbt_model" if existing_node is None else existing_node.storage_type,
+			schema_snapshot=schema_snapshot,
+			is_source_of_truth=existing_node.is_source_of_truth if existing_node is not None else False,
+		)
+
+	return list(nodes_by_id.values())
 
 
 def parse_dbt_schema_file(file_path: str | Path) -> DbtSchemaParseResult:
@@ -153,6 +200,8 @@ def parse_dbt_schema_file(file_path: str | Path) -> DbtSchemaParseResult:
 
 		if current_resource is not None and ":" in stripped:
 			key, value = [part.strip() for part in stripped.split(":", 1)]
+			if key == "description":
+				current_resource["description"] = _strip_yaml_scalar(value) if value else None
 			if key not in {"name", "columns", "depends_on", "tables"}:
 				_extend_dependencies(current_resource, value)
 			continue
@@ -309,5 +358,6 @@ __all__ = [
 	"DbtResource",
 	"DbtSchemaParseResult",
 	"parse_airflow_dag_file",
+	"parse_dbt_yaml",
 	"parse_dbt_schema_file",
 ]

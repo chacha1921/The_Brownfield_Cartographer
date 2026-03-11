@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    tables:
+      - name: orders
+      - name: customers
+
+models:
+  - name: stg_orders
+    description: "Staging orders model"
+  - name: orders_summary
+    description: "Summary model"

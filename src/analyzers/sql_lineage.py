@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+import re
 from typing import TypedDict
 
 from sqlglot import exp, parse_one
@@ -8,6 +10,12 @@ from sqlglot import exp, parse_one
 class SqlDependencies(TypedDict):
 	source_tables: list[str]
 	target_table: str | None
+
+
+class DbtSqlEdge(TypedDict):
+	source: str
+	target: str
+	edge_type: str
 
 
 def extract_sql_dependencies(sql_string: str, dialect: str = "postgres") -> SqlDependencies:
@@ -38,6 +46,33 @@ def extract_sql_dependencies(sql_string: str, dialect: str = "postgres") -> SqlD
 	}
 
 
+def parse_dbt_sql(file_path: str | Path) -> list[DbtSqlEdge]:
+	sql_file = Path(file_path)
+	sql_text = sql_file.read_text(encoding="utf-8")
+	target_dataset = sql_file.stem
+	transformation_id = sql_file.as_posix()
+
+	upstream_datasets = _extract_dbt_references(sql_text)
+	edges: list[DbtSqlEdge] = [
+		{
+			"source": transformation_id,
+			"target": target_dataset,
+			"edge_type": "PRODUCES",
+		}
+	]
+
+	for upstream_dataset in upstream_datasets:
+		edges.append(
+			{
+				"source": upstream_dataset,
+				"target": transformation_id,
+				"edge_type": "CONSUMES",
+			}
+		)
+
+	return edges
+
+
 def _extract_target_table(expression: exp.Expression) -> str | None:
 	if isinstance(expression, (exp.Insert, exp.Update, exp.Delete, exp.Merge, exp.Create)):
 		return _normalize_table_reference(expression.this)
@@ -64,4 +99,19 @@ def _normalize_table_name(table: exp.Table | None) -> str | None:
 	return ".".join(parts) if parts else None
 
 
-__all__ = ["SqlDependencies", "extract_sql_dependencies"]
+def _extract_dbt_references(sql_text: str) -> list[str]:
+	references: list[str] = []
+
+	for model_name in re.findall(r"\{\{\s*ref\(\s*['\"]([^'\"]+)['\"]\s*\)\s*\}\}", sql_text):
+		references.append(model_name)
+
+	for source_name, table_name in re.findall(
+		r"\{\{\s*source\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)\s*\}\}",
+		sql_text,
+	):
+		references.append(f"{source_name}.{table_name}")
+
+	return list(dict.fromkeys(references))
+
+
+__all__ = ["DbtSqlEdge", "SqlDependencies", "extract_sql_dependencies", "parse_dbt_sql"]
