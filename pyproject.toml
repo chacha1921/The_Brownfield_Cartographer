@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "brownfield-cartographer"
+version = "0.1.0"
+description = "Tools for mapping and analyzing existing (brownfield) codebases."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Chalie LIjalem", email = "chalielijalem@gmail.com" },
+]
+dependencies = [
+  "pydantic",
+  "networkx",
+  "tree-sitter",
+  "tree-sitter-python",
+  "tree-sitter-sql",
+  "tree-sitter-yaml",
+  "tree-sitter-javascript",
+  "sqlglot",
+  "click",
+]
+
+[project.scripts]
+brownfield-cartographer = "brownfield_cartographer.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/analyzers", "src/brownfield_cartographer", "src/graph", "src/models"]
+
+[dependency-groups]
+dev = []
