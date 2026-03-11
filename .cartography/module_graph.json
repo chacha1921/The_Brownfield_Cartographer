@@ -11,9 +11,9 @@
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 0.0,
+      "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:07:32.570187"
+      "last_modified": "2026-03-11T18:20:50.163943"
     },
     {
       "id": "src/orchestrator.py",
@@ -23,9 +23,9 @@
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 0.0,
+      "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:07:32.570165"
+      "last_modified": "2026-03-11T18:20:26.333105"
     },
     {
       "id": "src/analyzers/sql_lineage.py",
@@ -40,6 +40,18 @@
       "last_modified": "2026-03-11T18:02:53.508966"
     },
     {
+      "id": "src/analyzers/dag_config_parser.py",
+      "node_type": "module",
+      "path": "src/analyzers/dag_config_parser.py",
+      "language": "python",
+      "purpose_statement": null,
+      "domain_cluster": null,
+      "complexity_score": null,
+      "change_velocity_30d": 0.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T18:20:14.800066"
+    },
+    {
       "id": "src/analyzers/__init__.py",
       "node_type": "module",
       "path": "src/analyzers/__init__.py",
@@ -49,7 +61,7 @@
       "complexity_score": null,
       "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:02:51.790242"
+      "last_modified": "2026-03-11T18:20:23.904887"
     },
     {
       "id": "src/analyzers/tree_sitter_analyzer.py",
@@ -83,9 +95,9 @@
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:07:32.568654"
+      "last_modified": "2026-03-11T18:23:19.343935"
     },
     {
       "id": "src/brownfield_cartographer/orchestrator.py",
@@ -95,9 +107,9 @@
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 0.0,
+      "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:07:32.646892"
+      "last_modified": "2026-03-11T18:20:28.699142"
     },
     {
       "id": "src/graph/knowledge_graph.py",
@@ -143,9 +155,9 @@
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 3.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:07:58.191105"
+      "last_modified": "2026-03-11T18:20:24.545318"
     },
     {
       "id": "src/agents/__init__.py",
