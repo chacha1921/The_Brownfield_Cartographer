@@ -2,27 +2,44 @@ from __future__ import annotations
 
 from collections import deque
 from pathlib import Path
+from typing import TypedDict
 
-from analyzers.dag_config_parser import parse_dbt_yaml
-from analyzers.sql_lineage import parse_dbt_sql
+from analyzers.dag_config_parser import DAGConfigAnalyzer
+from analyzers.python_data_flow import PythonDataFlowAnalyzer
+from analyzers.sql_lineage import SQLLineageAnalyzer
 from graph.knowledge_graph import KnowledgeGraph
 from models.schemas import DatasetNode, EdgeType, TransformationNode
+
+
+class LineageEdge(TypedDict):
+	source: str
+	target: str
+	edge_type: str
 
 
 class HydrologistAgent:
 	def __init__(self, repository_path: str | Path) -> None:
 		self.repository_path = Path(repository_path).resolve()
 		self.knowledge_graph = KnowledgeGraph()
+		self.python_data_flow_analyzer = PythonDataFlowAnalyzer()
+		self.sql_lineage_analyzer = SQLLineageAnalyzer()
+		self.dag_config_analyzer = DAGConfigAnalyzer()
 
 	def build_lineage_graph(self) -> KnowledgeGraph:
 		self.knowledge_graph = KnowledgeGraph()
 
-		for yaml_file in self._iter_yaml_files():
-			for node in parse_dbt_yaml(yaml_file):
+		for yaml_file in self._iter_files((".yml", ".yaml")):
+			if yaml_file.name == "dbt_project.yml":
+				continue
+			for node in self.dag_config_analyzer.parse_dbt_resources(yaml_file):
 				self.knowledge_graph.add_node(node)
 
+		for python_file in self._iter_files((".py",)):
+			self._register_lineage_edges(python_file, self.python_data_flow_analyzer.analyze_file(python_file))
+			self._register_airflow_topology(python_file)
+
 		for sql_file in self._iter_files((".sql",)):
-			self._register_dbt_sql_lineage(sql_file)
+			self._register_lineage_edges(sql_file, self.sql_lineage_analyzer.analyze_file(sql_file))
 
 		return self.knowledge_graph
 
@@ -80,24 +97,37 @@ class HydrologistAgent:
 				continue
 			yield file_path
 
-	def _iter_yaml_files(self):
-		for file_path in self._iter_files((".yml",)):
-			if file_path.name == "dbt_project.yml":
-				continue
-			yield file_path
+	def _register_lineage_edges(self, file_path: Path, edges: list[LineageEdge]) -> None:
+		relative_file_id = file_path.relative_to(self.repository_path).as_posix()
+		absolute_file_id = file_path.as_posix()
 
-	def _register_dbt_sql_lineage(self, sql_file: Path) -> None:
-		relative_sql_path = sql_file.relative_to(self.repository_path)
-		relative_sql_id = relative_sql_path.as_posix()
-
-		for edge in parse_dbt_sql(sql_file):
-			source_id = self._normalize_sql_endpoint(edge["source"], sql_file, relative_sql_id)
-			target_id = self._normalize_sql_endpoint(edge["target"], sql_file, relative_sql_id)
+		for edge in edges:
+			source_id = self._normalize_file_endpoint(edge["source"], absolute_file_id, relative_file_id)
+			target_id = self._normalize_file_endpoint(edge["target"], absolute_file_id, relative_file_id)
 			edge_type = EdgeType(edge["edge_type"])
 
 			self._ensure_lineage_node(source_id, edge_type=edge_type, is_source=True)
 			self._ensure_lineage_node(target_id, edge_type=edge_type, is_source=False)
 			self.knowledge_graph.add_edge(source_id, target_id, edge_type)
+
+	def _register_airflow_topology(self, python_file: Path) -> None:
+		parsed_dag = self.dag_config_analyzer.analyze_airflow_dag(python_file)
+		if not parsed_dag["tasks"]:
+			return
+
+		relative_file_id = python_file.relative_to(self.repository_path).as_posix()
+		for task in parsed_dag["tasks"]:
+			task_node_id = self._airflow_task_node_id(relative_file_id, task["task_id"])
+			self._ensure_transformation_node(task_node_id)
+			self.knowledge_graph.graph.nodes[task_node_id]["operator"] = task["operator"]
+			self.knowledge_graph.graph.nodes[task_node_id]["source_file"] = relative_file_id
+
+		for upstream_task_id, downstream_task_id in parsed_dag["dependencies"]:
+			self.knowledge_graph.add_edge(
+				self._airflow_task_node_id(relative_file_id, upstream_task_id),
+				self._airflow_task_node_id(relative_file_id, downstream_task_id),
+				EdgeType.CONFIGURES,
+			)
 
 	def _ensure_dataset_node(self, dataset_name: str, storage_type: str = "table") -> str:
 		if dataset_name not in self.knowledge_graph.graph:
@@ -116,17 +146,35 @@ class HydrologistAgent:
 		return transformation_id
 
 	def _ensure_lineage_node(self, node_id: str, edge_type: EdgeType, is_source: bool) -> str:
-		if node_id.endswith(".sql"):
+		if edge_type == EdgeType.CONFIGURES:
 			return self._ensure_transformation_node(node_id)
 
-		storage_type = "dbt_model"
-		if edge_type == EdgeType.CONSUMES and is_source and "." in node_id:
+		if edge_type == EdgeType.PRODUCES and is_source:
+			return self._ensure_transformation_node(node_id)
+
+		if edge_type == EdgeType.CONSUMES and not is_source:
+			return self._ensure_transformation_node(node_id)
+
+		storage_type = self._infer_storage_type(node_id)
+		if edge_type == EdgeType.CONSUMES and is_source and "." in node_id and "/" not in node_id and storage_type == "table":
 			storage_type = "dbt_source"
 		return self._ensure_dataset_node(node_id, storage_type=storage_type)
 
-	def _normalize_sql_endpoint(self, node_id: str, sql_file: Path, relative_sql_id: str) -> str:
-		absolute_sql_id = sql_file.as_posix()
-		return relative_sql_id if node_id == absolute_sql_id else node_id
+	def _normalize_file_endpoint(self, node_id: str, absolute_file_id: str, relative_file_id: str) -> str:
+		return relative_file_id if node_id == absolute_file_id else node_id
+
+	def _infer_storage_type(self, node_id: str) -> str:
+		normalized = node_id.lower()
+		if node_id.startswith("dynamic://"):
+			return "dynamic_reference"
+		if normalized.startswith(("s3://", "gs://", "dbfs:/")):
+			return "object_store"
+		if "/" in node_id or normalized.endswith((".csv", ".json", ".jsonl", ".parquet", ".avro", ".txt")):
+			return "file"
+		return "table"
+
+	def _airflow_task_node_id(self, relative_file_id: str, task_id: str) -> str:
+		return f"airflow:{relative_file_id}:{task_id}"
 
 
 __all__ = ["HydrologistAgent"]

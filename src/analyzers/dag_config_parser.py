@@ -38,6 +38,14 @@ class AirflowDagParseResult(TypedDict):
 	dependencies: list[tuple[str, str]]
 
 
+class DAGConfigAnalyzer:
+	def parse_dbt_resources(self, file_path: str | Path) -> list[DatasetNode]:
+		return parse_dbt_yaml(file_path)
+
+	def analyze_airflow_dag(self, file_path: str | Path) -> AirflowDagParseResult:
+		return parse_airflow_dag_file(file_path)
+
+
 def parse_dbt_yaml(file_path: str | Path) -> list[DatasetNode]:
 	parsed_schema = parse_dbt_schema_file(file_path)
 	nodes_by_id: dict[str, DatasetNode] = {}
@@ -354,6 +362,7 @@ def _strip_yaml_scalar(value: str) -> str:
 __all__ = [
 	"AirflowDagParseResult",
 	"AirflowTask",
+	"DAGConfigAnalyzer",
 	"DbtColumn",
 	"DbtResource",
 	"DbtSchemaParseResult",

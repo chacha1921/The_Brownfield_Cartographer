@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw
+    tables:
+      - name: orders
+      - name: customers
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_id
+        data_type: integer
+  - name: orders_summary
+    depends_on:
+      - "{{ ref('stg_orders') }}"
+      - "{{ source('raw', 'customers') }}"

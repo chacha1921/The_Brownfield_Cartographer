@@ -3,7 +3,7 @@
 Brownfield Cartographer analyzes an existing codebase and produces JSON graph artifacts for:
 
 - module-level import relationships
-- data-lineage relationships across SQL and dbt assets
+- data-lineage relationships across Python pipelines, SQL, dbt, and Airflow assets
 
 The tool writes its outputs into a `.cartography/` directory inside the analyzed repository.
 
@@ -77,6 +77,7 @@ These files are created in the analyzed repository.
 ## What gets analyzed
 
 - Python imports and module relationships
+- Python data reads, writes, and SQL execution paths
 - SQL lineage and write targets
 - dbt schema metadata and dependencies
 - Airflow DAG task topology

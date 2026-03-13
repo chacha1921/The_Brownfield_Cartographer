@@ -1,121 +1,1241 @@
 {
   "directed": true,
   "multigraph": false,
-  "graph": {},
+  "graph": {
+    "git_velocity_days": 30,
+    "git_velocity": {
+      "src/agents/hydrologist.py": 4,
+      "src/analyzers/__init__.py": 4,
+      "src/analyzers/dag_config_parser.py": 2,
+      "src/analyzers/sql_lineage.py": 3,
+      "src/brownfield_cartographer/cli.py": 4,
+      "src/cli.py": 3,
+      "README.md": 2,
+      "pyproject.toml": 3,
+      "src/brownfield_cartographer/orchestrator.py": 1,
+      "src/orchestrator.py": 1,
+      "uv.lock": 2,
+      "src/agents/__init__.py": 2,
+      "src/agents/surveyor.py": 1,
+      "src/analyzers/tree_sitter_analyzer.py": 1,
+      "src/brownfield_cartographer/__init__.py": 1,
+      "src/graph/__init__.py": 1,
+      "src/graph/knowledge_graph.py": 1,
+      "src/models/__init__.py": 1,
+      "src/models/schemas.py": 1,
+      ".env.example": 1,
+      ".github/copilot-instructions.md": 1,
+      ".gitignore": 1
+    },
+    "high_velocity_core": {
+      "files": [
+        {
+          "path": "src/agents/hydrologist.py",
+          "change_count": 4
+        },
+        {
+          "path": "src/analyzers/__init__.py",
+          "change_count": 4
+        },
+        {
+          "path": "src/brownfield_cartographer/cli.py",
+          "change_count": 4
+        },
+        {
+          "path": "src/analyzers/sql_lineage.py",
+          "change_count": 3
+        },
+        {
+          "path": "src/cli.py",
+          "change_count": 3
+        },
+        {
+          "path": "pyproject.toml",
+          "change_count": 3
+        },
+        {
+          "path": "src/analyzers/dag_config_parser.py",
+          "change_count": 2
+        },
+        {
+          "path": "README.md",
+          "change_count": 2
+        },
+        {
+          "path": "uv.lock",
+          "change_count": 2
+        },
+        {
+          "path": "src/agents/__init__.py",
+          "change_count": 2
+        },
+        {
+          "path": "src/brownfield_cartographer/orchestrator.py",
+          "change_count": 1
+        },
+        {
+          "path": "src/orchestrator.py",
+          "change_count": 1
+        },
+        {
+          "path": "src/agents/surveyor.py",
+          "change_count": 1
+        },
+        {
+          "path": "src/analyzers/tree_sitter_analyzer.py",
+          "change_count": 1
+        }
+      ],
+      "change_share": 0.8048780487804879,
+      "file_share": 0.6363636363636364,
+      "days": 30
+    },
+    "architectural_hubs": [
+      {
+        "path": "src/models/schemas.py",
+        "pagerank": 0.22070961394903288
+      },
+      {
+        "path": "src/orchestrator.py",
+        "pagerank": 0.11049657383176442
+      },
+      {
+        "path": "src/agents/surveyor.py",
+        "pagerank": 0.07924659862854203
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "pagerank": 0.07924659862854203
+      },
+      {
+        "path": "src/graph/knowledge_graph.py",
+        "pagerank": 0.0715795608639499
+      },
+      {
+        "path": "src/cli.py",
+        "pagerank": 0.05972837760651341
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "pagerank": 0.05473941425655772
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "pagerank": 0.04912603205409366
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "pagerank": 0.04912603205409366
+      },
+      {
+        "path": "src/analyzers/__init__.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/brownfield_cartographer/__init__.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/brownfield_cartographer/cli.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/brownfield_cartographer/orchestrator.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/graph/__init__.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/agents/__init__.py",
+        "pagerank": 0.03228588544670149
+      },
+      {
+        "path": "src/models/__init__.py",
+        "pagerank": 0.03228588544670149
+      }
+    ],
+    "strongly_connected_components": []
+  },
   "nodes": [
     {
       "id": "src/cli.py",
       "node_type": "module",
       "path": "src/cli.py",
       "language": "python",
+      "imports": [
+        "import argparse",
+        "from contextlib import contextmanager",
+        "from pathlib import Path",
+        "import shutil",
+        "import subprocess",
+        "import tempfile",
+        "from orchestrator import Orchestrator"
+      ],
+      "import_paths": [
+        "src/orchestrator.py"
+      ],
+      "public_functions": [
+        "build_parser",
+        "is_remote_repo_path",
+        "normalize_repo_url",
+        "remote_output_directory",
+        "resolve_repo_path",
+        "persist_remote_outputs",
+        "main"
+      ],
+      "function_definitions": [
+        {
+          "name": "build_parser",
+          "original_name": "build_parser",
+          "decorators": [],
+          "calls": [
+            "argparse.ArgumentParser",
+            "parser.add_subparsers",
+            "subparsers.add_parser",
+            "analyze_parser.add_argument",
+            "parser.add_argument"
+          ]
+        },
+        {
+          "name": "is_remote_repo_path",
+          "original_name": "is_remote_repo_path",
+          "decorators": [],
+          "calls": [
+            "repo_path.startswith"
+          ]
+        },
+        {
+          "name": "normalize_repo_url",
+          "original_name": "normalize_repo_url",
+          "decorators": [],
+          "calls": [
+            "repo_path.startswith"
+          ]
+        },
+        {
+          "name": "remote_output_directory",
+          "original_name": "remote_output_directory",
+          "decorators": [],
+          "calls": [
+            "normalize_repo_url(repo_path).removesuffix",
+            "normalize_repo_url",
+            "repo_url.removeprefix(\"https://\").removeprefix",
+            "repo_url.removeprefix",
+            "repo_slug.replace",
+            "Path"
+          ]
+        },
+        {
+          "name": "resolve_repo_path",
+          "original_name": "resolve_repo_path",
+          "decorators": [],
+          "calls": [
+            "is_remote_repo_path",
+            "Path",
+            "normalize_repo_url",
+            "tempfile.TemporaryDirectory",
+            "subprocess.run",
+            "str"
+          ]
+        },
+        {
+          "name": "persist_remote_outputs",
+          "original_name": "persist_remote_outputs",
+          "decorators": [],
+          "calls": [
+            "remote_output_directory",
+            "destination_dir.mkdir",
+            "outputs.items",
+            "Path",
+            "shutil.copy2",
+            "str",
+            "destination_path.resolve"
+          ]
+        },
+        {
+          "name": "main",
+          "original_name": "main",
+          "decorators": [],
+          "calls": [
+            "build_parser().parse_args",
+            "build_parser",
+            "getattr",
+            "SystemExit",
+            "resolve_repo_path",
+            "Orchestrator(resolved_repo_path).run",
+            "Orchestrator",
+            "is_remote_repo_path",
+            "persist_remote_outputs",
+            "print"
+          ]
+        }
+      ],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 3.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:50.163943"
+      "last_modified": "2026-03-12T18:49:51.884484"
+    },
+    {
+      "id": "src/cli.py::build_parser",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "build_parser"
+    },
+    {
+      "id": "src/cli.py::is_remote_repo_path",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "is_remote_repo_path"
+    },
+    {
+      "id": "src/cli.py::normalize_repo_url",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "normalize_repo_url"
+    },
+    {
+      "id": "src/cli.py::remote_output_directory",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "remote_output_directory"
+    },
+    {
+      "id": "src/cli.py::resolve_repo_path",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "resolve_repo_path"
+    },
+    {
+      "id": "src/cli.py::persist_remote_outputs",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "persist_remote_outputs"
+    },
+    {
+      "id": "src/cli.py::main",
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "main"
     },
     {
       "id": "src/orchestrator.py",
       "node_type": "module",
       "path": "src/orchestrator.py",
       "language": "python",
+      "imports": [
+        "from pathlib import Path",
+        "from agents.hydrologist import HydrologistAgent",
+        "from agents.surveyor import SurveyorAgent"
+      ],
+      "import_paths": [
+        "src/agents/hydrologist.py",
+        "src/agents/surveyor.py"
+      ],
+      "public_functions": [
+        "run"
+      ],
+      "function_definitions": [
+        {
+          "name": "run",
+          "original_name": "run",
+          "decorators": [],
+          "calls": [
+            "self.output_dir.mkdir",
+            "self.surveyor.build_import_graph",
+            "self.hydrologist.build_lineage_graph",
+            "module_graph.save_to_json",
+            "lineage_graph.save_to_json",
+            "str"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "Orchestrator",
+          "bases": []
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:26.333105"
+      "last_modified": "2026-03-12T18:50:00.611793"
+    },
+    {
+      "id": "src/orchestrator.py::run",
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "run"
     },
     {
       "id": "src/analyzers/sql_lineage.py",
       "node_type": "module",
       "path": "src/analyzers/sql_lineage.py",
       "language": "python",
+      "imports": [
+        "from pathlib import Path",
+        "import re",
+        "from typing import TypedDict",
+        "from sqlglot import exp, parse_one"
+      ],
+      "import_paths": [],
+      "public_functions": [
+        "extract_sql_dependencies",
+        "parse_dbt_sql",
+        "extract_target_table",
+        "normalize_table_reference",
+        "normalize_table_name",
+        "extract_dbt_references"
+      ],
+      "function_definitions": [
+        {
+          "name": "extract_sql_dependencies",
+          "original_name": "extract_sql_dependencies",
+          "decorators": [],
+          "calls": [
+            "parse_one",
+            "extract_target_table",
+            "expression.find_all",
+            "set",
+            "normalize_table_name",
+            "seen_tables.add",
+            "source_tables.append"
+          ]
+        },
+        {
+          "name": "parse_dbt_sql",
+          "original_name": "parse_dbt_sql",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "sql_file.read_text",
+            "sql_file.as_posix",
+            "extract_dbt_references",
+            "edges.append"
+          ]
+        },
+        {
+          "name": "extract_target_table",
+          "original_name": "_extract_target_table",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "normalize_table_reference"
+          ]
+        },
+        {
+          "name": "normalize_table_reference",
+          "original_name": "_normalize_table_reference",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "normalize_table_name",
+            "normalize_table_reference",
+            "reference.find"
+          ]
+        },
+        {
+          "name": "normalize_table_name",
+          "original_name": "_normalize_table_name",
+          "decorators": [],
+          "calls": [
+            "\".\".join"
+          ]
+        },
+        {
+          "name": "extract_dbt_references",
+          "original_name": "_extract_dbt_references",
+          "decorators": [],
+          "calls": [
+            "re.findall",
+            "references.append",
+            "list",
+            "dict.fromkeys"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "SqlDependencies",
+          "bases": [
+            "TypedDict"
+          ]
+        },
+        {
+          "name": "DbtSqlEdge",
+          "bases": [
+            "TypedDict"
+          ]
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 3.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:02:53.508966"
+      "last_modified": "2026-03-11T23:45:18.744940"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::extract_sql_dependencies",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "extract_sql_dependencies"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::parse_dbt_sql",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "parse_dbt_sql"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::extract_target_table",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "extract_target_table"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::normalize_table_reference",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "normalize_table_reference"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::normalize_table_name",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "normalize_table_name"
+    },
+    {
+      "id": "src/analyzers/sql_lineage.py::extract_dbt_references",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "extract_dbt_references"
     },
     {
       "id": "src/analyzers/dag_config_parser.py",
       "node_type": "module",
       "path": "src/analyzers/dag_config_parser.py",
       "language": "python",
+      "imports": [
+        "import ast",
+        "from pathlib import Path",
+        "import re",
+        "from typing import Any, TypedDict",
+        "from models.schemas import DatasetNode"
+      ],
+      "import_paths": [
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "parse_dbt_yaml",
+        "parse_dbt_schema_file",
+        "parse_airflow_dag_file",
+        "extract_airflow_task",
+        "parse_dependency_expression",
+        "resolve_task_references",
+        "call_name",
+        "normalize_dependency",
+        "extend_dependencies",
+        "extract_embedded_dependencies",
+        "dedupe",
+        "strip_yaml_scalar"
+      ],
+      "function_definitions": [
+        {
+          "name": "parse_dbt_yaml",
+          "original_name": "parse_dbt_yaml",
+          "decorators": [],
+          "calls": [
+            "parse_dbt_schema_file",
+            "source.get",
+            "DatasetNode",
+            "nodes_by_id.get",
+            "dict",
+            "schema_snapshot.update",
+            "model.get",
+            "list",
+            "nodes_by_id.values"
+          ]
+        },
+        {
+          "name": "parse_dbt_schema_file",
+          "original_name": "parse_dbt_schema_file",
+          "decorators": [],
+          "calls": [
+            "Path(file_path).read_text(encoding=\"utf-8\").splitlines",
+            "Path(file_path).read_text",
+            "Path",
+            "raw_line.rstrip",
+            "line.strip",
+            "len",
+            "line.lstrip",
+            "stripped.startswith",
+            "stripped.endswith",
+            "strip_yaml_scalar",
+            "stripped.split",
+            "dedupe",
+            "sources.append",
+            "models.append",
+            "current_resource.setdefault(\"columns\", []).append",
+            "current_resource.setdefault",
+            "stripped[2:].strip",
+            "normalize_dependency",
+            "current_resource.setdefault(\"dependencies\", []).append",
+            "part.strip",
+            "extend_dependencies",
+            "resource.get"
+          ]
+        },
+        {
+          "name": "parse_airflow_dag_file",
+          "original_name": "parse_airflow_dag_file",
+          "decorators": [],
+          "calls": [
+            "Path(file_path).read_text",
+            "Path",
+            "ast.parse",
+            "set",
+            "ast.walk",
+            "isinstance",
+            "extract_airflow_task",
+            "parse_dependency_expression",
+            "dependencies.update",
+            "sorted",
+            "task_lookup.values"
+          ]
+        },
+        {
+          "name": "extract_airflow_task",
+          "original_name": "_extract_airflow_task",
+          "decorators": [],
+          "calls": [
+            "len",
+            "isinstance",
+            "call_name"
+          ]
+        },
+        {
+          "name": "parse_dependency_expression",
+          "original_name": "_parse_dependency_expression",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "parse_dependency_expression",
+            "resolve_task_references",
+            "set"
+          ]
+        },
+        {
+          "name": "resolve_task_references",
+          "original_name": "_resolve_task_references",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "task_lookup.get",
+            "set",
+            "task_ids.update",
+            "resolve_task_references"
+          ]
+        },
+        {
+          "name": "call_name",
+          "original_name": "_call_name",
+          "decorators": [],
+          "calls": [
+            "isinstance"
+          ]
+        },
+        {
+          "name": "normalize_dependency",
+          "original_name": "_normalize_dependency",
+          "decorators": [],
+          "calls": [
+            "strip_yaml_scalar",
+            "re.search",
+            "source_match.group",
+            "ref_match.group",
+            "stripped_value.startswith",
+            "stripped_value.endswith"
+          ]
+        },
+        {
+          "name": "extend_dependencies",
+          "original_name": "_extend_dependencies",
+          "decorators": [],
+          "calls": [
+            "extract_embedded_dependencies",
+            "resource.setdefault(\"dependencies\", []).append",
+            "resource.setdefault"
+          ]
+        },
+        {
+          "name": "extract_embedded_dependencies",
+          "original_name": "_extract_embedded_dependencies",
+          "decorators": [],
+          "calls": [
+            "re.findall",
+            "dependencies.append"
+          ]
+        },
+        {
+          "name": "dedupe",
+          "original_name": "_dedupe",
+          "decorators": [],
+          "calls": [
+            "list",
+            "dict.fromkeys"
+          ]
+        },
+        {
+          "name": "strip_yaml_scalar",
+          "original_name": "_strip_yaml_scalar",
+          "decorators": [],
+          "calls": [
+            "value.strip().strip",
+            "value.strip"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "DbtColumn",
+          "bases": [
+            "TypedDict",
+            "total=False"
+          ]
+        },
+        {
+          "name": "DbtResource",
+          "bases": [
+            "TypedDict",
+            "total=False"
+          ]
+        },
+        {
+          "name": "DbtSchemaParseResult",
+          "bases": [
+            "TypedDict"
+          ]
+        },
+        {
+          "name": "AirflowTask",
+          "bases": [
+            "TypedDict"
+          ]
+        },
+        {
+          "name": "AirflowDagParseResult",
+          "bases": [
+            "TypedDict"
+          ]
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 0.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:14.800066"
+      "last_modified": "2026-03-11T23:45:20.660210"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::parse_dbt_yaml",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "parse_dbt_yaml"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "parse_dbt_schema_file"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "parse_airflow_dag_file"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::extract_airflow_task",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "extract_airflow_task"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::parse_dependency_expression",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "parse_dependency_expression"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::resolve_task_references",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "resolve_task_references"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::call_name",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "call_name"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::normalize_dependency",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "normalize_dependency"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::extend_dependencies",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "extend_dependencies"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::extract_embedded_dependencies",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "extract_embedded_dependencies"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::dedupe",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "dedupe"
+    },
+    {
+      "id": "src/analyzers/dag_config_parser.py::strip_yaml_scalar",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "strip_yaml_scalar"
     },
     {
       "id": "src/analyzers/__init__.py",
       "node_type": "module",
       "path": "src/analyzers/__init__.py",
       "language": "python",
+      "imports": [
+        "from .dag_config_parser import parse_airflow_dag_file, parse_dbt_schema_file, parse_dbt_yaml",
+        "from .sql_lineage import DbtSqlEdge, SqlDependencies, extract_sql_dependencies, parse_dbt_sql",
+        "from .tree_sitter_analyzer import LanguageRouter, parse_python_imports_and_functions"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 2.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:23.904887"
+      "last_modified": "2026-03-11T23:45:18.119295"
     },
     {
       "id": "src/analyzers/tree_sitter_analyzer.py",
       "node_type": "module",
       "path": "src/analyzers/tree_sitter_analyzer.py",
       "language": "python",
+      "imports": [
+        "import importlib",
+        "from pathlib import Path",
+        "from tree_sitter import Language, Node, Parser",
+        "import tree_sitter_javascript",
+        "import tree_sitter_python",
+        "import tree_sitter_sql",
+        "import tree_sitter_yaml",
+        "from models.schemas import ClassDefinition, FunctionDefinition, ModuleNode"
+      ],
+      "import_paths": [
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "get_language",
+        "get_parser",
+        "analyze_module",
+        "parse_python_imports_and_functions",
+        "extract_import_statements",
+        "extract_function_definitions",
+        "extract_class_definitions",
+        "extract_class_bases",
+        "extract_decorators",
+        "extract_called_function_names",
+        "extract_relative_import_paths",
+        "language_name_for_path",
+        "walk_tree"
+      ],
+      "function_definitions": [
+        {
+          "name": "get_language",
+          "original_name": "get_language",
+          "decorators": [],
+          "calls": [
+            "Path(file_path).suffix.lower",
+            "Path",
+            "self._LANGUAGE_LOADERS.get",
+            "ValueError",
+            "Language",
+            "loader"
+          ]
+        },
+        {
+          "name": "get_parser",
+          "original_name": "get_parser",
+          "decorators": [],
+          "calls": [
+            "Parser",
+            "self.get_language"
+          ]
+        },
+        {
+          "name": "analyze_module",
+          "original_name": "analyze_module",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "source_path.read_bytes",
+            "LanguageRouter",
+            "router.get_parser",
+            "parser.parse",
+            "extract_import_statements",
+            "extract_function_definitions",
+            "extract_class_definitions",
+            "ModuleNode",
+            "source_path.as_posix",
+            "language_name_for_path",
+            "extract_relative_import_paths"
+          ]
+        },
+        {
+          "name": "parse_python_imports_and_functions",
+          "original_name": "parse_python_imports_and_functions",
+          "decorators": [],
+          "calls": [
+            "analyze_module"
+          ]
+        },
+        {
+          "name": "extract_import_statements",
+          "original_name": "_extract_import_statements",
+          "decorators": [],
+          "calls": [
+            "walk_tree",
+            "imports.append",
+            "source_bytes[node.start_byte:node.end_byte].decode(\"utf-8\").strip",
+            "source_bytes[node.start_byte:node.end_byte].decode"
+          ]
+        },
+        {
+          "name": "extract_function_definitions",
+          "original_name": "_extract_function_definitions",
+          "decorators": [],
+          "calls": [
+            "walk_tree",
+            "node.child_by_field_name",
+            "source_bytes[name_node.start_byte:name_node.end_byte].decode",
+            "function_name.startswith",
+            "function_name.endswith",
+            "function_name.lstrip",
+            "functions.append",
+            "FunctionDefinition",
+            "extract_decorators",
+            "extract_called_function_names"
+          ]
+        },
+        {
+          "name": "extract_class_definitions",
+          "original_name": "_extract_class_definitions",
+          "decorators": [],
+          "calls": [
+            "walk_tree",
+            "node.child_by_field_name",
+            "source_bytes[name_node.start_byte:name_node.end_byte].decode",
+            "classes.append",
+            "ClassDefinition",
+            "extract_class_bases"
+          ]
+        },
+        {
+          "name": "extract_class_bases",
+          "original_name": "_extract_class_bases",
+          "decorators": [],
+          "calls": [
+            "next",
+            "bases.append",
+            "source_bytes[child.start_byte:child.end_byte].decode"
+          ]
+        },
+        {
+          "name": "extract_decorators",
+          "original_name": "_extract_decorators",
+          "decorators": [],
+          "calls": [
+            "decorators.append",
+            "source_bytes[child.start_byte:child.end_byte].decode(\"utf-8\").lstrip",
+            "source_bytes[child.start_byte:child.end_byte].decode"
+          ]
+        },
+        {
+          "name": "extract_called_function_names",
+          "original_name": "_extract_called_function_names",
+          "decorators": [],
+          "calls": [
+            "walk_tree",
+            "node.child_by_field_name",
+            "source_bytes[function_child.start_byte:function_child.end_byte].decode",
+            "called_functions.append",
+            "called_name.lstrip",
+            "list",
+            "dict.fromkeys"
+          ]
+        },
+        {
+          "name": "extract_relative_import_paths",
+          "original_name": "_extract_relative_import_paths",
+          "decorators": [],
+          "calls": [
+            "statement.startswith",
+            "statement.split(\" import \", 1)[0].removeprefix",
+            "statement.split",
+            "relative_paths.append",
+            "module_part.replace",
+            "list",
+            "dict.fromkeys"
+          ]
+        },
+        {
+          "name": "language_name_for_path",
+          "original_name": "_language_name_for_path",
+          "decorators": [],
+          "calls": [
+            "file_path.suffix.lower",
+            "suffix.lstrip"
+          ]
+        },
+        {
+          "name": "walk_tree",
+          "original_name": "_walk_tree",
+          "decorators": [],
+          "calls": [
+            "stack.pop",
+            "stack.extend",
+            "reversed"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "LanguageRouter",
+          "bases": []
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:46:21.079843"
+      "last_modified": "2026-03-13T10:19:25.367574"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::get_language",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "get_language"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::get_parser",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "get_parser"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "analyze_module"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::parse_python_imports_and_functions",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "parse_python_imports_and_functions"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_import_statements",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_import_statements"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_function_definitions"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_class_definitions"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_bases",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_class_bases"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_decorators",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_decorators"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_called_function_names",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_called_function_names"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_relative_import_paths",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "extract_relative_import_paths"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::language_name_for_path",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "language_name_for_path"
+    },
+    {
+      "id": "src/analyzers/tree_sitter_analyzer.py::walk_tree",
+      "node_type": "function",
+      "module_path": "src/analyzers/tree_sitter_analyzer.py",
+      "name": "walk_tree"
     },
     {
       "id": "src/brownfield_cartographer/__init__.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/__init__.py",
       "language": "python",
+      "imports": [],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:12:10.617952"
+      "last_modified": "2026-03-12T18:39:32.267749"
     },
     {
       "id": "src/brownfield_cartographer/cli.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/cli.py",
       "language": "python",
+      "imports": [
+        "from cli import (\n\tbuild_parser,\n\tis_remote_repo_path,\n\tmain,\n\tnormalize_repo_url,\n\tpersist_remote_outputs,\n\tremote_output_directory,\n\tresolve_repo_path,\n)"
+      ],
+      "import_paths": [
+        "src/cli.py"
+      ],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
-      "change_velocity_30d": 2.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:23:19.343935"
+      "last_modified": "2026-03-12T18:49:57.639598"
     },
     {
       "id": "src/brownfield_cartographer/orchestrator.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/orchestrator.py",
       "language": "python",
+      "imports": [
+        "from orchestrator import Orchestrator"
+      ],
+      "import_paths": [
+        "src/orchestrator.py"
+      ],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:28.699142"
+      "last_modified": "2026-03-12T18:49:55.179620"
     },
     {
       "id": "src/graph/knowledge_graph.py",
       "node_type": "module",
       "path": "src/graph/knowledge_graph.py",
       "language": "python",
+      "imports": [
+        "import json",
+        "from pathlib import Path",
+        "import networkx as nx",
+        "from models.schemas import EdgeType, Node"
+      ],
+      "import_paths": [
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "add_node",
+        "add_edge",
+        "save_to_json"
+      ],
+      "function_definitions": [
+        {
+          "name": "add_node",
+          "original_name": "add_node",
+          "decorators": [],
+          "calls": [
+            "node.model_dump",
+            "self.graph.add_node"
+          ]
+        },
+        {
+          "name": "add_edge",
+          "original_name": "add_edge",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "self.graph.add_edge"
+          ]
+        },
+        {
+          "name": "save_to_json",
+          "original_name": "save_to_json",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "destination.parent.mkdir",
+            "nx.node_link_data",
+            "graph_payload.pop",
+            "destination.open",
+            "json.dump"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "KnowledgeGraph",
+          "bases": []
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
@@ -124,10 +1244,35 @@
       "last_modified": "2026-03-11T17:24:09.507131"
     },
     {
+      "id": "src/graph/knowledge_graph.py::add_node",
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "add_node"
+    },
+    {
+      "id": "src/graph/knowledge_graph.py::add_edge",
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "add_edge"
+    },
+    {
+      "id": "src/graph/knowledge_graph.py::save_to_json",
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "save_to_json"
+    },
+    {
       "id": "src/graph/__init__.py",
       "node_type": "module",
       "path": "src/graph/__init__.py",
       "language": "python",
+      "imports": [
+        "from .knowledge_graph import KnowledgeGraph"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
@@ -140,30 +1285,658 @@
       "node_type": "module",
       "path": "src/agents/surveyor.py",
       "language": "python",
+      "imports": [
+        "import ast",
+        "from datetime import datetime",
+        "import math",
+        "from pathlib import Path",
+        "import subprocess",
+        "import networkx as nx",
+        "from analyzers.tree_sitter_analyzer import analyze_module",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import EdgeType, FunctionNode, ModuleNode",
+        "from networkx.algorithms.link_analysis.pagerank_alg import _pagerank_python"
+      ],
+      "import_paths": [
+        "src/analyzers/tree_sitter_analyzer.py",
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "analyze_module",
+        "extract_git_velocity",
+        "identify_high_velocity_core",
+        "build_import_graph",
+        "calculate_pagerank",
+        "identify_strongly_connected_components",
+        "module_import_subgraph",
+        "iter_repository_python_files",
+        "is_ignored_relative_path",
+        "git_repository_root",
+        "build_module_index",
+        "module_names_for_path",
+        "resolve_import_paths",
+        "resolve_import_statement",
+        "preferred_module_name",
+        "resolve_from_base_module",
+        "resolve_module_reference"
+      ],
+      "function_definitions": [
+        {
+          "name": "analyze_module",
+          "original_name": "analyze_module",
+          "decorators": [],
+          "calls": [
+            "Path(path).resolve",
+            "Path",
+            "file_path.relative_to(self.repository_dir).as_posix",
+            "file_path.relative_to",
+            "self._build_module_index",
+            "analyze_module",
+            "module_node.model_copy",
+            "sorted",
+            "self._resolve_import_paths",
+            "float",
+            "(velocity_map or {}).get",
+            "datetime.fromtimestamp",
+            "file_path.stat"
+          ]
+        },
+        {
+          "name": "extract_git_velocity",
+          "original_name": "extract_git_velocity",
+          "decorators": [],
+          "calls": [
+            "Path(path).resolve",
+            "Path",
+            "self._git_repository_root",
+            "target_path.is_file",
+            "target_path.relative_to(repository_root).as_posix",
+            "target_path.relative_to",
+            "command.insert",
+            "command.extend",
+            "subprocess.run",
+            "result.stdout.splitlines",
+            "line.strip",
+            "self._is_ignored_relative_path",
+            "file_change_counts.get"
+          ]
+        },
+        {
+          "name": "identify_high_velocity_core",
+          "original_name": "identify_high_velocity_core",
+          "decorators": [],
+          "calls": [
+            "sorted",
+            "velocity_map.items",
+            "sum",
+            "core_files.append",
+            "len"
+          ]
+        },
+        {
+          "name": "build_import_graph",
+          "original_name": "build_import_graph",
+          "decorators": [],
+          "calls": [
+            "KnowledgeGraph",
+            "self.extract_git_velocity",
+            "self._build_module_index",
+            "self._iter_repository_python_files",
+            "self.analyze_module",
+            "self.knowledge_graph.add_node",
+            "FunctionNode",
+            "module_nodes.values",
+            "self.knowledge_graph.add_edge",
+            "function_index.get",
+            "called_name.split",
+            "self.calculate_pagerank",
+            "sorted",
+            "pagerank_scores.items",
+            "self.identify_strongly_connected_components",
+            "self.knowledge_graph.graph.graph.update",
+            "self.identify_high_velocity_core"
+          ]
+        },
+        {
+          "name": "calculate_pagerank",
+          "original_name": "calculate_pagerank",
+          "decorators": [],
+          "calls": [
+            "self._module_import_subgraph",
+            "module_graph.number_of_nodes",
+            "nx.pagerank",
+            "pagerank_python"
+          ]
+        },
+        {
+          "name": "identify_strongly_connected_components",
+          "original_name": "identify_strongly_connected_components",
+          "decorators": [],
+          "calls": [
+            "self._module_import_subgraph",
+            "sorted",
+            "nx.strongly_connected_components",
+            "len"
+          ]
+        },
+        {
+          "name": "module_import_subgraph",
+          "original_name": "_module_import_subgraph",
+          "decorators": [],
+          "calls": [
+            "nx.DiGraph",
+            "self.knowledge_graph.graph.nodes",
+            "attributes.get",
+            "module_graph.add_node",
+            "self.knowledge_graph.graph.edges",
+            "module_graph.add_edge"
+          ]
+        },
+        {
+          "name": "iter_repository_python_files",
+          "original_name": "_iter_repository_python_files",
+          "decorators": [],
+          "calls": [
+            "self.repository_dir.rglob",
+            "file_path.relative_to",
+            "any"
+          ]
+        },
+        {
+          "name": "is_ignored_relative_path",
+          "original_name": "_is_ignored_relative_path",
+          "decorators": [],
+          "calls": [
+            "any",
+            "Path"
+          ]
+        },
+        {
+          "name": "git_repository_root",
+          "original_name": "_git_repository_root",
+          "decorators": [],
+          "calls": [
+            "subprocess.run",
+            "path.is_dir",
+            "Path(result.stdout.strip()).resolve",
+            "Path",
+            "result.stdout.strip"
+          ]
+        },
+        {
+          "name": "build_module_index",
+          "original_name": "_build_module_index",
+          "decorators": [],
+          "calls": [
+            "self._iter_repository_python_files",
+            "file_path.relative_to",
+            "relative_path.as_posix",
+            "self._module_names_for_path"
+          ]
+        },
+        {
+          "name": "module_names_for_path",
+          "original_name": "_module_names_for_path",
+          "decorators": [],
+          "calls": [
+            "list",
+            "relative_path.with_suffix",
+            "set",
+            "variants.append",
+            "candidates.add",
+            "\".\".join"
+          ]
+        },
+        {
+          "name": "resolve_import_paths",
+          "original_name": "_resolve_import_paths",
+          "decorators": [],
+          "calls": [
+            "set",
+            "resolved_paths.update",
+            "self._resolve_import_statement"
+          ]
+        },
+        {
+          "name": "resolve_import_statement",
+          "original_name": "_resolve_import_statement",
+          "decorators": [],
+          "calls": [
+            "set",
+            "ast.parse",
+            "self._preferred_module_name",
+            "source_file.relative_to",
+            "isinstance",
+            "self._resolve_module_reference",
+            "resolved_paths.add",
+            "self._resolve_from_base_module",
+            "candidate_modules.insert"
+          ]
+        },
+        {
+          "name": "preferred_module_name",
+          "original_name": "_preferred_module_name",
+          "decorators": [],
+          "calls": [
+            "sorted",
+            "self._module_names_for_path",
+            "value.startswith",
+            "len"
+          ]
+        },
+        {
+          "name": "resolve_from_base_module",
+          "original_name": "_resolve_from_base_module",
+          "decorators": [],
+          "calls": [
+            "source_module.split",
+            "len",
+            "base_parts.extend",
+            "module.split",
+            "\".\".join"
+          ]
+        },
+        {
+          "name": "resolve_module_reference",
+          "original_name": "_resolve_module_reference",
+          "decorators": [],
+          "calls": [
+            "module_index.get",
+            "candidate.rsplit"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "SurveyorAgent",
+          "bases": []
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:02:56.371735"
+      "last_modified": "2026-03-13T10:36:22.317561"
+    },
+    {
+      "id": "src/agents/surveyor.py::analyze_module",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "analyze_module"
+    },
+    {
+      "id": "src/agents/surveyor.py::extract_git_velocity",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "extract_git_velocity"
+    },
+    {
+      "id": "src/agents/surveyor.py::identify_high_velocity_core",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "identify_high_velocity_core"
+    },
+    {
+      "id": "src/agents/surveyor.py::build_import_graph",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "build_import_graph"
+    },
+    {
+      "id": "src/agents/surveyor.py::calculate_pagerank",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "calculate_pagerank"
+    },
+    {
+      "id": "src/agents/surveyor.py::identify_strongly_connected_components",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "identify_strongly_connected_components"
+    },
+    {
+      "id": "src/agents/surveyor.py::module_import_subgraph",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "module_import_subgraph"
+    },
+    {
+      "id": "src/agents/surveyor.py::iter_repository_python_files",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "iter_repository_python_files"
+    },
+    {
+      "id": "src/agents/surveyor.py::is_ignored_relative_path",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "is_ignored_relative_path"
+    },
+    {
+      "id": "src/agents/surveyor.py::git_repository_root",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "git_repository_root"
+    },
+    {
+      "id": "src/agents/surveyor.py::build_module_index",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "build_module_index"
+    },
+    {
+      "id": "src/agents/surveyor.py::module_names_for_path",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "module_names_for_path"
+    },
+    {
+      "id": "src/agents/surveyor.py::resolve_import_paths",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "resolve_import_paths"
+    },
+    {
+      "id": "src/agents/surveyor.py::resolve_import_statement",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "resolve_import_statement"
+    },
+    {
+      "id": "src/agents/surveyor.py::preferred_module_name",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "preferred_module_name"
+    },
+    {
+      "id": "src/agents/surveyor.py::resolve_from_base_module",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "resolve_from_base_module"
+    },
+    {
+      "id": "src/agents/surveyor.py::resolve_module_reference",
+      "node_type": "function",
+      "module_path": "src/agents/surveyor.py",
+      "name": "resolve_module_reference"
     },
     {
       "id": "src/agents/hydrologist.py",
       "node_type": "module",
       "path": "src/agents/hydrologist.py",
       "language": "python",
+      "imports": [
+        "from collections import deque",
+        "from pathlib import Path",
+        "from analyzers.dag_config_parser import parse_dbt_yaml",
+        "from analyzers.sql_lineage import parse_dbt_sql",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import DatasetNode, EdgeType, TransformationNode"
+      ],
+      "import_paths": [
+        "src/analyzers/dag_config_parser.py",
+        "src/analyzers/sql_lineage.py",
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "build_lineage_graph",
+        "blast_radius",
+        "find_source_nodes",
+        "find_sink_nodes",
+        "find_sources",
+        "find_sinks",
+        "iter_files",
+        "iter_yaml_files",
+        "register_dbt_sql_lineage",
+        "ensure_dataset_node",
+        "ensure_transformation_node",
+        "ensure_lineage_node",
+        "normalize_sql_endpoint"
+      ],
+      "function_definitions": [
+        {
+          "name": "build_lineage_graph",
+          "original_name": "build_lineage_graph",
+          "decorators": [],
+          "calls": [
+            "KnowledgeGraph",
+            "self._iter_yaml_files",
+            "parse_dbt_yaml",
+            "self.knowledge_graph.add_node",
+            "self._iter_files",
+            "self._register_dbt_sql_lineage"
+          ]
+        },
+        {
+          "name": "blast_radius",
+          "original_name": "blast_radius",
+          "decorators": [],
+          "calls": [
+            "deque",
+            "queue.popleft",
+            "self.knowledge_graph.graph.successors",
+            "visited.add",
+            "queue.append",
+            "self.knowledge_graph.graph.nodes[neighbor].get",
+            "downstream_datasets.append"
+          ]
+        },
+        {
+          "name": "find_source_nodes",
+          "original_name": "find_source_nodes",
+          "decorators": [],
+          "calls": [
+            "self.knowledge_graph.graph.nodes",
+            "attributes.get",
+            "self.knowledge_graph.graph.in_degree",
+            "self.knowledge_graph.graph.out_degree"
+          ]
+        },
+        {
+          "name": "find_sink_nodes",
+          "original_name": "find_sink_nodes",
+          "decorators": [],
+          "calls": [
+            "self.knowledge_graph.graph.nodes",
+            "attributes.get",
+            "self.knowledge_graph.graph.out_degree",
+            "self.knowledge_graph.graph.in_degree"
+          ]
+        },
+        {
+          "name": "find_sources",
+          "original_name": "find_sources",
+          "decorators": [],
+          "calls": [
+            "self.find_source_nodes"
+          ]
+        },
+        {
+          "name": "find_sinks",
+          "original_name": "find_sinks",
+          "decorators": [],
+          "calls": [
+            "self.find_sink_nodes"
+          ]
+        },
+        {
+          "name": "iter_files",
+          "original_name": "_iter_files",
+          "decorators": [],
+          "calls": [
+            "self.repository_path.rglob",
+            "file_path.is_file",
+            "file_path.suffix.lower",
+            "file_path.relative_to",
+            "any"
+          ]
+        },
+        {
+          "name": "iter_yaml_files",
+          "original_name": "_iter_yaml_files",
+          "decorators": [],
+          "calls": [
+            "self._iter_files"
+          ]
+        },
+        {
+          "name": "register_dbt_sql_lineage",
+          "original_name": "_register_dbt_sql_lineage",
+          "decorators": [],
+          "calls": [
+            "sql_file.relative_to",
+            "relative_sql_path.as_posix",
+            "parse_dbt_sql",
+            "self._normalize_sql_endpoint",
+            "EdgeType",
+            "self._ensure_lineage_node",
+            "self.knowledge_graph.add_edge"
+          ]
+        },
+        {
+          "name": "ensure_dataset_node",
+          "original_name": "_ensure_dataset_node",
+          "decorators": [],
+          "calls": [
+            "self.knowledge_graph.add_node",
+            "DatasetNode"
+          ]
+        },
+        {
+          "name": "ensure_transformation_node",
+          "original_name": "_ensure_transformation_node",
+          "decorators": [],
+          "calls": [
+            "self.knowledge_graph.add_node",
+            "TransformationNode"
+          ]
+        },
+        {
+          "name": "ensure_lineage_node",
+          "original_name": "_ensure_lineage_node",
+          "decorators": [],
+          "calls": [
+            "node_id.endswith",
+            "self._ensure_transformation_node",
+            "self._ensure_dataset_node"
+          ]
+        },
+        {
+          "name": "normalize_sql_endpoint",
+          "original_name": "_normalize_sql_endpoint",
+          "decorators": [],
+          "calls": [
+            "sql_file.as_posix"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "HydrologistAgent",
+          "bases": []
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:20:24.545318"
+      "last_modified": "2026-03-11T23:45:19.393510"
+    },
+    {
+      "id": "src/agents/hydrologist.py::build_lineage_graph",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "build_lineage_graph"
+    },
+    {
+      "id": "src/agents/hydrologist.py::blast_radius",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "blast_radius"
+    },
+    {
+      "id": "src/agents/hydrologist.py::find_source_nodes",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "find_source_nodes"
+    },
+    {
+      "id": "src/agents/hydrologist.py::find_sink_nodes",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "find_sink_nodes"
+    },
+    {
+      "id": "src/agents/hydrologist.py::find_sources",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "find_sources"
+    },
+    {
+      "id": "src/agents/hydrologist.py::find_sinks",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "find_sinks"
+    },
+    {
+      "id": "src/agents/hydrologist.py::iter_files",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "iter_files"
+    },
+    {
+      "id": "src/agents/hydrologist.py::iter_yaml_files",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "iter_yaml_files"
+    },
+    {
+      "id": "src/agents/hydrologist.py::register_dbt_sql_lineage",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "register_dbt_sql_lineage"
+    },
+    {
+      "id": "src/agents/hydrologist.py::ensure_dataset_node",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "ensure_dataset_node"
+    },
+    {
+      "id": "src/agents/hydrologist.py::ensure_transformation_node",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "ensure_transformation_node"
+    },
+    {
+      "id": "src/agents/hydrologist.py::ensure_lineage_node",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "ensure_lineage_node"
+    },
+    {
+      "id": "src/agents/hydrologist.py::normalize_sql_endpoint",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "normalize_sql_endpoint"
     },
     {
       "id": "src/agents/__init__.py",
       "node_type": "module",
       "path": "src/agents/__init__.py",
       "language": "python",
+      "imports": [
+        "from .hydrologist import HydrologistAgent",
+        "from .surveyor import SurveyorAgent"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
@@ -176,6 +1949,13 @@
       "node_type": "module",
       "path": "src/models/__init__.py",
       "language": "python",
+      "imports": [
+        "from .schemas import DatasetNode, EdgeType, FunctionNode, ModuleNode, Node, TransformationNode"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
@@ -188,49 +1968,334 @@
       "node_type": "module",
       "path": "src/models/schemas.py",
       "language": "python",
+      "imports": [
+        "from datetime import datetime",
+        "from enum import Enum",
+        "from typing import Literal",
+        "from pydantic import BaseModel, ConfigDict, Field"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [
+        {
+          "name": "EdgeType",
+          "bases": [
+            "str",
+            "Enum"
+          ]
+        },
+        {
+          "name": "Node",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "ClassDefinition",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "FunctionDefinition",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "ModuleNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "DatasetNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "FunctionNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "TransformationNode",
+          "bases": [
+            "Node"
+          ]
+        }
+      ],
       "purpose_statement": null,
       "domain_cluster": null,
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:17:20.992683"
+      "last_modified": "2026-03-13T10:08:10.318625"
     }
   ],
   "links": [
     {
       "edge_type": "IMPORTS",
       "source": "src/cli.py",
-      "target": "src/brownfield_cartographer/cli.py"
+      "target": "src/orchestrator.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::remote_output_directory",
+      "target": "src/cli.py::normalize_repo_url"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::resolve_repo_path",
+      "target": "src/cli.py::is_remote_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::resolve_repo_path",
+      "target": "src/cli.py::normalize_repo_url"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::persist_remote_outputs",
+      "target": "src/cli.py::remote_output_directory"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::build_parser"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::resolve_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::is_remote_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::persist_remote_outputs"
     },
     {
       "edge_type": "IMPORTS",
       "source": "src/orchestrator.py",
-      "target": "src/brownfield_cartographer/orchestrator.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/brownfield_cartographer/cli.py",
-      "target": "src/brownfield_cartographer/__init__.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/brownfield_cartographer/cli.py",
-      "target": "src/brownfield_cartographer/orchestrator.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/brownfield_cartographer/orchestrator.py",
       "target": "src/agents/hydrologist.py"
     },
     {
       "edge_type": "IMPORTS",
-      "source": "src/brownfield_cartographer/orchestrator.py",
+      "source": "src/orchestrator.py",
       "target": "src/agents/surveyor.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::extract_sql_dependencies",
+      "target": "src/analyzers/sql_lineage.py::extract_target_table"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::extract_sql_dependencies",
+      "target": "src/analyzers/sql_lineage.py::normalize_table_name"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::parse_dbt_sql",
+      "target": "src/analyzers/sql_lineage.py::extract_dbt_references"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::extract_target_table",
+      "target": "src/analyzers/sql_lineage.py::normalize_table_reference"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::normalize_table_reference",
+      "target": "src/analyzers/sql_lineage.py::normalize_table_name"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::normalize_table_reference",
+      "target": "src/analyzers/sql_lineage.py::normalize_table_reference"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/analyzers/dag_config_parser.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_yaml",
+      "target": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
+      "target": "src/analyzers/dag_config_parser.py::strip_yaml_scalar"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
+      "target": "src/analyzers/dag_config_parser.py::dedupe"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
+      "target": "src/analyzers/dag_config_parser.py::normalize_dependency"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
+      "target": "src/analyzers/dag_config_parser.py::extend_dependencies"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file",
+      "target": "src/analyzers/dag_config_parser.py::extract_airflow_task"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file",
+      "target": "src/analyzers/dag_config_parser.py::parse_dependency_expression"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::extract_airflow_task",
+      "target": "src/analyzers/dag_config_parser.py::call_name"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dependency_expression",
+      "target": "src/analyzers/dag_config_parser.py::parse_dependency_expression"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dependency_expression",
+      "target": "src/analyzers/dag_config_parser.py::resolve_task_references"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::resolve_task_references",
+      "target": "src/analyzers/dag_config_parser.py::resolve_task_references"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::normalize_dependency",
+      "target": "src/analyzers/dag_config_parser.py::strip_yaml_scalar"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::extend_dependencies",
+      "target": "src/analyzers/dag_config_parser.py::extract_embedded_dependencies"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/analyzers/tree_sitter_analyzer.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::get_parser",
+      "target": "src/analyzers/tree_sitter_analyzer.py::get_language"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::get_parser"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_import_statements"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::language_name_for_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_relative_import_paths"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::parse_python_imports_and_functions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::analyze_module"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_import_statements",
+      "target": "src/analyzers/tree_sitter_analyzer.py::walk_tree"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::walk_tree"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_decorators"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_called_function_names"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::walk_tree"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions",
+      "target": "src/analyzers/tree_sitter_analyzer.py::extract_class_bases"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/tree_sitter_analyzer.py::extract_called_function_names",
+      "target": "src/analyzers/tree_sitter_analyzer.py::walk_tree"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/cli.py",
+      "target": "src/cli.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/brownfield_cartographer/orchestrator.py",
+      "target": "src/orchestrator.py"
     },
     {
       "edge_type": "IMPORTS",
       "source": "src/graph/knowledge_graph.py",
       "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/graph/knowledge_graph.py::add_node",
+      "target": "src/graph/knowledge_graph.py::add_node"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/graph/knowledge_graph.py::add_edge",
+      "target": "src/graph/knowledge_graph.py::add_edge"
     },
     {
       "edge_type": "IMPORTS",
@@ -248,6 +2313,41 @@
       "target": "src/models/schemas.py"
     },
     {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::analyze_module",
+      "target": "src/agents/surveyor.py::analyze_module"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::build_import_graph",
+      "target": "src/agents/surveyor.py::extract_git_velocity"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::build_import_graph",
+      "target": "src/agents/surveyor.py::analyze_module"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::build_import_graph",
+      "target": "src/agents/surveyor.py::calculate_pagerank"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::build_import_graph",
+      "target": "src/agents/surveyor.py::identify_strongly_connected_components"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/surveyor.py::build_import_graph",
+      "target": "src/agents/surveyor.py::identify_high_velocity_core"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/hydrologist.py",
+      "target": "src/analyzers/dag_config_parser.py"
+    },
+    {
       "edge_type": "IMPORTS",
       "source": "src/agents/hydrologist.py",
       "target": "src/analyzers/sql_lineage.py"
@@ -261,6 +2361,16 @@
       "edge_type": "IMPORTS",
       "source": "src/agents/hydrologist.py",
       "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/hydrologist.py::find_sources",
+      "target": "src/agents/hydrologist.py::find_source_nodes"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/hydrologist.py::find_sinks",
+      "target": "src/agents/hydrologist.py::find_sink_nodes"
     }
   ]
 }

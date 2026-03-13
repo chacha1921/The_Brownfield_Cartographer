@@ -19,6 +19,7 @@ dependencies = [
   "tree-sitter-sql",
   "tree-sitter-yaml",
   "tree-sitter-javascript",
+  "tree-sitter-typescript",
   "sqlglot",
 ]
 

@@ -18,6 +18,12 @@ class DbtSqlEdge(TypedDict):
 	edge_type: str
 
 
+class SqlLineageEdge(TypedDict):
+	source: str
+	target: str
+	edge_type: str
+
+
 def extract_sql_dependencies(sql_string: str, dialect: str = "postgres") -> SqlDependencies:
 	expression = parse_one(sql_string, dialect=dialect)
 	target_table = _extract_target_table(expression)
@@ -73,6 +79,47 @@ def parse_dbt_sql(file_path: str | Path) -> list[DbtSqlEdge]:
 	return edges
 
 
+class SQLLineageAnalyzer:
+	def __init__(self, dialect: str = "postgres") -> None:
+		self.dialect = dialect
+
+	def analyze_sql(self, sql_text: str, transformation_id: str) -> list[SqlLineageEdge]:
+		dependencies = extract_sql_dependencies(sql_text, dialect=self.dialect)
+		edges: list[SqlLineageEdge] = []
+
+		for source_table in dependencies["source_tables"]:
+			edges.append(
+				{
+					"source": source_table,
+					"target": transformation_id,
+					"edge_type": "CONSUMES",
+				}
+			)
+
+		if dependencies["target_table"] is not None:
+			edges.append(
+				{
+					"source": transformation_id,
+					"target": dependencies["target_table"],
+					"edge_type": "PRODUCES",
+				}
+			)
+
+		return edges
+
+	def analyze_file(self, file_path: str | Path) -> list[SqlLineageEdge]:
+		sql_file = Path(file_path)
+		sql_text = sql_file.read_text(encoding="utf-8")
+
+		if "{{" in sql_text and ("ref(" in sql_text or "source(" in sql_text):
+			return parse_dbt_sql(sql_file)
+
+		try:
+			return self.analyze_sql(sql_text, transformation_id=sql_file.as_posix())
+		except Exception:
+			return []
+
+
 def _extract_target_table(expression: exp.Expression) -> str | None:
 	if isinstance(expression, (exp.Insert, exp.Update, exp.Delete, exp.Merge, exp.Create)):
 		return _normalize_table_reference(expression.this)
@@ -114,4 +161,11 @@ def _extract_dbt_references(sql_text: str) -> list[str]:
 	return list(dict.fromkeys(references))
 
 
-__all__ = ["DbtSqlEdge", "SqlDependencies", "extract_sql_dependencies", "parse_dbt_sql"]
+__all__ = [
+	"DbtSqlEdge",
+	"SQLLineageAnalyzer",
+	"SqlDependencies",
+	"SqlLineageEdge",
+	"extract_sql_dependencies",
+	"parse_dbt_sql",
+]
