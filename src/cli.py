@@ -86,6 +86,10 @@ def main() -> int:
 
 	print(f"Module graph saved to {outputs['module_graph']}")
 	print(f"Lineage graph saved to {outputs['lineage_graph']}")
+	if "codebase" in outputs:
+		print(f"CODEBASE brief saved to {outputs['codebase']}")
+	if "onboarding_brief" in outputs:
+		print(f"Onboarding brief saved to {outputs['onboarding_brief']}")
 	return 0
 
 __all__ = [

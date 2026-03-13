@@ -33,11 +33,11 @@ class EmbeddingClient(Protocol):
 @dataclass(slots=True)
 class ModelTierConfig:
     fast_provider: str = "gemini"
-    fast_model: str = "gemini-1.5-flash"
+    fast_model: str = "gemini-2.5-flash"
     heavy_provider: str = "ollama"
-    heavy_model: str = "llama3.1:8b-instruct"
+    heavy_model: str = "llama3.2:latest"
     embedding_provider: str = "gemini"
-    embedding_model: str = "text-embedding-004"
+    embedding_model: str = "gemini-embedding-001"
     bulk_budget_tokens: int = 120_000
     synthesis_budget_tokens: int = 80_000
     module_prompt_token_cap: int = 16_000
@@ -428,11 +428,38 @@ class SemanticistAgent:
         payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)
         response_text = json.dumps(payload)
         usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)
-        answers = self._normalize_day_one_answers(payload, evidence_bundle)
+
+        final_provider = provider
+        final_model = model
+        try:
+            answers = self._normalize_day_one_answers(payload, evidence_bundle)
+        except RuntimeError:
+            fallback_provider = self.model_config.fast_provider
+            fallback_model = self.model_config.fast_model
+            if (fallback_provider, fallback_model) == (provider, model):
+                raise
+
+            fallback_payload = self._llm_client_for(fallback_provider).generate_json(
+                model=fallback_model,
+                prompt=prompt,
+                temperature=0.1,
+            )
+            fallback_response_text = json.dumps(fallback_payload)
+            fallback_usage = self.budget.record_usage(
+                provider=fallback_provider,
+                model=fallback_model,
+                prompt=prompt,
+                response=fallback_response_text,
+            )
+            payload = fallback_payload
+            usage = fallback_usage
+            final_provider = fallback_provider
+            final_model = fallback_model
+            answers = self._normalize_day_one_answers(payload, evidence_bundle)
 
         return {
-            "provider_used": provider,
-            "model_used": model,
+            "provider_used": final_provider,
+            "model_used": final_model,
             "prompt_tokens": usage.prompt_tokens,
             "response_tokens": usage.response_tokens,
             "answers": answers,
@@ -673,12 +700,14 @@ class SemanticistAgent:
     def _summarize_surveyor_graph(self, surveyor_graph: nx.DiGraph) -> dict[str, Any]:
         module_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get("node_type") == "module"]
         function_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get("node_type") == "function"]
+        domain_clusters = surveyor_graph.graph.get("domain_clusters", [])
         return {
             "module_count": len(module_nodes),
             "function_count": len(function_nodes),
             "architectural_hubs": surveyor_graph.graph.get("architectural_hubs", [])[:5],
             "high_velocity_core": surveyor_graph.graph.get("high_velocity_core", {}),
             "strongly_connected_components": surveyor_graph.graph.get("strongly_connected_components", []),
+            "domain_clusters": domain_clusters[:8] if isinstance(domain_clusters, list) else [],
         }
 
     def _summarize_hydrologist_graph(self, hydrologist_graph: nx.DiGraph) -> dict[str, Any]:
@@ -706,6 +735,12 @@ class SemanticistAgent:
             (file_entry["path"], int(file_entry["line_start"]), int(file_entry["line_end"]))
             for file_entry in evidence_bundle.get("files", [])
         }
+        citations_by_path: dict[str, list[tuple[int, int]]] = defaultdict(list)
+        for path, line_start, line_end in valid_citations:
+            citations_by_path[path].append((line_start, line_end))
+        for entries in citations_by_path.values():
+            entries.sort()
+
         answers = payload.get("answers")
         if not isinstance(answers, list) or len(answers) != len(self.FDE_DAY_ONE_QUESTIONS):
             raise RuntimeError("Day-one synthesis response did not return the expected five answers.")
@@ -727,9 +762,22 @@ class SemanticistAgent:
                 try:
                     candidate = (path, int(line_start), int(line_end))
                 except (TypeError, ValueError):
+                    normalized = self._snap_citation_to_evidence(path, None, None, citations_by_path)
+                    if normalized is not None:
+                        citations.append(normalized)
                     continue
                 if candidate in valid_citations:
                     citations.append({"path": candidate[0], "line_start": candidate[1], "line_end": candidate[2]})
+                    continue
+
+                normalized = self._snap_citation_to_evidence(
+                    path,
+                    candidate[1],
+                    candidate[2],
+                    citations_by_path,
+                )
+                if normalized is not None:
+                    citations.append(normalized)
 
             if not citations:
                 raise RuntimeError(f"Day-one answer for '{expected_question}' did not include valid evidence citations.")
@@ -743,6 +791,36 @@ class SemanticistAgent:
             )
 
         return normalized_answers
+
+    def _snap_citation_to_evidence(
+        self,
+        path: str,
+        line_start: int | None,
+        line_end: int | None,
+        citations_by_path: dict[str, list[tuple[int, int]]],
+    ) -> dict[str, Any] | None:
+        candidates = citations_by_path.get(path, [])
+        if not candidates:
+            return None
+
+        if line_start is None or line_end is None:
+            best_start, best_end = candidates[0]
+            return {"path": path, "line_start": best_start, "line_end": best_end}
+
+        overlapping = [
+            (candidate_start, candidate_end)
+            for candidate_start, candidate_end in candidates
+            if not (line_end < candidate_start or line_start > candidate_end)
+        ]
+        if overlapping:
+            best_start, best_end = overlapping[0]
+            return {"path": path, "line_start": best_start, "line_end": best_end}
+
+        best_start, best_end = min(
+            candidates,
+            key=lambda item: min(abs(item[0] - line_start), abs(item[1] - line_end)),
+        )
+        return {"path": path, "line_start": best_start, "line_end": best_end}
 
     def _purpose_statement_prompt(self, module_node: ModuleNode, module_code: str, existing_docstring: str | None) -> str:
         docstring_section = existing_docstring.strip() if existing_docstring else "<no module docstring present>"
@@ -775,9 +853,18 @@ class SemanticistAgent:
             "You are onboarding a forward-deployed engineer to a brownfield system. Answer the five day-one questions in JSON with a top-level key answers.\n"
             "Each answer must have question, answer, and citations.\n"
             "Citations must be a list of objects with path, line_start, and line_end.\n"
-            "You may only cite exact path/line_start/line_end combinations that appear in the evidence bundle.\n"
-            "Every material claim must have at least one citation.\n"
-            "Do not invent files or ranges.\n\n"
+            "Every answer must be repository-specific, concrete, and concise.\n"
+            "Prefer naming exact modules, graph artifacts, or workflows over generic architectural language.\n"
+            "Do not repeat the same sentence structure across answers.\n"
+            "Do not restate the project name unless it adds meaning.\n"
+            "For the critical-path answer, name the first 3-5 files/modules a new engineer should read and say why each matters.\n"
+            "For the risk-surface answer, tie risk to architectural centrality, change velocity, or core schema/graph responsibilities.\n"
+            "For the data-flow answer, describe concrete entry points, processing stages, and output artifacts.\n"
+            "For the domain-architecture answer, summarize the main responsibility splits using the domain clusters when available.\n"
+            "Use 2-5 citations per answer when possible, and avoid duplicate citations in the same answer.\n"
+            "You may only cite path/line ranges that are supported by the evidence bundle.\n"
+            "Do not invent files or ranges.\n"
+            "Return exactly five answers in the same order as the questions.\n\n"
             f"Questions:\n{json.dumps(self.FDE_DAY_ONE_QUESTIONS, indent=2)}\n\n"
             f"Surveyor summary:\n{json.dumps(self._summarize_surveyor_graph(surveyor_graph), indent=2)}\n\n"
             f"Hydrologist summary:\n{json.dumps(self._summarize_hydrologist_graph(hydrologist_graph), indent=2)}\n\n"

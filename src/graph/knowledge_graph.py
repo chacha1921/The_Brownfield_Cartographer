@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import networkx as nx
 
@@ -34,6 +35,22 @@ class KnowledgeGraph:
 
 		with destination.open("w", encoding="utf-8") as output_file:
 			json.dump(graph_payload, output_file, indent=2)
+
+	@classmethod
+	def load_from_json(cls, file_path: str | Path) -> KnowledgeGraph:
+		source = Path(file_path)
+		with source.open("r", encoding="utf-8") as input_file:
+			graph_payload: dict[str, Any] = json.load(input_file)
+
+		instance = cls()
+		try:
+			instance.graph = nx.node_link_graph(graph_payload, edges="links")
+		except TypeError:
+			if "links" in graph_payload and "edges" not in graph_payload:
+				graph_payload = dict(graph_payload)
+				graph_payload["edges"] = graph_payload.pop("links")
+			instance.graph = nx.node_link_graph(graph_payload)
+		return instance
 
 
 __all__ = ["KnowledgeGraph"]

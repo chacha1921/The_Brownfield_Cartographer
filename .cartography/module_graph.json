@@ -4,163 +4,282 @@
   "graph": {
     "git_velocity_days": 30,
     "git_velocity": {
-      "src/agents/hydrologist.py": 4,
-      "src/analyzers/__init__.py": 4,
-      "src/analyzers/dag_config_parser.py": 2,
-      "src/analyzers/sql_lineage.py": 3,
-      "src/brownfield_cartographer/cli.py": 4,
-      "src/cli.py": 3,
-      "README.md": 2,
-      "pyproject.toml": 3,
-      "src/brownfield_cartographer/orchestrator.py": 1,
-      "src/orchestrator.py": 1,
-      "uv.lock": 2,
-      "src/agents/__init__.py": 2,
-      "src/agents/surveyor.py": 1,
-      "src/analyzers/tree_sitter_analyzer.py": 1,
+      ".env.example": 2,
+      "README.md": 4,
+      "pyproject.toml": 5,
+      "src/agents/__init__.py": 3,
+      "src/agents/archivist.py": 1,
+      "src/agents/navigator.py": 1,
+      "src/agents/semanticist.py": 1,
+      "RECONNAISSANCE.md": 1,
+      "RECONNAISSANCE.pdf": 1,
+      "src/agents/hydrologist.py": 5,
+      "src/agents/surveyor.py": 2,
+      "src/analyzers/__init__.py": 5,
+      "src/analyzers/dag_config_parser.py": 3,
+      "src/analyzers/python_data_flow.py": 1,
+      "src/analyzers/sql_lineage.py": 4,
+      "src/analyzers/tree_sitter_analyzer.py": 2,
+      "src/brownfield_cartographer/cli.py": 5,
+      "src/brownfield_cartographer/orchestrator.py": 2,
+      "src/cli.py": 4,
+      "src/models/schemas.py": 2,
+      "src/orchestrator.py": 2,
+      "uv.lock": 3,
       "src/brownfield_cartographer/__init__.py": 1,
       "src/graph/__init__.py": 1,
       "src/graph/knowledge_graph.py": 1,
       "src/models/__init__.py": 1,
-      "src/models/schemas.py": 1,
-      ".env.example": 1,
       ".github/copilot-instructions.md": 1,
       ".gitignore": 1
     },
     "high_velocity_core": {
       "files": [
         {
+          "path": "pyproject.toml",
+          "change_count": 5
+        },
+        {
           "path": "src/agents/hydrologist.py",
-          "change_count": 4
+          "change_count": 5
         },
         {
           "path": "src/analyzers/__init__.py",
-          "change_count": 4
+          "change_count": 5
         },
         {
           "path": "src/brownfield_cartographer/cli.py",
+          "change_count": 5
+        },
+        {
+          "path": "README.md",
           "change_count": 4
         },
         {
           "path": "src/analyzers/sql_lineage.py",
-          "change_count": 3
+          "change_count": 4
         },
         {
           "path": "src/cli.py",
-          "change_count": 3
+          "change_count": 4
         },
         {
-          "path": "pyproject.toml",
+          "path": "src/agents/__init__.py",
           "change_count": 3
         },
         {
           "path": "src/analyzers/dag_config_parser.py",
-          "change_count": 2
-        },
-        {
-          "path": "README.md",
-          "change_count": 2
+          "change_count": 3
         },
         {
           "path": "uv.lock",
+          "change_count": 3
+        },
+        {
+          "path": ".env.example",
           "change_count": 2
         },
         {
-          "path": "src/agents/__init__.py",
+          "path": "src/agents/surveyor.py",
+          "change_count": 2
+        },
+        {
+          "path": "src/analyzers/tree_sitter_analyzer.py",
           "change_count": 2
         },
         {
           "path": "src/brownfield_cartographer/orchestrator.py",
-          "change_count": 1
+          "change_count": 2
+        },
+        {
+          "path": "src/models/schemas.py",
+          "change_count": 2
         },
         {
           "path": "src/orchestrator.py",
-          "change_count": 1
-        },
-        {
-          "path": "src/agents/surveyor.py",
-          "change_count": 1
-        },
-        {
-          "path": "src/analyzers/tree_sitter_analyzer.py",
-          "change_count": 1
+          "change_count": 2
         }
       ],
-      "change_share": 0.8048780487804879,
-      "file_share": 0.6363636363636364,
+      "change_share": 0.8153846153846154,
+      "file_share": 0.5714285714285714,
       "days": 30
     },
     "architectural_hubs": [
       {
         "path": "src/models/schemas.py",
-        "pagerank": 0.22070961394903288
-      },
-      {
-        "path": "src/orchestrator.py",
-        "pagerank": 0.11049657383176442
-      },
-      {
-        "path": "src/agents/surveyor.py",
-        "pagerank": 0.07924659862854203
-      },
-      {
-        "path": "src/agents/hydrologist.py",
-        "pagerank": 0.07924659862854203
+        "pagerank": 0.2345513631297759
       },
       {
         "path": "src/graph/knowledge_graph.py",
-        "pagerank": 0.0715795608639499
+        "pagerank": 0.11294146409891721
       },
       {
-        "path": "src/cli.py",
-        "pagerank": 0.05972837760651341
-      },
-      {
-        "path": "src/analyzers/tree_sitter_analyzer.py",
-        "pagerank": 0.05473941425655772
+        "path": "src/orchestrator.py",
+        "pagerank": 0.08676838725581999
       },
       {
         "path": "src/analyzers/sql_lineage.py",
-        "pagerank": 0.04912603205409366
+        "pagerank": 0.058740345806497285
+      },
+      {
+        "path": "src/cli.py",
+        "pagerank": 0.04690109858512072
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "pagerank": 0.04482743571346677
+      },
+      {
+        "path": "src/agents/surveyor.py",
+        "pagerank": 0.03764440494817315
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "pagerank": 0.03764440494817315
+      },
+      {
+        "path": "src/agents/archivist.py",
+        "pagerank": 0.03764440494817315
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "pagerank": 0.036017743282078234
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "pagerank": 0.031751448484942886
       },
       {
         "path": "src/analyzers/dag_config_parser.py",
-        "pagerank": 0.04912603205409366
+        "pagerank": 0.031751448484942886
       },
       {
         "path": "src/analyzers/__init__.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/brownfield_cartographer/__init__.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/brownfield_cartographer/cli.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/brownfield_cartographer/orchestrator.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/graph/__init__.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/agents/__init__.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
+      },
+      {
+        "path": "src/agents/navigator.py",
+        "pagerank": 0.025352006289239865
       },
       {
         "path": "src/models/__init__.py",
-        "pagerank": 0.03228588544670149
+        "pagerank": 0.025352006289239865
       }
     ],
-    "strongly_connected_components": []
+    "strongly_connected_components": [],
+    "domain_clusters": [
+      {
+        "cluster_id": 0,
+        "domain_label": "dependency analysis",
+        "purpose_statements": [
+          "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
+          "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
+          "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
+          "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
+          "This module serves as the primary entry point for a collection of code analysis tools. It aggregates and exposes functionalities for parsing configuration files like Airflow DAGs and DBT YAML, analyzing Python data flow, and extracting SQL lineage from DBT projects. Its business function is to provide a unified interface for understanding the structure, dependencies, and data movement within various software components.",
+          "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing."
+        ],
+        "member_indices": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "cluster_id": 1,
+        "domain_label": "orchestration",
+        "purpose_statements": [
+          "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
+          "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
+          "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
+          "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies."
+        ],
+        "member_indices": [
+          0,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "cluster_id": 2,
+        "domain_label": "system model",
+        "purpose_statements": [
+          "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+          "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture."
+        ],
+        "member_indices": [
+          18,
+          19
+        ]
+      },
+      {
+        "cluster_id": 3,
+        "domain_label": "knowledge graph",
+        "purpose_statements": [
+          "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
+          "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access."
+        ],
+        "member_indices": [
+          10,
+          11
+        ]
+      },
+      {
+        "cluster_id": 4,
+        "domain_label": "agent services",
+        "purpose_statements": [
+          "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure."
+        ],
+        "member_indices": [
+          14
+        ]
+      },
+      {
+        "cluster_id": 5,
+        "domain_label": "software intelligence",
+        "purpose_statements": [
+          "The SurveyorAgent module is designed to analyze a software repository to construct a comprehensive knowledge graph. It identifies module dependencies, function call relationships, and historical change velocity for files within the repository. This analysis provides insights into the codebase's structure, evolution, and key architectural components, such as high-velocity areas and central modules.",
+          "The HydrologistAgent module is designed to automatically discover and map data lineage across an entire code repository. It achieves this by analyzing diverse code artifacts like dbt configurations, Python scripts, and SQL files to build a unified knowledge graph of datasets and transformations. This graph enables users to understand data dependencies, perform impact analysis, and identify the ultimate sources and sinks of data within their systems.",
+          "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
+          "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
+          "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation."
+        ],
+        "member_indices": [
+          12,
+          13,
+          15,
+          16,
+          17
+        ]
+      }
+    ]
   },
   "nodes": [
     {
-      "id": "src/cli.py",
       "node_type": "module",
       "path": "src/cli.py",
       "language": "python",
@@ -273,84 +392,392 @@
         }
       ],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
+      "domain_cluster": "orchestration",
       "complexity_score": null,
-      "change_velocity_30d": 3.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-12T18:49:51.884484"
+      "last_modified": "2026-03-14T01:09:21.692394",
+      "documentation_drift": false,
+      "id": "src/cli.py"
     },
     {
-      "id": "src/cli.py::build_parser",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "build_parser"
+      "name": "build_parser",
+      "id": "src/cli.py::build_parser"
     },
     {
-      "id": "src/cli.py::is_remote_repo_path",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "is_remote_repo_path"
+      "name": "is_remote_repo_path",
+      "id": "src/cli.py::is_remote_repo_path"
     },
     {
-      "id": "src/cli.py::normalize_repo_url",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "normalize_repo_url"
+      "name": "normalize_repo_url",
+      "id": "src/cli.py::normalize_repo_url"
     },
     {
-      "id": "src/cli.py::remote_output_directory",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "remote_output_directory"
+      "name": "remote_output_directory",
+      "id": "src/cli.py::remote_output_directory"
     },
     {
-      "id": "src/cli.py::resolve_repo_path",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "resolve_repo_path"
+      "name": "resolve_repo_path",
+      "id": "src/cli.py::resolve_repo_path"
     },
     {
-      "id": "src/cli.py::persist_remote_outputs",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "persist_remote_outputs"
+      "name": "persist_remote_outputs",
+      "id": "src/cli.py::persist_remote_outputs"
     },
     {
-      "id": "src/cli.py::main",
       "node_type": "function",
       "module_path": "src/cli.py",
-      "name": "main"
+      "name": "main",
+      "id": "src/cli.py::main"
     },
     {
-      "id": "src/orchestrator.py",
       "node_type": "module",
       "path": "src/orchestrator.py",
       "language": "python",
       "imports": [
+        "import json",
         "from pathlib import Path",
+        "import subprocess",
+        "from typing import Any",
+        "from agents.archivist import ArchivistAgent",
         "from agents.hydrologist import HydrologistAgent",
-        "from agents.surveyor import SurveyorAgent"
+        "from agents.semanticist import SemanticistAgent",
+        "from agents.surveyor import SurveyorAgent",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import EdgeType, FunctionNode, ModuleNode"
       ],
       "import_paths": [
+        "src/agents/archivist.py",
         "src/agents/hydrologist.py",
-        "src/agents/surveyor.py"
+        "src/agents/semanticist.py",
+        "src/agents/surveyor.py",
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py"
       ],
       "public_functions": [
-        "run"
+        "get_changed_files",
+        "run",
+        "load_changed_files",
+        "has_saved_graphs",
+        "is_git_repository",
+        "load_run_metadata",
+        "save_run_metadata",
+        "current_commit_hash",
+        "load_or_build_incremental_lineage_graph",
+        "requires_full_lineage_rebuild",
+        "refresh_module_graph",
+        "remove_module_nodes",
+        "rebuild_module_edges",
+        "refresh_module_metadata",
+        "refresh_lineage_graph",
+        "remove_lineage_contribution",
+        "prune_orphan_lineage_nodes",
+        "enrich_module_graph",
+        "module_node_from_attributes",
+        "generate_day_one_answers",
+        "write_text_file"
       ],
       "function_definitions": [
+        {
+          "name": "get_changed_files",
+          "original_name": "get_changed_files",
+          "decorators": [],
+          "calls": [
+            "Path(repo_path).resolve",
+            "Path",
+            "(last_run_commit_hash or \"\").strip",
+            "subprocess.run",
+            "result.stdout.splitlines",
+            "raw_line.strip",
+            "any",
+            "changed_files.append"
+          ]
+        },
         {
           "name": "run",
           "original_name": "run",
           "decorators": [],
           "calls": [
             "self.output_dir.mkdir",
-            "self.surveyor.build_import_graph",
+            "self._load_run_metadata",
+            "self._load_changed_files",
+            "self._has_saved_graphs",
+            "self._is_git_repository",
+            "KnowledgeGraph.load_from_json",
+            "self._requires_full_lineage_rebuild",
+            "self._load_or_build_incremental_lineage_graph",
+            "self._refresh_module_graph",
             "self.hydrologist.build_lineage_graph",
+            "self._refresh_lineage_graph",
+            "self.archivist.log_trace",
+            "self.surveyor.build_import_graph",
+            "self._enrich_module_graph",
+            "self._generate_day_one_answers",
             "module_graph.save_to_json",
             "lineage_graph.save_to_json",
+            "self._write_text_file",
+            "self.archivist.generate_CODEBASE_md",
+            "self.archivist.generate_onboarding_brief",
+            "self.day_one_answers_path.write_text",
+            "json.dumps",
+            "self._save_run_metadata",
             "str"
+          ]
+        },
+        {
+          "name": "load_changed_files",
+          "original_name": "_load_changed_files",
+          "decorators": [],
+          "calls": [
+            "self._is_git_repository",
+            "self._has_saved_graphs",
+            "get_changed_files",
+            "previous_metadata.get"
+          ]
+        },
+        {
+          "name": "has_saved_graphs",
+          "original_name": "_has_saved_graphs",
+          "decorators": [],
+          "calls": [
+            "self.module_graph_path.exists",
+            "self.lineage_graph_path.exists"
+          ]
+        },
+        {
+          "name": "is_git_repository",
+          "original_name": "_is_git_repository",
+          "decorators": [],
+          "calls": [
+            "subprocess.run",
+            "result.stdout.strip"
+          ]
+        },
+        {
+          "name": "load_run_metadata",
+          "original_name": "_load_run_metadata",
+          "decorators": [],
+          "calls": [
+            "self.run_metadata_path.exists",
+            "json.loads",
+            "self.run_metadata_path.read_text"
+          ]
+        },
+        {
+          "name": "save_run_metadata",
+          "original_name": "_save_run_metadata",
+          "decorators": [],
+          "calls": [
+            "self._current_commit_hash",
+            "self.run_metadata_path.write_text",
+            "json.dumps"
+          ]
+        },
+        {
+          "name": "current_commit_hash",
+          "original_name": "_current_commit_hash",
+          "decorators": [],
+          "calls": [
+            "self._is_git_repository",
+            "subprocess.run",
+            "result.stdout.strip"
+          ]
+        },
+        {
+          "name": "load_or_build_incremental_lineage_graph",
+          "original_name": "_load_or_build_incremental_lineage_graph",
+          "decorators": [],
+          "calls": [
+            "self._requires_full_lineage_rebuild",
+            "self.hydrologist.build_lineage_graph",
+            "KnowledgeGraph.load_from_json"
+          ]
+        },
+        {
+          "name": "requires_full_lineage_rebuild",
+          "original_name": "_requires_full_lineage_rebuild",
+          "decorators": [],
+          "calls": [
+            "any",
+            "Path(relative_path).suffix.lower",
+            "Path"
+          ]
+        },
+        {
+          "name": "refresh_module_graph",
+          "original_name": "_refresh_module_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "self.surveyor.extract_git_velocity",
+            "self._is_git_repository",
+            "self._remove_module_nodes",
+            "absolute_path.exists",
+            "absolute_path.is_file",
+            "self.surveyor.analyze_module",
+            "module_graph.add_node",
+            "FunctionNode",
+            "module_graph.graph.nodes",
+            "attributes.get",
+            "float",
+            "velocity_map.get",
+            "self._rebuild_module_edges",
+            "self._refresh_module_metadata"
+          ]
+        },
+        {
+          "name": "remove_module_nodes",
+          "original_name": "_remove_module_nodes",
+          "decorators": [],
+          "calls": [
+            "node_id.startswith",
+            "graph.has_node",
+            "graph.remove_node"
+          ]
+        },
+        {
+          "name": "rebuild_module_edges",
+          "original_name": "_rebuild_module_edges",
+          "decorators": [],
+          "calls": [
+            "graph.edges",
+            "attributes.get",
+            "graph.remove_edges_from",
+            "node_id.rsplit",
+            "graph.nodes",
+            "isinstance",
+            "list",
+            "graph.has_node",
+            "module_graph.add_edge",
+            "function_definition.get",
+            "function_index.get",
+            "called_name.split"
+          ]
+        },
+        {
+          "name": "refresh_module_metadata",
+          "original_name": "_refresh_module_metadata",
+          "decorators": [],
+          "calls": [
+            "self.surveyor.calculate_pagerank",
+            "sorted",
+            "pagerank_scores.items",
+            "self.surveyor.identify_strongly_connected_components",
+            "module_graph.graph.graph.update",
+            "self.surveyor.identify_high_velocity_core"
+          ]
+        },
+        {
+          "name": "refresh_lineage_graph",
+          "original_name": "_refresh_lineage_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "self._remove_lineage_contribution",
+            "absolute_path.exists",
+            "absolute_path.is_file",
+            "absolute_path.suffix.lower",
+            "self.hydrologist._register_lineage_edges",
+            "self.hydrologist.python_data_flow_analyzer.analyze_file",
+            "self.hydrologist._register_airflow_topology",
+            "self.hydrologist.sql_lineage_analyzer.analyze_file",
+            "self._prune_orphan_lineage_nodes"
+          ]
+        },
+        {
+          "name": "remove_lineage_contribution",
+          "original_name": "_remove_lineage_contribution",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "node_id.startswith",
+            "attributes.get",
+            "graph.has_node",
+            "graph.remove_node"
+          ]
+        },
+        {
+          "name": "prune_orphan_lineage_nodes",
+          "original_name": "_prune_orphan_lineage_nodes",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "attributes.get",
+            "graph.in_degree",
+            "graph.out_degree",
+            "graph.remove_nodes_from"
+          ]
+        },
+        {
+          "name": "enrich_module_graph",
+          "original_name": "_enrich_module_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "graph.nodes",
+            "attributes.get",
+            "module_payloads.append",
+            "self._module_node_from_attributes",
+            "graph.nodes[node_id].get",
+            "self.semanticist.generate_purpose_statement",
+            "any",
+            "isinstance",
+            "purpose_statement.strip",
+            "module_ids.append",
+            "purpose_statements.append",
+            "self.semanticist.cluster_into_domains",
+            "cluster_summary.get",
+            "enumerate",
+            "cluster_lookup.get",
+            "self.archivist.log_trace"
+          ]
+        },
+        {
+          "name": "module_node_from_attributes",
+          "original_name": "_module_node_from_attributes",
+          "decorators": [],
+          "calls": [
+            "set",
+            "attributes.items",
+            "ModuleNode.model_validate"
+          ]
+        },
+        {
+          "name": "generate_day_one_answers",
+          "original_name": "_generate_day_one_answers",
+          "decorators": [],
+          "calls": [
+            "bool",
+            "self.day_one_answers_path.exists",
+            "semantic_summary.get",
+            "json.loads",
+            "self.day_one_answers_path.read_text",
+            "self.semanticist.answer_day_one_questions",
+            "self.archivist.log_trace"
+          ]
+        },
+        {
+          "name": "write_text_file",
+          "original_name": "_write_text_file",
+          "decorators": [],
+          "calls": [
+            "destination.write_text"
           ]
         }
       ],
@@ -360,21 +787,534 @@
           "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
+      "domain_cluster": "dependency analysis",
+      "complexity_score": null,
+      "change_velocity_30d": 2.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T01:09:21.035731",
+      "documentation_drift": false,
+      "id": "src/orchestrator.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "get_changed_files",
+      "id": "src/orchestrator.py::get_changed_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "run",
+      "id": "src/orchestrator.py::run"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_changed_files",
+      "id": "src/orchestrator.py::load_changed_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "has_saved_graphs",
+      "id": "src/orchestrator.py::has_saved_graphs"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "is_git_repository",
+      "id": "src/orchestrator.py::is_git_repository"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_run_metadata",
+      "id": "src/orchestrator.py::load_run_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "save_run_metadata",
+      "id": "src/orchestrator.py::save_run_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "current_commit_hash",
+      "id": "src/orchestrator.py::current_commit_hash"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_or_build_incremental_lineage_graph",
+      "id": "src/orchestrator.py::load_or_build_incremental_lineage_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "requires_full_lineage_rebuild",
+      "id": "src/orchestrator.py::requires_full_lineage_rebuild"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_module_graph",
+      "id": "src/orchestrator.py::refresh_module_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "remove_module_nodes",
+      "id": "src/orchestrator.py::remove_module_nodes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "rebuild_module_edges",
+      "id": "src/orchestrator.py::rebuild_module_edges"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_module_metadata",
+      "id": "src/orchestrator.py::refresh_module_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_lineage_graph",
+      "id": "src/orchestrator.py::refresh_lineage_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "remove_lineage_contribution",
+      "id": "src/orchestrator.py::remove_lineage_contribution"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "prune_orphan_lineage_nodes",
+      "id": "src/orchestrator.py::prune_orphan_lineage_nodes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "enrich_module_graph",
+      "id": "src/orchestrator.py::enrich_module_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "module_node_from_attributes",
+      "id": "src/orchestrator.py::module_node_from_attributes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "generate_day_one_answers",
+      "id": "src/orchestrator.py::generate_day_one_answers"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "write_text_file",
+      "id": "src/orchestrator.py::write_text_file"
+    },
+    {
+      "node_type": "module",
+      "path": "src/analyzers/python_data_flow.py",
+      "language": "python",
+      "imports": [
+        "import ast",
+        "from pathlib import Path",
+        "import re",
+        "from typing import TypedDict",
+        "from analyzers.sql_lineage import extract_sql_dependencies"
+      ],
+      "import_paths": [
+        "src/analyzers/sql_lineage.py"
+      ],
+      "public_functions": [
+        "analyze_file",
+        "visit_Assign",
+        "visit_AnnAssign",
+        "visit_Call",
+        "record_assignment",
+        "extract_target_names",
+        "extract_read_datasets",
+        "extract_write_datasets",
+        "extract_sql_read_datasets",
+        "extract_sql_execution_edges",
+        "extract_sql_dependencies",
+        "extract_datasets_from_arguments",
+        "get_argument",
+        "resolve_value",
+        "resolve_joined_str",
+        "looks_like_sql",
+        "dynamic_reference",
+        "call_name",
+        "matches_suffix",
+        "add_edge"
+      ],
+      "function_definitions": [
+        {
+          "name": "analyze_file",
+          "original_name": "analyze_file",
+          "decorators": [],
+          "calls": [
+            "Path(file_path).as_posix",
+            "Path",
+            "Path(file_path).read_text",
+            "ast.parse",
+            "self.visit",
+            "list",
+            "self._edges.values"
+          ]
+        },
+        {
+          "name": "visit_Assign",
+          "original_name": "visit_Assign",
+          "decorators": [],
+          "calls": [
+            "self._resolve_value",
+            "self._record_assignment",
+            "self.generic_visit"
+          ]
+        },
+        {
+          "name": "visit_AnnAssign",
+          "original_name": "visit_AnnAssign",
+          "decorators": [],
+          "calls": [
+            "self._resolve_value",
+            "self._record_assignment",
+            "self.generic_visit"
+          ]
+        },
+        {
+          "name": "visit_Call",
+          "original_name": "visit_Call",
+          "decorators": [],
+          "calls": [
+            "self._call_name",
+            "self._matches_suffix",
+            "self._extract_read_datasets",
+            "self._add_edge",
+            "self._extract_write_datasets",
+            "self._extract_sql_read_datasets",
+            "self._extract_sql_execution_edges",
+            "self.generic_visit"
+          ]
+        },
+        {
+          "name": "record_assignment",
+          "original_name": "_record_assignment",
+          "decorators": [],
+          "calls": [
+            "self._extract_target_names"
+          ]
+        },
+        {
+          "name": "extract_target_names",
+          "original_name": "_extract_target_names",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "names.extend",
+            "self._extract_target_names"
+          ]
+        },
+        {
+          "name": "extract_read_datasets",
+          "original_name": "_extract_read_datasets",
+          "decorators": [],
+          "calls": [
+            "self._matches_suffix",
+            "self._extract_datasets_from_arguments"
+          ]
+        },
+        {
+          "name": "extract_write_datasets",
+          "original_name": "_extract_write_datasets",
+          "decorators": [],
+          "calls": [
+            "call_name.endswith",
+            "self._extract_datasets_from_arguments"
+          ]
+        },
+        {
+          "name": "extract_sql_read_datasets",
+          "original_name": "_extract_sql_read_datasets",
+          "decorators": [],
+          "calls": [
+            "call_name.endswith",
+            "self._extract_datasets_from_arguments",
+            "self._get_argument",
+            "self._resolve_value",
+            "self._extract_sql_dependencies",
+            "self._looks_like_sql"
+          ]
+        },
+        {
+          "name": "extract_sql_execution_edges",
+          "original_name": "_extract_sql_execution_edges",
+          "decorators": [],
+          "calls": [
+            "self._get_argument",
+            "self._resolve_value",
+            "self._extract_sql_dependencies",
+            "edges.append"
+          ]
+        },
+        {
+          "name": "extract_sql_dependencies",
+          "original_name": "_extract_sql_dependencies",
+          "decorators": [],
+          "calls": [
+            "extract_sql_dependencies"
+          ]
+        },
+        {
+          "name": "extract_datasets_from_arguments",
+          "original_name": "_extract_datasets_from_arguments",
+          "decorators": [],
+          "calls": [
+            "set",
+            "candidate_values.append",
+            "self._resolve_value",
+            "datasets.append",
+            "list",
+            "dict.fromkeys"
+          ]
+        },
+        {
+          "name": "get_argument",
+          "original_name": "_get_argument",
+          "decorators": [],
+          "calls": [
+            "len"
+          ]
+        },
+        {
+          "name": "resolve_value",
+          "original_name": "_resolve_value",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "self._variable_values.get",
+            "self._dynamic_reference",
+            "self._resolve_joined_str",
+            "self._call_name",
+            "call_name.endswith",
+            "self._resolve_value",
+            "\"/\".join",
+            "part.strip",
+            "left.rstrip",
+            "right.lstrip"
+          ]
+        },
+        {
+          "name": "resolve_joined_str",
+          "original_name": "_resolve_joined_str",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "parts.append",
+            "\"\".join(parts).strip",
+            "\"\".join",
+            "self._dynamic_reference",
+            "ast.unparse"
+          ]
+        },
+        {
+          "name": "looks_like_sql",
+          "original_name": "_looks_like_sql",
+          "decorators": [],
+          "calls": [
+            "bool",
+            "re.search"
+          ]
+        },
+        {
+          "name": "dynamic_reference",
+          "original_name": "_dynamic_reference",
+          "decorators": [],
+          "calls": [
+            "re.sub(r\"[^a-zA-Z0-9._/-]+\", \"_\", label).strip",
+            "re.sub"
+          ]
+        },
+        {
+          "name": "call_name",
+          "original_name": "_call_name",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "self._call_name"
+          ]
+        },
+        {
+          "name": "matches_suffix",
+          "original_name": "_matches_suffix",
+          "decorators": [],
+          "calls": [
+            "any",
+            "call_name.endswith"
+          ]
+        },
+        {
+          "name": "add_edge",
+          "original_name": "_add_edge",
+          "decorators": [],
+          "calls": []
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "PythonDataFlowEdge",
+          "bases": [
+            "TypedDict"
+          ]
+        },
+        {
+          "name": "PythonDataFlowAnalyzer",
+          "bases": [
+            "ast.NodeVisitor"
+          ]
+        }
+      ],
+      "purpose_statement": "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
+      "domain_cluster": "dependency analysis",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-12T18:50:00.611793"
+      "last_modified": "2026-03-13T23:45:32.858149",
+      "documentation_drift": false,
+      "id": "src/analyzers/python_data_flow.py"
     },
     {
-      "id": "src/orchestrator.py::run",
       "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "run"
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "analyze_file",
+      "id": "src/analyzers/python_data_flow.py::analyze_file"
     },
     {
-      "id": "src/analyzers/sql_lineage.py",
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "visit_Assign",
+      "id": "src/analyzers/python_data_flow.py::visit_Assign"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "visit_AnnAssign",
+      "id": "src/analyzers/python_data_flow.py::visit_AnnAssign"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "visit_Call",
+      "id": "src/analyzers/python_data_flow.py::visit_Call"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "record_assignment",
+      "id": "src/analyzers/python_data_flow.py::record_assignment"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_target_names",
+      "id": "src/analyzers/python_data_flow.py::extract_target_names"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_read_datasets",
+      "id": "src/analyzers/python_data_flow.py::extract_read_datasets"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_write_datasets",
+      "id": "src/analyzers/python_data_flow.py::extract_write_datasets"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_sql_read_datasets",
+      "id": "src/analyzers/python_data_flow.py::extract_sql_read_datasets"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_sql_execution_edges",
+      "id": "src/analyzers/python_data_flow.py::extract_sql_execution_edges"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_sql_dependencies",
+      "id": "src/analyzers/python_data_flow.py::extract_sql_dependencies"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "extract_datasets_from_arguments",
+      "id": "src/analyzers/python_data_flow.py::extract_datasets_from_arguments"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "get_argument",
+      "id": "src/analyzers/python_data_flow.py::get_argument"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "resolve_value",
+      "id": "src/analyzers/python_data_flow.py::resolve_value"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "resolve_joined_str",
+      "id": "src/analyzers/python_data_flow.py::resolve_joined_str"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "looks_like_sql",
+      "id": "src/analyzers/python_data_flow.py::looks_like_sql"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "dynamic_reference",
+      "id": "src/analyzers/python_data_flow.py::dynamic_reference"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "call_name",
+      "id": "src/analyzers/python_data_flow.py::call_name"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "matches_suffix",
+      "id": "src/analyzers/python_data_flow.py::matches_suffix"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/python_data_flow.py",
+      "name": "add_edge",
+      "id": "src/analyzers/python_data_flow.py::add_edge"
+    },
+    {
       "node_type": "module",
       "path": "src/analyzers/sql_lineage.py",
       "language": "python",
@@ -388,6 +1328,8 @@
       "public_functions": [
         "extract_sql_dependencies",
         "parse_dbt_sql",
+        "analyze_sql",
+        "analyze_file",
         "extract_target_table",
         "normalize_table_reference",
         "normalize_table_name",
@@ -418,6 +1360,27 @@
             "sql_file.as_posix",
             "extract_dbt_references",
             "edges.append"
+          ]
+        },
+        {
+          "name": "analyze_sql",
+          "original_name": "analyze_sql",
+          "decorators": [],
+          "calls": [
+            "extract_sql_dependencies",
+            "edges.append"
+          ]
+        },
+        {
+          "name": "analyze_file",
+          "original_name": "analyze_file",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "sql_file.read_text",
+            "parse_dbt_sql",
+            "self.analyze_sql",
+            "sql_file.as_posix"
           ]
         },
         {
@@ -472,53 +1435,76 @@
           "bases": [
             "TypedDict"
           ]
+        },
+        {
+          "name": "SqlLineageEdge",
+          "bases": [
+            "TypedDict"
+          ]
+        },
+        {
+          "name": "SQLLineageAnalyzer",
+          "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
+      "domain_cluster": "dependency analysis",
       "complexity_score": null,
-      "change_velocity_30d": 3.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T23:45:18.744940"
+      "last_modified": "2026-03-13T23:45:29.469870",
+      "documentation_drift": false,
+      "id": "src/analyzers/sql_lineage.py"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::extract_sql_dependencies",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "extract_sql_dependencies"
+      "name": "extract_sql_dependencies",
+      "id": "src/analyzers/sql_lineage.py::extract_sql_dependencies"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::parse_dbt_sql",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "parse_dbt_sql"
+      "name": "parse_dbt_sql",
+      "id": "src/analyzers/sql_lineage.py::parse_dbt_sql"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::extract_target_table",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "extract_target_table"
+      "name": "analyze_sql",
+      "id": "src/analyzers/sql_lineage.py::analyze_sql"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::normalize_table_reference",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "normalize_table_reference"
+      "name": "analyze_file",
+      "id": "src/analyzers/sql_lineage.py::analyze_file"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::normalize_table_name",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "normalize_table_name"
+      "name": "extract_target_table",
+      "id": "src/analyzers/sql_lineage.py::extract_target_table"
     },
     {
-      "id": "src/analyzers/sql_lineage.py::extract_dbt_references",
       "node_type": "function",
       "module_path": "src/analyzers/sql_lineage.py",
-      "name": "extract_dbt_references"
+      "name": "normalize_table_reference",
+      "id": "src/analyzers/sql_lineage.py::normalize_table_reference"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py",
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "normalize_table_name",
+      "id": "src/analyzers/sql_lineage.py::normalize_table_name"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/sql_lineage.py",
+      "name": "extract_dbt_references",
+      "id": "src/analyzers/sql_lineage.py::extract_dbt_references"
+    },
+    {
       "node_type": "module",
       "path": "src/analyzers/dag_config_parser.py",
       "language": "python",
@@ -533,6 +1519,8 @@
         "src/models/schemas.py"
       ],
       "public_functions": [
+        "parse_dbt_resources",
+        "analyze_airflow_dag",
         "parse_dbt_yaml",
         "parse_dbt_schema_file",
         "parse_airflow_dag_file",
@@ -547,6 +1535,22 @@
         "strip_yaml_scalar"
       ],
       "function_definitions": [
+        {
+          "name": "parse_dbt_resources",
+          "original_name": "parse_dbt_resources",
+          "decorators": [],
+          "calls": [
+            "parse_dbt_yaml"
+          ]
+        },
+        {
+          "name": "analyze_airflow_dag",
+          "original_name": "analyze_airflow_dag",
+          "decorators": [],
+          "calls": [
+            "parse_airflow_dag_file"
+          ]
+        },
         {
           "name": "parse_dbt_yaml",
           "original_name": "parse_dbt_yaml",
@@ -734,110 +1738,129 @@
           "bases": [
             "TypedDict"
           ]
+        },
+        {
+          "name": "DAGConfigAnalyzer",
+          "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
+      "domain_cluster": "dependency analysis",
       "complexity_score": null,
-      "change_velocity_30d": 2.0,
+      "change_velocity_30d": 3.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T23:45:20.660210"
+      "last_modified": "2026-03-13T23:45:31.248308",
+      "documentation_drift": false,
+      "id": "src/analyzers/dag_config_parser.py"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::parse_dbt_yaml",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "parse_dbt_yaml"
+      "name": "parse_dbt_resources",
+      "id": "src/analyzers/dag_config_parser.py::parse_dbt_resources"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "parse_dbt_schema_file"
+      "name": "analyze_airflow_dag",
+      "id": "src/analyzers/dag_config_parser.py::analyze_airflow_dag"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "parse_airflow_dag_file"
+      "name": "parse_dbt_yaml",
+      "id": "src/analyzers/dag_config_parser.py::parse_dbt_yaml"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::extract_airflow_task",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "extract_airflow_task"
+      "name": "parse_dbt_schema_file",
+      "id": "src/analyzers/dag_config_parser.py::parse_dbt_schema_file"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::parse_dependency_expression",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "parse_dependency_expression"
+      "name": "parse_airflow_dag_file",
+      "id": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::resolve_task_references",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "resolve_task_references"
+      "name": "extract_airflow_task",
+      "id": "src/analyzers/dag_config_parser.py::extract_airflow_task"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::call_name",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "call_name"
+      "name": "parse_dependency_expression",
+      "id": "src/analyzers/dag_config_parser.py::parse_dependency_expression"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::normalize_dependency",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "normalize_dependency"
+      "name": "resolve_task_references",
+      "id": "src/analyzers/dag_config_parser.py::resolve_task_references"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::extend_dependencies",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "extend_dependencies"
+      "name": "call_name",
+      "id": "src/analyzers/dag_config_parser.py::call_name"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::extract_embedded_dependencies",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "extract_embedded_dependencies"
+      "name": "normalize_dependency",
+      "id": "src/analyzers/dag_config_parser.py::normalize_dependency"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::dedupe",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "dedupe"
+      "name": "extend_dependencies",
+      "id": "src/analyzers/dag_config_parser.py::extend_dependencies"
     },
     {
-      "id": "src/analyzers/dag_config_parser.py::strip_yaml_scalar",
       "node_type": "function",
       "module_path": "src/analyzers/dag_config_parser.py",
-      "name": "strip_yaml_scalar"
+      "name": "extract_embedded_dependencies",
+      "id": "src/analyzers/dag_config_parser.py::extract_embedded_dependencies"
     },
     {
-      "id": "src/analyzers/__init__.py",
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "dedupe",
+      "id": "src/analyzers/dag_config_parser.py::dedupe"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/analyzers/dag_config_parser.py",
+      "name": "strip_yaml_scalar",
+      "id": "src/analyzers/dag_config_parser.py::strip_yaml_scalar"
+    },
+    {
       "node_type": "module",
       "path": "src/analyzers/__init__.py",
       "language": "python",
       "imports": [
-        "from .dag_config_parser import parse_airflow_dag_file, parse_dbt_schema_file, parse_dbt_yaml",
-        "from .sql_lineage import DbtSqlEdge, SqlDependencies, extract_sql_dependencies, parse_dbt_sql",
+        "from .dag_config_parser import DAGConfigAnalyzer, parse_airflow_dag_file, parse_dbt_schema_file, parse_dbt_yaml",
+        "from .python_data_flow import PythonDataFlowAnalyzer, PythonDataFlowEdge",
+        "from .sql_lineage import DbtSqlEdge, SQLLineageAnalyzer, SqlDependencies, SqlLineageEdge, extract_sql_dependencies, parse_dbt_sql",
         "from .tree_sitter_analyzer import LanguageRouter, parse_python_imports_and_functions"
       ],
       "import_paths": [],
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module serves as the primary entry point for a collection of code analysis tools. It aggregates and exposes functionalities for parsing configuration files like Airflow DAGs and DBT YAML, analyzing Python data flow, and extracting SQL lineage from DBT projects. Its business function is to provide a unified interface for understanding the structure, dependencies, and data movement within various software components.",
+      "domain_cluster": "dependency analysis",
       "complexity_score": null,
-      "change_velocity_30d": 4.0,
+      "change_velocity_30d": 5.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T23:45:18.119295"
+      "last_modified": "2026-03-13T23:45:37.504107",
+      "documentation_drift": false,
+      "id": "src/analyzers/__init__.py"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py",
       "node_type": "module",
       "path": "src/analyzers/tree_sitter_analyzer.py",
       "language": "python",
@@ -1034,93 +2057,94 @@
           "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing.",
+      "domain_cluster": "dependency analysis",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-13T10:19:25.367574"
+      "last_modified": "2026-03-13T16:16:49.092307",
+      "documentation_drift": false,
+      "id": "src/analyzers/tree_sitter_analyzer.py"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::get_language",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "get_language"
+      "name": "get_language",
+      "id": "src/analyzers/tree_sitter_analyzer.py::get_language"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::get_parser",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "get_parser"
+      "name": "get_parser",
+      "id": "src/analyzers/tree_sitter_analyzer.py::get_parser"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::analyze_module",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "analyze_module"
+      "name": "analyze_module",
+      "id": "src/analyzers/tree_sitter_analyzer.py::analyze_module"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::parse_python_imports_and_functions",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "parse_python_imports_and_functions"
+      "name": "parse_python_imports_and_functions",
+      "id": "src/analyzers/tree_sitter_analyzer.py::parse_python_imports_and_functions"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_import_statements",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_import_statements"
+      "name": "extract_import_statements",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_import_statements"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_function_definitions"
+      "name": "extract_function_definitions",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_function_definitions"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_class_definitions"
+      "name": "extract_class_definitions",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_definitions"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_bases",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_class_bases"
+      "name": "extract_class_bases",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_class_bases"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_decorators",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_decorators"
+      "name": "extract_decorators",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_decorators"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_called_function_names",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_called_function_names"
+      "name": "extract_called_function_names",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_called_function_names"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::extract_relative_import_paths",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "extract_relative_import_paths"
+      "name": "extract_relative_import_paths",
+      "id": "src/analyzers/tree_sitter_analyzer.py::extract_relative_import_paths"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::language_name_for_path",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "language_name_for_path"
+      "name": "language_name_for_path",
+      "id": "src/analyzers/tree_sitter_analyzer.py::language_name_for_path"
     },
     {
-      "id": "src/analyzers/tree_sitter_analyzer.py::walk_tree",
       "node_type": "function",
       "module_path": "src/analyzers/tree_sitter_analyzer.py",
-      "name": "walk_tree"
+      "name": "walk_tree",
+      "id": "src/analyzers/tree_sitter_analyzer.py::walk_tree"
     },
     {
-      "id": "src/brownfield_cartographer/__init__.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/__init__.py",
       "language": "python",
@@ -1129,15 +2153,16 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
+      "domain_cluster": "orchestration",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-12T18:39:32.267749"
+      "last_modified": "2026-03-12T18:39:32.267749",
+      "documentation_drift": false,
+      "id": "src/brownfield_cartographer/__init__.py"
     },
     {
-      "id": "src/brownfield_cartographer/cli.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/cli.py",
       "language": "python",
@@ -1150,15 +2175,16 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
+      "domain_cluster": "orchestration",
       "complexity_score": null,
-      "change_velocity_30d": 4.0,
+      "change_velocity_30d": 5.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-12T18:49:57.639598"
+      "last_modified": "2026-03-12T18:49:57.639598",
+      "documentation_drift": false,
+      "id": "src/brownfield_cartographer/cli.py"
     },
     {
-      "id": "src/brownfield_cartographer/orchestrator.py",
       "node_type": "module",
       "path": "src/brownfield_cartographer/orchestrator.py",
       "language": "python",
@@ -1171,21 +2197,23 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies.",
+      "domain_cluster": "orchestration",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-12T18:49:55.179620"
+      "last_modified": "2026-03-12T18:49:55.179620",
+      "documentation_drift": false,
+      "id": "src/brownfield_cartographer/orchestrator.py"
     },
     {
-      "id": "src/graph/knowledge_graph.py",
       "node_type": "module",
       "path": "src/graph/knowledge_graph.py",
       "language": "python",
       "imports": [
         "import json",
         "from pathlib import Path",
+        "from typing import Any",
         "import networkx as nx",
         "from models.schemas import EdgeType, Node"
       ],
@@ -1195,7 +2223,8 @@
       "public_functions": [
         "add_node",
         "add_edge",
-        "save_to_json"
+        "save_to_json",
+        "load_from_json"
       ],
       "function_definitions": [
         {
@@ -1228,6 +2257,20 @@
             "destination.open",
             "json.dump"
           ]
+        },
+        {
+          "name": "load_from_json",
+          "original_name": "load_from_json",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "source.open",
+            "json.load",
+            "cls",
+            "nx.node_link_graph",
+            "dict",
+            "graph_payload.pop"
+          ]
         }
       ],
       "class_definitions": [
@@ -1236,33 +2279,40 @@
           "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
+      "domain_cluster": "knowledge graph",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:24:09.507131"
+      "last_modified": "2026-03-14T01:09:20.413000",
+      "documentation_drift": false,
+      "id": "src/graph/knowledge_graph.py"
     },
     {
-      "id": "src/graph/knowledge_graph.py::add_node",
       "node_type": "function",
       "module_path": "src/graph/knowledge_graph.py",
-      "name": "add_node"
+      "name": "add_node",
+      "id": "src/graph/knowledge_graph.py::add_node"
     },
     {
-      "id": "src/graph/knowledge_graph.py::add_edge",
       "node_type": "function",
       "module_path": "src/graph/knowledge_graph.py",
-      "name": "add_edge"
+      "name": "add_edge",
+      "id": "src/graph/knowledge_graph.py::add_edge"
     },
     {
-      "id": "src/graph/knowledge_graph.py::save_to_json",
       "node_type": "function",
       "module_path": "src/graph/knowledge_graph.py",
-      "name": "save_to_json"
+      "name": "save_to_json",
+      "id": "src/graph/knowledge_graph.py::save_to_json"
     },
     {
-      "id": "src/graph/__init__.py",
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "load_from_json",
+      "id": "src/graph/knowledge_graph.py::load_from_json"
+    },
+    {
       "node_type": "module",
       "path": "src/graph/__init__.py",
       "language": "python",
@@ -1273,15 +2323,16 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access.",
+      "domain_cluster": "knowledge graph",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:24:11.271983"
+      "last_modified": "2026-03-11T17:24:11.271983",
+      "documentation_drift": false,
+      "id": "src/graph/__init__.py"
     },
     {
-      "id": "src/agents/surveyor.py",
       "node_type": "module",
       "path": "src/agents/surveyor.py",
       "language": "python",
@@ -1553,130 +2604,134 @@
           "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "The SurveyorAgent module is designed to analyze a software repository to construct a comprehensive knowledge graph. It identifies module dependencies, function call relationships, and historical change velocity for files within the repository. This analysis provides insights into the codebase's structure, evolution, and key architectural components, such as high-velocity areas and central modules.",
+      "domain_cluster": "software intelligence",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-13T10:36:22.317561"
+      "last_modified": "2026-03-13T16:16:49.659528",
+      "documentation_drift": false,
+      "id": "src/agents/surveyor.py"
     },
     {
-      "id": "src/agents/surveyor.py::analyze_module",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "analyze_module"
+      "name": "analyze_module",
+      "id": "src/agents/surveyor.py::analyze_module"
     },
     {
-      "id": "src/agents/surveyor.py::extract_git_velocity",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "extract_git_velocity"
+      "name": "extract_git_velocity",
+      "id": "src/agents/surveyor.py::extract_git_velocity"
     },
     {
-      "id": "src/agents/surveyor.py::identify_high_velocity_core",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "identify_high_velocity_core"
+      "name": "identify_high_velocity_core",
+      "id": "src/agents/surveyor.py::identify_high_velocity_core"
     },
     {
-      "id": "src/agents/surveyor.py::build_import_graph",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "build_import_graph"
+      "name": "build_import_graph",
+      "id": "src/agents/surveyor.py::build_import_graph"
     },
     {
-      "id": "src/agents/surveyor.py::calculate_pagerank",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "calculate_pagerank"
+      "name": "calculate_pagerank",
+      "id": "src/agents/surveyor.py::calculate_pagerank"
     },
     {
-      "id": "src/agents/surveyor.py::identify_strongly_connected_components",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "identify_strongly_connected_components"
+      "name": "identify_strongly_connected_components",
+      "id": "src/agents/surveyor.py::identify_strongly_connected_components"
     },
     {
-      "id": "src/agents/surveyor.py::module_import_subgraph",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "module_import_subgraph"
+      "name": "module_import_subgraph",
+      "id": "src/agents/surveyor.py::module_import_subgraph"
     },
     {
-      "id": "src/agents/surveyor.py::iter_repository_python_files",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "iter_repository_python_files"
+      "name": "iter_repository_python_files",
+      "id": "src/agents/surveyor.py::iter_repository_python_files"
     },
     {
-      "id": "src/agents/surveyor.py::is_ignored_relative_path",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "is_ignored_relative_path"
+      "name": "is_ignored_relative_path",
+      "id": "src/agents/surveyor.py::is_ignored_relative_path"
     },
     {
-      "id": "src/agents/surveyor.py::git_repository_root",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "git_repository_root"
+      "name": "git_repository_root",
+      "id": "src/agents/surveyor.py::git_repository_root"
     },
     {
-      "id": "src/agents/surveyor.py::build_module_index",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "build_module_index"
+      "name": "build_module_index",
+      "id": "src/agents/surveyor.py::build_module_index"
     },
     {
-      "id": "src/agents/surveyor.py::module_names_for_path",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "module_names_for_path"
+      "name": "module_names_for_path",
+      "id": "src/agents/surveyor.py::module_names_for_path"
     },
     {
-      "id": "src/agents/surveyor.py::resolve_import_paths",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "resolve_import_paths"
+      "name": "resolve_import_paths",
+      "id": "src/agents/surveyor.py::resolve_import_paths"
     },
     {
-      "id": "src/agents/surveyor.py::resolve_import_statement",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "resolve_import_statement"
+      "name": "resolve_import_statement",
+      "id": "src/agents/surveyor.py::resolve_import_statement"
     },
     {
-      "id": "src/agents/surveyor.py::preferred_module_name",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "preferred_module_name"
+      "name": "preferred_module_name",
+      "id": "src/agents/surveyor.py::preferred_module_name"
     },
     {
-      "id": "src/agents/surveyor.py::resolve_from_base_module",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "resolve_from_base_module"
+      "name": "resolve_from_base_module",
+      "id": "src/agents/surveyor.py::resolve_from_base_module"
     },
     {
-      "id": "src/agents/surveyor.py::resolve_module_reference",
       "node_type": "function",
       "module_path": "src/agents/surveyor.py",
-      "name": "resolve_module_reference"
+      "name": "resolve_module_reference",
+      "id": "src/agents/surveyor.py::resolve_module_reference"
     },
     {
-      "id": "src/agents/hydrologist.py",
       "node_type": "module",
       "path": "src/agents/hydrologist.py",
       "language": "python",
       "imports": [
         "from collections import deque",
         "from pathlib import Path",
-        "from analyzers.dag_config_parser import parse_dbt_yaml",
-        "from analyzers.sql_lineage import parse_dbt_sql",
+        "from typing import TypedDict",
+        "from analyzers.dag_config_parser import DAGConfigAnalyzer",
+        "from analyzers.python_data_flow import PythonDataFlowAnalyzer",
+        "from analyzers.sql_lineage import SQLLineageAnalyzer",
         "from graph.knowledge_graph import KnowledgeGraph",
         "from models.schemas import DatasetNode, EdgeType, TransformationNode"
       ],
       "import_paths": [
         "src/analyzers/dag_config_parser.py",
+        "src/analyzers/python_data_flow.py",
         "src/analyzers/sql_lineage.py",
         "src/graph/knowledge_graph.py",
         "src/models/schemas.py"
@@ -1689,12 +2744,14 @@
         "find_sources",
         "find_sinks",
         "iter_files",
-        "iter_yaml_files",
-        "register_dbt_sql_lineage",
+        "register_lineage_edges",
+        "register_airflow_topology",
         "ensure_dataset_node",
         "ensure_transformation_node",
         "ensure_lineage_node",
-        "normalize_sql_endpoint"
+        "normalize_file_endpoint",
+        "infer_storage_type",
+        "airflow_task_node_id"
       ],
       "function_definitions": [
         {
@@ -1703,11 +2760,13 @@
           "decorators": [],
           "calls": [
             "KnowledgeGraph",
-            "self._iter_yaml_files",
-            "parse_dbt_yaml",
-            "self.knowledge_graph.add_node",
             "self._iter_files",
-            "self._register_dbt_sql_lineage"
+            "self.dag_config_analyzer.parse_dbt_resources",
+            "self.knowledge_graph.add_node",
+            "self._register_lineage_edges",
+            "self.python_data_flow_analyzer.analyze_file",
+            "self._register_airflow_topology",
+            "self.sql_lineage_analyzer.analyze_file"
           ]
         },
         {
@@ -1775,24 +2834,29 @@
           ]
         },
         {
-          "name": "iter_yaml_files",
-          "original_name": "_iter_yaml_files",
+          "name": "register_lineage_edges",
+          "original_name": "_register_lineage_edges",
           "decorators": [],
           "calls": [
-            "self._iter_files"
+            "file_path.relative_to(self.repository_path).as_posix",
+            "file_path.relative_to",
+            "file_path.as_posix",
+            "self._normalize_file_endpoint",
+            "EdgeType",
+            "self._ensure_lineage_node",
+            "self.knowledge_graph.add_edge"
           ]
         },
         {
-          "name": "register_dbt_sql_lineage",
-          "original_name": "_register_dbt_sql_lineage",
+          "name": "register_airflow_topology",
+          "original_name": "_register_airflow_topology",
           "decorators": [],
           "calls": [
-            "sql_file.relative_to",
-            "relative_sql_path.as_posix",
-            "parse_dbt_sql",
-            "self._normalize_sql_endpoint",
-            "EdgeType",
-            "self._ensure_lineage_node",
+            "self.dag_config_analyzer.analyze_airflow_dag",
+            "python_file.relative_to(self.repository_path).as_posix",
+            "python_file.relative_to",
+            "self._airflow_task_node_id",
+            "self._ensure_transformation_node",
             "self.knowledge_graph.add_edge"
           ]
         },
@@ -1819,133 +2883,1964 @@
           "original_name": "_ensure_lineage_node",
           "decorators": [],
           "calls": [
-            "node_id.endswith",
             "self._ensure_transformation_node",
+            "self._infer_storage_type",
             "self._ensure_dataset_node"
           ]
         },
         {
-          "name": "normalize_sql_endpoint",
-          "original_name": "_normalize_sql_endpoint",
+          "name": "normalize_file_endpoint",
+          "original_name": "_normalize_file_endpoint",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "infer_storage_type",
+          "original_name": "_infer_storage_type",
           "decorators": [],
           "calls": [
-            "sql_file.as_posix"
+            "node_id.lower",
+            "node_id.startswith",
+            "normalized.startswith",
+            "normalized.endswith"
           ]
+        },
+        {
+          "name": "airflow_task_node_id",
+          "original_name": "_airflow_task_node_id",
+          "decorators": [],
+          "calls": []
         }
       ],
       "class_definitions": [
+        {
+          "name": "LineageEdge",
+          "bases": [
+            "TypedDict"
+          ]
+        },
         {
           "name": "HydrologistAgent",
           "bases": []
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "The HydrologistAgent module is designed to automatically discover and map data lineage across an entire code repository. It achieves this by analyzing diverse code artifacts like dbt configurations, Python scripts, and SQL files to build a unified knowledge graph of datasets and transformations. This graph enables users to understand data dependencies, perform impact analysis, and identify the ultimate sources and sinks of data within their systems.",
+      "domain_cluster": "software intelligence",
       "complexity_score": null,
-      "change_velocity_30d": 4.0,
+      "change_velocity_30d": 5.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T23:45:19.393510"
+      "last_modified": "2026-03-13T23:45:30.495720",
+      "documentation_drift": false,
+      "id": "src/agents/hydrologist.py"
     },
     {
-      "id": "src/agents/hydrologist.py::build_lineage_graph",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "build_lineage_graph"
+      "name": "build_lineage_graph",
+      "id": "src/agents/hydrologist.py::build_lineage_graph"
     },
     {
-      "id": "src/agents/hydrologist.py::blast_radius",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "blast_radius"
+      "name": "blast_radius",
+      "id": "src/agents/hydrologist.py::blast_radius"
     },
     {
-      "id": "src/agents/hydrologist.py::find_source_nodes",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "find_source_nodes"
+      "name": "find_source_nodes",
+      "id": "src/agents/hydrologist.py::find_source_nodes"
     },
     {
-      "id": "src/agents/hydrologist.py::find_sink_nodes",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "find_sink_nodes"
+      "name": "find_sink_nodes",
+      "id": "src/agents/hydrologist.py::find_sink_nodes"
     },
     {
-      "id": "src/agents/hydrologist.py::find_sources",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "find_sources"
+      "name": "find_sources",
+      "id": "src/agents/hydrologist.py::find_sources"
     },
     {
-      "id": "src/agents/hydrologist.py::find_sinks",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "find_sinks"
+      "name": "find_sinks",
+      "id": "src/agents/hydrologist.py::find_sinks"
     },
     {
-      "id": "src/agents/hydrologist.py::iter_files",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "iter_files"
+      "name": "iter_files",
+      "id": "src/agents/hydrologist.py::iter_files"
     },
     {
-      "id": "src/agents/hydrologist.py::iter_yaml_files",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "iter_yaml_files"
+      "name": "register_lineage_edges",
+      "id": "src/agents/hydrologist.py::register_lineage_edges"
     },
     {
-      "id": "src/agents/hydrologist.py::register_dbt_sql_lineage",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "register_dbt_sql_lineage"
+      "name": "register_airflow_topology",
+      "id": "src/agents/hydrologist.py::register_airflow_topology"
     },
     {
-      "id": "src/agents/hydrologist.py::ensure_dataset_node",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "ensure_dataset_node"
+      "name": "ensure_dataset_node",
+      "id": "src/agents/hydrologist.py::ensure_dataset_node"
     },
     {
-      "id": "src/agents/hydrologist.py::ensure_transformation_node",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "ensure_transformation_node"
+      "name": "ensure_transformation_node",
+      "id": "src/agents/hydrologist.py::ensure_transformation_node"
     },
     {
-      "id": "src/agents/hydrologist.py::ensure_lineage_node",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "ensure_lineage_node"
+      "name": "ensure_lineage_node",
+      "id": "src/agents/hydrologist.py::ensure_lineage_node"
     },
     {
-      "id": "src/agents/hydrologist.py::normalize_sql_endpoint",
       "node_type": "function",
       "module_path": "src/agents/hydrologist.py",
-      "name": "normalize_sql_endpoint"
+      "name": "normalize_file_endpoint",
+      "id": "src/agents/hydrologist.py::normalize_file_endpoint"
     },
     {
-      "id": "src/agents/__init__.py",
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "infer_storage_type",
+      "id": "src/agents/hydrologist.py::infer_storage_type"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/hydrologist.py",
+      "name": "airflow_task_node_id",
+      "id": "src/agents/hydrologist.py::airflow_task_node_id"
+    },
+    {
       "node_type": "module",
       "path": "src/agents/__init__.py",
       "language": "python",
       "imports": [
+        "from .archivist import ArchivistAgent",
         "from .hydrologist import HydrologistAgent",
+        "from .navigator import NavigatorAgent",
+        "from .semanticist import SemanticistAgent",
         "from .surveyor import SurveyorAgent"
       ],
       "import_paths": [],
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure.",
+      "domain_cluster": "agent services",
       "complexity_score": null,
-      "change_velocity_30d": 2.0,
+      "change_velocity_30d": 3.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T18:02:57.686371"
+      "last_modified": "2026-03-14T00:56:58.582070",
+      "documentation_drift": false,
+      "id": "src/agents/__init__.py"
     },
     {
-      "id": "src/models/__init__.py",
+      "node_type": "module",
+      "path": "src/agents/navigator.py",
+      "language": "python",
+      "imports": [
+        "import ast",
+        "from collections import deque",
+        "from dataclasses import dataclass",
+        "import json",
+        "from pathlib import Path",
+        "from typing import Any, TypedDict",
+        "import networkx as nx",
+        "from pydantic import BaseModel, Field",
+        "from sklearn.feature_extraction.text import TfidfVectorizer",
+        "from sklearn.metrics.pairwise import cosine_similarity",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import EdgeType",
+        "import importlib",
+        "from agents.semanticist import SemanticistAgent"
+      ],
+      "import_paths": [
+        "src/agents/semanticist.py",
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "answer",
+        "build_tools",
+        "build_graph",
+        "route_query",
+        "execute_tool",
+        "format_response",
+        "find_implementation",
+        "trace_lineage",
+        "blast_radius",
+        "explain_module",
+        "coerce_graph",
+        "get_purpose_entries",
+        "build_purpose_index",
+        "search_purpose_index",
+        "traverse_lineage",
+        "resolve_dataset_node",
+        "lineage_evidence",
+        "node_evidence",
+        "module_line_range",
+        "extract_last_path_token",
+        "load_structured_tool",
+        "load_langgraph_symbols"
+      ],
+      "function_definitions": [
+        {
+          "name": "answer",
+          "original_name": "answer",
+          "decorators": [],
+          "calls": [
+            "self.app.invoke"
+          ]
+        },
+        {
+          "name": "build_tools",
+          "original_name": "_build_tools",
+          "decorators": [],
+          "calls": [
+            "self._load_structured_tool",
+            "RuntimeError",
+            "structured_tool.from_function"
+          ]
+        },
+        {
+          "name": "build_graph",
+          "original_name": "_build_graph",
+          "decorators": [],
+          "calls": [
+            "self._load_langgraph_symbols",
+            "RuntimeError",
+            "state_graph",
+            "workflow.add_node",
+            "workflow.set_entry_point",
+            "workflow.add_edge",
+            "workflow.compile"
+          ]
+        },
+        {
+          "name": "route_query",
+          "original_name": "_route_query",
+          "decorators": [],
+          "calls": [
+            "state.get",
+            "state.get(\"query\", \"\").strip",
+            "query.lower",
+            "self._extract_last_path_token"
+          ]
+        },
+        {
+          "name": "execute_tool",
+          "original_name": "_execute_tool",
+          "decorators": [],
+          "calls": [
+            "tool.invoke",
+            "state.get"
+          ]
+        },
+        {
+          "name": "format_response",
+          "original_name": "_format_response",
+          "decorators": [],
+          "calls": [
+            "state.get",
+            "str(payload.get(\"answer\", \"No answer available.\")).strip",
+            "str",
+            "payload.get",
+            "RuntimeError",
+            "item.get",
+            "lines.append",
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "find_implementation",
+          "original_name": "find_implementation",
+          "decorators": [],
+          "calls": [
+            "self._get_purpose_entries",
+            "self._search_purpose_index",
+            "sorted",
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "trace_lineage",
+          "original_name": "trace_lineage",
+          "decorators": [],
+          "calls": [
+            "dataset.strip",
+            "self._resolve_dataset_node",
+            "direction.strip().lower",
+            "direction.strip",
+            "ValueError",
+            "self._traverse_lineage",
+            "self._node_evidence",
+            "direction_normalized.title",
+            "answer_lines.append",
+            "self._lineage_evidence",
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "blast_radius",
+          "original_name": "blast_radius",
+          "decorators": [],
+          "calls": [
+            "module_path.strip",
+            "self.graph.reverse",
+            "deque",
+            "queue.popleft",
+            "reverse_graph.successors",
+            "visited.add",
+            "queue.append",
+            "impacted.append",
+            "self._node_evidence",
+            "len",
+            "\"\\n\".join",
+            "self._lineage_evidence"
+          ]
+        },
+        {
+          "name": "explain_module",
+          "original_name": "explain_module",
+          "decorators": [],
+          "calls": [
+            "path.strip",
+            "absolute_path.exists",
+            "absolute_path.read_text",
+            "max",
+            "len",
+            "code.splitlines",
+            "sorted",
+            "self.graph.predecessors",
+            "self.graph.successors",
+            "json.dumps",
+            "self.semanticist.budget.task_descriptor",
+            "self.semanticist._llm_client_for(provider).generate_json",
+            "self.semanticist._llm_client_for",
+            "str(payload.get(\"explanation\", \"\")).strip",
+            "str",
+            "payload.get",
+            "RuntimeError",
+            "min"
+          ]
+        },
+        {
+          "name": "coerce_graph",
+          "original_name": "_coerce_graph",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "TypeError"
+          ]
+        },
+        {
+          "name": "get_purpose_entries",
+          "original_name": "_get_purpose_entries",
+          "decorators": [],
+          "calls": [
+            "self.graph.nodes",
+            "attrs.get",
+            "isinstance",
+            "purpose_statement.strip",
+            "self._module_line_range",
+            "entries.append",
+            "PurposeIndexEntry",
+            "self._build_purpose_index"
+          ]
+        },
+        {
+          "name": "build_purpose_index",
+          "original_name": "_build_purpose_index",
+          "decorators": [],
+          "calls": [
+            "self.semanticist.budget.task_descriptor",
+            "self.semanticist._embedding_client_for(provider).embed_texts",
+            "self.semanticist._embedding_client_for",
+            "TfidfVectorizer",
+            "vectorizer.fit_transform"
+          ]
+        },
+        {
+          "name": "search_purpose_index",
+          "original_name": "_search_purpose_index",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "self.semanticist._embedding_client_for(provider).embed_texts",
+            "self.semanticist._embedding_client_for",
+            "cosine_similarity",
+            "list",
+            "zip",
+            "float",
+            "self._purpose_vectorizer.transform"
+          ]
+        },
+        {
+          "name": "traverse_lineage",
+          "original_name": "_traverse_lineage",
+          "decorators": [],
+          "calls": [
+            "deque",
+            "queue.popleft",
+            "self.graph.predecessors",
+            "self.graph.successors",
+            "self.graph.get_edge_data",
+            "edge_payload.get",
+            "visited.add",
+            "queue.append",
+            "self.graph.nodes[neighbor].get",
+            "results.append"
+          ]
+        },
+        {
+          "name": "resolve_dataset_node",
+          "original_name": "_resolve_dataset_node",
+          "decorators": [],
+          "calls": [
+            "self.graph.nodes",
+            "attrs.get"
+          ]
+        },
+        {
+          "name": "lineage_evidence",
+          "original_name": "_lineage_evidence",
+          "decorators": [],
+          "calls": [
+            "evidence.extend",
+            "self._node_evidence"
+          ]
+        },
+        {
+          "name": "node_evidence",
+          "original_name": "_node_evidence",
+          "decorators": [],
+          "calls": [
+            "self.graph.nodes.get",
+            "attrs.get",
+            "self._module_line_range",
+            "isinstance"
+          ]
+        },
+        {
+          "name": "module_line_range",
+          "original_name": "_module_line_range",
+          "decorators": [],
+          "calls": [
+            "absolute_path.exists",
+            "absolute_path.read_text(encoding=\"utf-8\").splitlines",
+            "absolute_path.read_text",
+            "ast.parse",
+            "\"\\n\".join",
+            "isinstance",
+            "getattr",
+            "min",
+            "len"
+          ]
+        },
+        {
+          "name": "extract_last_path_token",
+          "original_name": "_extract_last_path_token",
+          "decorators": [],
+          "calls": [
+            "reversed",
+            "query.split",
+            "token.strip",
+            "cleaned.endswith",
+            "query.strip"
+          ]
+        },
+        {
+          "name": "load_structured_tool",
+          "original_name": "_load_structured_tool",
+          "decorators": [],
+          "calls": [
+            "importlib.import_module"
+          ]
+        },
+        {
+          "name": "load_langgraph_symbols",
+          "original_name": "_load_langgraph_symbols",
+          "decorators": [],
+          "calls": [
+            "importlib.import_module"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "FindImplementationInput",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "TraceLineageInput",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "BlastRadiusInput",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "ExplainModuleInput",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "NavigatorState",
+          "bases": [
+            "TypedDict",
+            "total=False"
+          ]
+        },
+        {
+          "name": "PurposeIndexEntry",
+          "bases": []
+        },
+        {
+          "name": "NavigatorAgent",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
+      "domain_cluster": "software intelligence",
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T00:56:56.369583",
+      "documentation_drift": false,
+      "id": "src/agents/navigator.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "answer",
+      "id": "src/agents/navigator.py::answer"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "build_tools",
+      "id": "src/agents/navigator.py::build_tools"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "build_graph",
+      "id": "src/agents/navigator.py::build_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "route_query",
+      "id": "src/agents/navigator.py::route_query"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "execute_tool",
+      "id": "src/agents/navigator.py::execute_tool"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "format_response",
+      "id": "src/agents/navigator.py::format_response"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "find_implementation",
+      "id": "src/agents/navigator.py::find_implementation"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "trace_lineage",
+      "id": "src/agents/navigator.py::trace_lineage"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "blast_radius",
+      "id": "src/agents/navigator.py::blast_radius"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "explain_module",
+      "id": "src/agents/navigator.py::explain_module"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "coerce_graph",
+      "id": "src/agents/navigator.py::coerce_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "get_purpose_entries",
+      "id": "src/agents/navigator.py::get_purpose_entries"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "build_purpose_index",
+      "id": "src/agents/navigator.py::build_purpose_index"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "search_purpose_index",
+      "id": "src/agents/navigator.py::search_purpose_index"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "traverse_lineage",
+      "id": "src/agents/navigator.py::traverse_lineage"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "resolve_dataset_node",
+      "id": "src/agents/navigator.py::resolve_dataset_node"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "lineage_evidence",
+      "id": "src/agents/navigator.py::lineage_evidence"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "node_evidence",
+      "id": "src/agents/navigator.py::node_evidence"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "module_line_range",
+      "id": "src/agents/navigator.py::module_line_range"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "extract_last_path_token",
+      "id": "src/agents/navigator.py::extract_last_path_token"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "load_structured_tool",
+      "id": "src/agents/navigator.py::load_structured_tool"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/navigator.py",
+      "name": "load_langgraph_symbols",
+      "id": "src/agents/navigator.py::load_langgraph_symbols"
+    },
+    {
+      "node_type": "module",
+      "path": "src/agents/archivist.py",
+      "language": "python",
+      "imports": [
+        "from datetime import datetime, timezone",
+        "import json",
+        "from pathlib import Path",
+        "from typing import Any",
+        "import networkx as nx",
+        "from graph.knowledge_graph import KnowledgeGraph"
+      ],
+      "import_paths": [
+        "src/graph/knowledge_graph.py"
+      ],
+      "public_functions": [
+        "generate_CODEBASE_md",
+        "generate_onboarding_brief",
+        "log_trace",
+        "coerce_graph",
+        "architecture_overview",
+        "critical_path",
+        "data_sources_and_sinks",
+        "known_debt",
+        "high_velocity_files",
+        "normalize_evidence",
+        "fallback_list"
+      ],
+      "function_definitions": [
+        {
+          "name": "generate_CODEBASE_md",
+          "original_name": "generate_CODEBASE_md",
+          "decorators": [],
+          "calls": [
+            "self._coerce_graph",
+            "self._architecture_overview",
+            "self._critical_path",
+            "self._data_sources_and_sinks",
+            "self._known_debt",
+            "self._high_velocity_files",
+            "markdown_lines.extend",
+            "\"\\n\".join",
+            "self.log_trace"
+          ]
+        },
+        {
+          "name": "generate_onboarding_brief",
+          "original_name": "generate_onboarding_brief",
+          "decorators": [],
+          "calls": [
+            "day_one_answers.get",
+            "isinstance",
+            "str(answer.get(\"question\", \"Untitled question\")).strip",
+            "str",
+            "answer.get",
+            "str(answer.get(\"answer\", \"\")).strip",
+            "lines.extend",
+            "lines.append",
+            "citation.get",
+            "\"\\n\".join(lines).rstrip",
+            "\"\\n\".join",
+            "self.log_trace",
+            "self._normalize_evidence"
+          ]
+        },
+        {
+          "name": "log_trace",
+          "original_name": "log_trace",
+          "decorators": [],
+          "calls": [
+            "self.output_dir.mkdir",
+            "datetime.now(timezone.utc).isoformat",
+            "datetime.now",
+            "float",
+            "self._normalize_evidence",
+            "self.trace_path.open",
+            "trace_file.write",
+            "json.dumps"
+          ]
+        },
+        {
+          "name": "coerce_graph",
+          "original_name": "_coerce_graph",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "TypeError"
+          ]
+        },
+        {
+          "name": "architecture_overview",
+          "original_name": "_architecture_overview",
+          "decorators": [],
+          "calls": [
+            "sum",
+            "graph.nodes",
+            "attrs.get",
+            "graph.number_of_edges",
+            "len",
+            "graph.graph.get"
+          ]
+        },
+        {
+          "name": "critical_path",
+          "original_name": "_critical_path",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "isinstance",
+            "nx.DiGraph",
+            "graph.edges",
+            "attrs.get",
+            "graph.nodes",
+            "module_graph.add_node",
+            "nx.pagerank",
+            "sorted",
+            "ranks.items"
+          ]
+        },
+        {
+          "name": "data_sources_and_sinks",
+          "original_name": "_data_sources_and_sinks",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "attrs.get",
+            "list",
+            "graph.in_degree",
+            "graph.out_degree",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "known_debt",
+          "original_name": "_known_debt",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "isinstance",
+            "debt_items.append",
+            "' -> '.join",
+            "graph.nodes",
+            "attrs.get",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "high_velocity_files",
+          "original_name": "_high_velocity_files",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "high_velocity_core.get",
+            "isinstance",
+            "graph.nodes",
+            "attrs.get",
+            "module_entries.append",
+            "float",
+            "module_entries.sort",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "normalize_evidence",
+          "original_name": "_normalize_evidence",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "normalized.append",
+            "item.get",
+            "int"
+          ]
+        },
+        {
+          "name": "fallback_list",
+          "original_name": "_fallback_list",
+          "decorators": [],
+          "calls": []
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "ArchivistAgent",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
+      "domain_cluster": "software intelligence",
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T00:57:00.291092",
+      "documentation_drift": false,
+      "id": "src/agents/archivist.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "generate_CODEBASE_md",
+      "id": "src/agents/archivist.py::generate_CODEBASE_md"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "generate_onboarding_brief",
+      "id": "src/agents/archivist.py::generate_onboarding_brief"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "log_trace",
+      "id": "src/agents/archivist.py::log_trace"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "coerce_graph",
+      "id": "src/agents/archivist.py::coerce_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "architecture_overview",
+      "id": "src/agents/archivist.py::architecture_overview"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "critical_path",
+      "id": "src/agents/archivist.py::critical_path"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "data_sources_and_sinks",
+      "id": "src/agents/archivist.py::data_sources_and_sinks"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "known_debt",
+      "id": "src/agents/archivist.py::known_debt"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "high_velocity_files",
+      "id": "src/agents/archivist.py::high_velocity_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "normalize_evidence",
+      "id": "src/agents/archivist.py::normalize_evidence"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "fallback_list",
+      "id": "src/agents/archivist.py::fallback_list"
+    },
+    {
+      "node_type": "module",
+      "path": "src/agents/semanticist.py",
+      "language": "python",
+      "imports": [
+        "import ast",
+        "from collections import defaultdict",
+        "from dataclasses import dataclass, field",
+        "import importlib",
+        "import json",
+        "import os",
+        "from pathlib import Path",
+        "from typing import Any, Protocol",
+        "from urllib import error, parse, request",
+        "import networkx as nx",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import ModuleNode"
+      ],
+      "import_paths": [
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "generate_json",
+        "embed_texts",
+        "from_env",
+        "total_tokens",
+        "as_dict",
+        "post_json",
+        "generate_json",
+        "generate_json",
+        "embed_texts",
+        "embed_texts",
+        "estimate_tokens",
+        "record_usage",
+        "cumulative_tokens",
+        "task_descriptor",
+        "remaining_budget",
+        "trim_to_token_limit",
+        "load_tiktoken",
+        "encoding_name_for_model",
+        "generate_purpose_statement",
+        "cluster_into_domains",
+        "answer_day_one_questions",
+        "load_environment",
+        "llm_client_for",
+        "embedding_client_for",
+        "resolve_module_path",
+        "extract_module_docstring",
+        "strip_module_docstring",
+        "load_kmeans",
+        "load_silhouette_score",
+        "select_cluster_count",
+        "label_cluster",
+        "coerce_to_graph",
+        "build_evidence_bundle",
+        "candidate_evidence_files",
+        "make_evidence_packets",
+        "summarize_surveyor_graph",
+        "summarize_hydrologist_graph",
+        "normalize_day_one_answers",
+        "snap_citation_to_evidence",
+        "purpose_statement_prompt",
+        "cluster_label_prompt",
+        "day_one_prompt",
+        "looks_like_repo_file",
+        "read_env_file",
+        "coerce_env_int",
+        "normalize_provider",
+        "normalize_gemini_model_name",
+        "extract_gemini_text",
+        "parse_json_text"
+      ],
+      "function_definitions": [
+        {
+          "name": "generate_json",
+          "original_name": "generate_json",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "embed_texts",
+          "original_name": "embed_texts",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "from_env",
+          "original_name": "from_env",
+          "decorators": [],
+          "calls": [
+            "cls",
+            "normalize_provider",
+            "env.get",
+            "coerce_env_int"
+          ]
+        },
+        {
+          "name": "total_tokens",
+          "original_name": "total_tokens",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "as_dict",
+          "original_name": "as_dict",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "post_json",
+          "original_name": "_post_json",
+          "decorators": [],
+          "calls": [
+            "request_headers.update",
+            "json.dumps(payload).encode",
+            "json.dumps",
+            "request.Request",
+            "request.urlopen",
+            "json.loads",
+            "response.read().decode",
+            "response.read",
+            "exc.read().decode",
+            "exc.read",
+            "RuntimeError"
+          ]
+        },
+        {
+          "name": "generate_json",
+          "original_name": "generate_json",
+          "decorators": [],
+          "calls": [
+            "normalize_gemini_model_name",
+            "parse.quote",
+            "self._post_json",
+            "extract_gemini_text",
+            "parse_json_text"
+          ]
+        },
+        {
+          "name": "generate_json",
+          "original_name": "generate_json",
+          "decorators": [],
+          "calls": [
+            "self._post_json",
+            "parse_json_text",
+            "str",
+            "response.get"
+          ]
+        },
+        {
+          "name": "embed_texts",
+          "original_name": "embed_texts",
+          "decorators": [],
+          "calls": [
+            "normalize_gemini_model_name",
+            "parse.quote",
+            "self._post_json",
+            "response.get(\"embedding\", {}).get",
+            "response.get",
+            "isinstance",
+            "RuntimeError",
+            "embeddings.append",
+            "float"
+          ]
+        },
+        {
+          "name": "embed_texts",
+          "original_name": "embed_texts",
+          "decorators": [],
+          "calls": [
+            "self._post_json",
+            "response.get",
+            "isinstance",
+            "float",
+            "RuntimeError"
+          ]
+        },
+        {
+          "name": "estimate_tokens",
+          "original_name": "estimate_tokens",
+          "decorators": [],
+          "calls": [
+            "self._load_tiktoken",
+            "max",
+            "len",
+            "tiktoken_module.get_encoding",
+            "self._encoding_name_for_model",
+            "encoding.encode"
+          ]
+        },
+        {
+          "name": "record_usage",
+          "original_name": "record_usage",
+          "decorators": [],
+          "calls": [
+            "UsageRecord",
+            "self.estimate_tokens",
+            "self.usage_history.append"
+          ]
+        },
+        {
+          "name": "cumulative_tokens",
+          "original_name": "cumulative_tokens",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "task_descriptor",
+          "original_name": "task_descriptor",
+          "decorators": [],
+          "calls": []
+        },
+        {
+          "name": "remaining_budget",
+          "original_name": "remaining_budget",
+          "decorators": [],
+          "calls": [
+            "self.task_descriptor",
+            "self.cumulative_tokens"
+          ]
+        },
+        {
+          "name": "trim_to_token_limit",
+          "original_name": "trim_to_token_limit",
+          "decorators": [],
+          "calls": [
+            "self.estimate_tokens",
+            "text.splitlines",
+            "\"\\n\".join",
+            "trimmed_lines.append"
+          ]
+        },
+        {
+          "name": "load_tiktoken",
+          "original_name": "_load_tiktoken",
+          "decorators": [],
+          "calls": [
+            "importlib.import_module"
+          ]
+        },
+        {
+          "name": "encoding_name_for_model",
+          "original_name": "_encoding_name_for_model",
+          "decorators": [],
+          "calls": [
+            "model.startswith"
+          ]
+        },
+        {
+          "name": "generate_purpose_statement",
+          "original_name": "generate_purpose_statement",
+          "decorators": [],
+          "calls": [
+            "self._resolve_module_path",
+            "module_path.read_text",
+            "self._extract_module_docstring",
+            "self._strip_module_docstring",
+            "self.budget.task_descriptor",
+            "self.budget.trim_to_token_limit",
+            "self._purpose_statement_prompt",
+            "self._llm_client_for(provider).generate_json",
+            "self._llm_client_for",
+            "json.dumps",
+            "self.budget.record_usage",
+            "str(payload.get(\"purpose_statement\", \"\")).strip",
+            "str",
+            "payload.get",
+            "RuntimeError",
+            "PurposeStatementResult",
+            "bool",
+            "str(payload.get(\"reasoning\", \"\")).strip"
+          ]
+        },
+        {
+          "name": "cluster_into_domains",
+          "original_name": "cluster_into_domains",
+          "decorators": [],
+          "calls": [
+            "statement.strip",
+            "self.budget.task_descriptor",
+            "self._embedding_client_for(embedding_provider).embed_texts",
+            "self._embedding_client_for",
+            "self._select_cluster_count",
+            "self._load_kmeans",
+            "RuntimeError",
+            "kmeans_class",
+            "list",
+            "kmeans.fit_predict(embeddings).tolist",
+            "kmeans.fit_predict",
+            "defaultdict",
+            "enumerate",
+            "cluster_members[int(cluster_id)].append",
+            "int",
+            "sorted",
+            "self._label_cluster",
+            "clusters.append",
+            "DomainCluster"
+          ]
+        },
+        {
+          "name": "answer_day_one_questions",
+          "original_name": "answer_day_one_questions",
+          "decorators": [],
+          "calls": [
+            "self.budget.task_descriptor",
+            "self._coerce_to_graph",
+            "self._build_evidence_bundle",
+            "self._day_one_prompt",
+            "self._llm_client_for(provider).generate_json",
+            "self._llm_client_for",
+            "json.dumps",
+            "self.budget.record_usage",
+            "self._normalize_day_one_answers",
+            "self._llm_client_for(fallback_provider).generate_json"
+          ]
+        },
+        {
+          "name": "load_environment",
+          "original_name": "_load_environment",
+          "decorators": [],
+          "calls": [
+            "dict",
+            "Path(env_path).resolve",
+            "Path",
+            "default_env_path.exists",
+            "read_env_file(default_env_path).items",
+            "read_env_file",
+            "combined.setdefault"
+          ]
+        },
+        {
+          "name": "llm_client_for",
+          "original_name": "_llm_client_for",
+          "decorators": [],
+          "calls": [
+            "self.environment.get",
+            "RuntimeError",
+            "GeminiStructuredLLMClient",
+            "OllamaStructuredLLMClient"
+          ]
+        },
+        {
+          "name": "embedding_client_for",
+          "original_name": "_embedding_client_for",
+          "decorators": [],
+          "calls": [
+            "self.environment.get",
+            "RuntimeError",
+            "GeminiEmbeddingClient",
+            "OllamaEmbeddingClient"
+          ]
+        },
+        {
+          "name": "resolve_module_path",
+          "original_name": "_resolve_module_path",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "module_path.is_absolute",
+            "(self.repository_path / module_path).resolve"
+          ]
+        },
+        {
+          "name": "extract_module_docstring",
+          "original_name": "_extract_module_docstring",
+          "decorators": [],
+          "calls": [
+            "ast.parse",
+            "ast.get_docstring"
+          ]
+        },
+        {
+          "name": "strip_module_docstring",
+          "original_name": "_strip_module_docstring",
+          "decorators": [],
+          "calls": [
+            "ast.parse",
+            "isinstance",
+            "module_source.splitlines",
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "load_kmeans",
+          "original_name": "_load_kmeans",
+          "decorators": [],
+          "calls": [
+            "importlib.import_module"
+          ]
+        },
+        {
+          "name": "load_silhouette_score",
+          "original_name": "_load_silhouette_score",
+          "decorators": [],
+          "calls": [
+            "importlib.import_module"
+          ]
+        },
+        {
+          "name": "select_cluster_count",
+          "original_name": "_select_cluster_count",
+          "decorators": [],
+          "calls": [
+            "len",
+            "min",
+            "list",
+            "range",
+            "self._load_kmeans",
+            "self._load_silhouette_score",
+            "kmeans_class",
+            "kmeans.fit_predict",
+            "float",
+            "silhouette_score"
+          ]
+        },
+        {
+          "name": "label_cluster",
+          "original_name": "_label_cluster",
+          "decorators": [],
+          "calls": [
+            "self.budget.task_descriptor",
+            "self._cluster_label_prompt",
+            "self._llm_client_for(provider).generate_json",
+            "self._llm_client_for",
+            "self.budget.record_usage",
+            "json.dumps",
+            "str(payload.get(\"domain_label\", \"\")).strip().lower",
+            "str(payload.get(\"domain_label\", \"\")).strip",
+            "str",
+            "payload.get",
+            "RuntimeError"
+          ]
+        },
+        {
+          "name": "coerce_to_graph",
+          "original_name": "_coerce_to_graph",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "nx.node_link_graph",
+            "TypeError"
+          ]
+        },
+        {
+          "name": "build_evidence_bundle",
+          "original_name": "_build_evidence_bundle",
+          "decorators": [],
+          "calls": [
+            "self._candidate_evidence_files",
+            "max",
+            "self.budget.remaining_budget",
+            "absolute_path.exists",
+            "absolute_path.is_file",
+            "self._make_evidence_packets",
+            "self.budget.estimate_tokens",
+            "evidence_packets.append",
+            "packet.as_dict",
+            "self._summarize_surveyor_graph",
+            "self._summarize_hydrologist_graph"
+          ]
+        },
+        {
+          "name": "candidate_evidence_files",
+          "original_name": "_candidate_evidence_files",
+          "decorators": [],
+          "calls": [
+            "set",
+            "isinstance",
+            "graph_metadata.get",
+            "hub.get",
+            "seen.add",
+            "files.append",
+            "graph_metadata.get(\"high_velocity_core\", {}).get",
+            "file_entry.get",
+            "surveyor_graph.nodes",
+            "attributes.get",
+            "hydrologist_graph.nodes",
+            "self._looks_like_repo_file"
+          ]
+        },
+        {
+          "name": "make_evidence_packets",
+          "original_name": "_make_evidence_packets",
+          "decorators": [],
+          "calls": [
+            "absolute_path.read_text(encoding=\"utf-8\").splitlines",
+            "absolute_path.read_text",
+            "max",
+            "range",
+            "len",
+            "min",
+            "any",
+            "line.strip",
+            "\"\\n\".join",
+            "enumerate",
+            "packets.append",
+            "EvidencePacket"
+          ]
+        },
+        {
+          "name": "summarize_surveyor_graph",
+          "original_name": "_summarize_surveyor_graph",
+          "decorators": [],
+          "calls": [
+            "surveyor_graph.nodes",
+            "attrs.get",
+            "len",
+            "surveyor_graph.graph.get"
+          ]
+        },
+        {
+          "name": "summarize_hydrologist_graph",
+          "original_name": "_summarize_hydrologist_graph",
+          "decorators": [],
+          "calls": [
+            "hydrologist_graph.nodes",
+            "attrs.get",
+            "hydrologist_graph.in_degree",
+            "hydrologist_graph.out_degree",
+            "len",
+            "sorted"
+          ]
+        },
+        {
+          "name": "normalize_day_one_answers",
+          "original_name": "_normalize_day_one_answers",
+          "decorators": [],
+          "calls": [
+            "int",
+            "evidence_bundle.get",
+            "defaultdict",
+            "citations_by_path[path].append",
+            "citations_by_path.values",
+            "entries.sort",
+            "payload.get",
+            "isinstance",
+            "len",
+            "RuntimeError",
+            "zip",
+            "answer_payload.get",
+            "citation.get",
+            "self._snap_citation_to_evidence",
+            "citations.append",
+            "normalized_answers.append",
+            "str(answer_payload.get(\"answer\", \"\")).strip",
+            "str"
+          ]
+        },
+        {
+          "name": "snap_citation_to_evidence",
+          "original_name": "_snap_citation_to_evidence",
+          "decorators": [],
+          "calls": [
+            "citations_by_path.get",
+            "min",
+            "abs"
+          ]
+        },
+        {
+          "name": "purpose_statement_prompt",
+          "original_name": "_purpose_statement_prompt",
+          "decorators": [],
+          "calls": [
+            "existing_docstring.strip"
+          ]
+        },
+        {
+          "name": "cluster_label_prompt",
+          "original_name": "_cluster_label_prompt",
+          "decorators": [],
+          "calls": [
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "day_one_prompt",
+          "original_name": "_day_one_prompt",
+          "decorators": [],
+          "calls": [
+            "json.dumps",
+            "self._summarize_surveyor_graph",
+            "self._summarize_hydrologist_graph"
+          ]
+        },
+        {
+          "name": "looks_like_repo_file",
+          "original_name": "_looks_like_repo_file",
+          "decorators": [],
+          "calls": [
+            "node_id.startswith"
+          ]
+        },
+        {
+          "name": "read_env_file",
+          "original_name": "_read_env_file",
+          "decorators": [],
+          "calls": [
+            "env_path.read_text(encoding=\"utf-8\").splitlines",
+            "env_path.read_text",
+            "raw_line.strip",
+            "line.startswith",
+            "line.split",
+            "key.strip",
+            "value.strip().strip",
+            "value.strip"
+          ]
+        },
+        {
+          "name": "coerce_env_int",
+          "original_name": "_coerce_env_int",
+          "decorators": [],
+          "calls": [
+            "int"
+          ]
+        },
+        {
+          "name": "normalize_provider",
+          "original_name": "_normalize_provider",
+          "decorators": [],
+          "calls": [
+            "provider.strip().lower",
+            "provider.strip"
+          ]
+        },
+        {
+          "name": "normalize_gemini_model_name",
+          "original_name": "_normalize_gemini_model_name",
+          "decorators": [],
+          "calls": [
+            "model.startswith"
+          ]
+        },
+        {
+          "name": "extract_gemini_text",
+          "original_name": "_extract_gemini_text",
+          "decorators": [],
+          "calls": [
+            "response.get",
+            "candidate.get",
+            "content.get",
+            "part.get",
+            "isinstance",
+            "parts.append",
+            "RuntimeError",
+            "\"\\n\".join"
+          ]
+        },
+        {
+          "name": "parse_json_text",
+          "original_name": "_parse_json_text",
+          "decorators": [],
+          "calls": [
+            "text.strip",
+            "cleaned.startswith",
+            "cleaned.strip",
+            "cleaned[4:].lstrip",
+            "json.loads",
+            "isinstance",
+            "cleaned.find",
+            "cleaned.rfind",
+            "RuntimeError"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "StructuredLLMClient",
+          "bases": [
+            "Protocol"
+          ]
+        },
+        {
+          "name": "EmbeddingClient",
+          "bases": [
+            "Protocol"
+          ]
+        },
+        {
+          "name": "ModelTierConfig",
+          "bases": []
+        },
+        {
+          "name": "UsageRecord",
+          "bases": []
+        },
+        {
+          "name": "PurposeStatementResult",
+          "bases": []
+        },
+        {
+          "name": "DomainCluster",
+          "bases": []
+        },
+        {
+          "name": "DayOneAnswer",
+          "bases": []
+        },
+        {
+          "name": "EvidencePacket",
+          "bases": []
+        },
+        {
+          "name": "HTTPJsonClient",
+          "bases": []
+        },
+        {
+          "name": "GeminiStructuredLLMClient",
+          "bases": [
+            "HTTPJsonClient"
+          ]
+        },
+        {
+          "name": "OllamaStructuredLLMClient",
+          "bases": [
+            "HTTPJsonClient"
+          ]
+        },
+        {
+          "name": "GeminiEmbeddingClient",
+          "bases": [
+            "HTTPJsonClient"
+          ]
+        },
+        {
+          "name": "OllamaEmbeddingClient",
+          "bases": [
+            "HTTPJsonClient"
+          ]
+        },
+        {
+          "name": "ContextWindowBudget",
+          "bases": []
+        },
+        {
+          "name": "SemanticistAgent",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation.",
+      "domain_cluster": "software intelligence",
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T01:28:02.520875",
+      "documentation_drift": false,
+      "id": "src/agents/semanticist.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "generate_json",
+      "id": "src/agents/semanticist.py::generate_json"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "embed_texts",
+      "id": "src/agents/semanticist.py::embed_texts"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "from_env",
+      "id": "src/agents/semanticist.py::from_env"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "total_tokens",
+      "id": "src/agents/semanticist.py::total_tokens"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "as_dict",
+      "id": "src/agents/semanticist.py::as_dict"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "post_json",
+      "id": "src/agents/semanticist.py::post_json"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "estimate_tokens",
+      "id": "src/agents/semanticist.py::estimate_tokens"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "record_usage",
+      "id": "src/agents/semanticist.py::record_usage"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "cumulative_tokens",
+      "id": "src/agents/semanticist.py::cumulative_tokens"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "task_descriptor",
+      "id": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "remaining_budget",
+      "id": "src/agents/semanticist.py::remaining_budget"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "trim_to_token_limit",
+      "id": "src/agents/semanticist.py::trim_to_token_limit"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "load_tiktoken",
+      "id": "src/agents/semanticist.py::load_tiktoken"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "encoding_name_for_model",
+      "id": "src/agents/semanticist.py::encoding_name_for_model"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "generate_purpose_statement",
+      "id": "src/agents/semanticist.py::generate_purpose_statement"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "cluster_into_domains",
+      "id": "src/agents/semanticist.py::cluster_into_domains"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "answer_day_one_questions",
+      "id": "src/agents/semanticist.py::answer_day_one_questions"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "load_environment",
+      "id": "src/agents/semanticist.py::load_environment"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "llm_client_for",
+      "id": "src/agents/semanticist.py::llm_client_for"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "embedding_client_for",
+      "id": "src/agents/semanticist.py::embedding_client_for"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "resolve_module_path",
+      "id": "src/agents/semanticist.py::resolve_module_path"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "extract_module_docstring",
+      "id": "src/agents/semanticist.py::extract_module_docstring"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "strip_module_docstring",
+      "id": "src/agents/semanticist.py::strip_module_docstring"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "load_kmeans",
+      "id": "src/agents/semanticist.py::load_kmeans"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "load_silhouette_score",
+      "id": "src/agents/semanticist.py::load_silhouette_score"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "select_cluster_count",
+      "id": "src/agents/semanticist.py::select_cluster_count"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "label_cluster",
+      "id": "src/agents/semanticist.py::label_cluster"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "coerce_to_graph",
+      "id": "src/agents/semanticist.py::coerce_to_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "build_evidence_bundle",
+      "id": "src/agents/semanticist.py::build_evidence_bundle"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "candidate_evidence_files",
+      "id": "src/agents/semanticist.py::candidate_evidence_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "make_evidence_packets",
+      "id": "src/agents/semanticist.py::make_evidence_packets"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "summarize_surveyor_graph",
+      "id": "src/agents/semanticist.py::summarize_surveyor_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "summarize_hydrologist_graph",
+      "id": "src/agents/semanticist.py::summarize_hydrologist_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "normalize_day_one_answers",
+      "id": "src/agents/semanticist.py::normalize_day_one_answers"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "snap_citation_to_evidence",
+      "id": "src/agents/semanticist.py::snap_citation_to_evidence"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "purpose_statement_prompt",
+      "id": "src/agents/semanticist.py::purpose_statement_prompt"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "cluster_label_prompt",
+      "id": "src/agents/semanticist.py::cluster_label_prompt"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "day_one_prompt",
+      "id": "src/agents/semanticist.py::day_one_prompt"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "looks_like_repo_file",
+      "id": "src/agents/semanticist.py::looks_like_repo_file"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "read_env_file",
+      "id": "src/agents/semanticist.py::read_env_file"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "coerce_env_int",
+      "id": "src/agents/semanticist.py::coerce_env_int"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "normalize_provider",
+      "id": "src/agents/semanticist.py::normalize_provider"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "normalize_gemini_model_name",
+      "id": "src/agents/semanticist.py::normalize_gemini_model_name"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "extract_gemini_text",
+      "id": "src/agents/semanticist.py::extract_gemini_text"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/semanticist.py",
+      "name": "parse_json_text",
+      "id": "src/agents/semanticist.py::parse_json_text"
+    },
+    {
       "node_type": "module",
       "path": "src/models/__init__.py",
       "language": "python",
@@ -1956,15 +4851,16 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+      "domain_cluster": "system model",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:24:24.329693"
+      "last_modified": "2026-03-11T17:24:24.329693",
+      "documentation_drift": false,
+      "id": "src/models/__init__.py"
     },
     {
-      "id": "src/models/schemas.py",
       "node_type": "module",
       "path": "src/models/schemas.py",
       "language": "python",
@@ -2028,12 +4924,14 @@
           ]
         }
       ],
-      "purpose_statement": null,
-      "domain_cluster": null,
+      "purpose_statement": "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture.",
+      "domain_cluster": "system model",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-13T10:08:10.318625"
+      "last_modified": "2026-03-13T10:08:10.318625",
+      "documentation_drift": false,
+      "id": "src/models/schemas.py"
     }
   ],
   "links": [
@@ -2085,12 +4983,62 @@
     {
       "edge_type": "IMPORTS",
       "source": "src/orchestrator.py",
+      "target": "src/agents/archivist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
       "target": "src/agents/hydrologist.py"
     },
     {
       "edge_type": "IMPORTS",
       "source": "src/orchestrator.py",
+      "target": "src/agents/semanticist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
       "target": "src/agents/surveyor.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::get_changed_files",
+      "target": "src/orchestrator.py::run"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::load_changed_files",
+      "target": "src/orchestrator.py::get_changed_files"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::is_git_repository",
+      "target": "src/orchestrator.py::run"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::current_commit_hash",
+      "target": "src/orchestrator.py::run"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/analyzers/python_data_flow.py",
+      "target": "src/analyzers/sql_lineage.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/python_data_flow.py::extract_sql_dependencies",
+      "target": "src/analyzers/python_data_flow.py::extract_sql_dependencies"
     },
     {
       "edge_type": "CALLS",
@@ -2106,6 +5054,21 @@
       "edge_type": "CALLS",
       "source": "src/analyzers/sql_lineage.py::parse_dbt_sql",
       "target": "src/analyzers/sql_lineage.py::extract_dbt_references"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::analyze_sql",
+      "target": "src/analyzers/sql_lineage.py::extract_sql_dependencies"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::analyze_file",
+      "target": "src/analyzers/sql_lineage.py::parse_dbt_sql"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/sql_lineage.py::analyze_file",
+      "target": "src/analyzers/sql_lineage.py::analyze_sql"
     },
     {
       "edge_type": "CALLS",
@@ -2126,6 +5089,16 @@
       "edge_type": "IMPORTS",
       "source": "src/analyzers/dag_config_parser.py",
       "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::parse_dbt_resources",
+      "target": "src/analyzers/dag_config_parser.py::parse_dbt_yaml"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/analyzers/dag_config_parser.py::analyze_airflow_dag",
+      "target": "src/analyzers/dag_config_parser.py::parse_airflow_dag_file"
     },
     {
       "edge_type": "CALLS",
@@ -2350,6 +5323,11 @@
     {
       "edge_type": "IMPORTS",
       "source": "src/agents/hydrologist.py",
+      "target": "src/analyzers/python_data_flow.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/hydrologist.py",
       "target": "src/analyzers/sql_lineage.py"
     },
     {
@@ -2371,6 +5349,176 @@
       "edge_type": "CALLS",
       "source": "src/agents/hydrologist.py::find_sinks",
       "target": "src/agents/hydrologist.py::find_sink_nodes"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/agents/semanticist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/archivist.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/archivist.py::generate_CODEBASE_md",
+      "target": "src/agents/archivist.py::log_trace"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/archivist.py::generate_onboarding_brief",
+      "target": "src/agents/archivist.py::log_trace"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/semanticist.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/semanticist.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_json",
+      "target": "src/agents/semanticist.py::normalize_gemini_model_name"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_json",
+      "target": "src/agents/semanticist.py::extract_gemini_text"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_json",
+      "target": "src/agents/semanticist.py::parse_json_text"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::embed_texts",
+      "target": "src/agents/semanticist.py::normalize_gemini_model_name"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::from_env",
+      "target": "src/agents/semanticist.py::normalize_provider"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::from_env",
+      "target": "src/agents/semanticist.py::coerce_env_int"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::record_usage",
+      "target": "src/agents/semanticist.py::estimate_tokens"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::remaining_budget",
+      "target": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::remaining_budget",
+      "target": "src/agents/semanticist.py::cumulative_tokens"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::trim_to_token_limit",
+      "target": "src/agents/semanticist.py::estimate_tokens"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_purpose_statement",
+      "target": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_purpose_statement",
+      "target": "src/agents/semanticist.py::trim_to_token_limit"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_purpose_statement",
+      "target": "src/agents/semanticist.py::generate_json"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::generate_purpose_statement",
+      "target": "src/agents/semanticist.py::record_usage"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::cluster_into_domains",
+      "target": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::cluster_into_domains",
+      "target": "src/agents/semanticist.py::embed_texts"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::answer_day_one_questions",
+      "target": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::answer_day_one_questions",
+      "target": "src/agents/semanticist.py::generate_json"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::answer_day_one_questions",
+      "target": "src/agents/semanticist.py::record_usage"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::load_environment",
+      "target": "src/agents/semanticist.py::read_env_file"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::label_cluster",
+      "target": "src/agents/semanticist.py::task_descriptor"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::label_cluster",
+      "target": "src/agents/semanticist.py::generate_json"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::label_cluster",
+      "target": "src/agents/semanticist.py::record_usage"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::build_evidence_bundle",
+      "target": "src/agents/semanticist.py::remaining_budget"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::build_evidence_bundle",
+      "target": "src/agents/semanticist.py::estimate_tokens"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/agents/semanticist.py::build_evidence_bundle",
+      "target": "src/agents/semanticist.py::as_dict"
     }
   ]
 }

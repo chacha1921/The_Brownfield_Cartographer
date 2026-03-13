@@ -108,16 +108,16 @@ Then set at least:
 Default model routing in `.env` is:
 
 - `SEMANTICIST_FAST_PROVIDER=gemini`
-- `SEMANTICIST_FAST_MODEL=gemini-1.5-flash`
+- `SEMANTICIST_FAST_MODEL=gemini-2.5-flash`
 - `SEMANTICIST_HEAVY_PROVIDER=ollama`
-- `SEMANTICIST_HEAVY_MODEL=llama3.1:8b-instruct`
+- `SEMANTICIST_HEAVY_MODEL=llama3.2:latest`
 - `SEMANTICIST_EMBEDDING_PROVIDER=gemini`
-- `SEMANTICIST_EMBEDDING_MODEL=text-embedding-004`
+- `SEMANTICIST_EMBEDDING_MODEL=gemini-embedding-001`
 
 To use the local Ollama model, make sure it is available before running analysis, for example:
 
 ```bash
-ollama pull llama3.1:8b-instruct
+ollama pull llama3.2:latest
 ```
 
 If you want a different Gemini or Ollama model, update the related `.env` values without changing application code.

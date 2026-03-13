@@ -12,6 +12,8 @@ authors = [
   { name = "Chalie LIjalem", email = "chalielijalem@gmail.com" },
 ]
 dependencies = [
+  "langchain-core",
+  "langgraph",
   "pydantic",
   "networkx",
   "scikit-learn",

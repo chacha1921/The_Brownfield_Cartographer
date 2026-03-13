@@ -1,0 +1,1101 @@
+{
+  "provider_used": "gemini",
+  "model_used": "gemini-2.5-flash",
+  "prompt_tokens": 56033,
+  "response_tokens": 1344,
+  "answers": [
+    {
+      "question": "What business capability does this codebase primarily support?",
+      "answer": "This codebase primarily supports the automated analysis of existing software repositories to generate architectural insights, data lineage maps, and semantic documentation. It aims to accelerate understanding and onboarding for engineers by synthesizing complex system information into structured knowledge graphs and human-readable reports, such as the `onboarding_brief.md` and `day_one_answers.json`.",
+      "citations": [
+        {
+          "path": "README.md",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "src/agents/semanticist.py",
+          "line_start": 276,
+          "line_end": 305
+        },
+        {
+          "path": "src/agents/hydrologist.py",
+          "line_start": 1,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "question": "Which modules and workflows should a new engineer read first to understand the system's critical path?",
+      "answer": "To grasp the system's critical path, a new engineer should begin with `src/cli.py`, which serves as the primary user interface for initiating repository analysis. Next, examine `src/orchestrator.py` to understand how the various analysis agents are coordinated and how incremental updates are managed. Then, review `src/models/schemas.py` to familiarize yourself with the fundamental data structures like `ModuleNode`, `DatasetNode`, and `EdgeType` that represent the system's knowledge. Finally, explore `src/graph/knowledge_graph.py` to see how these schemas are instantiated and managed within the central graph data store.",
+      "citations": [
+        {
+          "path": "src/cli.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/cli.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 51,
+          "line_end": 80
+        },
+        {
+          "path": "src/models/schemas.py",
+          "line_start": 76,
+          "line_end": 85
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
+          "line_start": 1,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "question": "Where are the highest-risk change surfaces, and why?",
+      "answer": "The highest-risk change surfaces include `src/models/schemas.py`, which defines the foundational data models for all graph entities; modifications here would propagate across the entire system due to its architectural centrality. Similarly, `src/graph/knowledge_graph.py` presents a significant risk, as it encapsulates the core graph storage and manipulation logic. Changes to `src/orchestrator.py` are also high-risk because it coordinates all analysis phases, making it central to the system's operational flow. Lastly, `src/analyzers/sql_lineage.py` is a high-velocity core file critical for data lineage extraction, meaning frequent changes could introduce regressions in a key analysis capability.",
+      "citations": [
+        {
+          "path": "src/models/schemas.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 26,
+          "line_end": 55
+        },
+        {
+          "path": "src/analyzers/sql_lineage.py",
+          "line_start": 76,
+          "line_end": 105
+        }
+      ]
+    },
+    {
+      "question": "How does data enter, move through, and exit the system?",
+      "answer": "Data enters the system via a specified repository path, which can be a local directory or a remote Git URL, handled by `src/cli.py`. The `Orchestrator` then coordinates the analysis: `SurveyorAgent` processes source code to build a module import graph and extract change velocity, while `HydrologistAgent` analyzes Python, SQL, dbt, and Airflow configurations to construct a data lineage graph. Finally, `SemanticistAgent` enriches these graphs with LLM-generated purpose statements and domain clusters, synthesizing the information into human-readable outputs. The system exits by persisting these insights as JSON graph files (`module_graph.json`, `lineage_graph.json`), a comprehensive `CODEBASE.md` report, an `onboarding_brief.md`, and `day_one_answers.json` within the `.cartography/` directory of the analyzed repository.",
+      "citations": [
+        {
+          "path": "src/cli.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 76,
+          "line_end": 105
+        }
+      ]
+    },
+    {
+      "question": "What domain architecture map best explains how responsibilities are split across the codebase?",
+      "answer": "The codebase's responsibilities are clearly delineated into several domain clusters. The `orchestration` cluster manages the overall analysis workflow, including CLI interactions and output persistence. `dependency analysis` encompasses the static code analysis tools for extracting module imports, data flow, and parsing configuration files like dbt and Airflow. The `system model` cluster defines the core data structures, such as `Node` and `EdgeType`, used to represent architectural entities. All analyzed information is stored and managed by the `knowledge graph` cluster. Finally, the `software intelligence` cluster is responsible for semantic enrichment, domain clustering, and synthesizing human-readable insights, including the day-one onboarding answers.",
+      "citations": [
+        {
+          "path": "src/cli.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 26,
+          "line_end": 55
+        },
+        {
+          "path": "src/analyzers/sql_lineage.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "src/models/schemas.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/agents/semanticist.py",
+          "line_start": 276,
+          "line_end": 305
+        }
+      ]
+    }
+  ],
+  "evidence_bundle": {
+    "files": [
+      {
+        "path": "src/models/schemas.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from datetime import datetime\n2: from enum import Enum\n3: from typing import Literal\n4: \n5: from pydantic import BaseModel, ConfigDict, Field\n6: \n7: \n8: class EdgeType(str, Enum):\n9: \tIMPORTS = \"IMPORTS\"\n10: \tPRODUCES = \"PRODUCES\"\n11: \tCONSUMES = \"CONSUMES\"\n12: \tCALLS = \"CALLS\"\n13: \tCONFIGURES = \"CONFIGURES\"\n14: \n15: \n16: class Node(BaseModel):\n17: \tmodel_config = ConfigDict(extra=\"forbid\")\n18: \n19: \tid: str = Field(..., description=\"Unique identifier for the graph node.\")\n20: \tnode_type: str = Field(..., description=\"Concrete node type discriminator.\")\n21: \n22: \n23: class ClassDefinition(BaseModel):\n24: \tmodel_config = ConfigDict(extra=\"forbid\")\n25: \n26: \tname: str\n27: \tbases: list[str] = Field(default_factory=list)\n28: \n29: \n30: class FunctionDefinition(BaseModel):"
+      },
+      {
+        "path": "src/models/schemas.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \tname: str\n27: \tbases: list[str] = Field(default_factory=list)\n28: \n29: \n30: class FunctionDefinition(BaseModel):\n31: \tmodel_config = ConfigDict(extra=\"forbid\")\n32: \n33: \tname: str\n34: \toriginal_name: str\n35: \tdecorators: list[str] = Field(default_factory=list)\n36: \tcalls: list[str] = Field(default_factory=list)\n37: \n38: \n39: class ModuleNode(Node):\n40: \tnode_type: Literal[\"module\"] = \"module\"\n41: \tpath: str\n42: \tlanguage: str\n43: \timports: list[str] = Field(default_factory=list)\n44: \timport_paths: list[str] = Field(default_factory=list)\n45: \tpublic_functions: list[str] = Field(default_factory=list)\n46: \tfunction_definitions: list[FunctionDefinition] = Field(default_factory=list)\n47: \tclass_definitions: list[ClassDefinition] = Field(default_factory=list)\n48: \tpurpose_statement: str | None = None\n49: \tdomain_cluster: str | None = None\n50: \tcomplexity_score: float | None = Field(default=None, ge=0)\n51: \tchange_velocity_30d: float | None = Field(default=None, ge=0)\n52: \tis_dead_code_candidate: bool = False\n53: \tlast_modified: datetime | None = None\n54: \n55: "
+      },
+      {
+        "path": "src/models/schemas.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \tchange_velocity_30d: float | None = Field(default=None, ge=0)\n52: \tis_dead_code_candidate: bool = False\n53: \tlast_modified: datetime | None = None\n54: \n55: \n56: class DatasetNode(Node):\n57: \tnode_type: Literal[\"dataset\"] = \"dataset\"\n58: \tname: str\n59: \tstorage_type: str\n60: \tschema_snapshot: dict[str, object] = Field(default_factory=dict)\n61: \tfreshness_sla: str | None = None\n62: \towner: str | None = None\n63: \tis_source_of_truth: bool = False\n64: \n65: \n66: class FunctionNode(Node):\n67: \tnode_type: Literal[\"function\"] = \"function\"\n68: \tmodule_path: str\n69: \tname: str\n70: \n71: \n72: class TransformationNode(Node):\n73: \tnode_type: Literal[\"transformation\"] = \"transformation\"\n74: \n75: \n76: __all__ = [\n77: \t\"ClassDefinition\",\n78: \t\"DatasetNode\",\n79: \t\"EdgeType\",\n80: \t\"FunctionDefinition\","
+      },
+      {
+        "path": "src/models/schemas.py",
+        "line_start": 76,
+        "line_end": 85,
+        "excerpt": "76: __all__ = [\n77: \t\"ClassDefinition\",\n78: \t\"DatasetNode\",\n79: \t\"EdgeType\",\n80: \t\"FunctionDefinition\",\n81: \t\"FunctionNode\",\n82: \t\"ModuleNode\",\n83: \t\"Node\",\n84: \t\"TransformationNode\",\n85: ]"
+      },
+      {
+        "path": "src/graph/knowledge_graph.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import json\n4: from pathlib import Path\n5: from typing import Any\n6: \n7: import networkx as nx\n8: \n9: from models.schemas import EdgeType, Node\n10: \n11: \n12: class KnowledgeGraph:\n13: \tdef __init__(self) -> None:\n14: \t\tself.graph = nx.DiGraph()\n15: \n16: \tdef add_node(self, node: Node) -> None:\n17: \t\tnode_payload = node.model_dump(mode=\"json\")\n18: \t\tself.graph.add_node(node.id, **node_payload)\n19: \n20: \tdef add_edge(self, source: Node | str, target: Node | str, edge_type: EdgeType) -> None:\n21: \t\tsource_id = source.id if isinstance(source, Node) else source\n22: \t\ttarget_id = target.id if isinstance(target, Node) else target\n23: \t\tself.graph.add_edge(source_id, target_id, edge_type=edge_type.value)\n24: \n25: \tdef save_to_json(self, file_path: str | Path) -> None:\n26: \t\tdestination = Path(file_path)\n27: \t\tdestination.parent.mkdir(parents=True, exist_ok=True)\n28: \n29: \t\ttry:\n30: \t\t\tgraph_payload = nx.node_link_data(self.graph, edges=\"links\")"
+      },
+      {
+        "path": "src/graph/knowledge_graph.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \t\tdestination = Path(file_path)\n27: \t\tdestination.parent.mkdir(parents=True, exist_ok=True)\n28: \n29: \t\ttry:\n30: \t\t\tgraph_payload = nx.node_link_data(self.graph, edges=\"links\")\n31: \t\texcept TypeError:\n32: \t\t\tgraph_payload = nx.node_link_data(self.graph)\n33: \t\t\tif \"edges\" in graph_payload and \"links\" not in graph_payload:\n34: \t\t\t\tgraph_payload[\"links\"] = graph_payload.pop(\"edges\")\n35: \n36: \t\twith destination.open(\"w\", encoding=\"utf-8\") as output_file:\n37: \t\t\tjson.dump(graph_payload, output_file, indent=2)\n38: \n39: \t@classmethod\n40: \tdef load_from_json(cls, file_path: str | Path) -> KnowledgeGraph:\n41: \t\tsource = Path(file_path)\n42: \t\twith source.open(\"r\", encoding=\"utf-8\") as input_file:\n43: \t\t\tgraph_payload: dict[str, Any] = json.load(input_file)\n44: \n45: \t\tinstance = cls()\n46: \t\ttry:\n47: \t\t\tinstance.graph = nx.node_link_graph(graph_payload, edges=\"links\")\n48: \t\texcept TypeError:\n49: \t\t\tif \"links\" in graph_payload and \"edges\" not in graph_payload:\n50: \t\t\t\tgraph_payload = dict(graph_payload)\n51: \t\t\t\tgraph_payload[\"edges\"] = graph_payload.pop(\"links\")\n52: \t\t\tinstance.graph = nx.node_link_graph(graph_payload)\n53: \t\treturn instance\n54: \n55: "
+      },
+      {
+        "path": "src/graph/knowledge_graph.py",
+        "line_start": 51,
+        "line_end": 56,
+        "excerpt": "51: \t\t\t\tgraph_payload[\"edges\"] = graph_payload.pop(\"links\")\n52: \t\t\tinstance.graph = nx.node_link_graph(graph_payload)\n53: \t\treturn instance\n54: \n55: \n56: __all__ = [\"KnowledgeGraph\"]"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: import json\n2: from pathlib import Path\n3: import subprocess\n4: from typing import Any\n5: \n6: from agents.archivist import ArchivistAgent\n7: from agents.hydrologist import HydrologistAgent\n8: from agents.semanticist import SemanticistAgent\n9: from agents.surveyor import SurveyorAgent\n10: from graph.knowledge_graph import KnowledgeGraph\n11: from models.schemas import EdgeType, FunctionNode, ModuleNode\n12: \n13: \n14: def get_changed_files(repo_path: str | Path, last_run_commit_hash: str | None) -> list[str]:\n15: \trepository_root = Path(repo_path).resolve()\n16: \tbaseline_hash = (last_run_commit_hash or \"\").strip()\n17: \n18: \tif baseline_hash:\n19: \t\tcommand = [\"git\", \"diff\", \"--name-only\", baseline_hash, \"HEAD\"]\n20: \telse:\n21: \t\tcommand = [\"git\", \"ls-files\"]\n22: \n23: \tresult = subprocess.run(\n24: \t\tcommand,\n25: \t\tcwd=repository_root,\n26: \t\tcapture_output=True,\n27: \t\ttext=True,\n28: \t\tcheck=True,\n29: \t)\n30: "
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \t\tcapture_output=True,\n27: \t\ttext=True,\n28: \t\tcheck=True,\n29: \t)\n30: \n31: \tignored_parts = {\".cartography\", \".git\", \".venv\", \"__pycache__\", \"build\", \"dist\", \"target\", \"tmp\"}\n32: \tchanged_files: list[str] = []\n33: \tfor raw_line in result.stdout.splitlines():\n34: \t\trelative_path = raw_line.strip()\n35: \t\tif not relative_path:\n36: \t\t\tcontinue\n37: \t\tif any(part in ignored_parts for part in Path(relative_path).parts):\n38: \t\t\tcontinue\n39: \t\tchanged_files.append(relative_path)\n40: \n41: \treturn changed_files\n42: \n43: \n44: class Orchestrator:\n45: \tDAY_ONE_PROMPT_VERSION = 2\n46: \n47: \tdef __init__(self, repo_path: str | Path) -> None:\n48: \t\tself.repo_path = Path(repo_path).resolve()\n49: \t\tself.output_dir = self.repo_path / \".cartography\"\n50: \t\tself.module_graph_path = self.output_dir / \"module_graph.json\"\n51: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n52: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n53: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n54: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\"\n55: \t\tself.run_metadata_path = self.output_dir / \"run_metadata.json\""
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n52: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n53: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n54: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\"\n55: \t\tself.run_metadata_path = self.output_dir / \"run_metadata.json\"\n56: \t\tself.surveyor = SurveyorAgent(self.repo_path)\n57: \t\tself.hydrologist = HydrologistAgent(self.repo_path)\n58: \t\tself.semanticist = SemanticistAgent(self.repo_path)\n59: \t\tself.archivist = ArchivistAgent(self.repo_path)\n60: \n61: \tdef run(self) -> dict[str, str]:\n62: \t\tself.output_dir.mkdir(parents=True, exist_ok=True)\n63: \t\tprevious_metadata = self._load_run_metadata()\n64: \t\tincremental_candidates = self._load_changed_files(previous_metadata)\n65: \t\thas_saved_graphs = self._has_saved_graphs()\n66: \n67: \t\tused_incremental = has_saved_graphs and self._is_git_repository()\n68: \t\tif used_incremental:\n69: \t\t\tmodule_graph = KnowledgeGraph.load_from_json(self.module_graph_path)\n70: \t\t\tlineages_need_full_rebuild = self._requires_full_lineage_rebuild(incremental_candidates)\n71: \t\t\tlineage_graph = self._load_or_build_incremental_lineage_graph(incremental_candidates)\n72: \t\t\tif incremental_candidates:\n73: \t\t\t\tself._refresh_module_graph(module_graph, incremental_candidates)\n74: \t\t\tif lineages_need_full_rebuild:\n75: \t\t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n76: \t\t\telif incremental_candidates:\n77: \t\t\t\tself._refresh_lineage_graph(lineage_graph, incremental_candidates)\n78: \t\t\tself.archivist.log_trace(\n79: \t\t\t\taction=\"incremental_refresh\" if incremental_candidates else \"incremental_noop\",\n80: \t\t\t\tevidence=[{\"source_file\": path, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"git-diff\"} for path in incremental_candidates],"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \t\t\telif incremental_candidates:\n77: \t\t\t\tself._refresh_lineage_graph(lineage_graph, incremental_candidates)\n78: \t\t\tself.archivist.log_trace(\n79: \t\t\t\taction=\"incremental_refresh\" if incremental_candidates else \"incremental_noop\",\n80: \t\t\t\tevidence=[{\"source_file\": path, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"git-diff\"} for path in incremental_candidates],\n81: \t\t\t\tconfidence=0.88 if incremental_candidates and not lineages_need_full_rebuild else 0.95 if not incremental_candidates else 0.8,\n82: \t\t\t)\n83: \t\telse:\n84: \t\t\tmodule_graph = self.surveyor.build_import_graph()\n85: \t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n86: \t\t\tincremental_candidates = []\n87: \t\t\tself.archivist.log_trace(\n88: \t\t\t\taction=\"full_rebuild\",\n89: \t\t\t\tevidence={\"source_file\": \".cartography/module_graph.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"static-analysis\"},\n90: \t\t\t\tconfidence=0.9,\n91: \t\t\t)\n92: \n93: \t\tsemantic_summary = self._enrich_module_graph(module_graph, incremental_candidates, force=not used_incremental)\n94: \t\tday_one_answers = self._generate_day_one_answers(\n95: \t\t\tmodule_graph,\n96: \t\t\tlineage_graph,\n97: \t\t\tsemantic_summary,\n98: \t\t\tused_incremental,\n99: \t\t\tincremental_candidates,\n100: \t\t\tprevious_metadata,\n101: \t\t)\n102: \n103: \t\tmodule_graph.save_to_json(self.module_graph_path)\n104: \t\tlineage_graph.save_to_json(self.lineage_graph_path)\n105: \t\tself._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \t\t)\n102: \n103: \t\tmodule_graph.save_to_json(self.module_graph_path)\n104: \t\tlineage_graph.save_to_json(self.lineage_graph_path)\n105: \t\tself._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))\n106: \t\tself._write_text_file(self.onboarding_brief_path, self.archivist.generate_onboarding_brief(day_one_answers))\n107: \t\tself.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding=\"utf-8\")\n108: \t\tself._save_run_metadata(changed_files=incremental_candidates, used_incremental=used_incremental)\n109: \n110: \t\treturn {\n111: \t\t\t\"module_graph\": str(self.module_graph_path),\n112: \t\t\t\"lineage_graph\": str(self.lineage_graph_path),\n113: \t\t\t\"codebase\": str(self.codebase_path),\n114: \t\t\t\"onboarding_brief\": str(self.onboarding_brief_path),\n115: \t\t\t\"day_one_answers\": str(self.day_one_answers_path),\n116: \t\t\t\"trace\": str(self.archivist.trace_path),\n117: \t\t}\n118: \n119: \tdef _load_changed_files(self, previous_metadata: dict[str, Any]) -> list[str]:\n120: \t\tif not self._is_git_repository() or not self._has_saved_graphs():\n121: \t\t\treturn []\n122: \n123: \t\ttry:\n124: \t\t\treturn get_changed_files(self.repo_path, previous_metadata.get(\"last_run_commit\"))\n125: \t\texcept subprocess.CalledProcessError:\n126: \t\t\treturn []\n127: \n128: \tdef _has_saved_graphs(self) -> bool:\n129: \t\treturn self.module_graph_path.exists() and self.lineage_graph_path.exists()\n130: "
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \t\t\treturn []\n127: \n128: \tdef _has_saved_graphs(self) -> bool:\n129: \t\treturn self.module_graph_path.exists() and self.lineage_graph_path.exists()\n130: \n131: \tdef _is_git_repository(self) -> bool:\n132: \t\tresult = subprocess.run(\n133: \t\t\t[\"git\", \"rev-parse\", \"--is-inside-work-tree\"],\n134: \t\t\tcwd=self.repo_path,\n135: \t\t\tcapture_output=True,\n136: \t\t\ttext=True,\n137: \t\t)\n138: \t\treturn result.returncode == 0 and result.stdout.strip() == \"true\"\n139: \n140: \tdef _load_run_metadata(self) -> dict[str, Any]:\n141: \t\tif not self.run_metadata_path.exists():\n142: \t\t\treturn {}\n143: \t\ttry:\n144: \t\t\treturn json.loads(self.run_metadata_path.read_text(encoding=\"utf-8\"))\n145: \t\texcept json.JSONDecodeError:\n146: \t\t\treturn {}\n147: \n148: \tdef _save_run_metadata(self, *, changed_files: list[str], used_incremental: bool) -> None:\n149: \t\tpayload = {\n150: \t\t\t\"last_run_commit\": self._current_commit_hash(),\n151: \t\t\t\"changed_files\": changed_files,\n152: \t\t\t\"used_incremental\": used_incremental,\n153: \t\t\t\"day_one_prompt_version\": self.DAY_ONE_PROMPT_VERSION,\n154: \t\t}\n155: \t\tself.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding=\"utf-8\")"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \t\t\t\"changed_files\": changed_files,\n152: \t\t\t\"used_incremental\": used_incremental,\n153: \t\t\t\"day_one_prompt_version\": self.DAY_ONE_PROMPT_VERSION,\n154: \t\t}\n155: \t\tself.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding=\"utf-8\")\n156: \n157: \tdef _current_commit_hash(self) -> str | None:\n158: \t\tif not self._is_git_repository():\n159: \t\t\treturn None\n160: \t\tresult = subprocess.run(\n161: \t\t\t[\"git\", \"rev-parse\", \"HEAD\"],\n162: \t\t\tcwd=self.repo_path,\n163: \t\t\tcapture_output=True,\n164: \t\t\ttext=True,\n165: \t\t)\n166: \t\treturn result.stdout.strip() if result.returncode == 0 else None\n167: \n168: \tdef _load_or_build_incremental_lineage_graph(self, changed_files: list[str]) -> KnowledgeGraph:\n169: \t\tif self._requires_full_lineage_rebuild(changed_files):\n170: \t\t\treturn self.hydrologist.build_lineage_graph()\n171: \t\treturn KnowledgeGraph.load_from_json(self.lineage_graph_path)\n172: \n173: \tdef _requires_full_lineage_rebuild(self, changed_files: list[str]) -> bool:\n174: \t\treturn any(Path(relative_path).suffix.lower() in {\".yml\", \".yaml\"} for relative_path in changed_files)\n175: \n176: \tdef _refresh_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n177: \t\tpython_changes = [relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"]\n178: \t\tvelocity_map = self.surveyor.extract_git_velocity(self.repo_path, days=30) if self._is_git_repository() else {}\n179: \n180: \t\tfor relative_path in python_changes:"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 176,
+        "line_end": 205,
+        "excerpt": "176: \tdef _refresh_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n177: \t\tpython_changes = [relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"]\n178: \t\tvelocity_map = self.surveyor.extract_git_velocity(self.repo_path, days=30) if self._is_git_repository() else {}\n179: \n180: \t\tfor relative_path in python_changes:\n181: \t\t\tself._remove_module_nodes(module_graph, relative_path)\n182: \n183: \t\tfor relative_path in python_changes:\n184: \t\t\tabsolute_path = self.repo_path / relative_path\n185: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n186: \t\t\t\tcontinue\n187: \t\t\tmodule_node = self.surveyor.analyze_module(absolute_path, velocity_map)\n188: \t\t\tmodule_graph.add_node(module_node)\n189: \t\t\tfor function_definition in module_node.function_definitions:\n190: \t\t\t\tmodule_graph.add_node(\n191: \t\t\t\t\tFunctionNode(\n192: \t\t\t\t\t\tid=f\"{module_node.path}::{function_definition.name}\",\n193: \t\t\t\t\t\tmodule_path=module_node.path,\n194: \t\t\t\t\t\tname=function_definition.name,\n195: \t\t\t\t\t)\n196: \t\t\t\t)\n197: \n198: \t\tfor node_id, attributes in module_graph.graph.nodes(data=True):\n199: \t\t\tif attributes.get(\"node_type\") == \"module\":\n200: \t\t\t\tattributes[\"change_velocity_30d\"] = float(velocity_map.get(node_id, 0))\n201: \n202: \t\tself._rebuild_module_edges(module_graph)\n203: \t\tself._refresh_module_metadata(module_graph, velocity_map)\n204: \n205: \tdef _remove_module_nodes(self, module_graph: KnowledgeGraph, relative_path: str) -> None:"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 201,
+        "line_end": 230,
+        "excerpt": "201: \n202: \t\tself._rebuild_module_edges(module_graph)\n203: \t\tself._refresh_module_metadata(module_graph, velocity_map)\n204: \n205: \tdef _remove_module_nodes(self, module_graph: KnowledgeGraph, relative_path: str) -> None:\n206: \t\tgraph = module_graph.graph\n207: \t\tfunction_nodes = [node_id for node_id in graph.nodes if node_id.startswith(f\"{relative_path}::\")]\n208: \t\tif graph.has_node(relative_path):\n209: \t\t\tgraph.remove_node(relative_path)\n210: \t\tfor function_node in function_nodes:\n211: \t\t\tif graph.has_node(function_node):\n212: \t\t\t\tgraph.remove_node(function_node)\n213: \n214: \tdef _rebuild_module_edges(self, module_graph: KnowledgeGraph) -> None:\n215: \t\tgraph = module_graph.graph\n216: \t\tedges_to_remove = [\n217: \t\t\t(source, target)\n218: \t\t\tfor source, target, attributes in graph.edges(data=True)\n219: \t\t\tif attributes.get(\"edge_type\") in {EdgeType.IMPORTS.value, EdgeType.CALLS.value}\n220: \t\t]\n221: \t\tgraph.remove_edges_from(edges_to_remove)\n222: \n223: \t\tfunction_index = {\n224: \t\t\t(node_id.rsplit(\"::\", 1)[0], attributes.get(\"name\")): node_id\n225: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n226: \t\t\tif attributes.get(\"node_type\") == \"function\" and isinstance(attributes.get(\"name\"), str)\n227: \t\t}\n228: \n229: \t\tfor node_id, attributes in list(graph.nodes(data=True)):\n230: \t\t\tif attributes.get(\"node_type\") != \"module\":"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 226,
+        "line_end": 255,
+        "excerpt": "226: \t\t\tif attributes.get(\"node_type\") == \"function\" and isinstance(attributes.get(\"name\"), str)\n227: \t\t}\n228: \n229: \t\tfor node_id, attributes in list(graph.nodes(data=True)):\n230: \t\t\tif attributes.get(\"node_type\") != \"module\":\n231: \t\t\t\tcontinue\n232: \t\t\tfor import_path in attributes.get(\"import_paths\", []):\n233: \t\t\t\tif isinstance(import_path, str) and graph.has_node(import_path):\n234: \t\t\t\t\tmodule_graph.add_edge(node_id, import_path, EdgeType.IMPORTS)\n235: \n236: \t\t\tfor function_definition in attributes.get(\"function_definitions\", []):\n237: \t\t\t\tfunction_name = function_definition.get(\"name\") if isinstance(function_definition, dict) else None\n238: \t\t\t\tif not isinstance(function_name, str):\n239: \t\t\t\t\tcontinue\n240: \t\t\t\tcaller_id = function_index.get((node_id, function_name))\n241: \t\t\t\tif caller_id is None:\n242: \t\t\t\t\tcontinue\n243: \t\t\t\tfor called_name in function_definition.get(\"calls\", []):\n244: \t\t\t\t\tif not isinstance(called_name, str):\n245: \t\t\t\t\t\tcontinue\n246: \t\t\t\t\tcallee_id = function_index.get((node_id, called_name.split(\".\")[-1]))\n247: \t\t\t\t\tif callee_id is not None:\n248: \t\t\t\t\t\tmodule_graph.add_edge(caller_id, callee_id, EdgeType.CALLS)\n249: \n250: \tdef _refresh_module_metadata(self, module_graph: KnowledgeGraph, velocity_map: dict[str, int]) -> None:\n251: \t\tself.surveyor.knowledge_graph = module_graph\n252: \t\tpagerank_scores = self.surveyor.calculate_pagerank()\n253: \t\tarchitectural_hubs = sorted(pagerank_scores.items(), key=lambda item: item[1], reverse=True)\n254: \t\tstrongly_connected_components = self.surveyor.identify_strongly_connected_components()\n255: \t\tmodule_graph.graph.graph.update("
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 251,
+        "line_end": 280,
+        "excerpt": "251: \t\tself.surveyor.knowledge_graph = module_graph\n252: \t\tpagerank_scores = self.surveyor.calculate_pagerank()\n253: \t\tarchitectural_hubs = sorted(pagerank_scores.items(), key=lambda item: item[1], reverse=True)\n254: \t\tstrongly_connected_components = self.surveyor.identify_strongly_connected_components()\n255: \t\tmodule_graph.graph.graph.update(\n256: \t\t\t{\n257: \t\t\t\t\"git_velocity_days\": 30,\n258: \t\t\t\t\"git_velocity\": velocity_map,\n259: \t\t\t\t\"high_velocity_core\": self.surveyor.identify_high_velocity_core(velocity_map),\n260: \t\t\t\t\"architectural_hubs\": [\n261: \t\t\t\t\t{\"path\": path, \"pagerank\": score}\n262: \t\t\t\t\tfor path, score in architectural_hubs\n263: \t\t\t\t],\n264: \t\t\t\t\"strongly_connected_components\": strongly_connected_components,\n265: \t\t\t}\n266: \t\t)\n267: \n268: \tdef _refresh_lineage_graph(self, lineage_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n269: \t\trelevant_changes = [\n270: \t\t\trelative_path\n271: \t\t\tfor relative_path in changed_files\n272: \t\t\tif Path(relative_path).suffix.lower() in {\".py\", \".sql\"}\n273: \t\t]\n274: \t\tfor relative_path in relevant_changes:\n275: \t\t\tself._remove_lineage_contribution(lineage_graph, relative_path)\n276: \n277: \t\tfor relative_path in relevant_changes:\n278: \t\t\tabsolute_path = self.repo_path / relative_path\n279: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n280: \t\t\t\tcontinue"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 276,
+        "line_end": 305,
+        "excerpt": "276: \n277: \t\tfor relative_path in relevant_changes:\n278: \t\t\tabsolute_path = self.repo_path / relative_path\n279: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n280: \t\t\t\tcontinue\n281: \t\t\tif absolute_path.suffix.lower() == \".py\":\n282: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n283: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.python_data_flow_analyzer.analyze_file(absolute_path))\n284: \t\t\t\tself.hydrologist._register_airflow_topology(absolute_path)\n285: \t\t\telif absolute_path.suffix.lower() == \".sql\":\n286: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n287: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.sql_lineage_analyzer.analyze_file(absolute_path))\n288: \n289: \t\tself._prune_orphan_lineage_nodes(lineage_graph)\n290: \n291: \tdef _remove_lineage_contribution(self, lineage_graph: KnowledgeGraph, relative_path: str) -> None:\n292: \t\tgraph = lineage_graph.graph\n293: \t\tnodes_to_remove = {\n294: \t\t\tnode_id\n295: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n296: \t\t\tif node_id == relative_path\n297: \t\t\tor node_id.startswith(f\"airflow:{relative_path}:\")\n298: \t\t\tor attributes.get(\"source_file\") == relative_path\n299: \t\t}\n300: \n301: \t\tfor node_id in nodes_to_remove:\n302: \t\t\tif graph.has_node(node_id):\n303: \t\t\t\tgraph.remove_node(node_id)\n304: \n305: \tdef _prune_orphan_lineage_nodes(self, lineage_graph: KnowledgeGraph) -> None:"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 301,
+        "line_end": 330,
+        "excerpt": "301: \t\tfor node_id in nodes_to_remove:\n302: \t\t\tif graph.has_node(node_id):\n303: \t\t\t\tgraph.remove_node(node_id)\n304: \n305: \tdef _prune_orphan_lineage_nodes(self, lineage_graph: KnowledgeGraph) -> None:\n306: \t\tgraph = lineage_graph.graph\n307: \t\torphan_nodes = [\n308: \t\t\tnode_id\n309: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n310: \t\t\tif attributes.get(\"node_type\") in {\"dataset\", \"transformation\"}\n311: \t\t\tand graph.in_degree(node_id) == 0\n312: \t\t\tand graph.out_degree(node_id) == 0\n313: \t\t]\n314: \t\tgraph.remove_nodes_from(orphan_nodes)\n315: \n316: \tdef _enrich_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str], *, force: bool) -> dict[str, Any]:\n317: \t\tgraph = module_graph.graph\n318: \t\tchanged_python_files = {relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"}\n319: \t\tmodule_payloads: list[tuple[str, ModuleNode]] = []\n320: \n321: \t\tfor node_id, attributes in graph.nodes(data=True):\n322: \t\t\tif attributes.get(\"node_type\") != \"module\":\n323: \t\t\t\tcontinue\n324: \t\t\tmodule_payloads.append((node_id, self._module_node_from_attributes(node_id, attributes)))\n325: \n326: \t\tstatements_updated = False\n327: \t\tfor node_id, module_node in module_payloads:\n328: \t\t\tneeds_regeneration = force or node_id in changed_python_files or not graph.nodes[node_id].get(\"purpose_statement\")\n329: \t\t\tif not needs_regeneration:\n330: \t\t\t\tcontinue"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 326,
+        "line_end": 355,
+        "excerpt": "326: \t\tstatements_updated = False\n327: \t\tfor node_id, module_node in module_payloads:\n328: \t\t\tneeds_regeneration = force or node_id in changed_python_files or not graph.nodes[node_id].get(\"purpose_statement\")\n329: \t\t\tif not needs_regeneration:\n330: \t\t\t\tcontinue\n331: \t\t\tpurpose_result = self.semanticist.generate_purpose_statement(module_node)\n332: \t\t\tgraph.nodes[node_id][\"purpose_statement\"] = purpose_result.purpose_statement\n333: \t\t\tgraph.nodes[node_id][\"documentation_drift\"] = purpose_result.documentation_drift\n334: \t\t\tstatements_updated = True\n335: \n336: \t\tshould_recluster = force or statements_updated or changed_python_files or any(\n337: \t\t\tnot attributes.get(\"domain_cluster\")\n338: \t\t\tfor _, attributes in graph.nodes(data=True)\n339: \t\t\tif attributes.get(\"node_type\") == \"module\"\n340: \t\t)\n341: \n342: \t\tcluster_summary: dict[str, Any] = {\"clusters\": [], \"assignments\": []}\n343: \t\tif should_recluster:\n344: \t\t\tmodule_ids: list[str] = []\n345: \t\t\tpurpose_statements: list[str] = []\n346: \t\t\tfor node_id, attributes in graph.nodes(data=True):\n347: \t\t\t\tif attributes.get(\"node_type\") != \"module\":\n348: \t\t\t\t\tcontinue\n349: \t\t\t\tpurpose_statement = attributes.get(\"purpose_statement\")\n350: \t\t\t\tif isinstance(purpose_statement, str) and purpose_statement.strip():\n351: \t\t\t\t\tmodule_ids.append(node_id)\n352: \t\t\t\t\tpurpose_statements.append(purpose_statement)\n353: \n354: \t\t\tcluster_summary = self.semanticist.cluster_into_domains(purpose_statements)\n355: \t\t\tcluster_lookup = {"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 351,
+        "line_end": 380,
+        "excerpt": "351: \t\t\t\t\tmodule_ids.append(node_id)\n352: \t\t\t\t\tpurpose_statements.append(purpose_statement)\n353: \n354: \t\t\tcluster_summary = self.semanticist.cluster_into_domains(purpose_statements)\n355: \t\t\tcluster_lookup = {\n356: \t\t\t\tcluster[\"cluster_id\"]: cluster[\"domain_label\"]\n357: \t\t\t\tfor cluster in cluster_summary.get(\"clusters\", [])\n358: \t\t\t\tif isinstance(cluster, dict)\n359: \t\t\t}\n360: \t\t\tfor index, module_id in enumerate(module_ids):\n361: \t\t\t\tcluster_id = cluster_summary.get(\"assignments\", [])[index]\n362: \t\t\t\tgraph.nodes[module_id][\"domain_cluster\"] = cluster_lookup.get(cluster_id)\n363: \t\t\tgraph.graph[\"domain_clusters\"] = cluster_summary.get(\"clusters\", [])\n364: \n365: \t\tif statements_updated or should_recluster:\n366: \t\t\tself.archivist.log_trace(\n367: \t\t\t\taction=\"semantic_enrichment\",\n368: \t\t\t\tevidence=[{\"source_file\": module_id, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"} for module_id, _ in module_payloads],\n369: \t\t\t\tconfidence=0.82,\n370: \t\t\t)\n371: \n372: \t\treturn cluster_summary\n373: \n374: \tdef _module_node_from_attributes(self, node_id: str, attributes: dict[str, Any]) -> ModuleNode:\n375: \t\tmodule_fields = set(ModuleNode.model_fields)\n376: \t\tpayload = {key: value for key, value in attributes.items() if key in module_fields}\n377: \t\tpayload.setdefault(\"id\", node_id)\n378: \t\tpayload.setdefault(\"path\", str(attributes.get(\"path\") or node_id))\n379: \t\treturn ModuleNode.model_validate(payload)\n380: "
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 376,
+        "line_end": 405,
+        "excerpt": "376: \t\tpayload = {key: value for key, value in attributes.items() if key in module_fields}\n377: \t\tpayload.setdefault(\"id\", node_id)\n378: \t\tpayload.setdefault(\"path\", str(attributes.get(\"path\") or node_id))\n379: \t\treturn ModuleNode.model_validate(payload)\n380: \n381: \tdef _generate_day_one_answers(\n382: \t\tself,\n383: \t\tmodule_graph: KnowledgeGraph,\n384: \t\tlineage_graph: KnowledgeGraph,\n385: \t\tsemantic_summary: dict[str, Any],\n386: \t\tused_incremental: bool,\n387: \t\tchanged_files: list[str],\n388: \t\tprevious_metadata: dict[str, Any],\n389: \t) -> dict[str, Any]:\n390: \t\tprompt_version_changed = previous_metadata.get(\"day_one_prompt_version\") != self.DAY_ONE_PROMPT_VERSION\n391: \t\tneeds_refresh = (\n392: \t\t\tnot used_incremental\n393: \t\t\tor bool(changed_files)\n394: \t\t\tor not self.day_one_answers_path.exists()\n395: \t\t\tor bool(semantic_summary.get(\"clusters\"))\n396: \t\t\tor prompt_version_changed\n397: \t\t)\n398: \t\tif not needs_refresh:\n399: \t\t\treturn json.loads(self.day_one_answers_path.read_text(encoding=\"utf-8\"))\n400: \n401: \t\tday_one_answers = self.semanticist.answer_day_one_questions(module_graph, lineage_graph)\n402: \t\tself.archivist.log_trace(\n403: \t\t\taction=\"day_one_questions\",\n404: \t\t\tevidence={\"source_file\": \".cartography/day_one_answers.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"},\n405: \t\t\tconfidence=0.8,"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 401,
+        "line_end": 412,
+        "excerpt": "401: \t\tday_one_answers = self.semanticist.answer_day_one_questions(module_graph, lineage_graph)\n402: \t\tself.archivist.log_trace(\n403: \t\t\taction=\"day_one_questions\",\n404: \t\t\tevidence={\"source_file\": \".cartography/day_one_answers.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"},\n405: \t\t\tconfidence=0.8,\n406: \t\t)\n407: \t\treturn day_one_answers\n408: \n409: \tdef _write_text_file(self, destination: Path, content: str) -> None:\n410: \t\tdestination.write_text(content, encoding=\"utf-8\")\n411: \n412: __all__ = [\"Orchestrator\", \"get_changed_files\"]"
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: from pathlib import Path\n4: import re\n5: from typing import TypedDict\n6: \n7: from sqlglot import exp, parse_one\n8: \n9: \n10: class SqlDependencies(TypedDict):\n11: \tsource_tables: list[str]\n12: \ttarget_table: str | None\n13: \n14: \n15: class DbtSqlEdge(TypedDict):\n16: \tsource: str\n17: \ttarget: str\n18: \tedge_type: str\n19: \n20: \n21: class SqlLineageEdge(TypedDict):\n22: \tsource: str\n23: \ttarget: str\n24: \tedge_type: str\n25: \n26: \n27: def extract_sql_dependencies(sql_string: str, dialect: str = \"postgres\") -> SqlDependencies:\n28: \texpression = parse_one(sql_string, dialect=dialect)\n29: \ttarget_table = _extract_target_table(expression)\n30: \tcte_names = {cte.alias_or_name for cte in expression.find_all(exp.CTE)}"
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \n27: def extract_sql_dependencies(sql_string: str, dialect: str = \"postgres\") -> SqlDependencies:\n28: \texpression = parse_one(sql_string, dialect=dialect)\n29: \ttarget_table = _extract_target_table(expression)\n30: \tcte_names = {cte.alias_or_name for cte in expression.find_all(exp.CTE)}\n31: \n32: \tsource_tables: list[str] = []\n33: \tseen_tables: set[str] = set()\n34: \n35: \tfor table in expression.find_all(exp.Table):\n36: \t\tnormalized_name = _normalize_table_name(table)\n37: \t\tif normalized_name is None:\n38: \t\t\tcontinue\n39: \t\tif table.name in cte_names or normalized_name in cte_names:\n40: \t\t\tcontinue\n41: \t\tif normalized_name == target_table:\n42: \t\t\tcontinue\n43: \t\tif normalized_name in seen_tables:\n44: \t\t\tcontinue\n45: \n46: \t\tseen_tables.add(normalized_name)\n47: \t\tsource_tables.append(normalized_name)\n48: \n49: \treturn {\n50: \t\t\"source_tables\": source_tables,\n51: \t\t\"target_table\": target_table,\n52: \t}\n53: \n54: \n55: def parse_dbt_sql(file_path: str | Path) -> list[DbtSqlEdge]:"
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \t\t\"target_table\": target_table,\n52: \t}\n53: \n54: \n55: def parse_dbt_sql(file_path: str | Path) -> list[DbtSqlEdge]:\n56: \tsql_file = Path(file_path)\n57: \tsql_text = sql_file.read_text(encoding=\"utf-8\")\n58: \ttarget_dataset = sql_file.stem\n59: \ttransformation_id = sql_file.as_posix()\n60: \n61: \tupstream_datasets = _extract_dbt_references(sql_text)\n62: \tedges: list[DbtSqlEdge] = [\n63: \t\t{\n64: \t\t\t\"source\": transformation_id,\n65: \t\t\t\"target\": target_dataset,\n66: \t\t\t\"edge_type\": \"PRODUCES\",\n67: \t\t}\n68: \t]\n69: \n70: \tfor upstream_dataset in upstream_datasets:\n71: \t\tedges.append(\n72: \t\t\t{\n73: \t\t\t\t\"source\": upstream_dataset,\n74: \t\t\t\t\"target\": transformation_id,\n75: \t\t\t\t\"edge_type\": \"CONSUMES\",\n76: \t\t\t}\n77: \t\t)\n78: \n79: \treturn edges\n80: "
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \t\t\t}\n77: \t\t)\n78: \n79: \treturn edges\n80: \n81: \n82: class SQLLineageAnalyzer:\n83: \tdef __init__(self, dialect: str = \"postgres\") -> None:\n84: \t\tself.dialect = dialect\n85: \n86: \tdef analyze_sql(self, sql_text: str, transformation_id: str) -> list[SqlLineageEdge]:\n87: \t\tdependencies = extract_sql_dependencies(sql_text, dialect=self.dialect)\n88: \t\tedges: list[SqlLineageEdge] = []\n89: \n90: \t\tfor source_table in dependencies[\"source_tables\"]:\n91: \t\t\tedges.append(\n92: \t\t\t\t{\n93: \t\t\t\t\t\"source\": source_table,\n94: \t\t\t\t\t\"target\": transformation_id,\n95: \t\t\t\t\t\"edge_type\": \"CONSUMES\",\n96: \t\t\t\t}\n97: \t\t\t)\n98: \n99: \t\tif dependencies[\"target_table\"] is not None:\n100: \t\t\tedges.append(\n101: \t\t\t\t{\n102: \t\t\t\t\t\"source\": transformation_id,\n103: \t\t\t\t\t\"target\": dependencies[\"target_table\"],\n104: \t\t\t\t\t\"edge_type\": \"PRODUCES\",\n105: \t\t\t\t}"
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \t\t\t\t{\n102: \t\t\t\t\t\"source\": transformation_id,\n103: \t\t\t\t\t\"target\": dependencies[\"target_table\"],\n104: \t\t\t\t\t\"edge_type\": \"PRODUCES\",\n105: \t\t\t\t}\n106: \t\t\t)\n107: \n108: \t\treturn edges\n109: \n110: \tdef analyze_file(self, file_path: str | Path) -> list[SqlLineageEdge]:\n111: \t\tsql_file = Path(file_path)\n112: \t\tsql_text = sql_file.read_text(encoding=\"utf-8\")\n113: \n114: \t\tif \"{{\" in sql_text and (\"ref(\" in sql_text or \"source(\" in sql_text):\n115: \t\t\treturn parse_dbt_sql(sql_file)\n116: \n117: \t\ttry:\n118: \t\t\treturn self.analyze_sql(sql_text, transformation_id=sql_file.as_posix())\n119: \t\texcept Exception:\n120: \t\t\treturn []\n121: \n122: \n123: def _extract_target_table(expression: exp.Expression) -> str | None:\n124: \tif isinstance(expression, (exp.Insert, exp.Update, exp.Delete, exp.Merge, exp.Create)):\n125: \t\treturn _normalize_table_reference(expression.this)\n126: \treturn None\n127: \n128: \n129: def _normalize_table_reference(reference: exp.Expression | None) -> str | None:\n130: \tif reference is None:"
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \treturn None\n127: \n128: \n129: def _normalize_table_reference(reference: exp.Expression | None) -> str | None:\n130: \tif reference is None:\n131: \t\treturn None\n132: \tif isinstance(reference, exp.Table):\n133: \t\treturn _normalize_table_name(reference)\n134: \tif isinstance(reference, exp.Schema):\n135: \t\treturn _normalize_table_reference(reference.this)\n136: \n137: \ttable = reference.find(exp.Table)\n138: \treturn _normalize_table_name(table) if table is not None else None\n139: \n140: \n141: def _normalize_table_name(table: exp.Table | None) -> str | None:\n142: \tif table is None:\n143: \t\treturn None\n144: \n145: \tparts = [part for part in (table.catalog, table.db, table.name) if part]\n146: \treturn \".\".join(parts) if parts else None\n147: \n148: \n149: def _extract_dbt_references(sql_text: str) -> list[str]:\n150: \treferences: list[str] = []\n151: \n152: \tfor model_name in re.findall(r\"\\{\\{\\s*ref\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\\s*\\}\\}\", sql_text):\n153: \t\treferences.append(model_name)\n154: \n155: \tfor source_name, table_name in re.findall("
+      },
+      {
+        "path": "src/analyzers/sql_lineage.py",
+        "line_start": 151,
+        "line_end": 171,
+        "excerpt": "151: \n152: \tfor model_name in re.findall(r\"\\{\\{\\s*ref\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\\s*\\}\\}\", sql_text):\n153: \t\treferences.append(model_name)\n154: \n155: \tfor source_name, table_name in re.findall(\n156: \t\tr\"\\{\\{\\s*source\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*,\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\\s*\\}\\}\",\n157: \t\tsql_text,\n158: \t):\n159: \t\treferences.append(f\"{source_name}.{table_name}\")\n160: \n161: \treturn list(dict.fromkeys(references))\n162: \n163: \n164: __all__ = [\n165: \t\"DbtSqlEdge\",\n166: \t\"SQLLineageAnalyzer\",\n167: \t\"SqlDependencies\",\n168: \t\"SqlLineageEdge\",\n169: \t\"extract_sql_dependencies\",\n170: \t\"parse_dbt_sql\",\n171: ]"
+      },
+      {
+        "path": "src/cli.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import argparse\n4: from contextlib import contextmanager\n5: from pathlib import Path\n6: import shutil\n7: import subprocess\n8: import tempfile\n9: \n10: from orchestrator import Orchestrator\n11: \n12: \n13: def build_parser() -> argparse.ArgumentParser:\n14: \tparser = argparse.ArgumentParser(description=\"Analyze a repository and export cartography graphs.\")\n15: \tsubparsers = parser.add_subparsers(dest=\"command\")\n16: \n17: \tanalyze_parser = subparsers.add_parser(\"analyze\", help=\"Run repository analysis and export cartography graphs.\")\n18: \tanalyze_parser.add_argument(\"--repo-path\", required=True, help=\"Path or GitHub URL of the repository to analyze.\")\n19: \n20: \tparser.add_argument(\"--repo-path\", help=\"Path or GitHub URL of the repository to analyze.\")\n21: \treturn parser\n22: \n23: \n24: def is_remote_repo_path(repo_path: str) -> bool:\n25: \treturn repo_path.startswith((\"http://\", \"https://\", \"github.com/\"))\n26: \n27: \n28: def normalize_repo_url(repo_path: str) -> str:\n29: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path\n30: "
+      },
+      {
+        "path": "src/cli.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \n27: \n28: def normalize_repo_url(repo_path: str) -> str:\n29: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path\n30: \n31: \n32: def remote_output_directory(repo_path: str, base_directory: str | Path = \".cartography/remotes\") -> Path:\n33: \trepo_url = normalize_repo_url(repo_path).removesuffix(\"/\")\n34: \trepo_slug = repo_url.removeprefix(\"https://\").removeprefix(\"http://\")\n35: \tsafe_slug = repo_slug.replace(\"/\", \"__\")\n36: \treturn Path(base_directory) / safe_slug\n37: \n38: \n39: @contextmanager\n40: def resolve_repo_path(repo_path: str):\n41: \tif not is_remote_repo_path(repo_path):\n42: \t\tyield Path(repo_path)\n43: \t\treturn\n44: \n45: \trepo_url = normalize_repo_url(repo_path)\n46: \twith tempfile.TemporaryDirectory(prefix=\"brownfield-cartographer-\", dir=\"/tmp\") as tmp_dir:\n47: \t\tclone_destination = Path(tmp_dir) / \"repo\"\n48: \t\tsubprocess.run(\n49: \t\t\t[\"git\", \"clone\", repo_url, str(clone_destination)],\n50: \t\t\tcheck=True,\n51: \t\t\tcwd=tmp_dir,\n52: \t\t\tcapture_output=True,\n53: \t\t\ttext=True,\n54: \t\t)\n55: \t\tyield clone_destination"
+      },
+      {
+        "path": "src/cli.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \t\t\tcwd=tmp_dir,\n52: \t\t\tcapture_output=True,\n53: \t\t\ttext=True,\n54: \t\t)\n55: \t\tyield clone_destination\n56: \n57: \n58: def persist_remote_outputs(outputs: dict[str, str], repo_path: str) -> dict[str, str]:\n59: \tdestination_dir = remote_output_directory(repo_path)\n60: \tdestination_dir.mkdir(parents=True, exist_ok=True)\n61: \n62: \tpersisted_outputs: dict[str, str] = {}\n63: \tfor output_name, output_path in outputs.items():\n64: \t\tsource_path = Path(output_path)\n65: \t\tdestination_path = destination_dir / source_path.name\n66: \t\tshutil.copy2(source_path, destination_path)\n67: \t\tpersisted_outputs[output_name] = str(destination_path.resolve())\n68: \n69: \treturn persisted_outputs\n70: \n71: \n72: def main() -> int:\n73: \targs = build_parser().parse_args()\n74: \trepo_path = args.repo_path\n75: \n76: \tif getattr(args, \"command\", None) == \"analyze\":\n77: \t\trepo_path = args.repo_path\n78: \n79: \tif not repo_path:\n80: \t\traise SystemExit(\"A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.\")"
+      },
+      {
+        "path": "src/cli.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \tif getattr(args, \"command\", None) == \"analyze\":\n77: \t\trepo_path = args.repo_path\n78: \n79: \tif not repo_path:\n80: \t\traise SystemExit(\"A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.\")\n81: \n82: \twith resolve_repo_path(repo_path) as resolved_repo_path:\n83: \t\toutputs = Orchestrator(resolved_repo_path).run()\n84: \t\tif is_remote_repo_path(repo_path):\n85: \t\t\toutputs = persist_remote_outputs(outputs, repo_path)\n86: \n87: \tprint(f\"Module graph saved to {outputs['module_graph']}\")\n88: \tprint(f\"Lineage graph saved to {outputs['lineage_graph']}\")\n89: \tif \"codebase\" in outputs:\n90: \t\tprint(f\"CODEBASE brief saved to {outputs['codebase']}\")\n91: \tif \"onboarding_brief\" in outputs:\n92: \t\tprint(f\"Onboarding brief saved to {outputs['onboarding_brief']}\")\n93: \treturn 0\n94: \n95: __all__ = [\n96: \t\"build_parser\",\n97: \t\"is_remote_repo_path\",\n98: \t\"main\",\n99: \t\"normalize_repo_url\",\n100: \t\"persist_remote_outputs\",\n101: \t\"remote_output_directory\",\n102: \t\"resolve_repo_path\",\n103: ]\n104: \n105: "
+      },
+      {
+        "path": "src/cli.py",
+        "line_start": 101,
+        "line_end": 107,
+        "excerpt": "101: \t\"remote_output_directory\",\n102: \t\"resolve_repo_path\",\n103: ]\n104: \n105: \n106: if __name__ == \"__main__\":\n107: \traise SystemExit(main())"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import ast\n4: from collections import defaultdict\n5: from dataclasses import dataclass, field\n6: import importlib\n7: import json\n8: import os\n9: from pathlib import Path\n10: from typing import Any, Protocol\n11: from urllib import error, parse, request\n12: \n13: import networkx as nx\n14: \n15: from graph.knowledge_graph import KnowledgeGraph\n16: from models.schemas import ModuleNode\n17: \n18: \n19: class StructuredLLMClient(Protocol):\n20:     def generate_json(\n21:         self,\n22:         *,\n23:         model: str,\n24:         prompt: str,\n25:         temperature: float = 0.0,\n26:     ) -> dict[str, Any]: ...\n27: \n28: \n29: class EmbeddingClient(Protocol):\n30:     def embed_texts(self, texts: list[str], *, model: str) -> list[list[float]]: ..."
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26:     ) -> dict[str, Any]: ...\n27: \n28: \n29: class EmbeddingClient(Protocol):\n30:     def embed_texts(self, texts: list[str], *, model: str) -> list[list[float]]: ...\n31: \n32: \n33: @dataclass(slots=True)\n34: class ModelTierConfig:\n35:     fast_provider: str = \"gemini\"\n36:     fast_model: str = \"gemini-2.5-flash\"\n37:     heavy_provider: str = \"ollama\"\n38:     heavy_model: str = \"llama3.2:latest\"\n39:     embedding_provider: str = \"gemini\"\n40:     embedding_model: str = \"gemini-embedding-001\"\n41:     bulk_budget_tokens: int = 120_000\n42:     synthesis_budget_tokens: int = 80_000\n43:     module_prompt_token_cap: int = 16_000\n44:     evidence_chunk_lines: int = 30\n45:     evidence_chunk_overlap: int = 5\n46:     evidence_file_limit: int = 14\n47: \n48:     @classmethod\n49:     def from_env(cls, env: dict[str, str]) -> ModelTierConfig:\n50:         return cls(\n51:             fast_provider=_normalize_provider(env.get(\"SEMANTICIST_FAST_PROVIDER\", cls.fast_provider)),\n52:             fast_model=env.get(\"SEMANTICIST_FAST_MODEL\", cls.fast_model),\n53:             heavy_provider=_normalize_provider(env.get(\"SEMANTICIST_HEAVY_PROVIDER\", cls.heavy_provider)),\n54:             heavy_model=env.get(\"SEMANTICIST_HEAVY_MODEL\", cls.heavy_model),\n55:             embedding_provider=_normalize_provider(env.get(\"SEMANTICIST_EMBEDDING_PROVIDER\", cls.embedding_provider)),"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51:             fast_provider=_normalize_provider(env.get(\"SEMANTICIST_FAST_PROVIDER\", cls.fast_provider)),\n52:             fast_model=env.get(\"SEMANTICIST_FAST_MODEL\", cls.fast_model),\n53:             heavy_provider=_normalize_provider(env.get(\"SEMANTICIST_HEAVY_PROVIDER\", cls.heavy_provider)),\n54:             heavy_model=env.get(\"SEMANTICIST_HEAVY_MODEL\", cls.heavy_model),\n55:             embedding_provider=_normalize_provider(env.get(\"SEMANTICIST_EMBEDDING_PROVIDER\", cls.embedding_provider)),\n56:             embedding_model=env.get(\"SEMANTICIST_EMBEDDING_MODEL\", cls.embedding_model),\n57:             bulk_budget_tokens=_coerce_env_int(env.get(\"SEMANTICIST_BULK_BUDGET_TOKENS\"), cls.bulk_budget_tokens),\n58:             synthesis_budget_tokens=_coerce_env_int(env.get(\"SEMANTICIST_SYNTHESIS_BUDGET_TOKENS\"), cls.synthesis_budget_tokens),\n59:             module_prompt_token_cap=_coerce_env_int(env.get(\"SEMANTICIST_MODULE_PROMPT_TOKEN_CAP\"), cls.module_prompt_token_cap),\n60:             evidence_chunk_lines=_coerce_env_int(env.get(\"SEMANTICIST_EVIDENCE_CHUNK_LINES\"), cls.evidence_chunk_lines),\n61:             evidence_chunk_overlap=_coerce_env_int(env.get(\"SEMANTICIST_EVIDENCE_CHUNK_OVERLAP\"), cls.evidence_chunk_overlap),\n62:             evidence_file_limit=_coerce_env_int(env.get(\"SEMANTICIST_EVIDENCE_FILE_LIMIT\"), cls.evidence_file_limit),\n63:         )\n64: \n65: \n66: @dataclass(slots=True)\n67: class UsageRecord:\n68:     provider: str\n69:     model: str\n70:     prompt_tokens: int\n71:     response_tokens: int\n72: \n73:     @property\n74:     def total_tokens(self) -> int:\n75:         return self.prompt_tokens + self.response_tokens\n76: \n77: \n78: @dataclass(slots=True)\n79: class PurposeStatementResult:\n80:     module_path: str"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \n77: \n78: @dataclass(slots=True)\n79: class PurposeStatementResult:\n80:     module_path: str\n81:     purpose_statement: str\n82:     documentation_drift: bool\n83:     provider_used: str\n84:     model_used: str\n85:     prompt_tokens: int\n86:     response_tokens: int\n87:     reasoning: str | None = None\n88: \n89: \n90: @dataclass(slots=True)\n91: class DomainCluster:\n92:     cluster_id: int\n93:     domain_label: str\n94:     purpose_statements: list[str]\n95:     member_indices: list[int]\n96: \n97: \n98: @dataclass(slots=True)\n99: class DayOneAnswer:\n100:     question: str\n101:     answer: str\n102:     citations: list[dict[str, Any]] = field(default_factory=list)\n103: \n104: \n105: @dataclass(slots=True)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101:     answer: str\n102:     citations: list[dict[str, Any]] = field(default_factory=list)\n103: \n104: \n105: @dataclass(slots=True)\n106: class EvidencePacket:\n107:     path: str\n108:     line_start: int\n109:     line_end: int\n110:     excerpt: str\n111: \n112:     def as_dict(self) -> dict[str, Any]:\n113:         return {\n114:             \"path\": self.path,\n115:             \"line_start\": self.line_start,\n116:             \"line_end\": self.line_end,\n117:             \"excerpt\": self.excerpt,\n118:         }\n119: \n120: \n121: class HTTPJsonClient:\n122:     def _post_json(\n123:         self,\n124:         url: str,\n125:         payload: dict[str, Any],\n126:         *,\n127:         headers: dict[str, str] | None = None,\n128:         timeout: int = 90,\n129:     ) -> dict[str, Any]:\n130:         request_headers = {\"Content-Type\": \"application/json\"}"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126:         *,\n127:         headers: dict[str, str] | None = None,\n128:         timeout: int = 90,\n129:     ) -> dict[str, Any]:\n130:         request_headers = {\"Content-Type\": \"application/json\"}\n131:         if headers:\n132:             request_headers.update(headers)\n133: \n134:         body = json.dumps(payload).encode(\"utf-8\")\n135:         request_object = request.Request(url, data=body, headers=request_headers, method=\"POST\")\n136: \n137:         try:\n138:             with request.urlopen(request_object, timeout=timeout) as response:\n139:                 return json.loads(response.read().decode(\"utf-8\"))\n140:         except error.HTTPError as exc:  # pragma: no cover - depends on remote service\n141:             details = exc.read().decode(\"utf-8\", errors=\"replace\")\n142:             raise RuntimeError(f\"HTTP {exc.code} calling {url}: {details}\") from exc\n143:         except error.URLError as exc:  # pragma: no cover - depends on remote service\n144:             raise RuntimeError(f\"Could not reach {url}: {exc.reason}\") from exc\n145: \n146: \n147: class GeminiStructuredLLMClient(HTTPJsonClient):\n148:     def __init__(self, api_key: str, base_url: str) -> None:\n149:         self.api_key = api_key\n150:         self.base_url = base_url.rstrip(\"/\")\n151: \n152:     def generate_json(self, *, model: str, prompt: str, temperature: float = 0.0) -> dict[str, Any]:\n153:         model_name = _normalize_gemini_model_name(model)\n154:         endpoint = f\"{self.base_url}/{model_name}:generateContent?key={parse.quote(self.api_key)}\"\n155:         payload = {"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \n152:     def generate_json(self, *, model: str, prompt: str, temperature: float = 0.0) -> dict[str, Any]:\n153:         model_name = _normalize_gemini_model_name(model)\n154:         endpoint = f\"{self.base_url}/{model_name}:generateContent?key={parse.quote(self.api_key)}\"\n155:         payload = {\n156:             \"contents\": [{\"role\": \"user\", \"parts\": [{\"text\": prompt}]}],\n157:             \"generationConfig\": {\n158:                 \"temperature\": temperature,\n159:                 \"responseMimeType\": \"application/json\",\n160:             },\n161:         }\n162:         response = self._post_json(endpoint, payload)\n163:         text = _extract_gemini_text(response)\n164:         return _parse_json_text(text)\n165: \n166: \n167: class OllamaStructuredLLMClient(HTTPJsonClient):\n168:     def __init__(self, base_url: str) -> None:\n169:         self.base_url = base_url.rstrip(\"/\")\n170: \n171:     def generate_json(self, *, model: str, prompt: str, temperature: float = 0.0) -> dict[str, Any]:\n172:         endpoint = f\"{self.base_url}/api/generate\"\n173:         payload = {\n174:             \"model\": model,\n175:             \"prompt\": f\"{prompt}\\n\\nReturn valid JSON only.\",\n176:             \"format\": \"json\",\n177:             \"stream\": False,\n178:             \"options\": {\"temperature\": temperature},\n179:         }\n180:         response = self._post_json(endpoint, payload)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 176,
+        "line_end": 205,
+        "excerpt": "176:             \"format\": \"json\",\n177:             \"stream\": False,\n178:             \"options\": {\"temperature\": temperature},\n179:         }\n180:         response = self._post_json(endpoint, payload)\n181:         return _parse_json_text(str(response.get(\"response\", \"\")))\n182: \n183: \n184: class GeminiEmbeddingClient(HTTPJsonClient):\n185:     def __init__(self, api_key: str, base_url: str) -> None:\n186:         self.api_key = api_key\n187:         self.base_url = base_url.rstrip(\"/\")\n188: \n189:     def embed_texts(self, texts: list[str], *, model: str) -> list[list[float]]:\n190:         model_name = _normalize_gemini_model_name(model)\n191:         embeddings: list[list[float]] = []\n192:         for text in texts:\n193:             endpoint = f\"{self.base_url}/{model_name}:embedContent?key={parse.quote(self.api_key)}\"\n194:             payload = {\n195:                 \"model\": model_name,\n196:                 \"content\": {\"parts\": [{\"text\": text}]},\n197:             }\n198:             response = self._post_json(endpoint, payload)\n199:             values = response.get(\"embedding\", {}).get(\"values\")\n200:             if not isinstance(values, list):\n201:                 raise RuntimeError(\"Gemini embedding response did not include embedding values.\")\n202:             embeddings.append([float(value) for value in values])\n203:         return embeddings\n204: \n205: "
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 201,
+        "line_end": 230,
+        "excerpt": "201:                 raise RuntimeError(\"Gemini embedding response did not include embedding values.\")\n202:             embeddings.append([float(value) for value in values])\n203:         return embeddings\n204: \n205: \n206: class OllamaEmbeddingClient(HTTPJsonClient):\n207:     def __init__(self, base_url: str) -> None:\n208:         self.base_url = base_url.rstrip(\"/\")\n209: \n210:     def embed_texts(self, texts: list[str], *, model: str) -> list[list[float]]:\n211:         endpoint = f\"{self.base_url}/api/embed\"\n212:         payload = {\"model\": model, \"input\": texts}\n213:         response = self._post_json(endpoint, payload)\n214:         values = response.get(\"embeddings\")\n215:         if not isinstance(values, list):\n216:             single = response.get(\"embedding\")\n217:             if isinstance(single, list):\n218:                 return [[float(value) for value in single]]\n219:             raise RuntimeError(\"Ollama embedding response did not include embeddings.\")\n220:         return [[float(value) for value in embedding] for embedding in values]\n221: \n222: \n223: class ContextWindowBudget:\n224:     def __init__(self, config: ModelTierConfig | None = None) -> None:\n225:         self.config = config or ModelTierConfig()\n226:         self.usage_history: list[UsageRecord] = []\n227: \n228:     def estimate_tokens(self, text: str, *, model: str | None = None) -> int:\n229:         if not text:\n230:             return 0"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 226,
+        "line_end": 255,
+        "excerpt": "226:         self.usage_history: list[UsageRecord] = []\n227: \n228:     def estimate_tokens(self, text: str, *, model: str | None = None) -> int:\n229:         if not text:\n230:             return 0\n231: \n232:         tiktoken_module = self._load_tiktoken()\n233:         if tiktoken_module is None:\n234:             return max(1, len(text) // 4)\n235: \n236:         encoding = tiktoken_module.get_encoding(self._encoding_name_for_model(model or self.config.fast_model))\n237:         return len(encoding.encode(text))\n238: \n239:     def record_usage(self, *, provider: str, model: str, prompt: str, response: str) -> UsageRecord:\n240:         record = UsageRecord(\n241:             provider=provider,\n242:             model=model,\n243:             prompt_tokens=self.estimate_tokens(prompt, model=model),\n244:             response_tokens=self.estimate_tokens(response, model=model),\n245:         )\n246:         self.usage_history.append(record)\n247:         return record\n248: \n249:     def cumulative_tokens(self, *, provider: str | None = None, model: str | None = None) -> int:\n250:         total = 0\n251:         for record in self.usage_history:\n252:             if provider is not None and record.provider != provider:\n253:                 continue\n254:             if model is not None and record.model != model:\n255:                 continue"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 251,
+        "line_end": 280,
+        "excerpt": "251:         for record in self.usage_history:\n252:             if provider is not None and record.provider != provider:\n253:                 continue\n254:             if model is not None and record.model != model:\n255:                 continue\n256:             total += record.total_tokens\n257:         return total\n258: \n259:     def task_descriptor(self, task_type: str) -> tuple[str, str]:\n260:         if task_type in {\"bulk_summary\", \"cluster_label\"}:\n261:             return self.config.fast_provider, self.config.fast_model\n262:         if task_type in {\"final_synthesis\", \"day_one_questions\"}:\n263:             return self.config.heavy_provider, self.config.heavy_model\n264:         if task_type == \"embedding\":\n265:             return self.config.embedding_provider, self.config.embedding_model\n266:         return self.config.fast_provider, self.config.fast_model\n267: \n268:     def remaining_budget(self, task_type: str) -> int:\n269:         provider, model = self.task_descriptor(task_type)\n270:         budget_limit = self.config.synthesis_budget_tokens if task_type in {\"final_synthesis\", \"day_one_questions\"} else self.config.bulk_budget_tokens\n271:         return budget_limit - self.cumulative_tokens(provider=provider, model=model)\n272: \n273:     def trim_to_token_limit(self, text: str, *, model: str, token_limit: int) -> str:\n274:         if self.estimate_tokens(text, model=model) <= token_limit:\n275:             return text\n276: \n277:         trimmed_lines: list[str] = []\n278:         for line in text.splitlines():\n279:             candidate = \"\\n\".join(trimmed_lines + [line])\n280:             if self.estimate_tokens(candidate, model=model) > token_limit:"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 276,
+        "line_end": 305,
+        "excerpt": "276: \n277:         trimmed_lines: list[str] = []\n278:         for line in text.splitlines():\n279:             candidate = \"\\n\".join(trimmed_lines + [line])\n280:             if self.estimate_tokens(candidate, model=model) > token_limit:\n281:                 break\n282:             trimmed_lines.append(line)\n283: \n284:         return \"\\n\".join(trimmed_lines)\n285: \n286:     def _load_tiktoken(self):\n287:         try:\n288:             return importlib.import_module(\"tiktoken\")\n289:         except ImportError:\n290:             return None\n291: \n292:     def _encoding_name_for_model(self, model: str) -> str:\n293:         if model.startswith((\"gpt-4\", \"gpt-4o\", \"gpt-5\", \"text-embedding\")):\n294:             return \"cl100k_base\"\n295:         if \"claude\" in model or \"gemini\" in model or \":\" in model:\n296:             return \"cl100k_base\"\n297:         return \"cl100k_base\"\n298: \n299: \n300: class SemanticistAgent:\n301:     FDE_DAY_ONE_QUESTIONS = [\n302:         \"What business capability does this codebase primarily support?\",\n303:         \"Which modules and workflows should a new engineer read first to understand the system's critical path?\",\n304:         \"Where are the highest-risk change surfaces, and why?\",\n305:         \"How does data enter, move through, and exit the system?\","
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 301,
+        "line_end": 330,
+        "excerpt": "301:     FDE_DAY_ONE_QUESTIONS = [\n302:         \"What business capability does this codebase primarily support?\",\n303:         \"Which modules and workflows should a new engineer read first to understand the system's critical path?\",\n304:         \"Where are the highest-risk change surfaces, and why?\",\n305:         \"How does data enter, move through, and exit the system?\",\n306:         \"What domain architecture map best explains how responsibilities are split across the codebase?\",\n307:     ]\n308: \n309:     def __init__(\n310:         self,\n311:         repository_path: str | Path,\n312:         *,\n313:         llm_client: StructuredLLMClient | None = None,\n314:         embedding_client: EmbeddingClient | None = None,\n315:         budget: ContextWindowBudget | None = None,\n316:         model_config: ModelTierConfig | None = None,\n317:         env_path: str | Path | None = None,\n318:     ) -> None:\n319:         self.repository_path = Path(repository_path).resolve()\n320:         self.environment = self._load_environment(env_path)\n321:         resolved_config = model_config or ModelTierConfig.from_env(self.environment)\n322:         self.budget = budget or ContextWindowBudget(resolved_config)\n323:         self.model_config = self.budget.config\n324:         self._llm_override = llm_client\n325:         self._embedding_override = embedding_client\n326:         self._llm_clients: dict[str, StructuredLLMClient] = {}\n327:         self._embedding_clients: dict[str, EmbeddingClient] = {}\n328: \n329:     def generate_purpose_statement(self, module_node: ModuleNode) -> PurposeStatementResult:\n330:         module_path = self._resolve_module_path(module_node)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 326,
+        "line_end": 355,
+        "excerpt": "326:         self._llm_clients: dict[str, StructuredLLMClient] = {}\n327:         self._embedding_clients: dict[str, EmbeddingClient] = {}\n328: \n329:     def generate_purpose_statement(self, module_node: ModuleNode) -> PurposeStatementResult:\n330:         module_path = self._resolve_module_path(module_node)\n331:         module_source = module_path.read_text(encoding=\"utf-8\")\n332:         existing_docstring = self._extract_module_docstring(module_source)\n333:         module_code = self._strip_module_docstring(module_source)\n334:         provider, model = self.budget.task_descriptor(\"bulk_summary\")\n335:         trimmed_code = self.budget.trim_to_token_limit(\n336:             module_code,\n337:             model=model,\n338:             token_limit=self.model_config.module_prompt_token_cap,\n339:         )\n340:         prompt = self._purpose_statement_prompt(module_node, trimmed_code, existing_docstring)\n341:         payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)\n342:         response_text = json.dumps(payload)\n343:         usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)\n344: \n345:         purpose_statement = str(payload.get(\"purpose_statement\", \"\")).strip()\n346:         if not purpose_statement:\n347:             raise RuntimeError(f\"{provider}:{model} did not return a purpose_statement for {module_node.path}.\")\n348: \n349:         return PurposeStatementResult(\n350:             module_path=module_node.path,\n351:             purpose_statement=purpose_statement,\n352:             documentation_drift=bool(payload.get(\"documentation_drift\", False)),\n353:             provider_used=provider,\n354:             model_used=model,\n355:             prompt_tokens=usage.prompt_tokens,"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 351,
+        "line_end": 380,
+        "excerpt": "351:             purpose_statement=purpose_statement,\n352:             documentation_drift=bool(payload.get(\"documentation_drift\", False)),\n353:             provider_used=provider,\n354:             model_used=model,\n355:             prompt_tokens=usage.prompt_tokens,\n356:             response_tokens=usage.response_tokens,\n357:             reasoning=str(payload.get(\"reasoning\", \"\")).strip() or None,\n358:         )\n359: \n360:     def cluster_into_domains(\n361:         self,\n362:         purpose_statements: list[str],\n363:         *,\n364:         min_k: int = 5,\n365:         max_k: int = 8,\n366:     ) -> dict[str, Any]:\n367:         cleaned_statements = [statement.strip() for statement in purpose_statements if statement.strip()]\n368:         if not cleaned_statements:\n369:             return {\"k\": 0, \"clusters\": [], \"assignments\": [], \"domain_map\": {}}\n370: \n371:         embedding_provider, embedding_model = self.budget.task_descriptor(\"embedding\")\n372:         embeddings = self._embedding_client_for(embedding_provider).embed_texts(cleaned_statements, model=embedding_model)\n373:         cluster_count = self._select_cluster_count(embeddings, min_k=min_k, max_k=max_k)\n374: \n375:         if cluster_count <= 1:\n376:             assignments = [0 for _ in cleaned_statements]\n377:         else:\n378:             kmeans_class = self._load_kmeans()\n379:             if kmeans_class is None:\n380:                 raise RuntimeError(\"scikit-learn is required to run k-means clustering for SemanticistAgent.\")"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 376,
+        "line_end": 405,
+        "excerpt": "376:             assignments = [0 for _ in cleaned_statements]\n377:         else:\n378:             kmeans_class = self._load_kmeans()\n379:             if kmeans_class is None:\n380:                 raise RuntimeError(\"scikit-learn is required to run k-means clustering for SemanticistAgent.\")\n381:             kmeans = kmeans_class(n_clusters=cluster_count, random_state=42, n_init=10)\n382:             assignments = list(kmeans.fit_predict(embeddings).tolist())\n383: \n384:         cluster_members: dict[int, list[tuple[int, str]]] = defaultdict(list)\n385:         for index, cluster_id in enumerate(assignments):\n386:             cluster_members[int(cluster_id)].append((index, cleaned_statements[index]))\n387: \n388:         clusters: list[DomainCluster] = []\n389:         domain_map: dict[str, list[str]] = {}\n390:         for cluster_id in sorted(cluster_members):\n391:             members = cluster_members[cluster_id]\n392:             member_indices = [index for index, _ in members]\n393:             member_statements = [statement for _, statement in members]\n394:             domain_label = self._label_cluster(member_statements)\n395:             clusters.append(\n396:                 DomainCluster(\n397:                     cluster_id=cluster_id,\n398:                     domain_label=domain_label,\n399:                     purpose_statements=member_statements,\n400:                     member_indices=member_indices,\n401:                 )\n402:             )\n403:             domain_map[domain_label] = member_statements\n404: \n405:         return {"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 401,
+        "line_end": 430,
+        "excerpt": "401:                 )\n402:             )\n403:             domain_map[domain_label] = member_statements\n404: \n405:         return {\n406:             \"k\": cluster_count,\n407:             \"clusters\": [\n408:                 {\n409:                     \"cluster_id\": cluster.cluster_id,\n410:                     \"domain_label\": cluster.domain_label,\n411:                     \"purpose_statements\": cluster.purpose_statements,\n412:                     \"member_indices\": cluster.member_indices,\n413:                 }\n414:                 for cluster in clusters\n415:             ],\n416:             \"assignments\": assignments,\n417:             \"domain_map\": domain_map,\n418:             \"embedding_provider\": embedding_provider,\n419:             \"embedding_model\": embedding_model,\n420:         }\n421: \n422:     def answer_day_one_questions(self, surveyor_output: Any, hydrologist_output: Any) -> dict[str, Any]:\n423:         provider, model = self.budget.task_descriptor(\"day_one_questions\")\n424:         surveyor_graph = self._coerce_to_graph(surveyor_output)\n425:         hydrologist_graph = self._coerce_to_graph(hydrologist_output)\n426:         evidence_bundle = self._build_evidence_bundle(surveyor_graph, hydrologist_graph)\n427:         prompt = self._day_one_prompt(surveyor_graph, hydrologist_graph, evidence_bundle)\n428:         payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)\n429:         response_text = json.dumps(payload)\n430:         usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 426,
+        "line_end": 455,
+        "excerpt": "426:         evidence_bundle = self._build_evidence_bundle(surveyor_graph, hydrologist_graph)\n427:         prompt = self._day_one_prompt(surveyor_graph, hydrologist_graph, evidence_bundle)\n428:         payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)\n429:         response_text = json.dumps(payload)\n430:         usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)\n431: \n432:         final_provider = provider\n433:         final_model = model\n434:         try:\n435:             answers = self._normalize_day_one_answers(payload, evidence_bundle)\n436:         except RuntimeError:\n437:             fallback_provider = self.model_config.fast_provider\n438:             fallback_model = self.model_config.fast_model\n439:             if (fallback_provider, fallback_model) == (provider, model):\n440:                 raise\n441: \n442:             fallback_payload = self._llm_client_for(fallback_provider).generate_json(\n443:                 model=fallback_model,\n444:                 prompt=prompt,\n445:                 temperature=0.1,\n446:             )\n447:             fallback_response_text = json.dumps(fallback_payload)\n448:             fallback_usage = self.budget.record_usage(\n449:                 provider=fallback_provider,\n450:                 model=fallback_model,\n451:                 prompt=prompt,\n452:                 response=fallback_response_text,\n453:             )\n454:             payload = fallback_payload\n455:             usage = fallback_usage"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 451,
+        "line_end": 480,
+        "excerpt": "451:                 prompt=prompt,\n452:                 response=fallback_response_text,\n453:             )\n454:             payload = fallback_payload\n455:             usage = fallback_usage\n456:             final_provider = fallback_provider\n457:             final_model = fallback_model\n458:             answers = self._normalize_day_one_answers(payload, evidence_bundle)\n459: \n460:         return {\n461:             \"provider_used\": final_provider,\n462:             \"model_used\": final_model,\n463:             \"prompt_tokens\": usage.prompt_tokens,\n464:             \"response_tokens\": usage.response_tokens,\n465:             \"answers\": answers,\n466:             \"evidence_bundle\": evidence_bundle,\n467:         }\n468: \n469:     def _load_environment(self, env_path: str | Path | None) -> dict[str, str]:\n470:         combined = dict(os.environ)\n471:         default_env_path = Path(env_path).resolve() if env_path is not None else self.repository_path / \".env\"\n472:         if default_env_path.exists():\n473:             for key, value in _read_env_file(default_env_path).items():\n474:                 combined.setdefault(key, value)\n475:         return combined\n476: \n477:     def _llm_client_for(self, provider: str) -> StructuredLLMClient:\n478:         if self._llm_override is not None:\n479:             return self._llm_override\n480:         if provider in self._llm_clients:"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 476,
+        "line_end": 505,
+        "excerpt": "476: \n477:     def _llm_client_for(self, provider: str) -> StructuredLLMClient:\n478:         if self._llm_override is not None:\n479:             return self._llm_override\n480:         if provider in self._llm_clients:\n481:             return self._llm_clients[provider]\n482: \n483:         if provider == \"gemini\":\n484:             api_key = self.environment.get(\"GEMINI_API_KEY\")\n485:             if not api_key:\n486:                 raise RuntimeError(\"GEMINI_API_KEY is required in .env for Gemini-backed SemanticistAgent tasks.\")\n487:             client = GeminiStructuredLLMClient(api_key=api_key, base_url=self.environment.get(\"GEMINI_API_BASE_URL\", \"https://generativelanguage.googleapis.com/v1beta\"))\n488:         elif provider == \"ollama\":\n489:             client = OllamaStructuredLLMClient(base_url=self.environment.get(\"OLLAMA_BASE_URL\", \"http://localhost:11434\"))\n490:         else:\n491:             raise RuntimeError(f\"Unsupported LLM provider: {provider}\")\n492: \n493:         self._llm_clients[provider] = client\n494:         return client\n495: \n496:     def _embedding_client_for(self, provider: str) -> EmbeddingClient:\n497:         if self._embedding_override is not None:\n498:             return self._embedding_override\n499:         if provider in self._embedding_clients:\n500:             return self._embedding_clients[provider]\n501: \n502:         if provider == \"gemini\":\n503:             api_key = self.environment.get(\"GEMINI_API_KEY\")\n504:             if not api_key:\n505:                 raise RuntimeError(\"GEMINI_API_KEY is required in .env for Gemini embeddings.\")"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 501,
+        "line_end": 530,
+        "excerpt": "501: \n502:         if provider == \"gemini\":\n503:             api_key = self.environment.get(\"GEMINI_API_KEY\")\n504:             if not api_key:\n505:                 raise RuntimeError(\"GEMINI_API_KEY is required in .env for Gemini embeddings.\")\n506:             client = GeminiEmbeddingClient(api_key=api_key, base_url=self.environment.get(\"GEMINI_API_BASE_URL\", \"https://generativelanguage.googleapis.com/v1beta\"))\n507:         elif provider == \"ollama\":\n508:             client = OllamaEmbeddingClient(base_url=self.environment.get(\"OLLAMA_BASE_URL\", \"http://localhost:11434\"))\n509:         else:\n510:             raise RuntimeError(f\"Unsupported embedding provider: {provider}\")\n511: \n512:         self._embedding_clients[provider] = client\n513:         return client\n514: \n515:     def _resolve_module_path(self, module_node: ModuleNode) -> Path:\n516:         module_path = Path(module_node.path)\n517:         if module_path.is_absolute():\n518:             return module_path\n519:         return (self.repository_path / module_path).resolve()\n520: \n521:     def _extract_module_docstring(self, module_source: str) -> str | None:\n522:         try:\n523:             module = ast.parse(module_source)\n524:         except SyntaxError:\n525:             return None\n526:         return ast.get_docstring(module, clean=False)\n527: \n528:     def _strip_module_docstring(self, module_source: str) -> str:\n529:         try:\n530:             module = ast.parse(module_source)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 526,
+        "line_end": 555,
+        "excerpt": "526:         return ast.get_docstring(module, clean=False)\n527: \n528:     def _strip_module_docstring(self, module_source: str) -> str:\n529:         try:\n530:             module = ast.parse(module_source)\n531:         except SyntaxError:\n532:             return module_source\n533: \n534:         if not module.body:\n535:             return module_source\n536: \n537:         first_statement = module.body[0]\n538:         is_docstring = (\n539:             isinstance(first_statement, ast.Expr)\n540:             and isinstance(first_statement.value, ast.Constant)\n541:             and isinstance(first_statement.value.value, str)\n542:         )\n543:         if not is_docstring:\n544:             return module_source\n545: \n546:         lines = module_source.splitlines()\n547:         start_line = first_statement.lineno - 1\n548:         end_line = first_statement.end_lineno or first_statement.lineno\n549:         return \"\\n\".join(lines[:start_line] + lines[end_line:])\n550: \n551:     def _load_kmeans(self):\n552:         try:\n553:             return importlib.import_module(\"sklearn.cluster\").KMeans\n554:         except ImportError:\n555:             return None"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 551,
+        "line_end": 580,
+        "excerpt": "551:     def _load_kmeans(self):\n552:         try:\n553:             return importlib.import_module(\"sklearn.cluster\").KMeans\n554:         except ImportError:\n555:             return None\n556: \n557:     def _load_silhouette_score(self):\n558:         try:\n559:             return importlib.import_module(\"sklearn.metrics\").silhouette_score\n560:         except ImportError:\n561:             return None\n562: \n563:     def _select_cluster_count(self, embeddings: list[list[float]], *, min_k: int, max_k: int) -> int:\n564:         sample_count = len(embeddings)\n565:         if sample_count <= 1:\n566:             return sample_count\n567:         if sample_count <= min_k:\n568:             return sample_count\n569: \n570:         candidate_upper = min(max_k, sample_count - 1)\n571:         candidate_lower = min(min_k, candidate_upper)\n572:         candidates = list(range(candidate_lower, candidate_upper + 1))\n573:         if len(candidates) == 1:\n574:             return candidates[0]\n575: \n576:         kmeans_class = self._load_kmeans()\n577:         silhouette_score = self._load_silhouette_score()\n578:         if kmeans_class is None or silhouette_score is None:\n579:             return candidates[0]\n580: "
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 576,
+        "line_end": 605,
+        "excerpt": "576:         kmeans_class = self._load_kmeans()\n577:         silhouette_score = self._load_silhouette_score()\n578:         if kmeans_class is None or silhouette_score is None:\n579:             return candidates[0]\n580: \n581:         best_k = candidates[0]\n582:         best_score = -1.0\n583:         for cluster_count in candidates:\n584:             kmeans = kmeans_class(n_clusters=cluster_count, random_state=42, n_init=10)\n585:             labels = kmeans.fit_predict(embeddings)\n586:             score = float(silhouette_score(embeddings, labels))\n587:             if score > best_score:\n588:                 best_k = cluster_count\n589:                 best_score = score\n590:         return best_k\n591: \n592:     def _label_cluster(self, cluster_statements: list[str]) -> str:\n593:         provider, model = self.budget.task_descriptor(\"cluster_label\")\n594:         prompt = self._cluster_label_prompt(cluster_statements)\n595:         payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.0)\n596:         self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=json.dumps(payload))\n597:         label = str(payload.get(\"domain_label\", \"\")).strip().lower()\n598:         if not label:\n599:             raise RuntimeError(f\"{provider}:{model} did not return a domain label.\")\n600:         return label\n601: \n602:     def _coerce_to_graph(self, output: Any) -> nx.DiGraph:\n603:         if isinstance(output, KnowledgeGraph):\n604:             return output.graph\n605:         if isinstance(output, nx.DiGraph):"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 601,
+        "line_end": 630,
+        "excerpt": "601: \n602:     def _coerce_to_graph(self, output: Any) -> nx.DiGraph:\n603:         if isinstance(output, KnowledgeGraph):\n604:             return output.graph\n605:         if isinstance(output, nx.DiGraph):\n606:             return output\n607:         if isinstance(output, dict) and \"nodes\" in output:\n608:             return nx.node_link_graph(output, edges=\"links\")\n609:         raise TypeError(\"Expected KnowledgeGraph, networkx.DiGraph, or node-link graph payload.\")\n610: \n611:     def _build_evidence_bundle(self, surveyor_graph: nx.DiGraph, hydrologist_graph: nx.DiGraph) -> dict[str, Any]:\n612:         candidate_files = self._candidate_evidence_files(surveyor_graph, hydrologist_graph)[: self.model_config.evidence_file_limit]\n613:         remaining_budget = max(4_000, self.budget.remaining_budget(\"day_one_questions\"))\n614:         evidence_packets: list[EvidencePacket] = []\n615:         consumed_tokens = 0\n616: \n617:         for relative_path in candidate_files:\n618:             absolute_path = self.repository_path / relative_path\n619:             if not absolute_path.exists() or not absolute_path.is_file():\n620:                 continue\n621: \n622:             for packet in self._make_evidence_packets(relative_path, absolute_path):\n623:                 token_cost = self.budget.estimate_tokens(packet.excerpt)\n624:                 if evidence_packets and consumed_tokens + token_cost > remaining_budget:\n625:                     break\n626:                 evidence_packets.append(packet)\n627:                 consumed_tokens += token_cost\n628: \n629:         return {\n630:             \"files\": [packet.as_dict() for packet in evidence_packets],"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 626,
+        "line_end": 655,
+        "excerpt": "626:                 evidence_packets.append(packet)\n627:                 consumed_tokens += token_cost\n628: \n629:         return {\n630:             \"files\": [packet.as_dict() for packet in evidence_packets],\n631:             \"surveyor_summary\": self._summarize_surveyor_graph(surveyor_graph),\n632:             \"hydrologist_summary\": self._summarize_hydrologist_graph(hydrologist_graph),\n633:         }\n634: \n635:     def _candidate_evidence_files(self, surveyor_graph: nx.DiGraph, hydrologist_graph: nx.DiGraph) -> list[str]:\n636:         files: list[str] = []\n637:         seen: set[str] = set()\n638: \n639:         graph_metadata = surveyor_graph.graph if isinstance(surveyor_graph.graph, dict) else {}\n640:         for hub in graph_metadata.get(\"architectural_hubs\", [])[:6]:\n641:             path = hub.get(\"path\") if isinstance(hub, dict) else None\n642:             if isinstance(path, str) and path not in seen:\n643:                 seen.add(path)\n644:                 files.append(path)\n645: \n646:         for file_entry in graph_metadata.get(\"high_velocity_core\", {}).get(\"files\", [])[:6]:\n647:             path = file_entry.get(\"path\") if isinstance(file_entry, dict) else None\n648:             if isinstance(path, str) and path not in seen:\n649:                 seen.add(path)\n650:                 files.append(path)\n651: \n652:         for _, attributes in surveyor_graph.nodes(data=True):\n653:             if attributes.get(\"node_type\") != \"module\":\n654:                 continue\n655:             path = attributes.get(\"path\")"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 651,
+        "line_end": 680,
+        "excerpt": "651: \n652:         for _, attributes in surveyor_graph.nodes(data=True):\n653:             if attributes.get(\"node_type\") != \"module\":\n654:                 continue\n655:             path = attributes.get(\"path\")\n656:             if isinstance(path, str) and path not in seen:\n657:                 seen.add(path)\n658:                 files.append(path)\n659: \n660:         for node_id, attributes in hydrologist_graph.nodes(data=True):\n661:             if attributes.get(\"node_type\") == \"transformation\" and self._looks_like_repo_file(node_id) and node_id not in seen:\n662:                 seen.add(node_id)\n663:                 files.append(node_id)\n664:             source_file = attributes.get(\"source_file\")\n665:             if isinstance(source_file, str) and source_file not in seen:\n666:                 seen.add(source_file)\n667:                 files.append(source_file)\n668: \n669:         return files\n670: \n671:     def _make_evidence_packets(self, relative_path: str, absolute_path: Path) -> list[EvidencePacket]:\n672:         lines = absolute_path.read_text(encoding=\"utf-8\").splitlines()\n673:         if not lines:\n674:             return []\n675: \n676:         chunk_size = max(10, self.model_config.evidence_chunk_lines)\n677:         step = max(1, chunk_size - self.model_config.evidence_chunk_overlap)\n678:         packets: list[EvidencePacket] = []\n679:         for start_index in range(0, len(lines), step):\n680:             end_index = min(len(lines), start_index + chunk_size)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 676,
+        "line_end": 705,
+        "excerpt": "676:         chunk_size = max(10, self.model_config.evidence_chunk_lines)\n677:         step = max(1, chunk_size - self.model_config.evidence_chunk_overlap)\n678:         packets: list[EvidencePacket] = []\n679:         for start_index in range(0, len(lines), step):\n680:             end_index = min(len(lines), start_index + chunk_size)\n681:             selected_lines = lines[start_index:end_index]\n682:             if not any(line.strip() for line in selected_lines):\n683:                 continue\n684:             excerpt = \"\\n\".join(\n685:                 f\"{line_number}: {line}\"\n686:                 for line_number, line in enumerate(selected_lines, start=start_index + 1)\n687:             )\n688:             packets.append(\n689:                 EvidencePacket(\n690:                     path=relative_path,\n691:                     line_start=start_index + 1,\n692:                     line_end=end_index,\n693:                     excerpt=excerpt,\n694:                 )\n695:             )\n696:             if end_index == len(lines):\n697:                 break\n698:         return packets\n699: \n700:     def _summarize_surveyor_graph(self, surveyor_graph: nx.DiGraph) -> dict[str, Any]:\n701:         module_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get(\"node_type\") == \"module\"]\n702:         function_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get(\"node_type\") == \"function\"]\n703:         domain_clusters = surveyor_graph.graph.get(\"domain_clusters\", [])\n704:         return {\n705:             \"module_count\": len(module_nodes),"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 701,
+        "line_end": 730,
+        "excerpt": "701:         module_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get(\"node_type\") == \"module\"]\n702:         function_nodes = [node_id for node_id, attrs in surveyor_graph.nodes(data=True) if attrs.get(\"node_type\") == \"function\"]\n703:         domain_clusters = surveyor_graph.graph.get(\"domain_clusters\", [])\n704:         return {\n705:             \"module_count\": len(module_nodes),\n706:             \"function_count\": len(function_nodes),\n707:             \"architectural_hubs\": surveyor_graph.graph.get(\"architectural_hubs\", [])[:5],\n708:             \"high_velocity_core\": surveyor_graph.graph.get(\"high_velocity_core\", {}),\n709:             \"strongly_connected_components\": surveyor_graph.graph.get(\"strongly_connected_components\", []),\n710:             \"domain_clusters\": domain_clusters[:8] if isinstance(domain_clusters, list) else [],\n711:         }\n712: \n713:     def _summarize_hydrologist_graph(self, hydrologist_graph: nx.DiGraph) -> dict[str, Any]:\n714:         datasets = [node_id for node_id, attrs in hydrologist_graph.nodes(data=True) if attrs.get(\"node_type\") == \"dataset\"]\n715:         transformations = [node_id for node_id, attrs in hydrologist_graph.nodes(data=True) if attrs.get(\"node_type\") == \"transformation\"]\n716:         source_nodes = [\n717:             node_id\n718:             for node_id, attrs in hydrologist_graph.nodes(data=True)\n719:             if attrs.get(\"node_type\") == \"dataset\" and hydrologist_graph.in_degree(node_id) == 0\n720:         ]\n721:         sink_nodes = [\n722:             node_id\n723:             for node_id, attrs in hydrologist_graph.nodes(data=True)\n724:             if attrs.get(\"node_type\") == \"dataset\" and hydrologist_graph.out_degree(node_id) == 0\n725:         ]\n726:         return {\n727:             \"dataset_count\": len(datasets),\n728:             \"transformation_count\": len(transformations),\n729:             \"source_nodes\": sorted(source_nodes)[:10],\n730:             \"sink_nodes\": sorted(sink_nodes)[:10],"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 726,
+        "line_end": 755,
+        "excerpt": "726:         return {\n727:             \"dataset_count\": len(datasets),\n728:             \"transformation_count\": len(transformations),\n729:             \"source_nodes\": sorted(source_nodes)[:10],\n730:             \"sink_nodes\": sorted(sink_nodes)[:10],\n731:         }\n732: \n733:     def _normalize_day_one_answers(self, payload: dict[str, Any], evidence_bundle: dict[str, Any]) -> list[dict[str, Any]]:\n734:         valid_citations = {\n735:             (file_entry[\"path\"], int(file_entry[\"line_start\"]), int(file_entry[\"line_end\"]))\n736:             for file_entry in evidence_bundle.get(\"files\", [])\n737:         }\n738:         citations_by_path: dict[str, list[tuple[int, int]]] = defaultdict(list)\n739:         for path, line_start, line_end in valid_citations:\n740:             citations_by_path[path].append((line_start, line_end))\n741:         for entries in citations_by_path.values():\n742:             entries.sort()\n743: \n744:         answers = payload.get(\"answers\")\n745:         if not isinstance(answers, list) or len(answers) != len(self.FDE_DAY_ONE_QUESTIONS):\n746:             raise RuntimeError(\"Day-one synthesis response did not return the expected five answers.\")\n747: \n748:         normalized_answers: list[dict[str, Any]] = []\n749:         for expected_question, answer_payload in zip(self.FDE_DAY_ONE_QUESTIONS, answers):\n750:             if not isinstance(answer_payload, dict):\n751:                 raise RuntimeError(\"Day-one synthesis returned a malformed answer entry.\")\n752: \n753:             citations: list[dict[str, Any]] = []\n754:             for citation in answer_payload.get(\"citations\", []):\n755:                 if not isinstance(citation, dict):"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 751,
+        "line_end": 780,
+        "excerpt": "751:                 raise RuntimeError(\"Day-one synthesis returned a malformed answer entry.\")\n752: \n753:             citations: list[dict[str, Any]] = []\n754:             for citation in answer_payload.get(\"citations\", []):\n755:                 if not isinstance(citation, dict):\n756:                     continue\n757:                 path = citation.get(\"path\")\n758:                 line_start = citation.get(\"line_start\")\n759:                 line_end = citation.get(\"line_end\")\n760:                 if not isinstance(path, str):\n761:                     continue\n762:                 try:\n763:                     candidate = (path, int(line_start), int(line_end))\n764:                 except (TypeError, ValueError):\n765:                     normalized = self._snap_citation_to_evidence(path, None, None, citations_by_path)\n766:                     if normalized is not None:\n767:                         citations.append(normalized)\n768:                     continue\n769:                 if candidate in valid_citations:\n770:                     citations.append({\"path\": candidate[0], \"line_start\": candidate[1], \"line_end\": candidate[2]})\n771:                     continue\n772: \n773:                 normalized = self._snap_citation_to_evidence(\n774:                     path,\n775:                     candidate[1],\n776:                     candidate[2],\n777:                     citations_by_path,\n778:                 )\n779:                 if normalized is not None:\n780:                     citations.append(normalized)"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 776,
+        "line_end": 805,
+        "excerpt": "776:                     candidate[2],\n777:                     citations_by_path,\n778:                 )\n779:                 if normalized is not None:\n780:                     citations.append(normalized)\n781: \n782:             if not citations:\n783:                 raise RuntimeError(f\"Day-one answer for '{expected_question}' did not include valid evidence citations.\")\n784: \n785:             normalized_answers.append(\n786:                 {\n787:                     \"question\": expected_question,\n788:                     \"answer\": str(answer_payload.get(\"answer\", \"\")).strip(),\n789:                     \"citations\": citations,\n790:                 }\n791:             )\n792: \n793:         return normalized_answers\n794: \n795:     def _snap_citation_to_evidence(\n796:         self,\n797:         path: str,\n798:         line_start: int | None,\n799:         line_end: int | None,\n800:         citations_by_path: dict[str, list[tuple[int, int]]],\n801:     ) -> dict[str, Any] | None:\n802:         candidates = citations_by_path.get(path, [])\n803:         if not candidates:\n804:             return None\n805: "
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 801,
+        "line_end": 830,
+        "excerpt": "801:     ) -> dict[str, Any] | None:\n802:         candidates = citations_by_path.get(path, [])\n803:         if not candidates:\n804:             return None\n805: \n806:         if line_start is None or line_end is None:\n807:             best_start, best_end = candidates[0]\n808:             return {\"path\": path, \"line_start\": best_start, \"line_end\": best_end}\n809: \n810:         overlapping = [\n811:             (candidate_start, candidate_end)\n812:             for candidate_start, candidate_end in candidates\n813:             if not (line_end < candidate_start or line_start > candidate_end)\n814:         ]\n815:         if overlapping:\n816:             best_start, best_end = overlapping[0]\n817:             return {\"path\": path, \"line_start\": best_start, \"line_end\": best_end}\n818: \n819:         best_start, best_end = min(\n820:             candidates,\n821:             key=lambda item: min(abs(item[0] - line_start), abs(item[1] - line_end)),\n822:         )\n823:         return {\"path\": path, \"line_start\": best_start, \"line_end\": best_end}\n824: \n825:     def _purpose_statement_prompt(self, module_node: ModuleNode, module_code: str, existing_docstring: str | None) -> str:\n826:         docstring_section = existing_docstring.strip() if existing_docstring else \"<no module docstring present>\"\n827:         return (\n828:             \"You are a software architecture analyst. Read the module code and return JSON with keys purpose_statement, documentation_drift, and reasoning.\\n\"\n829:             \"Rules:\\n\"\n830:             \"- purpose_statement must be 2-3 sentences.\\n\""
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 826,
+        "line_end": 855,
+        "excerpt": "826:         docstring_section = existing_docstring.strip() if existing_docstring else \"<no module docstring present>\"\n827:         return (\n828:             \"You are a software architecture analyst. Read the module code and return JSON with keys purpose_statement, documentation_drift, and reasoning.\\n\"\n829:             \"Rules:\\n\"\n830:             \"- purpose_statement must be 2-3 sentences.\\n\"\n831:             \"- explain the business function of the module, not implementation details.\\n\"\n832:             \"- compare the purpose statement to the existing docstring summary.\\n\"\n833:             \"- set documentation_drift=true only when the code's purpose materially contradicts the docstring.\\n\"\n834:             \"- reasoning must be one short sentence.\\n\\n\"\n835:             f\"Module path: {module_node.path}\\n\"\n836:             f\"Existing docstring summary:\\n{docstring_section}\\n\\n\"\n837:             f\"Module code without docstring:\\n{module_code}\"\n838:         )\n839: \n840:     def _cluster_label_prompt(self, cluster_statements: list[str]) -> str:\n841:         joined = \"\\n\".join(f\"- {statement}\" for statement in cluster_statements)\n842:         return (\n843:             \"You are labeling a software domain cluster. Return JSON with one key: domain_label.\\n\"\n844:             \"Rules:\\n\"\n845:             \"- label must be 1-2 words.\\n\"\n846:             \"- prefer business/domain labels like ingestion, orchestration, serving, finance, quality.\\n\"\n847:             \"- do not use library names or implementation details.\\n\\n\"\n848:             f\"Purpose statements:\\n{joined}\"\n849:         )\n850: \n851:     def _day_one_prompt(self, surveyor_graph: nx.DiGraph, hydrologist_graph: nx.DiGraph, evidence_bundle: dict[str, Any]) -> str:\n852:         return (\n853:             \"You are onboarding a forward-deployed engineer to a brownfield system. Answer the five day-one questions in JSON with a top-level key answers.\\n\"\n854:             \"Each answer must have question, answer, and citations.\\n\"\n855:             \"Citations must be a list of objects with path, line_start, and line_end.\\n\""
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 851,
+        "line_end": 880,
+        "excerpt": "851:     def _day_one_prompt(self, surveyor_graph: nx.DiGraph, hydrologist_graph: nx.DiGraph, evidence_bundle: dict[str, Any]) -> str:\n852:         return (\n853:             \"You are onboarding a forward-deployed engineer to a brownfield system. Answer the five day-one questions in JSON with a top-level key answers.\\n\"\n854:             \"Each answer must have question, answer, and citations.\\n\"\n855:             \"Citations must be a list of objects with path, line_start, and line_end.\\n\"\n856:             \"Every answer must be repository-specific, concrete, and concise.\\n\"\n857:             \"Prefer naming exact modules, graph artifacts, or workflows over generic architectural language.\\n\"\n858:             \"Do not repeat the same sentence structure across answers.\\n\"\n859:             \"Do not restate the project name unless it adds meaning.\\n\"\n860:             \"For the critical-path answer, name the first 3-5 files/modules a new engineer should read and say why each matters.\\n\"\n861:             \"For the risk-surface answer, tie risk to architectural centrality, change velocity, or core schema/graph responsibilities.\\n\"\n862:             \"For the data-flow answer, describe concrete entry points, processing stages, and output artifacts.\\n\"\n863:             \"For the domain-architecture answer, summarize the main responsibility splits using the domain clusters when available.\\n\"\n864:             \"Use 2-5 citations per answer when possible, and avoid duplicate citations in the same answer.\\n\"\n865:             \"You may only cite path/line ranges that are supported by the evidence bundle.\\n\"\n866:             \"Do not invent files or ranges.\\n\"\n867:             \"Return exactly five answers in the same order as the questions.\\n\\n\"\n868:             f\"Questions:\\n{json.dumps(self.FDE_DAY_ONE_QUESTIONS, indent=2)}\\n\\n\"\n869:             f\"Surveyor summary:\\n{json.dumps(self._summarize_surveyor_graph(surveyor_graph), indent=2)}\\n\\n\"\n870:             f\"Hydrologist summary:\\n{json.dumps(self._summarize_hydrologist_graph(hydrologist_graph), indent=2)}\\n\\n\"\n871:             f\"Evidence bundle:\\n{json.dumps(evidence_bundle, indent=2)}\"\n872:         )\n873: \n874:     def _looks_like_repo_file(self, node_id: str) -> bool:\n875:         return \"/\" in node_id and not node_id.startswith((\"airflow:\", \"s3://\", \"gs://\", \"dbfs:/\", \"dynamic://\"))\n876: \n877: \n878: def _read_env_file(env_path: Path) -> dict[str, str]:\n879:     values: dict[str, str] = {}\n880:     for raw_line in env_path.read_text(encoding=\"utf-8\").splitlines():"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 876,
+        "line_end": 905,
+        "excerpt": "876: \n877: \n878: def _read_env_file(env_path: Path) -> dict[str, str]:\n879:     values: dict[str, str] = {}\n880:     for raw_line in env_path.read_text(encoding=\"utf-8\").splitlines():\n881:         line = raw_line.strip()\n882:         if not line or line.startswith(\"#\") or \"=\" not in line:\n883:             continue\n884:         key, value = line.split(\"=\", 1)\n885:         values[key.strip()] = value.strip().strip(\"\\\"'\")\n886:     return values\n887: \n888: \n889: def _coerce_env_int(raw_value: str | None, default: int) -> int:\n890:     if raw_value is None:\n891:         return default\n892:     try:\n893:         return int(raw_value)\n894:     except ValueError:\n895:         return default\n896: \n897: \n898: def _normalize_provider(provider: str) -> str:\n899:     return provider.strip().lower()\n900: \n901: \n902: def _normalize_gemini_model_name(model: str) -> str:\n903:     return model if model.startswith(\"models/\") else f\"models/{model}\"\n904: \n905: "
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 901,
+        "line_end": 930,
+        "excerpt": "901: \n902: def _normalize_gemini_model_name(model: str) -> str:\n903:     return model if model.startswith(\"models/\") else f\"models/{model}\"\n904: \n905: \n906: def _extract_gemini_text(response: dict[str, Any]) -> str:\n907:     parts: list[str] = []\n908:     for candidate in response.get(\"candidates\", []):\n909:         content = candidate.get(\"content\", {})\n910:         for part in content.get(\"parts\", []):\n911:             text = part.get(\"text\")\n912:             if isinstance(text, str):\n913:                 parts.append(text)\n914:     if not parts:\n915:         raise RuntimeError(\"Gemini response did not include any text parts.\")\n916:     return \"\\n\".join(parts)\n917: \n918: \n919: def _parse_json_text(text: str) -> dict[str, Any]:\n920:     cleaned = text.strip()\n921:     if cleaned.startswith(\"```\"):\n922:         cleaned = cleaned.strip(\"`\")\n923:         if cleaned.startswith(\"json\"):\n924:             cleaned = cleaned[4:].lstrip()\n925: \n926:     try:\n927:         payload = json.loads(cleaned)\n928:         if isinstance(payload, dict):\n929:             return payload\n930:     except json.JSONDecodeError:"
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 926,
+        "line_end": 955,
+        "excerpt": "926:     try:\n927:         payload = json.loads(cleaned)\n928:         if isinstance(payload, dict):\n929:             return payload\n930:     except json.JSONDecodeError:\n931:         pass\n932: \n933:     start = cleaned.find(\"{\")\n934:     end = cleaned.rfind(\"}\")\n935:     if start != -1 and end != -1 and end > start:\n936:         payload = json.loads(cleaned[start:end + 1])\n937:         if isinstance(payload, dict):\n938:             return payload\n939: \n940:     raise RuntimeError(f\"Model response was not valid JSON: {text[:400]}\")\n941: \n942: \n943: __all__ = [\n944:     \"ContextWindowBudget\",\n945:     \"DayOneAnswer\",\n946:     \"DomainCluster\",\n947:     \"EmbeddingClient\",\n948:     \"EvidencePacket\",\n949:     \"GeminiEmbeddingClient\",\n950:     \"GeminiStructuredLLMClient\",\n951:     \"ModelTierConfig\",\n952:     \"OllamaEmbeddingClient\",\n953:     \"OllamaStructuredLLMClient\",\n954:     \"PurposeStatementResult\",\n955:     \"SemanticistAgent\","
+      },
+      {
+        "path": "src/agents/semanticist.py",
+        "line_start": 951,
+        "line_end": 958,
+        "excerpt": "951:     \"ModelTierConfig\",\n952:     \"OllamaEmbeddingClient\",\n953:     \"OllamaStructuredLLMClient\",\n954:     \"PurposeStatementResult\",\n955:     \"SemanticistAgent\",\n956:     \"StructuredLLMClient\",\n957:     \"UsageRecord\",\n958: ]"
+      },
+      {
+        "path": "pyproject.toml",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: [build-system]\n2: requires = [\"hatchling>=1.24.0\"]\n3: build-backend = \"hatchling.build\"\n4: \n5: [project]\n6: name = \"brownfield-cartographer\"\n7: version = \"0.1.0\"\n8: description = \"Tools for mapping and analyzing existing (brownfield) codebases.\"\n9: readme = \"README.md\"\n10: requires-python = \">=3.10\"\n11: authors = [\n12:   { name = \"Chalie LIjalem\", email = \"chalielijalem@gmail.com\" },\n13: ]\n14: dependencies = [\n15:   \"langchain-core\",\n16:   \"langgraph\",\n17:   \"pydantic\",\n18:   \"networkx\",\n19:   \"scikit-learn\",\n20:   \"tiktoken\",\n21:   \"tree-sitter\",\n22:   \"tree-sitter-python\",\n23:   \"tree-sitter-sql\",\n24:   \"tree-sitter-yaml\",\n25:   \"tree-sitter-javascript\",\n26:   \"tree-sitter-typescript\",\n27:   \"sqlglot\",\n28: ]\n29: \n30: [project.scripts]"
+      },
+      {
+        "path": "pyproject.toml",
+        "line_start": 26,
+        "line_end": 37,
+        "excerpt": "26:   \"tree-sitter-typescript\",\n27:   \"sqlglot\",\n28: ]\n29: \n30: [project.scripts]\n31: brownfield-cartographer = \"brownfield_cartographer.cli:main\"\n32: \n33: [tool.hatch.build.targets.wheel]\n34: packages = [\"src/agents\", \"src/analyzers\", \"src/brownfield_cartographer\", \"src/graph\", \"src/models\"]\n35: \n36: [dependency-groups]\n37: dev = []"
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: from collections import deque\n4: from pathlib import Path\n5: from typing import TypedDict\n6: \n7: from analyzers.dag_config_parser import DAGConfigAnalyzer\n8: from analyzers.python_data_flow import PythonDataFlowAnalyzer\n9: from analyzers.sql_lineage import SQLLineageAnalyzer\n10: from graph.knowledge_graph import KnowledgeGraph\n11: from models.schemas import DatasetNode, EdgeType, TransformationNode\n12: \n13: \n14: class LineageEdge(TypedDict):\n15: \tsource: str\n16: \ttarget: str\n17: \tedge_type: str\n18: \n19: \n20: class HydrologistAgent:\n21: \tdef __init__(self, repository_path: str | Path) -> None:\n22: \t\tself.repository_path = Path(repository_path).resolve()\n23: \t\tself.knowledge_graph = KnowledgeGraph()\n24: \t\tself.python_data_flow_analyzer = PythonDataFlowAnalyzer()\n25: \t\tself.sql_lineage_analyzer = SQLLineageAnalyzer()\n26: \t\tself.dag_config_analyzer = DAGConfigAnalyzer()\n27: \n28: \tdef build_lineage_graph(self) -> KnowledgeGraph:\n29: \t\tself.knowledge_graph = KnowledgeGraph()\n30: "
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \t\tself.dag_config_analyzer = DAGConfigAnalyzer()\n27: \n28: \tdef build_lineage_graph(self) -> KnowledgeGraph:\n29: \t\tself.knowledge_graph = KnowledgeGraph()\n30: \n31: \t\tfor yaml_file in self._iter_files((\".yml\", \".yaml\")):\n32: \t\t\tif yaml_file.name == \"dbt_project.yml\":\n33: \t\t\t\tcontinue\n34: \t\t\tfor node in self.dag_config_analyzer.parse_dbt_resources(yaml_file):\n35: \t\t\t\tself.knowledge_graph.add_node(node)\n36: \n37: \t\tfor python_file in self._iter_files((\".py\",)):\n38: \t\t\tself._register_lineage_edges(python_file, self.python_data_flow_analyzer.analyze_file(python_file))\n39: \t\t\tself._register_airflow_topology(python_file)\n40: \n41: \t\tfor sql_file in self._iter_files((\".sql\",)):\n42: \t\t\tself._register_lineage_edges(sql_file, self.sql_lineage_analyzer.analyze_file(sql_file))\n43: \n44: \t\treturn self.knowledge_graph\n45: \n46: \tdef blast_radius(self, node_name: str) -> list[str]:\n47: \t\tif node_name not in self.knowledge_graph.graph:\n48: \t\t\treturn []\n49: \n50: \t\tvisited = {node_name}\n51: \t\tqueue: deque[str] = deque([node_name])\n52: \t\tdownstream_datasets: list[str] = []\n53: \n54: \t\twhile queue:\n55: \t\t\tcurrent = queue.popleft()"
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \t\tqueue: deque[str] = deque([node_name])\n52: \t\tdownstream_datasets: list[str] = []\n53: \n54: \t\twhile queue:\n55: \t\t\tcurrent = queue.popleft()\n56: \t\t\tfor neighbor in self.knowledge_graph.graph.successors(current):\n57: \t\t\t\tif neighbor in visited:\n58: \t\t\t\t\tcontinue\n59: \t\t\t\tvisited.add(neighbor)\n60: \t\t\t\tqueue.append(neighbor)\n61: \n62: \t\t\t\tif self.knowledge_graph.graph.nodes[neighbor].get(\"node_type\") == \"dataset\":\n63: \t\t\t\t\tdownstream_datasets.append(neighbor)\n64: \n65: \t\treturn downstream_datasets\n66: \n67: \tdef find_source_nodes(self) -> list[str]:\n68: \t\treturn [\n69: \t\t\tnode_id\n70: \t\t\tfor node_id, attributes in self.knowledge_graph.graph.nodes(data=True)\n71: \t\t\tif attributes.get(\"node_type\") == \"dataset\"\n72: \t\t\tand self.knowledge_graph.graph.in_degree(node_id) == 0\n73: \t\t\tand self.knowledge_graph.graph.out_degree(node_id) > 0\n74: \t\t]\n75: \n76: \tdef find_sink_nodes(self) -> list[str]:\n77: \t\treturn [\n78: \t\t\tnode_id\n79: \t\t\tfor node_id, attributes in self.knowledge_graph.graph.nodes(data=True)\n80: \t\t\tif attributes.get(\"node_type\") == \"dataset\""
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \tdef find_sink_nodes(self) -> list[str]:\n77: \t\treturn [\n78: \t\t\tnode_id\n79: \t\t\tfor node_id, attributes in self.knowledge_graph.graph.nodes(data=True)\n80: \t\t\tif attributes.get(\"node_type\") == \"dataset\"\n81: \t\t\tand self.knowledge_graph.graph.out_degree(node_id) == 0\n82: \t\t\tand self.knowledge_graph.graph.in_degree(node_id) > 0\n83: \t\t]\n84: \n85: \tdef find_sources(self) -> list[str]:\n86: \t\treturn self.find_source_nodes()\n87: \n88: \tdef find_sinks(self) -> list[str]:\n89: \t\treturn self.find_sink_nodes()\n90: \n91: \tdef _iter_files(self, suffixes: tuple[str, ...]):\n92: \t\tfor file_path in self.repository_path.rglob(\"*\"):\n93: \t\t\tif not file_path.is_file() or file_path.suffix.lower() not in suffixes:\n94: \t\t\t\tcontinue\n95: \t\t\trelative_parts = file_path.relative_to(self.repository_path).parts\n96: \t\t\tif any(part in {\".cartography\", \".git\", \".venv\", \"__pycache__\", \"build\", \"dist\", \"target\", \"tmp\"} for part in relative_parts):\n97: \t\t\t\tcontinue\n98: \t\t\tyield file_path\n99: \n100: \tdef _register_lineage_edges(self, file_path: Path, edges: list[LineageEdge]) -> None:\n101: \t\trelative_file_id = file_path.relative_to(self.repository_path).as_posix()\n102: \t\tabsolute_file_id = file_path.as_posix()\n103: \n104: \t\tfor edge in edges:\n105: \t\t\tsource_id = self._normalize_file_endpoint(edge[\"source\"], absolute_file_id, relative_file_id)"
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \t\trelative_file_id = file_path.relative_to(self.repository_path).as_posix()\n102: \t\tabsolute_file_id = file_path.as_posix()\n103: \n104: \t\tfor edge in edges:\n105: \t\t\tsource_id = self._normalize_file_endpoint(edge[\"source\"], absolute_file_id, relative_file_id)\n106: \t\t\ttarget_id = self._normalize_file_endpoint(edge[\"target\"], absolute_file_id, relative_file_id)\n107: \t\t\tedge_type = EdgeType(edge[\"edge_type\"])\n108: \n109: \t\t\tself._ensure_lineage_node(source_id, edge_type=edge_type, is_source=True)\n110: \t\t\tself._ensure_lineage_node(target_id, edge_type=edge_type, is_source=False)\n111: \t\t\tself.knowledge_graph.add_edge(source_id, target_id, edge_type)\n112: \n113: \tdef _register_airflow_topology(self, python_file: Path) -> None:\n114: \t\tparsed_dag = self.dag_config_analyzer.analyze_airflow_dag(python_file)\n115: \t\tif not parsed_dag[\"tasks\"]:\n116: \t\t\treturn\n117: \n118: \t\trelative_file_id = python_file.relative_to(self.repository_path).as_posix()\n119: \t\tfor task in parsed_dag[\"tasks\"]:\n120: \t\t\ttask_node_id = self._airflow_task_node_id(relative_file_id, task[\"task_id\"])\n121: \t\t\tself._ensure_transformation_node(task_node_id)\n122: \t\t\tself.knowledge_graph.graph.nodes[task_node_id][\"operator\"] = task[\"operator\"]\n123: \t\t\tself.knowledge_graph.graph.nodes[task_node_id][\"source_file\"] = relative_file_id\n124: \n125: \t\tfor upstream_task_id, downstream_task_id in parsed_dag[\"dependencies\"]:\n126: \t\t\tself.knowledge_graph.add_edge(\n127: \t\t\t\tself._airflow_task_node_id(relative_file_id, upstream_task_id),\n128: \t\t\t\tself._airflow_task_node_id(relative_file_id, downstream_task_id),\n129: \t\t\t\tEdgeType.CONFIGURES,\n130: \t\t\t)"
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \t\t\tself.knowledge_graph.add_edge(\n127: \t\t\t\tself._airflow_task_node_id(relative_file_id, upstream_task_id),\n128: \t\t\t\tself._airflow_task_node_id(relative_file_id, downstream_task_id),\n129: \t\t\t\tEdgeType.CONFIGURES,\n130: \t\t\t)\n131: \n132: \tdef _ensure_dataset_node(self, dataset_name: str, storage_type: str = \"table\") -> str:\n133: \t\tif dataset_name not in self.knowledge_graph.graph:\n134: \t\t\tself.knowledge_graph.add_node(\n135: \t\t\t\tDatasetNode(\n136: \t\t\t\t\tid=dataset_name,\n137: \t\t\t\t\tname=dataset_name,\n138: \t\t\t\t\tstorage_type=storage_type,\n139: \t\t\t\t)\n140: \t\t\t)\n141: \t\treturn dataset_name\n142: \n143: \tdef _ensure_transformation_node(self, transformation_id: str) -> str:\n144: \t\tif transformation_id not in self.knowledge_graph.graph:\n145: \t\t\tself.knowledge_graph.add_node(TransformationNode(id=transformation_id))\n146: \t\treturn transformation_id\n147: \n148: \tdef _ensure_lineage_node(self, node_id: str, edge_type: EdgeType, is_source: bool) -> str:\n149: \t\tif edge_type == EdgeType.CONFIGURES:\n150: \t\t\treturn self._ensure_transformation_node(node_id)\n151: \n152: \t\tif edge_type == EdgeType.PRODUCES and is_source:\n153: \t\t\treturn self._ensure_transformation_node(node_id)\n154: \n155: \t\tif edge_type == EdgeType.CONSUMES and not is_source:"
+      },
+      {
+        "path": "src/agents/hydrologist.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \n152: \t\tif edge_type == EdgeType.PRODUCES and is_source:\n153: \t\t\treturn self._ensure_transformation_node(node_id)\n154: \n155: \t\tif edge_type == EdgeType.CONSUMES and not is_source:\n156: \t\t\treturn self._ensure_transformation_node(node_id)\n157: \n158: \t\tstorage_type = self._infer_storage_type(node_id)\n159: \t\tif edge_type == EdgeType.CONSUMES and is_source and \".\" in node_id and \"/\" not in node_id and storage_type == \"table\":\n160: \t\t\tstorage_type = \"dbt_source\"\n161: \t\treturn self._ensure_dataset_node(node_id, storage_type=storage_type)\n162: \n163: \tdef _normalize_file_endpoint(self, node_id: str, absolute_file_id: str, relative_file_id: str) -> str:\n164: \t\treturn relative_file_id if node_id == absolute_file_id else node_id\n165: \n166: \tdef _infer_storage_type(self, node_id: str) -> str:\n167: \t\tnormalized = node_id.lower()\n168: \t\tif node_id.startswith(\"dynamic://\"):\n169: \t\t\treturn \"dynamic_reference\"\n170: \t\tif normalized.startswith((\"s3://\", \"gs://\", \"dbfs:/\")):\n171: \t\t\treturn \"object_store\"\n172: \t\tif \"/\" in node_id or normalized.endswith((\".csv\", \".json\", \".jsonl\", \".parquet\", \".avro\", \".txt\")):\n173: \t\t\treturn \"file\"\n174: \t\treturn \"table\"\n175: \n176: \tdef _airflow_task_node_id(self, relative_file_id: str, task_id: str) -> str:\n177: \t\treturn f\"airflow:{relative_file_id}:{task_id}\"\n178: \n179: \n180: __all__ = [\"HydrologistAgent\"]"
+      },
+      {
+        "path": "src/analyzers/__init__.py",
+        "line_start": 1,
+        "line_end": 21,
+        "excerpt": "1: from .dag_config_parser import DAGConfigAnalyzer, parse_airflow_dag_file, parse_dbt_schema_file, parse_dbt_yaml\n2: from .python_data_flow import PythonDataFlowAnalyzer, PythonDataFlowEdge\n3: from .sql_lineage import DbtSqlEdge, SQLLineageAnalyzer, SqlDependencies, SqlLineageEdge, extract_sql_dependencies, parse_dbt_sql\n4: from .tree_sitter_analyzer import LanguageRouter, parse_python_imports_and_functions\n5: \n6: __all__ = [\n7: \t\"DAGConfigAnalyzer\",\n8: \t\"DbtSqlEdge\",\n9: \t\"LanguageRouter\",\n10: \t\"PythonDataFlowAnalyzer\",\n11: \t\"PythonDataFlowEdge\",\n12: \t\"SQLLineageAnalyzer\",\n13: \t\"SqlDependencies\",\n14: \t\"SqlLineageEdge\",\n15: \t\"parse_airflow_dag_file\",\n16: \t\"parse_dbt_yaml\",\n17: \t\"parse_dbt_schema_file\",\n18: \t\"extract_sql_dependencies\",\n19: \t\"parse_dbt_sql\",\n20: \t\"parse_python_imports_and_functions\",\n21: ]"
+      },
+      {
+        "path": "src/brownfield_cartographer/cli.py",
+        "line_start": 1,
+        "line_end": 19,
+        "excerpt": "1: from cli import (\n2: \tbuild_parser,\n3: \tis_remote_repo_path,\n4: \tmain,\n5: \tnormalize_repo_url,\n6: \tpersist_remote_outputs,\n7: \tremote_output_directory,\n8: \tresolve_repo_path,\n9: )\n10: \n11: __all__ = [\n12: \t\"build_parser\",\n13: \t\"is_remote_repo_path\",\n14: \t\"main\",\n15: \t\"normalize_repo_url\",\n16: \t\"persist_remote_outputs\",\n17: \t\"remote_output_directory\",\n18: \t\"resolve_repo_path\",\n19: ]"
+      },
+      {
+        "path": "README.md",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: # Brownfield Cartographer\n2: \n3: Brownfield Cartographer analyzes an existing codebase and produces JSON graph artifacts for:\n4: \n5: - module-level import relationships\n6: - data-lineage relationships across Python pipelines, SQL, dbt, and Airflow assets\n7: - semantic enrichment for module purpose, domain clustering, and day-one onboarding synthesis\n8: \n9: The tool writes its outputs into a `.cartography/` directory inside the analyzed repository.\n10: \n11: ## Requirements\n12: \n13: - Python 3.10+\n14: - `uv`\n15: - `git` available on your `PATH`\n16: \n17: ## Install with uv\n18: \n19: From the project root:\n20: \n21: ```bash\n22: uv sync\n23: ```\n24: \n25: This creates or updates the local virtual environment and installs all project dependencies from `pyproject.toml`.\n26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: "
+      },
+      {
+        "path": "README.md",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: \n31: ```bash\n32: uv run brownfield-cartographer analyze --repo-path <path-or-url>\n33: ```\n34: \n35: You can also still use the backward-compatible form without the subcommand:\n36: \n37: ```bash\n38: uv run brownfield-cartographer --repo-path <path-or-url>\n39: ```\n40: \n41: ## Analyze a local repository\n42: \n43: Example using a local directory path:\n44: \n45: ```bash\n46: uv run brownfield-cartographer analyze --repo-path .\n47: ```\n48: \n49: Or point at any other local repository:\n50: \n51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository"
+      },
+      {
+        "path": "README.md",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository\n56: \n57: If `--repo-path` starts with `http`, `https`, or `github.com/`, the CLI temporarily clones the repository into `/tmp` before running analysis.\n58: \n59: Examples:\n60: \n61: ```bash\n62: uv run brownfield-cartographer analyze --repo-path https://github.com/octocat/Hello-World\n63: ```\n64: \n65: ```bash\n66: uv run brownfield-cartographer analyze --repo-path github.com/octocat/Hello-World\n67: ```\n68: \n69: ## Output files\n70: \n71: After a successful run, Brownfield Cartographer writes:\n72: \n73: - `.cartography/module_graph.json`\n74: - `.cartography/lineage_graph.json`\n75: - Semanticist-enriched module metadata inside the generated graph payloads when Phase 3 runs\n76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: "
+      },
+      {
+        "path": "README.md",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: \n81: - Python imports and module relationships\n82: - Python data reads, writes, and SQL execution paths\n83: - SQL lineage and write targets\n84: - dbt schema metadata and dependencies\n85: - Airflow DAG task topology\n86: - LLM-generated module purpose statements\n87: - Domain clusters derived from semantic embeddings\n88: - Five evidence-backed day-one onboarding answers\n89: \n90: ## Semanticist configuration\n91: \n92: Phase 3 uses Gemini and local Ollama together:\n93: \n94: - Gemini handles fast summarization and embeddings\n95: - Ollama handles heavier synthesis for day-one answers\n96: \n97: Copy the example configuration if needed:\n98: \n99: ```bash\n100: cp .env.example .env\n101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`"
+      },
+      {
+        "path": "README.md",
+        "line_start": 101,
+        "line_end": 129,
+        "excerpt": "101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`\n106: - `OLLAMA_BASE_URL` if your Ollama server is not running on the default `http://localhost:11434`\n107: \n108: Default model routing in `.env` is:\n109: \n110: - `SEMANTICIST_FAST_PROVIDER=gemini`\n111: - `SEMANTICIST_FAST_MODEL=gemini-2.5-flash`\n112: - `SEMANTICIST_HEAVY_PROVIDER=ollama`\n113: - `SEMANTICIST_HEAVY_MODEL=llama3.2:latest`\n114: - `SEMANTICIST_EMBEDDING_PROVIDER=gemini`\n115: - `SEMANTICIST_EMBEDDING_MODEL=gemini-embedding-001`\n116: \n117: To use the local Ollama model, make sure it is available before running analysis, for example:\n118: \n119: ```bash\n120: ollama pull llama3.2:latest\n121: ```\n122: \n123: If you want a different Gemini or Ollama model, update the related `.env` values without changing application code.\n124: \n125: ## Notes\n126: \n127: - Remote repositories are cloned into a temporary directory under `/tmp` for the duration of the run.\n128: - The analyzed repository must be cloneable with your local `git` configuration.\n129: - If a repository has no SQL or dbt assets, `.cartography/lineage_graph.json` may be empty."
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import ast\n4: from pathlib import Path\n5: import re\n6: from typing import TypedDict\n7: \n8: from analyzers.sql_lineage import extract_sql_dependencies\n9: \n10: \n11: class PythonDataFlowEdge(TypedDict):\n12: \tsource: str\n13: \ttarget: str\n14: \tedge_type: str\n15: \n16: \n17: class PythonDataFlowAnalyzer(ast.NodeVisitor):\n18: \tREAD_CALL_SUFFIXES = {\n19: \t\t\"read_csv\",\n20: \t\t\"read_json\",\n21: \t\t\"read_parquet\",\n22: \t\t\"read_pickle\",\n23: \t\t\"read_excel\",\n24: \t\t\"read_feather\",\n25: \t\t\"read_orc\",\n26: \t\t\"read_table\",\n27: \t}\n28: \tWRITE_CALL_SUFFIXES = {\n29: \t\t\"to_csv\",\n30: \t\t\"to_json\","
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \t\t\"read_table\",\n27: \t}\n28: \tWRITE_CALL_SUFFIXES = {\n29: \t\t\"to_csv\",\n30: \t\t\"to_json\",\n31: \t\t\"to_parquet\",\n32: \t\t\"to_pickle\",\n33: \t\t\"to_excel\",\n34: \t\t\"to_feather\",\n35: \t\t\"to_orc\",\n36: \t}\n37: \tSQL_READ_CALL_SUFFIXES = {\"read_sql\", \"read_sql_query\", \"read_sql_table\"}\n38: \tSQL_EXECUTE_CALL_SUFFIXES = {\"execute\", \"executemany\", \"sql\"}\n39: \tSPARK_READ_SUFFIXES = {\"read.csv\", \"read.json\", \"read.parquet\", \"read.text\", \"read.table\", \"read.load\"}\n40: \tSPARK_WRITE_SUFFIXES = {\n41: \t\t\"write.csv\",\n42: \t\t\"write.json\",\n43: \t\t\"write.parquet\",\n44: \t\t\"write.text\",\n45: \t\t\"write.save\",\n46: \t\t\"write.saveAsTable\",\n47: \t\t\"write.insertInto\",\n48: \t}\n49: \n50: \tdef __init__(self, dialect: str = \"postgres\") -> None:\n51: \t\tsuper().__init__()\n52: \t\tself.dialect = dialect\n53: \t\tself._variable_values: dict[str, str] = {}\n54: \t\tself._edges: dict[tuple[str, str, str], PythonDataFlowEdge] = {}\n55: \t\tself._transformation_id: str | None = None"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \t\tsuper().__init__()\n52: \t\tself.dialect = dialect\n53: \t\tself._variable_values: dict[str, str] = {}\n54: \t\tself._edges: dict[tuple[str, str, str], PythonDataFlowEdge] = {}\n55: \t\tself._transformation_id: str | None = None\n56: \n57: \tdef analyze_file(self, file_path: str | Path) -> list[PythonDataFlowEdge]:\n58: \t\tself._variable_values = {}\n59: \t\tself._edges = {}\n60: \t\tself._transformation_id = Path(file_path).as_posix()\n61: \n62: \t\tsource = Path(file_path).read_text(encoding=\"utf-8\")\n63: \t\ttree = ast.parse(source)\n64: \t\tself.visit(tree)\n65: \n66: \t\treturn list(self._edges.values())\n67: \n68: \tdef visit_Assign(self, node: ast.Assign) -> None:\n69: \t\tresolved_value = self._resolve_value(node.value)\n70: \t\tfor target in node.targets:\n71: \t\t\tself._record_assignment(target, resolved_value)\n72: \t\tself.generic_visit(node)\n73: \n74: \tdef visit_AnnAssign(self, node: ast.AnnAssign) -> None:\n75: \t\tresolved_value = self._resolve_value(node.value) if node.value is not None else None\n76: \t\tself._record_assignment(node.target, resolved_value)\n77: \t\tself.generic_visit(node)\n78: \n79: \tdef visit_Call(self, node: ast.Call) -> None:\n80: \t\tcall_name = self._call_name(node.func)"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \t\tself._record_assignment(node.target, resolved_value)\n77: \t\tself.generic_visit(node)\n78: \n79: \tdef visit_Call(self, node: ast.Call) -> None:\n80: \t\tcall_name = self._call_name(node.func)\n81: \t\tif call_name is not None and self._transformation_id is not None:\n82: \t\t\tif self._matches_suffix(call_name, self.READ_CALL_SUFFIXES | self.SPARK_READ_SUFFIXES):\n83: \t\t\t\tfor dataset in self._extract_read_datasets(node, call_name):\n84: \t\t\t\t\tself._add_edge(dataset, self._transformation_id, \"CONSUMES\")\n85: \t\t\telif self._matches_suffix(call_name, self.WRITE_CALL_SUFFIXES | self.SPARK_WRITE_SUFFIXES):\n86: \t\t\t\tfor dataset in self._extract_write_datasets(node, call_name):\n87: \t\t\t\t\tself._add_edge(self._transformation_id, dataset, \"PRODUCES\")\n88: \t\t\telif self._matches_suffix(call_name, self.SQL_READ_CALL_SUFFIXES):\n89: \t\t\t\tfor dataset in self._extract_sql_read_datasets(node, call_name):\n90: \t\t\t\t\tself._add_edge(dataset, self._transformation_id, \"CONSUMES\")\n91: \t\t\telif self._matches_suffix(call_name, self.SQL_EXECUTE_CALL_SUFFIXES):\n92: \t\t\t\tfor edge in self._extract_sql_execution_edges(node):\n93: \t\t\t\t\tself._add_edge(edge[\"source\"], edge[\"target\"], edge[\"edge_type\"])\n94: \n95: \t\tself.generic_visit(node)\n96: \n97: \tdef _record_assignment(self, target: ast.AST, value: str | None) -> None:\n98: \t\tif value is None:\n99: \t\t\treturn\n100: \n101: \t\tfor target_name in self._extract_target_names(target):\n102: \t\t\tself._variable_values[target_name] = value\n103: \n104: \tdef _extract_target_names(self, target: ast.AST) -> list[str]:\n105: \t\tif isinstance(target, ast.Name):"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \t\tfor target_name in self._extract_target_names(target):\n102: \t\t\tself._variable_values[target_name] = value\n103: \n104: \tdef _extract_target_names(self, target: ast.AST) -> list[str]:\n105: \t\tif isinstance(target, ast.Name):\n106: \t\t\treturn [target.id]\n107: \t\tif isinstance(target, (ast.Tuple, ast.List)):\n108: \t\t\tnames: list[str] = []\n109: \t\t\tfor element in target.elts:\n110: \t\t\t\tnames.extend(self._extract_target_names(element))\n111: \t\t\treturn names\n112: \t\treturn []\n113: \n114: \tdef _extract_read_datasets(self, node: ast.Call, call_name: str) -> list[str]:\n115: \t\tif self._matches_suffix(call_name, self.SPARK_READ_SUFFIXES):\n116: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"path\", \"paths\", \"tableName\"})\n117: \t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"filepath_or_buffer\", \"path\", \"path_or_buf\"})\n118: \n119: \tdef _extract_write_datasets(self, node: ast.Call, call_name: str) -> list[str]:\n120: \t\tif call_name.endswith(\"saveAsTable\") or call_name.endswith(\"insertInto\"):\n121: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"name\", \"tableName\"})\n122: \t\tif call_name.endswith(\"save\"):\n123: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"path\"})\n124: \t\tif call_name.endswith(\"to_sql\"):\n125: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"name\"})\n126: \t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"path\", \"path_or_buf\", \"filepath_or_buffer\"})\n127: \n128: \tdef _extract_sql_read_datasets(self, node: ast.Call, call_name: str) -> list[str]:\n129: \t\tif call_name.endswith(\"read_sql_table\"):\n130: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"table_name\", \"name\"})"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"path\", \"path_or_buf\", \"filepath_or_buffer\"})\n127: \n128: \tdef _extract_sql_read_datasets(self, node: ast.Call, call_name: str) -> list[str]:\n129: \t\tif call_name.endswith(\"read_sql_table\"):\n130: \t\t\treturn self._extract_datasets_from_arguments(node, keyword_names={\"table_name\", \"name\"})\n131: \n132: \t\tsql_argument = self._get_argument(node, 0, {\"sql\", \"query\"})\n133: \t\tif sql_argument is None:\n134: \t\t\treturn []\n135: \n136: \t\tresolved_sql = self._resolve_value(sql_argument)\n137: \t\tif resolved_sql is None:\n138: \t\t\treturn []\n139: \n140: \t\tdependencies = self._extract_sql_dependencies(resolved_sql)\n141: \t\treturn dependencies[\"source_tables\"] or ([resolved_sql] if not self._looks_like_sql(resolved_sql) else [])\n142: \n143: \tdef _extract_sql_execution_edges(self, node: ast.Call) -> list[PythonDataFlowEdge]:\n144: \t\tsql_argument = self._get_argument(node, 0, {\"statement\", \"sql\", \"query\"})\n145: \t\tif sql_argument is None or self._transformation_id is None:\n146: \t\t\treturn []\n147: \n148: \t\tresolved_sql = self._resolve_value(sql_argument)\n149: \t\tif resolved_sql is None:\n150: \t\t\treturn []\n151: \n152: \t\tdependencies = self._extract_sql_dependencies(resolved_sql)\n153: \t\tedges: list[PythonDataFlowEdge] = []\n154: \t\tfor source_table in dependencies[\"source_tables\"]:\n155: \t\t\tedges.append({\"source\": source_table, \"target\": self._transformation_id, \"edge_type\": \"CONSUMES\"})"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \n152: \t\tdependencies = self._extract_sql_dependencies(resolved_sql)\n153: \t\tedges: list[PythonDataFlowEdge] = []\n154: \t\tfor source_table in dependencies[\"source_tables\"]:\n155: \t\t\tedges.append({\"source\": source_table, \"target\": self._transformation_id, \"edge_type\": \"CONSUMES\"})\n156: \t\tif dependencies[\"target_table\"] is not None:\n157: \t\t\tedges.append(\n158: \t\t\t\t{\"source\": self._transformation_id, \"target\": dependencies[\"target_table\"], \"edge_type\": \"PRODUCES\"}\n159: \t\t\t)\n160: \t\treturn edges\n161: \n162: \tdef _extract_sql_dependencies(self, sql_text: str) -> dict[str, list[str] | str | None]:\n163: \t\ttry:\n164: \t\t\treturn extract_sql_dependencies(sql_text, dialect=self.dialect)\n165: \t\texcept Exception:\n166: \t\t\treturn {\"source_tables\": [], \"target_table\": None}\n167: \n168: \tdef _extract_datasets_from_arguments(\n169: \t\tself,\n170: \t\tnode: ast.Call,\n171: \t\tkeyword_names: set[str] | None = None,\n172: \t) -> list[str]:\n173: \t\tdatasets: list[str] = []\n174: \t\tkeyword_names = keyword_names or set()\n175: \n176: \t\tcandidate_values: list[str | None] = []\n177: \t\tif node.args:\n178: \t\t\tcandidate_values.append(self._resolve_value(node.args[0]))\n179: \t\tfor keyword in node.keywords:\n180: \t\t\tif keyword.arg in keyword_names:"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 176,
+        "line_end": 205,
+        "excerpt": "176: \t\tcandidate_values: list[str | None] = []\n177: \t\tif node.args:\n178: \t\t\tcandidate_values.append(self._resolve_value(node.args[0]))\n179: \t\tfor keyword in node.keywords:\n180: \t\t\tif keyword.arg in keyword_names:\n181: \t\t\t\tcandidate_values.append(self._resolve_value(keyword.value))\n182: \n183: \t\tfor value in candidate_values:\n184: \t\t\tif value:\n185: \t\t\t\tdatasets.append(value)\n186: \n187: \t\treturn list(dict.fromkeys(datasets))\n188: \n189: \tdef _get_argument(self, node: ast.Call, index: int, keyword_names: set[str]) -> ast.AST | None:\n190: \t\tif len(node.args) > index:\n191: \t\t\treturn node.args[index]\n192: \t\tfor keyword in node.keywords:\n193: \t\t\tif keyword.arg in keyword_names:\n194: \t\t\t\treturn keyword.value\n195: \t\treturn None\n196: \n197: \tdef _resolve_value(self, node: ast.AST | None) -> str | None:\n198: \t\tif node is None:\n199: \t\t\treturn None\n200: \t\tif isinstance(node, ast.Constant) and isinstance(node.value, str):\n201: \t\t\treturn node.value\n202: \t\tif isinstance(node, ast.Name):\n203: \t\t\treturn self._variable_values.get(node.id, self._dynamic_reference(node.id))\n204: \t\tif isinstance(node, ast.JoinedStr):\n205: \t\t\treturn self._resolve_joined_str(node)"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 201,
+        "line_end": 230,
+        "excerpt": "201: \t\t\treturn node.value\n202: \t\tif isinstance(node, ast.Name):\n203: \t\t\treturn self._variable_values.get(node.id, self._dynamic_reference(node.id))\n204: \t\tif isinstance(node, ast.JoinedStr):\n205: \t\t\treturn self._resolve_joined_str(node)\n206: \t\tif isinstance(node, ast.Call):\n207: \t\t\tcall_name = self._call_name(node.func)\n208: \t\t\tif call_name in {\"Path\", \"PurePath\", \"PosixPath\", \"WindowsPath\"} or call_name.endswith(\".Path\"):\n209: \t\t\t\tparts = [self._resolve_value(argument) for argument in node.args]\n210: \t\t\t\tresolved_parts = [part for part in parts if part]\n211: \t\t\t\treturn \"/\".join(part.strip(\"/\") for part in resolved_parts) if resolved_parts else None\n212: \t\tif isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):\n213: \t\t\tleft = self._resolve_value(node.left)\n214: \t\t\tright = self._resolve_value(node.right)\n215: \t\t\tif left is None or right is None:\n216: \t\t\t\treturn left or right\n217: \t\t\tseparator = \"\" if isinstance(node.op, ast.Add) else \"/\"\n218: \t\t\treturn f\"{left.rstrip('/')}\" + separator + f\"{right.lstrip('/')}\"\n219: \t\treturn None\n220: \n221: \tdef _resolve_joined_str(self, node: ast.JoinedStr) -> str:\n222: \t\tparts: list[str] = []\n223: \t\tdynamic = False\n224: \t\tfor value in node.values:\n225: \t\t\tif isinstance(value, ast.Constant) and isinstance(value.value, str):\n226: \t\t\t\tparts.append(value.value)\n227: \t\t\telse:\n228: \t\t\t\tdynamic = True\n229: \t\t\t\tparts.append(\"{dynamic}\")\n230: \t\tjoined = \"\".join(parts).strip()"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 226,
+        "line_end": 255,
+        "excerpt": "226: \t\t\t\tparts.append(value.value)\n227: \t\t\telse:\n228: \t\t\t\tdynamic = True\n229: \t\t\t\tparts.append(\"{dynamic}\")\n230: \t\tjoined = \"\".join(parts).strip()\n231: \t\tif not dynamic:\n232: \t\t\treturn joined\n233: \t\treturn self._dynamic_reference(joined or ast.unparse(node))\n234: \n235: \tdef _looks_like_sql(self, value: str) -> bool:\n236: \t\treturn bool(re.search(r\"\\b(select|insert|update|delete|merge|create)\\b\", value, re.IGNORECASE))\n237: \n238: \tdef _dynamic_reference(self, label: str) -> str:\n239: \t\tnormalized = re.sub(r\"[^a-zA-Z0-9._/-]+\", \"_\", label).strip(\"_\") or \"unknown\"\n240: \t\treturn f\"dynamic://{normalized}\"\n241: \n242: \tdef _call_name(self, node: ast.AST) -> str | None:\n243: \t\tif isinstance(node, ast.Name):\n244: \t\t\treturn node.id\n245: \t\tif isinstance(node, ast.Attribute):\n246: \t\t\tprefix = self._call_name(node.value)\n247: \t\t\treturn f\"{prefix}.{node.attr}\" if prefix is not None else node.attr\n248: \t\treturn None\n249: \n250: \tdef _matches_suffix(self, call_name: str, suffixes: set[str]) -> bool:\n251: \t\treturn any(call_name.endswith(suffix) for suffix in suffixes)\n252: \n253: \tdef _add_edge(self, source: str, target: str, edge_type: str) -> None:\n254: \t\tkey = (source, target, edge_type)\n255: \t\tself._edges[key] = {\"source\": source, \"target\": target, \"edge_type\": edge_type}"
+      },
+      {
+        "path": "src/analyzers/python_data_flow.py",
+        "line_start": 251,
+        "line_end": 258,
+        "excerpt": "251: \t\treturn any(call_name.endswith(suffix) for suffix in suffixes)\n252: \n253: \tdef _add_edge(self, source: str, target: str, edge_type: str) -> None:\n254: \t\tkey = (source, target, edge_type)\n255: \t\tself._edges[key] = {\"source\": source, \"target\": target, \"edge_type\": edge_type}\n256: \n257: \n258: __all__ = [\"PythonDataFlowAnalyzer\", \"PythonDataFlowEdge\"]"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import ast\n4: from pathlib import Path\n5: import re\n6: from typing import Any, TypedDict\n7: \n8: from models.schemas import DatasetNode\n9: \n10: \n11: class DbtColumn(TypedDict, total=False):\n12: \tname: str\n13: \tdata_type: str | None\n14: \tdescription: str | None\n15: \n16: \n17: class DbtResource(TypedDict, total=False):\n18: \tname: str\n19: \tresource_type: str\n20: \tcolumns: list[DbtColumn]\n21: \tdependencies: list[str]\n22: \tsource_name: str\n23: \n24: \n25: class DbtSchemaParseResult(TypedDict):\n26: \tmodels: list[DbtResource]\n27: \tsources: list[DbtResource]\n28: \n29: \n30: class AirflowTask(TypedDict):"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \tmodels: list[DbtResource]\n27: \tsources: list[DbtResource]\n28: \n29: \n30: class AirflowTask(TypedDict):\n31: \tvariable_name: str\n32: \ttask_id: str\n33: \toperator: str\n34: \n35: \n36: class AirflowDagParseResult(TypedDict):\n37: \ttasks: list[AirflowTask]\n38: \tdependencies: list[tuple[str, str]]\n39: \n40: \n41: class DAGConfigAnalyzer:\n42: \tdef parse_dbt_resources(self, file_path: str | Path) -> list[DatasetNode]:\n43: \t\treturn parse_dbt_yaml(file_path)\n44: \n45: \tdef analyze_airflow_dag(self, file_path: str | Path) -> AirflowDagParseResult:\n46: \t\treturn parse_airflow_dag_file(file_path)\n47: \n48: \n49: def parse_dbt_yaml(file_path: str | Path) -> list[DatasetNode]:\n50: \tparsed_schema = parse_dbt_schema_file(file_path)\n51: \tnodes_by_id: dict[str, DatasetNode] = {}\n52: \n53: \tfor source in parsed_schema[\"sources\"]:\n54: \t\tdataset_name = source[\"name\"]\n55: \t\tif source.get(\"source_name\"):"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \tnodes_by_id: dict[str, DatasetNode] = {}\n52: \n53: \tfor source in parsed_schema[\"sources\"]:\n54: \t\tdataset_name = source[\"name\"]\n55: \t\tif source.get(\"source_name\"):\n56: \t\t\tdataset_name = f\"{source['source_name']}.{source['name']}\"\n57: \n58: \t\tnodes_by_id[dataset_name] = DatasetNode(\n59: \t\t\tid=dataset_name,\n60: \t\t\tname=dataset_name,\n61: \t\t\tstorage_type=\"dbt_source\",\n62: \t\t\tschema_snapshot={\n63: \t\t\t\t\"columns\": source.get(\"columns\", []),\n64: \t\t\t\t\"dependencies\": source.get(\"dependencies\", []),\n65: \t\t\t},\n66: \t\t\tis_source_of_truth=True,\n67: \t\t)\n68: \n69: \tfor model in parsed_schema[\"models\"]:\n70: \t\texisting_node = nodes_by_id.get(model[\"name\"])\n71: \t\tschema_snapshot = dict(existing_node.schema_snapshot) if existing_node is not None else {}\n72: \t\tschema_snapshot.update(\n73: \t\t\t{\n74: \t\t\t\t\"columns\": model.get(\"columns\", []),\n75: \t\t\t\t\"dependencies\": model.get(\"dependencies\", []),\n76: \t\t\t}\n77: \t\t)\n78: \n79: \t\tfor key in (\"description\",):\n80: \t\t\tif key in model:"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \t\t\t}\n77: \t\t)\n78: \n79: \t\tfor key in (\"description\",):\n80: \t\t\tif key in model:\n81: \t\t\t\tschema_snapshot[key] = model[key]\n82: \n83: \t\tnodes_by_id[model[\"name\"]] = DatasetNode(\n84: \t\t\tid=model[\"name\"],\n85: \t\t\tname=model[\"name\"],\n86: \t\t\tstorage_type=\"dbt_model\" if existing_node is None else existing_node.storage_type,\n87: \t\t\tschema_snapshot=schema_snapshot,\n88: \t\t\tis_source_of_truth=existing_node.is_source_of_truth if existing_node is not None else False,\n89: \t\t)\n90: \n91: \treturn list(nodes_by_id.values())\n92: \n93: \n94: def parse_dbt_schema_file(file_path: str | Path) -> DbtSchemaParseResult:\n95: \tlines = Path(file_path).read_text(encoding=\"utf-8\").splitlines()\n96: \tmodels: list[DbtResource] = []\n97: \tsources: list[DbtResource] = []\n98: \n99: \tsection: str | None = None\n100: \tsource_name: str | None = None\n101: \tcurrent_resource: DbtResource | None = None\n102: \tcurrent_column: DbtColumn | None = None\n103: \tin_tables = False\n104: \tin_columns = False\n105: \tin_depends_on = False"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \tcurrent_resource: DbtResource | None = None\n102: \tcurrent_column: DbtColumn | None = None\n103: \tin_tables = False\n104: \tin_columns = False\n105: \tin_depends_on = False\n106: \n107: \tfor raw_line in lines:\n108: \t\tline = raw_line.rstrip()\n109: \t\tstripped = line.strip()\n110: \t\tindent = len(line) - len(line.lstrip(\" \"))\n111: \n112: \t\tif not stripped or stripped.startswith(\"#\"):\n113: \t\t\tcontinue\n114: \n115: \t\tif indent == 0 and stripped.endswith(\":\"):\n116: \t\t\tsection = stripped[:-1]\n117: \t\t\tsource_name = None\n118: \t\t\tcurrent_resource = None\n119: \t\t\tcurrent_column = None\n120: \t\t\tin_tables = False\n121: \t\t\tin_columns = False\n122: \t\t\tin_depends_on = False\n123: \t\t\tcontinue\n124: \n125: \t\tif section == \"sources\" and indent == 4 and stripped == \"tables:\":\n126: \t\t\tin_tables = True\n127: \t\t\tin_columns = False\n128: \t\t\tin_depends_on = False\n129: \t\t\tcurrent_column = None\n130: \t\t\tcontinue"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \t\t\tin_tables = True\n127: \t\t\tin_columns = False\n128: \t\t\tin_depends_on = False\n129: \t\t\tcurrent_column = None\n130: \t\t\tcontinue\n131: \n132: \t\tif current_resource is not None and stripped == \"columns:\":\n133: \t\t\tin_columns = True\n134: \t\t\tin_depends_on = False\n135: \t\t\tcurrent_column = None\n136: \t\t\tcontinue\n137: \n138: \t\tif current_resource is not None and stripped == \"depends_on:\":\n139: \t\t\tin_depends_on = True\n140: \t\t\tin_columns = False\n141: \t\t\tcurrent_column = None\n142: \t\t\tcontinue\n143: \n144: \t\tif section == \"sources\" and indent == 2 and stripped.startswith(\"- name:\"):\n145: \t\t\tsource_name = _strip_yaml_scalar(stripped.split(\":\", 1)[1])\n146: \t\t\tcurrent_resource = None\n147: \t\t\tcurrent_column = None\n148: \t\t\tin_tables = False\n149: \t\t\tin_columns = False\n150: \t\t\tin_depends_on = False\n151: \t\t\tcontinue\n152: \n153: \t\tif section == \"sources\" and in_tables and indent == 6 and stripped.startswith(\"- name:\"):\n154: \t\t\tresource_name = _strip_yaml_scalar(stripped.split(\":\", 1)[1])\n155: \t\t\tcurrent_resource = {"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \t\t\tcontinue\n152: \n153: \t\tif section == \"sources\" and in_tables and indent == 6 and stripped.startswith(\"- name:\"):\n154: \t\t\tresource_name = _strip_yaml_scalar(stripped.split(\":\", 1)[1])\n155: \t\t\tcurrent_resource = {\n156: \t\t\t\t\"name\": resource_name,\n157: \t\t\t\t\"resource_type\": \"source_table\",\n158: \t\t\t\t\"columns\": [],\n159: \t\t\t\t\"dependencies\": _dedupe([source_name] if source_name else []),\n160: \t\t\t}\n161: \t\t\tif source_name:\n162: \t\t\t\tcurrent_resource[\"source_name\"] = source_name\n163: \t\t\tsources.append(current_resource)\n164: \t\t\tcurrent_column = None\n165: \t\t\tin_columns = False\n166: \t\t\tin_depends_on = False\n167: \t\t\tcontinue\n168: \n169: \t\tif section == \"models\" and indent == 2 and stripped.startswith(\"- name:\"):\n170: \t\t\tresource_name = _strip_yaml_scalar(stripped.split(\":\", 1)[1])\n171: \t\t\tcurrent_resource = {\n172: \t\t\t\t\"name\": resource_name,\n173: \t\t\t\t\"resource_type\": \"model\",\n174: \t\t\t\t\"columns\": [],\n175: \t\t\t\t\"dependencies\": [],\n176: \t\t\t}\n177: \t\t\tmodels.append(current_resource)\n178: \t\t\tcurrent_column = None\n179: \t\t\tin_tables = False\n180: \t\t\tin_columns = False"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 176,
+        "line_end": 205,
+        "excerpt": "176: \t\t\t}\n177: \t\t\tmodels.append(current_resource)\n178: \t\t\tcurrent_column = None\n179: \t\t\tin_tables = False\n180: \t\t\tin_columns = False\n181: \t\t\tin_depends_on = False\n182: \t\t\tcontinue\n183: \n184: \t\tif current_resource is not None and in_columns and stripped.startswith(\"- name:\"):\n185: \t\t\texpected_indent = 10 if current_resource[\"resource_type\"] == \"source_table\" else 6\n186: \t\t\tif indent == expected_indent:\n187: \t\t\t\tcolumn_name = _strip_yaml_scalar(stripped.split(\":\", 1)[1])\n188: \t\t\t\tcurrent_column = {\"name\": column_name}\n189: \t\t\t\tcurrent_resource.setdefault(\"columns\", []).append(current_column)\n190: \t\t\t\tcontinue\n191: \n192: \t\tif current_resource is not None and in_depends_on and stripped.startswith(\"- \"):\n193: \t\t\titem_content = stripped[2:].strip()\n194: \t\t\tdependency = _normalize_dependency(item_content)\n195: \t\t\tif dependency:\n196: \t\t\t\tcurrent_resource.setdefault(\"dependencies\", []).append(dependency)\n197: \t\t\t\tcurrent_resource[\"dependencies\"] = _dedupe(current_resource[\"dependencies\"])\n198: \t\t\tcontinue\n199: \n200: \t\tif current_column is not None and \":\" in stripped:\n201: \t\t\tkey, value = [part.strip() for part in stripped.split(\":\", 1)]\n202: \t\t\tif key in {\"description\", \"data_type\", \"type\"}:\n203: \t\t\t\tnormalized_key = \"data_type\" if key == \"type\" else key\n204: \t\t\t\tcurrent_column[normalized_key] = _strip_yaml_scalar(value) if value else None\n205: \t\t\tif current_resource is not None:"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 201,
+        "line_end": 230,
+        "excerpt": "201: \t\t\tkey, value = [part.strip() for part in stripped.split(\":\", 1)]\n202: \t\t\tif key in {\"description\", \"data_type\", \"type\"}:\n203: \t\t\t\tnormalized_key = \"data_type\" if key == \"type\" else key\n204: \t\t\t\tcurrent_column[normalized_key] = _strip_yaml_scalar(value) if value else None\n205: \t\t\tif current_resource is not None:\n206: \t\t\t\t_extend_dependencies(current_resource, value)\n207: \t\t\tcontinue\n208: \n209: \t\tif current_resource is not None and \":\" in stripped:\n210: \t\t\tkey, value = [part.strip() for part in stripped.split(\":\", 1)]\n211: \t\t\tif key == \"description\":\n212: \t\t\t\tcurrent_resource[\"description\"] = _strip_yaml_scalar(value) if value else None\n213: \t\t\tif key not in {\"name\", \"columns\", \"depends_on\", \"tables\"}:\n214: \t\t\t\t_extend_dependencies(current_resource, value)\n215: \t\t\tcontinue\n216: \n217: \t\tif current_resource is not None:\n218: \t\t\t_extend_dependencies(current_resource, stripped)\n219: \n220: \tfor resource in models + sources:\n221: \t\tresource[\"dependencies\"] = _dedupe(resource.get(\"dependencies\", []))\n222: \n223: \treturn {\"models\": models, \"sources\": sources}\n224: \n225: \n226: def parse_airflow_dag_file(file_path: str | Path) -> AirflowDagParseResult:\n227: \tsource = Path(file_path).read_text(encoding=\"utf-8\")\n228: \ttree = ast.parse(source)\n229: \n230: \ttask_lookup: dict[str, AirflowTask] = {}"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 226,
+        "line_end": 255,
+        "excerpt": "226: def parse_airflow_dag_file(file_path: str | Path) -> AirflowDagParseResult:\n227: \tsource = Path(file_path).read_text(encoding=\"utf-8\")\n228: \ttree = ast.parse(source)\n229: \n230: \ttask_lookup: dict[str, AirflowTask] = {}\n231: \tdependencies: set[tuple[str, str]] = set()\n232: \n233: \tfor node in ast.walk(tree):\n234: \t\tif isinstance(node, ast.Assign):\n235: \t\t\ttask = _extract_airflow_task(node)\n236: \t\t\tif task is not None:\n237: \t\t\t\ttask_lookup[task[\"variable_name\"]] = task\n238: \n239: \tfor node in ast.walk(tree):\n240: \t\tif isinstance(node, ast.Expr):\n241: \t\t\tedges, _, _ = _parse_dependency_expression(node.value, task_lookup)\n242: \t\t\tdependencies.update(edges)\n243: \n244: \treturn {\n245: \t\t\"tasks\": sorted(task_lookup.values(), key=lambda item: item[\"task_id\"]),\n246: \t\t\"dependencies\": sorted(dependencies),\n247: \t}\n248: \n249: \n250: def _extract_airflow_task(node: ast.Assign) -> AirflowTask | None:\n251: \tif len(node.targets) != 1 or not isinstance(node.targets[0], ast.Name):\n252: \t\treturn None\n253: \tif not isinstance(node.value, ast.Call):\n254: \t\treturn None\n255: "
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 251,
+        "line_end": 280,
+        "excerpt": "251: \tif len(node.targets) != 1 or not isinstance(node.targets[0], ast.Name):\n252: \t\treturn None\n253: \tif not isinstance(node.value, ast.Call):\n254: \t\treturn None\n255: \n256: \toperator_name = _call_name(node.value.func)\n257: \tif operator_name not in {\"PythonOperator\", \"BashOperator\"}:\n258: \t\treturn None\n259: \n260: \ttask_id = None\n261: \tfor keyword in node.value.keywords:\n262: \t\tif keyword.arg == \"task_id\" and isinstance(keyword.value, ast.Constant) and isinstance(keyword.value.value, str):\n263: \t\t\ttask_id = keyword.value.value\n264: \t\t\tbreak\n265: \n266: \tif task_id is None:\n267: \t\treturn None\n268: \n269: \treturn {\n270: \t\t\"variable_name\": node.targets[0].id,\n271: \t\t\"task_id\": task_id,\n272: \t\t\"operator\": operator_name,\n273: \t}\n274: \n275: \n276: def _parse_dependency_expression(\n277: \tnode: ast.AST,\n278: \ttask_lookup: dict[str, AirflowTask],\n279: ) -> tuple[set[tuple[str, str]], set[str], set[str]]:\n280: \tif isinstance(node, ast.BinOp) and isinstance(node.op, ast.RShift):"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 276,
+        "line_end": 305,
+        "excerpt": "276: def _parse_dependency_expression(\n277: \tnode: ast.AST,\n278: \ttask_lookup: dict[str, AirflowTask],\n279: ) -> tuple[set[tuple[str, str]], set[str], set[str]]:\n280: \tif isinstance(node, ast.BinOp) and isinstance(node.op, ast.RShift):\n281: \t\tleft_edges, left_roots, left_leaves = _parse_dependency_expression(node.left, task_lookup)\n282: \t\tright_edges, right_roots, right_leaves = _parse_dependency_expression(node.right, task_lookup)\n283: \t\tnew_edges = {(source, target) for source in left_leaves for target in right_roots}\n284: \t\treturn left_edges | right_edges | new_edges, left_roots, right_leaves\n285: \n286: \tif isinstance(node, ast.BinOp) and isinstance(node.op, ast.LShift):\n287: \t\tleft_edges, left_roots, left_leaves = _parse_dependency_expression(node.left, task_lookup)\n288: \t\tright_edges, right_roots, right_leaves = _parse_dependency_expression(node.right, task_lookup)\n289: \t\tnew_edges = {(source, target) for source in right_leaves for target in left_roots}\n290: \t\treturn left_edges | right_edges | new_edges, right_roots, left_leaves\n291: \n292: \ttask_ids = _resolve_task_references(node, task_lookup)\n293: \treturn set(), task_ids, task_ids\n294: \n295: \n296: def _resolve_task_references(node: ast.AST, task_lookup: dict[str, AirflowTask]) -> set[str]:\n297: \tif isinstance(node, ast.Name):\n298: \t\ttask = task_lookup.get(node.id)\n299: \t\treturn {task[\"task_id\"]} if task is not None else set()\n300: \n301: \tif isinstance(node, (ast.List, ast.Tuple, ast.Set)):\n302: \t\ttask_ids: set[str] = set()\n303: \t\tfor element in node.elts:\n304: \t\t\ttask_ids.update(_resolve_task_references(element, task_lookup))\n305: \t\treturn task_ids"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 301,
+        "line_end": 330,
+        "excerpt": "301: \tif isinstance(node, (ast.List, ast.Tuple, ast.Set)):\n302: \t\ttask_ids: set[str] = set()\n303: \t\tfor element in node.elts:\n304: \t\t\ttask_ids.update(_resolve_task_references(element, task_lookup))\n305: \t\treturn task_ids\n306: \n307: \treturn set()\n308: \n309: \n310: def _call_name(node: ast.AST) -> str | None:\n311: \tif isinstance(node, ast.Name):\n312: \t\treturn node.id\n313: \tif isinstance(node, ast.Attribute):\n314: \t\treturn node.attr\n315: \treturn None\n316: \n317: \n318: def _normalize_dependency(value: str) -> str | None:\n319: \tstripped_value = _strip_yaml_scalar(value)\n320: \tif not stripped_value:\n321: \t\treturn None\n322: \n323: \tsource_match = re.search(r\"source\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*,\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\", stripped_value)\n324: \tif source_match:\n325: \t\treturn f\"{source_match.group(1)}.{source_match.group(2)}\"\n326: \n327: \tref_match = re.search(r\"ref\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\", stripped_value)\n328: \tif ref_match:\n329: \t\treturn ref_match.group(1)\n330: "
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 326,
+        "line_end": 355,
+        "excerpt": "326: \n327: \tref_match = re.search(r\"ref\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\", stripped_value)\n328: \tif ref_match:\n329: \t\treturn ref_match.group(1)\n330: \n331: \tif stripped_value.startswith(\"{{\") and stripped_value.endswith(\"}}\"):\n332: \t\treturn None\n333: \n334: \treturn stripped_value if stripped_value.startswith((\"source(\", \"ref(\")) is False else None\n335: \n336: \n337: def _extend_dependencies(resource: DbtResource, value: str) -> None:\n338: \tfor dependency in _extract_embedded_dependencies(value):\n339: \t\tresource.setdefault(\"dependencies\", []).append(dependency)\n340: \n341: \n342: def _extract_embedded_dependencies(value: str) -> list[str]:\n343: \tdependencies: list[str] = []\n344: \n345: \tfor source_name, table_name in re.findall(r\"source\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*,\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\", value):\n346: \t\tdependencies.append(f\"{source_name}.{table_name}\")\n347: \n348: \tfor model_name in re.findall(r\"ref\\(\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\)\", value):\n349: \t\tdependencies.append(model_name)\n350: \n351: \treturn dependencies\n352: \n353: \n354: def _dedupe(values: list[str]) -> list[str]:\n355: \treturn list(dict.fromkeys(value for value in values if value))"
+      },
+      {
+        "path": "src/analyzers/dag_config_parser.py",
+        "line_start": 351,
+        "line_end": 372,
+        "excerpt": "351: \treturn dependencies\n352: \n353: \n354: def _dedupe(values: list[str]) -> list[str]:\n355: \treturn list(dict.fromkeys(value for value in values if value))\n356: \n357: \n358: def _strip_yaml_scalar(value: str) -> str:\n359: \treturn value.strip().strip(\"\\\"'\")\n360: \n361: \n362: __all__ = [\n363: \t\"AirflowDagParseResult\",\n364: \t\"AirflowTask\",\n365: \t\"DAGConfigAnalyzer\",\n366: \t\"DbtColumn\",\n367: \t\"DbtResource\",\n368: \t\"DbtSchemaParseResult\",\n369: \t\"parse_airflow_dag_file\",\n370: \t\"parse_dbt_yaml\",\n371: \t\"parse_dbt_schema_file\",\n372: ]"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import importlib\n4: from pathlib import Path\n5: \n6: from tree_sitter import Language, Node, Parser\n7: import tree_sitter_javascript\n8: import tree_sitter_python\n9: import tree_sitter_sql\n10: import tree_sitter_yaml\n11: \n12: from models.schemas import ClassDefinition, FunctionDefinition, ModuleNode\n13: \n14: tree_sitter_typescript = importlib.import_module(\"tree_sitter_typescript\") if importlib.util.find_spec(\"tree_sitter_typescript\") else None\n15: \n16: \n17: class LanguageRouter:\n18: \t_LANGUAGE_LOADERS = {\n19: \t\t\".py\": tree_sitter_python.language,\n20: \t\t\".sql\": tree_sitter_sql.language,\n21: \t\t\".yaml\": tree_sitter_yaml.language,\n22: \t\t\".yml\": tree_sitter_yaml.language,\n23: \t\t\".js\": tree_sitter_javascript.language,\n24: \t\t\".jsx\": tree_sitter_javascript.language,\n25: \t\t\".mjs\": tree_sitter_javascript.language,\n26: \t\t\".cjs\": tree_sitter_javascript.language,\n27: \t}\n28: \tif tree_sitter_typescript is not None:\n29: \t\t_LANGUAGE_LOADERS[\".ts\"] = tree_sitter_typescript.language_typescript\n30: \t\t_LANGUAGE_LOADERS[\".tsx\"] = tree_sitter_typescript.language_tsx"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \t\t\".cjs\": tree_sitter_javascript.language,\n27: \t}\n28: \tif tree_sitter_typescript is not None:\n29: \t\t_LANGUAGE_LOADERS[\".ts\"] = tree_sitter_typescript.language_typescript\n30: \t\t_LANGUAGE_LOADERS[\".tsx\"] = tree_sitter_typescript.language_tsx\n31: \n32: \tdef get_language(self, file_path: str | Path) -> Language:\n33: \t\tsuffix = Path(file_path).suffix.lower()\n34: \t\tloader = self._LANGUAGE_LOADERS.get(suffix)\n35: \t\tif loader is None:\n36: \t\t\traise ValueError(f\"Unsupported file extension: {suffix or '<none>'}\")\n37: \t\treturn Language(loader())\n38: \n39: \tdef get_parser(self, file_path: str | Path) -> Parser:\n40: \t\treturn Parser(self.get_language(file_path))\n41: \n42: \n43: def analyze_module(file_path: str | Path) -> ModuleNode:\n44: \tsource_path = Path(file_path)\n45: \tsource_bytes = source_path.read_bytes()\n46: \n47: \trouter = LanguageRouter()\n48: \tparser = router.get_parser(source_path)\n49: \ttree = parser.parse(source_bytes)\n50: \n51: \timports = _extract_import_statements(tree.root_node, source_bytes)\n52: \tfunction_definitions = _extract_function_definitions(tree.root_node, source_bytes)\n53: \tclass_definitions = _extract_class_definitions(tree.root_node, source_bytes)\n54: \n55: \treturn ModuleNode("
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: \timports = _extract_import_statements(tree.root_node, source_bytes)\n52: \tfunction_definitions = _extract_function_definitions(tree.root_node, source_bytes)\n53: \tclass_definitions = _extract_class_definitions(tree.root_node, source_bytes)\n54: \n55: \treturn ModuleNode(\n56: \t\tid=source_path.as_posix(),\n57: \t\tpath=source_path.as_posix(),\n58: \t\tlanguage=_language_name_for_path(source_path),\n59: \t\timports=imports,\n60: \t\timport_paths=_extract_relative_import_paths(imports),\n61: \t\tpublic_functions=[function.name for function in function_definitions],\n62: \t\tfunction_definitions=function_definitions,\n63: \t\tclass_definitions=class_definitions,\n64: \t)\n65: \n66: \n67: def parse_python_imports_and_functions(file_path: str | Path) -> dict[str, list[str]]:\n68: \tmodule = analyze_module(file_path)\n69: \treturn {\n70: \t\t\"imports\": module.imports,\n71: \t\t\"public_functions\": module.public_functions,\n72: \t}\n73: \n74: \n75: def _extract_import_statements(root_node: Node, source_bytes: bytes) -> list[str]:\n76: \timports: list[str] = []\n77: \n78: \tfor node in _walk_tree(root_node):\n79: \t\tif node.type in {\"import_statement\", \"import_from_statement\"}:\n80: \t\t\timports.append(source_bytes[node.start_byte:node.end_byte].decode(\"utf-8\").strip())"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \timports: list[str] = []\n77: \n78: \tfor node in _walk_tree(root_node):\n79: \t\tif node.type in {\"import_statement\", \"import_from_statement\"}:\n80: \t\t\timports.append(source_bytes[node.start_byte:node.end_byte].decode(\"utf-8\").strip())\n81: \n82: \treturn imports\n83: \n84: \n85: def _extract_function_definitions(root_node: Node, source_bytes: bytes) -> list[FunctionDefinition]:\n86: \tfunctions: list[FunctionDefinition] = []\n87: \n88: \tfor node in _walk_tree(root_node):\n89: \t\tif node.type != \"function_definition\":\n90: \t\t\tcontinue\n91: \n92: \t\tname_node = node.child_by_field_name(\"name\")\n93: \t\tif name_node is None:\n94: \t\t\tcontinue\n95: \n96: \t\tfunction_name = source_bytes[name_node.start_byte:name_node.end_byte].decode(\"utf-8\")\n97: \t\tif function_name.startswith(\"__\") and function_name.endswith(\"__\"):\n98: \t\t\tcontinue\n99: \t\tnormalized_name = function_name.lstrip(\"_\")\n100: \t\tif not normalized_name:\n101: \t\t\tcontinue\n102: \n103: \t\tfunctions.append(\n104: \t\t\tFunctionDefinition(\n105: \t\t\t\tname=normalized_name,"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101: \t\t\tcontinue\n102: \n103: \t\tfunctions.append(\n104: \t\t\tFunctionDefinition(\n105: \t\t\t\tname=normalized_name,\n106: \t\t\t\toriginal_name=function_name,\n107: \t\t\t\tdecorators=_extract_decorators(node, source_bytes),\n108: \t\t\t\tcalls=_extract_called_function_names(node, source_bytes),\n109: \t\t\t)\n110: \t\t)\n111: \n112: \treturn functions\n113: \n114: \n115: def _extract_class_definitions(root_node: Node, source_bytes: bytes) -> list[ClassDefinition]:\n116: \tclasses: list[ClassDefinition] = []\n117: \n118: \tfor node in _walk_tree(root_node):\n119: \t\tif node.type != \"class_definition\":\n120: \t\t\tcontinue\n121: \n122: \t\tname_node = node.child_by_field_name(\"name\")\n123: \t\tif name_node is None:\n124: \t\t\tcontinue\n125: \n126: \t\tclass_name = source_bytes[name_node.start_byte:name_node.end_byte].decode(\"utf-8\")\n127: \t\tclasses.append(ClassDefinition(name=class_name, bases=_extract_class_bases(node, source_bytes)))\n128: \n129: \treturn classes\n130: "
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 126,
+        "line_end": 155,
+        "excerpt": "126: \t\tclass_name = source_bytes[name_node.start_byte:name_node.end_byte].decode(\"utf-8\")\n127: \t\tclasses.append(ClassDefinition(name=class_name, bases=_extract_class_bases(node, source_bytes)))\n128: \n129: \treturn classes\n130: \n131: \n132: def _extract_class_bases(node: Node, source_bytes: bytes) -> list[str]:\n133: \tbases: list[str] = []\n134: \targument_list = next((child for child in node.children if child.type == \"argument_list\"), None)\n135: \tif argument_list is None:\n136: \t\treturn bases\n137: \n138: \tfor child in argument_list.children:\n139: \t\tif child.type in {\"(\", \")\", \",\"}:\n140: \t\t\tcontinue\n141: \t\tbases.append(source_bytes[child.start_byte:child.end_byte].decode(\"utf-8\"))\n142: \n143: \treturn bases\n144: \n145: \n146: def _extract_decorators(node: Node, source_bytes: bytes) -> list[str]:\n147: \tdecorators: list[str] = []\n148: \tfor child in node.children:\n149: \t\tif child.type == \"decorator\":\n150: \t\t\tdecorators.append(source_bytes[child.start_byte:child.end_byte].decode(\"utf-8\").lstrip(\"@\"))\n151: \treturn decorators\n152: \n153: \n154: def _extract_called_function_names(function_node: Node, source_bytes: bytes) -> list[str]:\n155: \tcalled_functions: list[str] = []"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 151,
+        "line_end": 180,
+        "excerpt": "151: \treturn decorators\n152: \n153: \n154: def _extract_called_function_names(function_node: Node, source_bytes: bytes) -> list[str]:\n155: \tcalled_functions: list[str] = []\n156: \tfor node in _walk_tree(function_node):\n157: \t\tif node.type != \"call\":\n158: \t\t\tcontinue\n159: \n160: \t\tfunction_child = node.child_by_field_name(\"function\")\n161: \t\tif function_child is None:\n162: \t\t\tcontinue\n163: \n164: \t\tcalled_name = source_bytes[function_child.start_byte:function_child.end_byte].decode(\"utf-8\")\n165: \t\tcalled_functions.append(called_name.lstrip(\"_\"))\n166: \n167: \treturn list(dict.fromkeys(name for name in called_functions if name))\n168: \n169: \n170: def _extract_relative_import_paths(import_statements: list[str]) -> list[str]:\n171: \trelative_paths: list[str] = []\n172: \tfor statement in import_statements:\n173: \t\tif statement.startswith(\"from .\"):\n174: \t\t\tmodule_part = statement.split(\" import \", 1)[0].removeprefix(\"from \")\n175: \t\t\trelative_paths.append(module_part.replace(\".\", \"/\") + \".py\")\n176: \treturn list(dict.fromkeys(relative_paths))\n177: \n178: \n179: def _language_name_for_path(file_path: Path) -> str:\n180: \tsuffix = file_path.suffix.lower()"
+      },
+      {
+        "path": "src/analyzers/tree_sitter_analyzer.py",
+        "line_start": 176,
+        "line_end": 202,
+        "excerpt": "176: \treturn list(dict.fromkeys(relative_paths))\n177: \n178: \n179: def _language_name_for_path(file_path: Path) -> str:\n180: \tsuffix = file_path.suffix.lower()\n181: \tif suffix == \".py\":\n182: \t\treturn \"python\"\n183: \tif suffix == \".sql\":\n184: \t\treturn \"sql\"\n185: \tif suffix in {\".yml\", \".yaml\"}:\n186: \t\treturn \"yaml\"\n187: \tif suffix in {\".js\", \".jsx\", \".mjs\", \".cjs\"}:\n188: \t\treturn \"javascript\"\n189: \tif suffix in {\".ts\", \".tsx\"}:\n190: \t\treturn \"typescript\"\n191: \treturn suffix.lstrip(\".\")\n192: \n193: \n194: def _walk_tree(root_node: Node):\n195: \tstack = [root_node]\n196: \twhile stack:\n197: \t\tnode = stack.pop()\n198: \t\tyield node\n199: \t\tstack.extend(reversed(node.children))\n200: \n201: \n202: __all__ = [\"LanguageRouter\", \"analyze_module\", \"parse_python_imports_and_functions\"]"
+      }
+    ],
+    "surveyor_summary": {
+      "module_count": 20,
+      "function_count": 197,
+      "architectural_hubs": [
+        {
+          "path": "src/models/schemas.py",
+          "pagerank": 0.2345513631297759
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
+          "pagerank": 0.11294146409891721
+        },
+        {
+          "path": "src/orchestrator.py",
+          "pagerank": 0.08676838725581999
+        },
+        {
+          "path": "src/analyzers/sql_lineage.py",
+          "pagerank": 0.058740345806497285
+        },
+        {
+          "path": "src/cli.py",
+          "pagerank": 0.04690109858512072
+        }
+      ],
+      "high_velocity_core": {
+        "files": [
+          {
+            "path": "pyproject.toml",
+            "change_count": 5
+          },
+          {
+            "path": "src/agents/hydrologist.py",
+            "change_count": 5
+          },
+          {
+            "path": "src/analyzers/__init__.py",
+            "change_count": 5
+          },
+          {
+            "path": "src/brownfield_cartographer/cli.py",
+            "change_count": 5
+          },
+          {
+            "path": "README.md",
+            "change_count": 4
+          },
+          {
+            "path": "src/analyzers/sql_lineage.py",
+            "change_count": 4
+          },
+          {
+            "path": "src/cli.py",
+            "change_count": 4
+          },
+          {
+            "path": "src/agents/__init__.py",
+            "change_count": 3
+          },
+          {
+            "path": "src/analyzers/dag_config_parser.py",
+            "change_count": 3
+          },
+          {
+            "path": "uv.lock",
+            "change_count": 3
+          },
+          {
+            "path": ".env.example",
+            "change_count": 2
+          },
+          {
+            "path": "src/agents/surveyor.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/analyzers/tree_sitter_analyzer.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/brownfield_cartographer/orchestrator.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/models/schemas.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/orchestrator.py",
+            "change_count": 2
+          }
+        ],
+        "change_share": 0.8153846153846154,
+        "file_share": 0.5714285714285714,
+        "days": 30
+      },
+      "strongly_connected_components": [],
+      "domain_clusters": [
+        {
+          "cluster_id": 0,
+          "domain_label": "dependency analysis",
+          "purpose_statements": [
+            "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
+            "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
+            "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
+            "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
+            "This module serves as the primary entry point for a collection of code analysis tools. It aggregates and exposes functionalities for parsing configuration files like Airflow DAGs and DBT YAML, analyzing Python data flow, and extracting SQL lineage from DBT projects. Its business function is to provide a unified interface for understanding the structure, dependencies, and data movement within various software components.",
+            "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing."
+          ],
+          "member_indices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "cluster_id": 1,
+          "domain_label": "orchestration",
+          "purpose_statements": [
+            "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
+            "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
+            "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
+            "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies."
+          ],
+          "member_indices": [
+            0,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "cluster_id": 2,
+          "domain_label": "system model",
+          "purpose_statements": [
+            "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+            "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture."
+          ],
+          "member_indices": [
+            18,
+            19
+          ]
+        },
+        {
+          "cluster_id": 3,
+          "domain_label": "knowledge graph",
+          "purpose_statements": [
+            "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
+            "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access."
+          ],
+          "member_indices": [
+            10,
+            11
+          ]
+        },
+        {
+          "cluster_id": 4,
+          "domain_label": "agent services",
+          "purpose_statements": [
+            "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure."
+          ],
+          "member_indices": [
+            14
+          ]
+        },
+        {
+          "cluster_id": 5,
+          "domain_label": "software intelligence",
+          "purpose_statements": [
+            "The SurveyorAgent module is designed to analyze a software repository to construct a comprehensive knowledge graph. It identifies module dependencies, function call relationships, and historical change velocity for files within the repository. This analysis provides insights into the codebase's structure, evolution, and key architectural components, such as high-velocity areas and central modules.",
+            "The HydrologistAgent module is designed to automatically discover and map data lineage across an entire code repository. It achieves this by analyzing diverse code artifacts like dbt configurations, Python scripts, and SQL files to build a unified knowledge graph of datasets and transformations. This graph enables users to understand data dependencies, perform impact analysis, and identify the ultimate sources and sinks of data within their systems.",
+            "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
+            "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
+            "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation."
+          ],
+          "member_indices": [
+            12,
+            13,
+            15,
+            16,
+            17
+          ]
+        }
+      ]
+    },
+    "hydrologist_summary": {
+      "dataset_count": 0,
+      "transformation_count": 0,
+      "source_nodes": [],
+      "sink_nodes": []
+    }
+  }
+}
