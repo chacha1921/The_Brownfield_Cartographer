@@ -14,6 +14,8 @@ authors = [
 dependencies = [
   "pydantic",
   "networkx",
+  "scikit-learn",
+  "tiktoken",
   "tree-sitter",
   "tree-sitter-python",
   "tree-sitter-sql",
