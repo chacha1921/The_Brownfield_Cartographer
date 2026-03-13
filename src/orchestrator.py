@@ -9,36 +9,7 @@ from agents.semanticist import SemanticistAgent
 from agents.surveyor import SurveyorAgent
 from graph.knowledge_graph import KnowledgeGraph
 from models.schemas import EdgeType, FunctionNode, ModuleNode
-
-
-def get_changed_files(repo_path: str | Path, last_run_commit_hash: str | None) -> list[str]:
-	repository_root = Path(repo_path).resolve()
-	baseline_hash = (last_run_commit_hash or "").strip()
-
-	if baseline_hash:
-		command = ["git", "diff", "--name-only", baseline_hash, "HEAD"]
-	else:
-		command = ["git", "ls-files"]
-
-	result = subprocess.run(
-		command,
-		cwd=repository_root,
-		capture_output=True,
-		text=True,
-		check=True,
-	)
-
-	ignored_parts = {".cartography", ".git", ".venv", "__pycache__", "build", "dist", "target", "tmp"}
-	changed_files: list[str] = []
-	for raw_line in result.stdout.splitlines():
-		relative_path = raw_line.strip()
-		if not relative_path:
-			continue
-		if any(part in ignored_parts for part in Path(relative_path).parts):
-			continue
-		changed_files.append(relative_path)
-
-	return changed_files
+from utils import TerminalLogger, current_commit_hash, get_changed_files, is_git_repository
 
 
 class Orchestrator:
@@ -57,31 +28,47 @@ class Orchestrator:
 		self.hydrologist = HydrologistAgent(self.repo_path)
 		self.semanticist = SemanticistAgent(self.repo_path)
 		self.archivist = ArchivistAgent(self.repo_path)
+		self.logger = TerminalLogger()
 
 	def run(self) -> dict[str, str]:
+		self.logger.start_run("Brownfield Cartographer", f"Repository: {self.repo_path}")
 		self.output_dir.mkdir(parents=True, exist_ok=True)
+		self.logger.section("Preparing analysis")
+		self.logger.step("Creating output directory", str(self.output_dir))
 		previous_metadata = self._load_run_metadata()
 		incremental_candidates = self._load_changed_files(previous_metadata)
 		has_saved_graphs = self._has_saved_graphs()
+		self.logger.detail(f"Saved graphs available: {'yes' if has_saved_graphs else 'no'}")
+		self.logger.detail(f"Changed files detected: {len(incremental_candidates)}")
 
 		used_incremental = has_saved_graphs and self._is_git_repository()
 		if used_incremental:
+			self.logger.section("Incremental execution")
+			self.logger.step("Loading cached graphs", "Reusing previous graph artifacts when possible")
 			module_graph = KnowledgeGraph.load_from_json(self.module_graph_path)
 			lineages_need_full_rebuild = self._requires_full_lineage_rebuild(incremental_candidates)
 			lineage_graph = self._load_or_build_incremental_lineage_graph(incremental_candidates)
 			if incremental_candidates:
+				self.logger.step("Refreshing module graph", f"Updating {len(incremental_candidates)} changed files")
 				self._refresh_module_graph(module_graph, incremental_candidates)
 			if lineages_need_full_rebuild:
+				self.logger.warning("Lineage graph requires full rebuild because YAML/dbt inputs changed")
 				lineage_graph = self.hydrologist.build_lineage_graph()
 			elif incremental_candidates:
+				self.logger.step("Refreshing lineage graph", "Recomputing lineage only for changed Python/SQL assets")
 				self._refresh_lineage_graph(lineage_graph, incremental_candidates)
+			else:
+				self.logger.success("No source changes detected; reusing cached graphs")
 			self.archivist.log_trace(
 				action="incremental_refresh" if incremental_candidates else "incremental_noop",
 				evidence=[{"source_file": path, "line_start": 1, "line_end": 1, "analysis_method": "git-diff"} for path in incremental_candidates],
 				confidence=0.88 if incremental_candidates and not lineages_need_full_rebuild else 0.95 if not incremental_candidates else 0.8,
 			)
 		else:
+			self.logger.section("Full execution")
+			self.logger.step("Building module graph", "Running Surveyor across the repository")
 			module_graph = self.surveyor.build_import_graph()
+			self.logger.step("Building lineage graph", "Running Hydrologist across Python, SQL, and YAML assets")
 			lineage_graph = self.hydrologist.build_lineage_graph()
 			incremental_candidates = []
 			self.archivist.log_trace(
@@ -90,7 +77,14 @@ class Orchestrator:
 				confidence=0.9,
 			)
 
+		self.logger.section("Semantic enrichment")
+		self.logger.step("Generating purpose statements and domain clusters", "Running Semanticist over module graph nodes")
 		semantic_summary = self._enrich_module_graph(module_graph, incremental_candidates, force=not used_incremental)
+		cluster_count = len(semantic_summary.get("clusters", [])) if isinstance(semantic_summary, dict) else 0
+		self.logger.detail(f"Domain clusters available: {cluster_count}")
+
+		self.logger.section("Onboarding synthesis")
+		self.logger.step("Producing day-one answers", "Generating evidence-backed onboarding responses")
 		day_one_answers = self._generate_day_one_answers(
 			module_graph,
 			lineage_graph,
@@ -100,12 +94,21 @@ class Orchestrator:
 			previous_metadata,
 		)
 
+		self.logger.section("Writing artifacts")
+		self.logger.step("Persisting graph and markdown outputs", "Saving .cartography artifacts for the repository")
 		module_graph.save_to_json(self.module_graph_path)
 		lineage_graph.save_to_json(self.lineage_graph_path)
 		self._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))
 		self._write_text_file(self.onboarding_brief_path, self.archivist.generate_onboarding_brief(day_one_answers))
 		self.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding="utf-8")
 		self._save_run_metadata(changed_files=incremental_candidates, used_incremental=used_incremental)
+		self.logger.artifact("module graph", str(self.module_graph_path))
+		self.logger.artifact("lineage graph", str(self.lineage_graph_path))
+		self.logger.artifact("codebase brief", str(self.codebase_path))
+		self.logger.artifact("onboarding brief", str(self.onboarding_brief_path))
+		self.logger.artifact("day-one answers", str(self.day_one_answers_path))
+		self.logger.artifact("run metadata", str(self.run_metadata_path))
+		self.logger.finish_run("Artifacts generated successfully")
 
 		return {
 			"module_graph": str(self.module_graph_path),
@@ -117,7 +120,9 @@ class Orchestrator:
 		}
 
 	def _load_changed_files(self, previous_metadata: dict[str, Any]) -> list[str]:
-		if not self._is_git_repository() or not self._has_saved_graphs():
+		if not is_git_repository(self.repo_path) or not self._has_saved_graphs():
+			if not is_git_repository(self.repo_path):
+				self.logger.warning("Git metadata not available; incremental diff detection is disabled")
 			return []
 
 		try:
@@ -129,13 +134,7 @@ class Orchestrator:
 		return self.module_graph_path.exists() and self.lineage_graph_path.exists()
 
 	def _is_git_repository(self) -> bool:
-		result = subprocess.run(
-			["git", "rev-parse", "--is-inside-work-tree"],
-			cwd=self.repo_path,
-			capture_output=True,
-			text=True,
-		)
-		return result.returncode == 0 and result.stdout.strip() == "true"
+		return is_git_repository(self.repo_path)
 
 	def _load_run_metadata(self) -> dict[str, Any]:
 		if not self.run_metadata_path.exists():
@@ -155,15 +154,7 @@ class Orchestrator:
 		self.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 	def _current_commit_hash(self) -> str | None:
-		if not self._is_git_repository():
-			return None
-		result = subprocess.run(
-			["git", "rev-parse", "HEAD"],
-			cwd=self.repo_path,
-			capture_output=True,
-			text=True,
-		)
-		return result.stdout.strip() if result.returncode == 0 else None
+		return current_commit_hash(self.repo_path)
 
 	def _load_or_build_incremental_lineage_graph(self, changed_files: list[str]) -> KnowledgeGraph:
 		if self._requires_full_lineage_rebuild(changed_files):

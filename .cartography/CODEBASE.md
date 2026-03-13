@@ -21,8 +21,8 @@ The codebase contains 20 modules, 0 datasets, and 0 transformations connected by
 - No circular dependencies or documentation drift flags found.
 
 ## High-Velocity Files
-- pyproject.toml (5 changes / 30d)
+- pyproject.toml (6 changes / 30d)
+- README.md (5 changes / 30d)
+- src/cli.py (5 changes / 30d)
 - src/agents/hydrologist.py (5 changes / 30d)
 - src/analyzers/__init__.py (5 changes / 30d)
-- src/brownfield_cartographer/cli.py (5 changes / 30d)
-- README.md (4 changes / 30d)

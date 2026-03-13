@@ -1,12 +1,12 @@
 {
   "provider_used": "gemini",
   "model_used": "gemini-2.5-flash",
-  "prompt_tokens": 56033,
-  "response_tokens": 1344,
+  "prompt_tokens": 57028,
+  "response_tokens": 1256,
   "answers": [
     {
       "question": "What business capability does this codebase primarily support?",
-      "answer": "This codebase primarily supports the automated analysis of existing software repositories to generate architectural insights, data lineage maps, and semantic documentation. It aims to accelerate understanding and onboarding for engineers by synthesizing complex system information into structured knowledge graphs and human-readable reports, such as the `onboarding_brief.md` and `day_one_answers.json`.",
+      "answer": "This codebase primarily supports the automated analysis of existing software repositories to generate architectural insights and comprehensive onboarding documentation. It extracts module dependencies, data lineage, and semantically enriches these findings to produce structured reports and answers for new engineers.",
       "citations": [
         {
           "path": "README.md",
@@ -14,14 +14,66 @@
           "line_end": 30
         },
         {
+          "path": "pyproject.toml",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
           "path": "src/orchestrator.py",
-          "line_start": 76,
-          "line_end": 105
+          "line_start": 51,
+          "line_end": 80
         },
         {
           "path": "src/agents/semanticist.py",
           "line_start": 276,
           "line_end": 305
+        }
+      ]
+    },
+    {
+      "question": "Which modules and workflows should a new engineer read first to understand the system's critical path?",
+      "answer": "To grasp the system's critical path, a new engineer should begin with `src/cli.py` to see how user commands initiate analysis and handle repository acquisition. Next, examine `src/orchestrator.py`, which coordinates the entire process from graph construction by agents like `SurveyorAgent` and `HydrologistAgent` to semantic enrichment and artifact generation. Understanding `src/graph/knowledge_graph.py` is crucial as it defines the central data structure for all architectural insights, while `src/models/schemas.py` outlines the fundamental node and edge types that populate these graphs.",
+      "citations": [
+        {
+          "path": "src/cli.py",
+          "line_start": 51,
+          "line_end": 80
+        },
+        {
+          "path": "src/orchestrator.py",
+          "line_start": 51,
+          "line_end": 80
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/models/schemas.py",
+          "line_start": 1,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "question": "Where are the highest-risk change surfaces, and why?",
+      "answer": "The highest-risk change surfaces include `src/models/schemas.py` due to its architectural centrality (highest PageRank) in defining core data models like `Node` and `EdgeType`, making any modification ripple across the entire system. `src/graph/knowledge_graph.py` is also critical, holding the second-highest PageRank, as it manages the fundamental graph operations. Additionally, `src/cli.py` and `src/agents/hydrologist.py` exhibit high change velocity, indicating frequent modifications that could introduce instability at the user interface or within the complex data lineage analysis logic, respectively.",
+      "citations": [
+        {
+          "path": "src/models/schemas.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "src/cli.py",
+          "line_start": 51,
+          "line_end": 80
         },
         {
           "path": "src/agents/hydrologist.py",
@@ -31,106 +83,49 @@
       ]
     },
     {
-      "question": "Which modules and workflows should a new engineer read first to understand the system's critical path?",
-      "answer": "To grasp the system's critical path, a new engineer should begin with `src/cli.py`, which serves as the primary user interface for initiating repository analysis. Next, examine `src/orchestrator.py` to understand how the various analysis agents are coordinated and how incremental updates are managed. Then, review `src/models/schemas.py` to familiarize yourself with the fundamental data structures like `ModuleNode`, `DatasetNode`, and `EdgeType` that represent the system's knowledge. Finally, explore `src/graph/knowledge_graph.py` to see how these schemas are instantiated and managed within the central graph data store.",
+      "question": "How does data enter, move through, and exit the system?",
+      "answer": "Data enters the system through a user-specified repository path, which can be a local directory or a remote GitHub URL, handled by `src/cli.py`'s `resolve_repo_path` function. It then moves through processing stages orchestrated by `src/orchestrator.py`: `SurveyorAgent` builds a module graph from Python files, `HydrologistAgent` constructs a data lineage graph by analyzing Python data flow, SQL, and YAML configurations, and `SemanticistAgent` enriches these graphs with LLM-generated insights. Finally, processed data exits as persistent artifacts in the `.cartography/` directory, including `module_graph.json`, `lineage_graph.json`, `CODEBASE.md`, `onboarding_brief.md`, and `day_one_answers.json`.",
       "citations": [
         {
           "path": "src/cli.py",
-          "line_start": 1,
-          "line_end": 30
-        },
-        {
-          "path": "src/cli.py",
-          "line_start": 76,
-          "line_end": 105
-        },
-        {
-          "path": "src/orchestrator.py",
-          "line_start": 51,
-          "line_end": 80
-        },
-        {
-          "path": "src/models/schemas.py",
-          "line_start": 76,
-          "line_end": 85
-        },
-        {
-          "path": "src/graph/knowledge_graph.py",
-          "line_start": 1,
-          "line_end": 30
-        }
-      ]
-    },
-    {
-      "question": "Where are the highest-risk change surfaces, and why?",
-      "answer": "The highest-risk change surfaces include `src/models/schemas.py`, which defines the foundational data models for all graph entities; modifications here would propagate across the entire system due to its architectural centrality. Similarly, `src/graph/knowledge_graph.py` presents a significant risk, as it encapsulates the core graph storage and manipulation logic. Changes to `src/orchestrator.py` are also high-risk because it coordinates all analysis phases, making it central to the system's operational flow. Lastly, `src/analyzers/sql_lineage.py` is a high-velocity core file critical for data lineage extraction, meaning frequent changes could introduce regressions in a key analysis capability.",
-      "citations": [
-        {
-          "path": "src/models/schemas.py",
-          "line_start": 1,
-          "line_end": 30
-        },
-        {
-          "path": "src/graph/knowledge_graph.py",
-          "line_start": 1,
-          "line_end": 30
-        },
-        {
-          "path": "src/orchestrator.py",
           "line_start": 26,
           "line_end": 55
         },
         {
-          "path": "src/analyzers/sql_lineage.py",
+          "path": "src/orchestrator.py",
           "line_start": 76,
           "line_end": 105
-        }
-      ]
-    },
-    {
-      "question": "How does data enter, move through, and exit the system?",
-      "answer": "Data enters the system via a specified repository path, which can be a local directory or a remote Git URL, handled by `src/cli.py`. The `Orchestrator` then coordinates the analysis: `SurveyorAgent` processes source code to build a module import graph and extract change velocity, while `HydrologistAgent` analyzes Python, SQL, dbt, and Airflow configurations to construct a data lineage graph. Finally, `SemanticistAgent` enriches these graphs with LLM-generated purpose statements and domain clusters, synthesizing the information into human-readable outputs. The system exits by persisting these insights as JSON graph files (`module_graph.json`, `lineage_graph.json`), a comprehensive `CODEBASE.md` report, an `onboarding_brief.md`, and `day_one_answers.json` within the `.cartography/` directory of the analyzed repository.",
-      "citations": [
+        },
         {
-          "path": "src/cli.py",
+          "path": "src/agents/hydrologist.py",
           "line_start": 1,
           "line_end": 30
         },
         {
           "path": "src/orchestrator.py",
-          "line_start": 1,
-          "line_end": 30
+          "line_start": 101,
+          "line_end": 130
         },
         {
-          "path": "src/orchestrator.py",
-          "line_start": 76,
-          "line_end": 105
-        },
-        {
-          "path": "src/orchestrator.py",
-          "line_start": 76,
-          "line_end": 105
-        },
-        {
-          "path": "src/orchestrator.py",
-          "line_start": 76,
-          "line_end": 105
+          "path": "README.md",
+          "line_start": 51,
+          "line_end": 80
         }
       ]
     },
     {
       "question": "What domain architecture map best explains how responsibilities are split across the codebase?",
-      "answer": "The codebase's responsibilities are clearly delineated into several domain clusters. The `orchestration` cluster manages the overall analysis workflow, including CLI interactions and output persistence. `dependency analysis` encompasses the static code analysis tools for extracting module imports, data flow, and parsing configuration files like dbt and Airflow. The `system model` cluster defines the core data structures, such as `Node` and `EdgeType`, used to represent architectural entities. All analyzed information is stored and managed by the `knowledge graph` cluster. Finally, the `software intelligence` cluster is responsible for semantic enrichment, domain clustering, and synthesizing human-readable insights, including the day-one onboarding answers.",
+      "answer": "The codebase's responsibilities are clearly delineated across several domain clusters. The 'orchestration' cluster, exemplified by `src/orchestrator.py` and `src/cli.py`, manages the overall workflow and user interaction. 'Data lineage' components, such as `src/analyzers/sql_lineage.py` and `src/agents/hydrologist.py`, focus on static analysis to map data dependencies. The 'knowledge graph' domain, including `src/graph/knowledge_graph.py` and `src/models/schemas.py`, provides the foundational data structures. Lastly, 'software intelligence' modules like `src/agents/semanticist.py` are responsible for semantic enrichment and documentation synthesis using large language models.",
       "citations": [
-        {
-          "path": "src/cli.py",
-          "line_start": 1,
-          "line_end": 30
-        },
         {
           "path": "src/orchestrator.py",
           "line_start": 26,
           "line_end": 55
+        },
+        {
+          "path": "src/cli.py",
+          "line_start": 1,
+          "line_end": 30
         },
         {
           "path": "src/analyzers/sql_lineage.py",
@@ -138,7 +133,7 @@
           "line_end": 105
         },
         {
-          "path": "src/models/schemas.py",
+          "path": "src/graph/knowledge_graph.py",
           "line_start": 1,
           "line_end": 30
         },
@@ -198,103 +193,109 @@
         "path": "src/orchestrator.py",
         "line_start": 1,
         "line_end": 30,
-        "excerpt": "1: import json\n2: from pathlib import Path\n3: import subprocess\n4: from typing import Any\n5: \n6: from agents.archivist import ArchivistAgent\n7: from agents.hydrologist import HydrologistAgent\n8: from agents.semanticist import SemanticistAgent\n9: from agents.surveyor import SurveyorAgent\n10: from graph.knowledge_graph import KnowledgeGraph\n11: from models.schemas import EdgeType, FunctionNode, ModuleNode\n12: \n13: \n14: def get_changed_files(repo_path: str | Path, last_run_commit_hash: str | None) -> list[str]:\n15: \trepository_root = Path(repo_path).resolve()\n16: \tbaseline_hash = (last_run_commit_hash or \"\").strip()\n17: \n18: \tif baseline_hash:\n19: \t\tcommand = [\"git\", \"diff\", \"--name-only\", baseline_hash, \"HEAD\"]\n20: \telse:\n21: \t\tcommand = [\"git\", \"ls-files\"]\n22: \n23: \tresult = subprocess.run(\n24: \t\tcommand,\n25: \t\tcwd=repository_root,\n26: \t\tcapture_output=True,\n27: \t\ttext=True,\n28: \t\tcheck=True,\n29: \t)\n30: "
+        "excerpt": "1: import json\n2: from pathlib import Path\n3: import subprocess\n4: from typing import Any\n5: \n6: from agents.archivist import ArchivistAgent\n7: from agents.hydrologist import HydrologistAgent\n8: from agents.semanticist import SemanticistAgent\n9: from agents.surveyor import SurveyorAgent\n10: from graph.knowledge_graph import KnowledgeGraph\n11: from models.schemas import EdgeType, FunctionNode, ModuleNode\n12: from terminal_logger import TerminalLogger\n13: \n14: \n15: def get_changed_files(repo_path: str | Path, last_run_commit_hash: str | None) -> list[str]:\n16: \trepository_root = Path(repo_path).resolve()\n17: \tbaseline_hash = (last_run_commit_hash or \"\").strip()\n18: \n19: \tif baseline_hash:\n20: \t\tcommand = [\"git\", \"diff\", \"--name-only\", baseline_hash, \"HEAD\"]\n21: \telse:\n22: \t\tcommand = [\"git\", \"ls-files\"]\n23: \n24: \tresult = subprocess.run(\n25: \t\tcommand,\n26: \t\tcwd=repository_root,\n27: \t\tcapture_output=True,\n28: \t\ttext=True,\n29: \t\tcheck=True,\n30: \t)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 26,
         "line_end": 55,
-        "excerpt": "26: \t\tcapture_output=True,\n27: \t\ttext=True,\n28: \t\tcheck=True,\n29: \t)\n30: \n31: \tignored_parts = {\".cartography\", \".git\", \".venv\", \"__pycache__\", \"build\", \"dist\", \"target\", \"tmp\"}\n32: \tchanged_files: list[str] = []\n33: \tfor raw_line in result.stdout.splitlines():\n34: \t\trelative_path = raw_line.strip()\n35: \t\tif not relative_path:\n36: \t\t\tcontinue\n37: \t\tif any(part in ignored_parts for part in Path(relative_path).parts):\n38: \t\t\tcontinue\n39: \t\tchanged_files.append(relative_path)\n40: \n41: \treturn changed_files\n42: \n43: \n44: class Orchestrator:\n45: \tDAY_ONE_PROMPT_VERSION = 2\n46: \n47: \tdef __init__(self, repo_path: str | Path) -> None:\n48: \t\tself.repo_path = Path(repo_path).resolve()\n49: \t\tself.output_dir = self.repo_path / \".cartography\"\n50: \t\tself.module_graph_path = self.output_dir / \"module_graph.json\"\n51: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n52: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n53: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n54: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\"\n55: \t\tself.run_metadata_path = self.output_dir / \"run_metadata.json\""
+        "excerpt": "26: \t\tcwd=repository_root,\n27: \t\tcapture_output=True,\n28: \t\ttext=True,\n29: \t\tcheck=True,\n30: \t)\n31: \n32: \tignored_parts = {\".cartography\", \".git\", \".venv\", \"__pycache__\", \"build\", \"dist\", \"target\", \"tmp\"}\n33: \tchanged_files: list[str] = []\n34: \tfor raw_line in result.stdout.splitlines():\n35: \t\trelative_path = raw_line.strip()\n36: \t\tif not relative_path:\n37: \t\t\tcontinue\n38: \t\tif any(part in ignored_parts for part in Path(relative_path).parts):\n39: \t\t\tcontinue\n40: \t\tchanged_files.append(relative_path)\n41: \n42: \treturn changed_files\n43: \n44: \n45: class Orchestrator:\n46: \tDAY_ONE_PROMPT_VERSION = 2\n47: \n48: \tdef __init__(self, repo_path: str | Path) -> None:\n49: \t\tself.repo_path = Path(repo_path).resolve()\n50: \t\tself.output_dir = self.repo_path / \".cartography\"\n51: \t\tself.module_graph_path = self.output_dir / \"module_graph.json\"\n52: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n53: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n54: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n55: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\""
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 51,
         "line_end": 80,
-        "excerpt": "51: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n52: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n53: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n54: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\"\n55: \t\tself.run_metadata_path = self.output_dir / \"run_metadata.json\"\n56: \t\tself.surveyor = SurveyorAgent(self.repo_path)\n57: \t\tself.hydrologist = HydrologistAgent(self.repo_path)\n58: \t\tself.semanticist = SemanticistAgent(self.repo_path)\n59: \t\tself.archivist = ArchivistAgent(self.repo_path)\n60: \n61: \tdef run(self) -> dict[str, str]:\n62: \t\tself.output_dir.mkdir(parents=True, exist_ok=True)\n63: \t\tprevious_metadata = self._load_run_metadata()\n64: \t\tincremental_candidates = self._load_changed_files(previous_metadata)\n65: \t\thas_saved_graphs = self._has_saved_graphs()\n66: \n67: \t\tused_incremental = has_saved_graphs and self._is_git_repository()\n68: \t\tif used_incremental:\n69: \t\t\tmodule_graph = KnowledgeGraph.load_from_json(self.module_graph_path)\n70: \t\t\tlineages_need_full_rebuild = self._requires_full_lineage_rebuild(incremental_candidates)\n71: \t\t\tlineage_graph = self._load_or_build_incremental_lineage_graph(incremental_candidates)\n72: \t\t\tif incremental_candidates:\n73: \t\t\t\tself._refresh_module_graph(module_graph, incremental_candidates)\n74: \t\t\tif lineages_need_full_rebuild:\n75: \t\t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n76: \t\t\telif incremental_candidates:\n77: \t\t\t\tself._refresh_lineage_graph(lineage_graph, incremental_candidates)\n78: \t\t\tself.archivist.log_trace(\n79: \t\t\t\taction=\"incremental_refresh\" if incremental_candidates else \"incremental_noop\",\n80: \t\t\t\tevidence=[{\"source_file\": path, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"git-diff\"} for path in incremental_candidates],"
+        "excerpt": "51: \t\tself.module_graph_path = self.output_dir / \"module_graph.json\"\n52: \t\tself.lineage_graph_path = self.output_dir / \"lineage_graph.json\"\n53: \t\tself.codebase_path = self.output_dir / \"CODEBASE.md\"\n54: \t\tself.onboarding_brief_path = self.output_dir / \"onboarding_brief.md\"\n55: \t\tself.day_one_answers_path = self.output_dir / \"day_one_answers.json\"\n56: \t\tself.run_metadata_path = self.output_dir / \"run_metadata.json\"\n57: \t\tself.surveyor = SurveyorAgent(self.repo_path)\n58: \t\tself.hydrologist = HydrologistAgent(self.repo_path)\n59: \t\tself.semanticist = SemanticistAgent(self.repo_path)\n60: \t\tself.archivist = ArchivistAgent(self.repo_path)\n61: \t\tself.logger = TerminalLogger()\n62: \n63: \tdef run(self) -> dict[str, str]:\n64: \t\tself.logger.start_run(\"Brownfield Cartographer\", f\"Repository: {self.repo_path}\")\n65: \t\tself.output_dir.mkdir(parents=True, exist_ok=True)\n66: \t\tself.logger.section(\"Preparing analysis\")\n67: \t\tself.logger.step(\"Creating output directory\", str(self.output_dir))\n68: \t\tprevious_metadata = self._load_run_metadata()\n69: \t\tincremental_candidates = self._load_changed_files(previous_metadata)\n70: \t\thas_saved_graphs = self._has_saved_graphs()\n71: \t\tself.logger.detail(f\"Saved graphs available: {'yes' if has_saved_graphs else 'no'}\")\n72: \t\tself.logger.detail(f\"Changed files detected: {len(incremental_candidates)}\")\n73: \n74: \t\tused_incremental = has_saved_graphs and self._is_git_repository()\n75: \t\tif used_incremental:\n76: \t\t\tself.logger.section(\"Incremental execution\")\n77: \t\t\tself.logger.step(\"Loading cached graphs\", \"Reusing previous graph artifacts when possible\")\n78: \t\t\tmodule_graph = KnowledgeGraph.load_from_json(self.module_graph_path)\n79: \t\t\tlineages_need_full_rebuild = self._requires_full_lineage_rebuild(incremental_candidates)\n80: \t\t\tlineage_graph = self._load_or_build_incremental_lineage_graph(incremental_candidates)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 76,
         "line_end": 105,
-        "excerpt": "76: \t\t\telif incremental_candidates:\n77: \t\t\t\tself._refresh_lineage_graph(lineage_graph, incremental_candidates)\n78: \t\t\tself.archivist.log_trace(\n79: \t\t\t\taction=\"incremental_refresh\" if incremental_candidates else \"incremental_noop\",\n80: \t\t\t\tevidence=[{\"source_file\": path, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"git-diff\"} for path in incremental_candidates],\n81: \t\t\t\tconfidence=0.88 if incremental_candidates and not lineages_need_full_rebuild else 0.95 if not incremental_candidates else 0.8,\n82: \t\t\t)\n83: \t\telse:\n84: \t\t\tmodule_graph = self.surveyor.build_import_graph()\n85: \t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n86: \t\t\tincremental_candidates = []\n87: \t\t\tself.archivist.log_trace(\n88: \t\t\t\taction=\"full_rebuild\",\n89: \t\t\t\tevidence={\"source_file\": \".cartography/module_graph.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"static-analysis\"},\n90: \t\t\t\tconfidence=0.9,\n91: \t\t\t)\n92: \n93: \t\tsemantic_summary = self._enrich_module_graph(module_graph, incremental_candidates, force=not used_incremental)\n94: \t\tday_one_answers = self._generate_day_one_answers(\n95: \t\t\tmodule_graph,\n96: \t\t\tlineage_graph,\n97: \t\t\tsemantic_summary,\n98: \t\t\tused_incremental,\n99: \t\t\tincremental_candidates,\n100: \t\t\tprevious_metadata,\n101: \t\t)\n102: \n103: \t\tmodule_graph.save_to_json(self.module_graph_path)\n104: \t\tlineage_graph.save_to_json(self.lineage_graph_path)\n105: \t\tself._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))"
+        "excerpt": "76: \t\t\tself.logger.section(\"Incremental execution\")\n77: \t\t\tself.logger.step(\"Loading cached graphs\", \"Reusing previous graph artifacts when possible\")\n78: \t\t\tmodule_graph = KnowledgeGraph.load_from_json(self.module_graph_path)\n79: \t\t\tlineages_need_full_rebuild = self._requires_full_lineage_rebuild(incremental_candidates)\n80: \t\t\tlineage_graph = self._load_or_build_incremental_lineage_graph(incremental_candidates)\n81: \t\t\tif incremental_candidates:\n82: \t\t\t\tself.logger.step(\"Refreshing module graph\", f\"Updating {len(incremental_candidates)} changed files\")\n83: \t\t\t\tself._refresh_module_graph(module_graph, incremental_candidates)\n84: \t\t\tif lineages_need_full_rebuild:\n85: \t\t\t\tself.logger.warning(\"Lineage graph requires full rebuild because YAML/dbt inputs changed\")\n86: \t\t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n87: \t\t\telif incremental_candidates:\n88: \t\t\t\tself.logger.step(\"Refreshing lineage graph\", \"Recomputing lineage only for changed Python/SQL assets\")\n89: \t\t\t\tself._refresh_lineage_graph(lineage_graph, incremental_candidates)\n90: \t\t\telse:\n91: \t\t\t\tself.logger.success(\"No source changes detected; reusing cached graphs\")\n92: \t\t\tself.archivist.log_trace(\n93: \t\t\t\taction=\"incremental_refresh\" if incremental_candidates else \"incremental_noop\",\n94: \t\t\t\tevidence=[{\"source_file\": path, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"git-diff\"} for path in incremental_candidates],\n95: \t\t\t\tconfidence=0.88 if incremental_candidates and not lineages_need_full_rebuild else 0.95 if not incremental_candidates else 0.8,\n96: \t\t\t)\n97: \t\telse:\n98: \t\t\tself.logger.section(\"Full execution\")\n99: \t\t\tself.logger.step(\"Building module graph\", \"Running Surveyor across the repository\")\n100: \t\t\tmodule_graph = self.surveyor.build_import_graph()\n101: \t\t\tself.logger.step(\"Building lineage graph\", \"Running Hydrologist across Python, SQL, and YAML assets\")\n102: \t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n103: \t\t\tincremental_candidates = []\n104: \t\t\tself.archivist.log_trace(\n105: \t\t\t\taction=\"full_rebuild\","
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 101,
         "line_end": 130,
-        "excerpt": "101: \t\t)\n102: \n103: \t\tmodule_graph.save_to_json(self.module_graph_path)\n104: \t\tlineage_graph.save_to_json(self.lineage_graph_path)\n105: \t\tself._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))\n106: \t\tself._write_text_file(self.onboarding_brief_path, self.archivist.generate_onboarding_brief(day_one_answers))\n107: \t\tself.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding=\"utf-8\")\n108: \t\tself._save_run_metadata(changed_files=incremental_candidates, used_incremental=used_incremental)\n109: \n110: \t\treturn {\n111: \t\t\t\"module_graph\": str(self.module_graph_path),\n112: \t\t\t\"lineage_graph\": str(self.lineage_graph_path),\n113: \t\t\t\"codebase\": str(self.codebase_path),\n114: \t\t\t\"onboarding_brief\": str(self.onboarding_brief_path),\n115: \t\t\t\"day_one_answers\": str(self.day_one_answers_path),\n116: \t\t\t\"trace\": str(self.archivist.trace_path),\n117: \t\t}\n118: \n119: \tdef _load_changed_files(self, previous_metadata: dict[str, Any]) -> list[str]:\n120: \t\tif not self._is_git_repository() or not self._has_saved_graphs():\n121: \t\t\treturn []\n122: \n123: \t\ttry:\n124: \t\t\treturn get_changed_files(self.repo_path, previous_metadata.get(\"last_run_commit\"))\n125: \t\texcept subprocess.CalledProcessError:\n126: \t\t\treturn []\n127: \n128: \tdef _has_saved_graphs(self) -> bool:\n129: \t\treturn self.module_graph_path.exists() and self.lineage_graph_path.exists()\n130: "
+        "excerpt": "101: \t\t\tself.logger.step(\"Building lineage graph\", \"Running Hydrologist across Python, SQL, and YAML assets\")\n102: \t\t\tlineage_graph = self.hydrologist.build_lineage_graph()\n103: \t\t\tincremental_candidates = []\n104: \t\t\tself.archivist.log_trace(\n105: \t\t\t\taction=\"full_rebuild\",\n106: \t\t\t\tevidence={\"source_file\": \".cartography/module_graph.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"static-analysis\"},\n107: \t\t\t\tconfidence=0.9,\n108: \t\t\t)\n109: \n110: \t\tself.logger.section(\"Semantic enrichment\")\n111: \t\tself.logger.step(\"Generating purpose statements and domain clusters\", \"Running Semanticist over module graph nodes\")\n112: \t\tsemantic_summary = self._enrich_module_graph(module_graph, incremental_candidates, force=not used_incremental)\n113: \t\tcluster_count = len(semantic_summary.get(\"clusters\", [])) if isinstance(semantic_summary, dict) else 0\n114: \t\tself.logger.detail(f\"Domain clusters available: {cluster_count}\")\n115: \n116: \t\tself.logger.section(\"Onboarding synthesis\")\n117: \t\tself.logger.step(\"Producing day-one answers\", \"Generating evidence-backed onboarding responses\")\n118: \t\tday_one_answers = self._generate_day_one_answers(\n119: \t\t\tmodule_graph,\n120: \t\t\tlineage_graph,\n121: \t\t\tsemantic_summary,\n122: \t\t\tused_incremental,\n123: \t\t\tincremental_candidates,\n124: \t\t\tprevious_metadata,\n125: \t\t)\n126: \n127: \t\tself.logger.section(\"Writing artifacts\")\n128: \t\tself.logger.step(\"Persisting graph and markdown outputs\", \"Saving .cartography artifacts for the repository\")\n129: \t\tmodule_graph.save_to_json(self.module_graph_path)\n130: \t\tlineage_graph.save_to_json(self.lineage_graph_path)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 126,
         "line_end": 155,
-        "excerpt": "126: \t\t\treturn []\n127: \n128: \tdef _has_saved_graphs(self) -> bool:\n129: \t\treturn self.module_graph_path.exists() and self.lineage_graph_path.exists()\n130: \n131: \tdef _is_git_repository(self) -> bool:\n132: \t\tresult = subprocess.run(\n133: \t\t\t[\"git\", \"rev-parse\", \"--is-inside-work-tree\"],\n134: \t\t\tcwd=self.repo_path,\n135: \t\t\tcapture_output=True,\n136: \t\t\ttext=True,\n137: \t\t)\n138: \t\treturn result.returncode == 0 and result.stdout.strip() == \"true\"\n139: \n140: \tdef _load_run_metadata(self) -> dict[str, Any]:\n141: \t\tif not self.run_metadata_path.exists():\n142: \t\t\treturn {}\n143: \t\ttry:\n144: \t\t\treturn json.loads(self.run_metadata_path.read_text(encoding=\"utf-8\"))\n145: \t\texcept json.JSONDecodeError:\n146: \t\t\treturn {}\n147: \n148: \tdef _save_run_metadata(self, *, changed_files: list[str], used_incremental: bool) -> None:\n149: \t\tpayload = {\n150: \t\t\t\"last_run_commit\": self._current_commit_hash(),\n151: \t\t\t\"changed_files\": changed_files,\n152: \t\t\t\"used_incremental\": used_incremental,\n153: \t\t\t\"day_one_prompt_version\": self.DAY_ONE_PROMPT_VERSION,\n154: \t\t}\n155: \t\tself.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding=\"utf-8\")"
+        "excerpt": "126: \n127: \t\tself.logger.section(\"Writing artifacts\")\n128: \t\tself.logger.step(\"Persisting graph and markdown outputs\", \"Saving .cartography artifacts for the repository\")\n129: \t\tmodule_graph.save_to_json(self.module_graph_path)\n130: \t\tlineage_graph.save_to_json(self.lineage_graph_path)\n131: \t\tself._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))\n132: \t\tself._write_text_file(self.onboarding_brief_path, self.archivist.generate_onboarding_brief(day_one_answers))\n133: \t\tself.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding=\"utf-8\")\n134: \t\tself._save_run_metadata(changed_files=incremental_candidates, used_incremental=used_incremental)\n135: \t\tself.logger.artifact(\"module graph\", str(self.module_graph_path))\n136: \t\tself.logger.artifact(\"lineage graph\", str(self.lineage_graph_path))\n137: \t\tself.logger.artifact(\"codebase brief\", str(self.codebase_path))\n138: \t\tself.logger.artifact(\"onboarding brief\", str(self.onboarding_brief_path))\n139: \t\tself.logger.artifact(\"day-one answers\", str(self.day_one_answers_path))\n140: \t\tself.logger.artifact(\"run metadata\", str(self.run_metadata_path))\n141: \t\tself.logger.finish_run(\"Artifacts generated successfully\")\n142: \n143: \t\treturn {\n144: \t\t\t\"module_graph\": str(self.module_graph_path),\n145: \t\t\t\"lineage_graph\": str(self.lineage_graph_path),\n146: \t\t\t\"codebase\": str(self.codebase_path),\n147: \t\t\t\"onboarding_brief\": str(self.onboarding_brief_path),\n148: \t\t\t\"day_one_answers\": str(self.day_one_answers_path),\n149: \t\t\t\"trace\": str(self.archivist.trace_path),\n150: \t\t}\n151: \n152: \tdef _load_changed_files(self, previous_metadata: dict[str, Any]) -> list[str]:\n153: \t\tif not self._is_git_repository() or not self._has_saved_graphs():\n154: \t\t\tif not self._is_git_repository():\n155: \t\t\t\tself.logger.warning(\"Git metadata not available; incremental diff detection is disabled\")"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 151,
         "line_end": 180,
-        "excerpt": "151: \t\t\t\"changed_files\": changed_files,\n152: \t\t\t\"used_incremental\": used_incremental,\n153: \t\t\t\"day_one_prompt_version\": self.DAY_ONE_PROMPT_VERSION,\n154: \t\t}\n155: \t\tself.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding=\"utf-8\")\n156: \n157: \tdef _current_commit_hash(self) -> str | None:\n158: \t\tif not self._is_git_repository():\n159: \t\t\treturn None\n160: \t\tresult = subprocess.run(\n161: \t\t\t[\"git\", \"rev-parse\", \"HEAD\"],\n162: \t\t\tcwd=self.repo_path,\n163: \t\t\tcapture_output=True,\n164: \t\t\ttext=True,\n165: \t\t)\n166: \t\treturn result.stdout.strip() if result.returncode == 0 else None\n167: \n168: \tdef _load_or_build_incremental_lineage_graph(self, changed_files: list[str]) -> KnowledgeGraph:\n169: \t\tif self._requires_full_lineage_rebuild(changed_files):\n170: \t\t\treturn self.hydrologist.build_lineage_graph()\n171: \t\treturn KnowledgeGraph.load_from_json(self.lineage_graph_path)\n172: \n173: \tdef _requires_full_lineage_rebuild(self, changed_files: list[str]) -> bool:\n174: \t\treturn any(Path(relative_path).suffix.lower() in {\".yml\", \".yaml\"} for relative_path in changed_files)\n175: \n176: \tdef _refresh_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n177: \t\tpython_changes = [relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"]\n178: \t\tvelocity_map = self.surveyor.extract_git_velocity(self.repo_path, days=30) if self._is_git_repository() else {}\n179: \n180: \t\tfor relative_path in python_changes:"
+        "excerpt": "151: \n152: \tdef _load_changed_files(self, previous_metadata: dict[str, Any]) -> list[str]:\n153: \t\tif not self._is_git_repository() or not self._has_saved_graphs():\n154: \t\t\tif not self._is_git_repository():\n155: \t\t\t\tself.logger.warning(\"Git metadata not available; incremental diff detection is disabled\")\n156: \t\t\treturn []\n157: \n158: \t\ttry:\n159: \t\t\treturn get_changed_files(self.repo_path, previous_metadata.get(\"last_run_commit\"))\n160: \t\texcept subprocess.CalledProcessError:\n161: \t\t\treturn []\n162: \n163: \tdef _has_saved_graphs(self) -> bool:\n164: \t\treturn self.module_graph_path.exists() and self.lineage_graph_path.exists()\n165: \n166: \tdef _is_git_repository(self) -> bool:\n167: \t\tresult = subprocess.run(\n168: \t\t\t[\"git\", \"rev-parse\", \"--is-inside-work-tree\"],\n169: \t\t\tcwd=self.repo_path,\n170: \t\t\tcapture_output=True,\n171: \t\t\ttext=True,\n172: \t\t)\n173: \t\treturn result.returncode == 0 and result.stdout.strip() == \"true\"\n174: \n175: \tdef _load_run_metadata(self) -> dict[str, Any]:\n176: \t\tif not self.run_metadata_path.exists():\n177: \t\t\treturn {}\n178: \t\ttry:\n179: \t\t\treturn json.loads(self.run_metadata_path.read_text(encoding=\"utf-8\"))\n180: \t\texcept json.JSONDecodeError:"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 176,
         "line_end": 205,
-        "excerpt": "176: \tdef _refresh_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n177: \t\tpython_changes = [relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"]\n178: \t\tvelocity_map = self.surveyor.extract_git_velocity(self.repo_path, days=30) if self._is_git_repository() else {}\n179: \n180: \t\tfor relative_path in python_changes:\n181: \t\t\tself._remove_module_nodes(module_graph, relative_path)\n182: \n183: \t\tfor relative_path in python_changes:\n184: \t\t\tabsolute_path = self.repo_path / relative_path\n185: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n186: \t\t\t\tcontinue\n187: \t\t\tmodule_node = self.surveyor.analyze_module(absolute_path, velocity_map)\n188: \t\t\tmodule_graph.add_node(module_node)\n189: \t\t\tfor function_definition in module_node.function_definitions:\n190: \t\t\t\tmodule_graph.add_node(\n191: \t\t\t\t\tFunctionNode(\n192: \t\t\t\t\t\tid=f\"{module_node.path}::{function_definition.name}\",\n193: \t\t\t\t\t\tmodule_path=module_node.path,\n194: \t\t\t\t\t\tname=function_definition.name,\n195: \t\t\t\t\t)\n196: \t\t\t\t)\n197: \n198: \t\tfor node_id, attributes in module_graph.graph.nodes(data=True):\n199: \t\t\tif attributes.get(\"node_type\") == \"module\":\n200: \t\t\t\tattributes[\"change_velocity_30d\"] = float(velocity_map.get(node_id, 0))\n201: \n202: \t\tself._rebuild_module_edges(module_graph)\n203: \t\tself._refresh_module_metadata(module_graph, velocity_map)\n204: \n205: \tdef _remove_module_nodes(self, module_graph: KnowledgeGraph, relative_path: str) -> None:"
+        "excerpt": "176: \t\tif not self.run_metadata_path.exists():\n177: \t\t\treturn {}\n178: \t\ttry:\n179: \t\t\treturn json.loads(self.run_metadata_path.read_text(encoding=\"utf-8\"))\n180: \t\texcept json.JSONDecodeError:\n181: \t\t\treturn {}\n182: \n183: \tdef _save_run_metadata(self, *, changed_files: list[str], used_incremental: bool) -> None:\n184: \t\tpayload = {\n185: \t\t\t\"last_run_commit\": self._current_commit_hash(),\n186: \t\t\t\"changed_files\": changed_files,\n187: \t\t\t\"used_incremental\": used_incremental,\n188: \t\t\t\"day_one_prompt_version\": self.DAY_ONE_PROMPT_VERSION,\n189: \t\t}\n190: \t\tself.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding=\"utf-8\")\n191: \n192: \tdef _current_commit_hash(self) -> str | None:\n193: \t\tif not self._is_git_repository():\n194: \t\t\treturn None\n195: \t\tresult = subprocess.run(\n196: \t\t\t[\"git\", \"rev-parse\", \"HEAD\"],\n197: \t\t\tcwd=self.repo_path,\n198: \t\t\tcapture_output=True,\n199: \t\t\ttext=True,\n200: \t\t)\n201: \t\treturn result.stdout.strip() if result.returncode == 0 else None\n202: \n203: \tdef _load_or_build_incremental_lineage_graph(self, changed_files: list[str]) -> KnowledgeGraph:\n204: \t\tif self._requires_full_lineage_rebuild(changed_files):\n205: \t\t\treturn self.hydrologist.build_lineage_graph()"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 201,
         "line_end": 230,
-        "excerpt": "201: \n202: \t\tself._rebuild_module_edges(module_graph)\n203: \t\tself._refresh_module_metadata(module_graph, velocity_map)\n204: \n205: \tdef _remove_module_nodes(self, module_graph: KnowledgeGraph, relative_path: str) -> None:\n206: \t\tgraph = module_graph.graph\n207: \t\tfunction_nodes = [node_id for node_id in graph.nodes if node_id.startswith(f\"{relative_path}::\")]\n208: \t\tif graph.has_node(relative_path):\n209: \t\t\tgraph.remove_node(relative_path)\n210: \t\tfor function_node in function_nodes:\n211: \t\t\tif graph.has_node(function_node):\n212: \t\t\t\tgraph.remove_node(function_node)\n213: \n214: \tdef _rebuild_module_edges(self, module_graph: KnowledgeGraph) -> None:\n215: \t\tgraph = module_graph.graph\n216: \t\tedges_to_remove = [\n217: \t\t\t(source, target)\n218: \t\t\tfor source, target, attributes in graph.edges(data=True)\n219: \t\t\tif attributes.get(\"edge_type\") in {EdgeType.IMPORTS.value, EdgeType.CALLS.value}\n220: \t\t]\n221: \t\tgraph.remove_edges_from(edges_to_remove)\n222: \n223: \t\tfunction_index = {\n224: \t\t\t(node_id.rsplit(\"::\", 1)[0], attributes.get(\"name\")): node_id\n225: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n226: \t\t\tif attributes.get(\"node_type\") == \"function\" and isinstance(attributes.get(\"name\"), str)\n227: \t\t}\n228: \n229: \t\tfor node_id, attributes in list(graph.nodes(data=True)):\n230: \t\t\tif attributes.get(\"node_type\") != \"module\":"
+        "excerpt": "201: \t\treturn result.stdout.strip() if result.returncode == 0 else None\n202: \n203: \tdef _load_or_build_incremental_lineage_graph(self, changed_files: list[str]) -> KnowledgeGraph:\n204: \t\tif self._requires_full_lineage_rebuild(changed_files):\n205: \t\t\treturn self.hydrologist.build_lineage_graph()\n206: \t\treturn KnowledgeGraph.load_from_json(self.lineage_graph_path)\n207: \n208: \tdef _requires_full_lineage_rebuild(self, changed_files: list[str]) -> bool:\n209: \t\treturn any(Path(relative_path).suffix.lower() in {\".yml\", \".yaml\"} for relative_path in changed_files)\n210: \n211: \tdef _refresh_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n212: \t\tpython_changes = [relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"]\n213: \t\tvelocity_map = self.surveyor.extract_git_velocity(self.repo_path, days=30) if self._is_git_repository() else {}\n214: \n215: \t\tfor relative_path in python_changes:\n216: \t\t\tself._remove_module_nodes(module_graph, relative_path)\n217: \n218: \t\tfor relative_path in python_changes:\n219: \t\t\tabsolute_path = self.repo_path / relative_path\n220: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n221: \t\t\t\tcontinue\n222: \t\t\tmodule_node = self.surveyor.analyze_module(absolute_path, velocity_map)\n223: \t\t\tmodule_graph.add_node(module_node)\n224: \t\t\tfor function_definition in module_node.function_definitions:\n225: \t\t\t\tmodule_graph.add_node(\n226: \t\t\t\t\tFunctionNode(\n227: \t\t\t\t\t\tid=f\"{module_node.path}::{function_definition.name}\",\n228: \t\t\t\t\t\tmodule_path=module_node.path,\n229: \t\t\t\t\t\tname=function_definition.name,\n230: \t\t\t\t\t)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 226,
         "line_end": 255,
-        "excerpt": "226: \t\t\tif attributes.get(\"node_type\") == \"function\" and isinstance(attributes.get(\"name\"), str)\n227: \t\t}\n228: \n229: \t\tfor node_id, attributes in list(graph.nodes(data=True)):\n230: \t\t\tif attributes.get(\"node_type\") != \"module\":\n231: \t\t\t\tcontinue\n232: \t\t\tfor import_path in attributes.get(\"import_paths\", []):\n233: \t\t\t\tif isinstance(import_path, str) and graph.has_node(import_path):\n234: \t\t\t\t\tmodule_graph.add_edge(node_id, import_path, EdgeType.IMPORTS)\n235: \n236: \t\t\tfor function_definition in attributes.get(\"function_definitions\", []):\n237: \t\t\t\tfunction_name = function_definition.get(\"name\") if isinstance(function_definition, dict) else None\n238: \t\t\t\tif not isinstance(function_name, str):\n239: \t\t\t\t\tcontinue\n240: \t\t\t\tcaller_id = function_index.get((node_id, function_name))\n241: \t\t\t\tif caller_id is None:\n242: \t\t\t\t\tcontinue\n243: \t\t\t\tfor called_name in function_definition.get(\"calls\", []):\n244: \t\t\t\t\tif not isinstance(called_name, str):\n245: \t\t\t\t\t\tcontinue\n246: \t\t\t\t\tcallee_id = function_index.get((node_id, called_name.split(\".\")[-1]))\n247: \t\t\t\t\tif callee_id is not None:\n248: \t\t\t\t\t\tmodule_graph.add_edge(caller_id, callee_id, EdgeType.CALLS)\n249: \n250: \tdef _refresh_module_metadata(self, module_graph: KnowledgeGraph, velocity_map: dict[str, int]) -> None:\n251: \t\tself.surveyor.knowledge_graph = module_graph\n252: \t\tpagerank_scores = self.surveyor.calculate_pagerank()\n253: \t\tarchitectural_hubs = sorted(pagerank_scores.items(), key=lambda item: item[1], reverse=True)\n254: \t\tstrongly_connected_components = self.surveyor.identify_strongly_connected_components()\n255: \t\tmodule_graph.graph.graph.update("
+        "excerpt": "226: \t\t\t\t\tFunctionNode(\n227: \t\t\t\t\t\tid=f\"{module_node.path}::{function_definition.name}\",\n228: \t\t\t\t\t\tmodule_path=module_node.path,\n229: \t\t\t\t\t\tname=function_definition.name,\n230: \t\t\t\t\t)\n231: \t\t\t\t)\n232: \n233: \t\tfor node_id, attributes in module_graph.graph.nodes(data=True):\n234: \t\t\tif attributes.get(\"node_type\") == \"module\":\n235: \t\t\t\tattributes[\"change_velocity_30d\"] = float(velocity_map.get(node_id, 0))\n236: \n237: \t\tself._rebuild_module_edges(module_graph)\n238: \t\tself._refresh_module_metadata(module_graph, velocity_map)\n239: \n240: \tdef _remove_module_nodes(self, module_graph: KnowledgeGraph, relative_path: str) -> None:\n241: \t\tgraph = module_graph.graph\n242: \t\tfunction_nodes = [node_id for node_id in graph.nodes if node_id.startswith(f\"{relative_path}::\")]\n243: \t\tif graph.has_node(relative_path):\n244: \t\t\tgraph.remove_node(relative_path)\n245: \t\tfor function_node in function_nodes:\n246: \t\t\tif graph.has_node(function_node):\n247: \t\t\t\tgraph.remove_node(function_node)\n248: \n249: \tdef _rebuild_module_edges(self, module_graph: KnowledgeGraph) -> None:\n250: \t\tgraph = module_graph.graph\n251: \t\tedges_to_remove = [\n252: \t\t\t(source, target)\n253: \t\t\tfor source, target, attributes in graph.edges(data=True)\n254: \t\t\tif attributes.get(\"edge_type\") in {EdgeType.IMPORTS.value, EdgeType.CALLS.value}\n255: \t\t]"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 251,
         "line_end": 280,
-        "excerpt": "251: \t\tself.surveyor.knowledge_graph = module_graph\n252: \t\tpagerank_scores = self.surveyor.calculate_pagerank()\n253: \t\tarchitectural_hubs = sorted(pagerank_scores.items(), key=lambda item: item[1], reverse=True)\n254: \t\tstrongly_connected_components = self.surveyor.identify_strongly_connected_components()\n255: \t\tmodule_graph.graph.graph.update(\n256: \t\t\t{\n257: \t\t\t\t\"git_velocity_days\": 30,\n258: \t\t\t\t\"git_velocity\": velocity_map,\n259: \t\t\t\t\"high_velocity_core\": self.surveyor.identify_high_velocity_core(velocity_map),\n260: \t\t\t\t\"architectural_hubs\": [\n261: \t\t\t\t\t{\"path\": path, \"pagerank\": score}\n262: \t\t\t\t\tfor path, score in architectural_hubs\n263: \t\t\t\t],\n264: \t\t\t\t\"strongly_connected_components\": strongly_connected_components,\n265: \t\t\t}\n266: \t\t)\n267: \n268: \tdef _refresh_lineage_graph(self, lineage_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n269: \t\trelevant_changes = [\n270: \t\t\trelative_path\n271: \t\t\tfor relative_path in changed_files\n272: \t\t\tif Path(relative_path).suffix.lower() in {\".py\", \".sql\"}\n273: \t\t]\n274: \t\tfor relative_path in relevant_changes:\n275: \t\t\tself._remove_lineage_contribution(lineage_graph, relative_path)\n276: \n277: \t\tfor relative_path in relevant_changes:\n278: \t\t\tabsolute_path = self.repo_path / relative_path\n279: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n280: \t\t\t\tcontinue"
+        "excerpt": "251: \t\tedges_to_remove = [\n252: \t\t\t(source, target)\n253: \t\t\tfor source, target, attributes in graph.edges(data=True)\n254: \t\t\tif attributes.get(\"edge_type\") in {EdgeType.IMPORTS.value, EdgeType.CALLS.value}\n255: \t\t]\n256: \t\tgraph.remove_edges_from(edges_to_remove)\n257: \n258: \t\tfunction_index = {\n259: \t\t\t(node_id.rsplit(\"::\", 1)[0], attributes.get(\"name\")): node_id\n260: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n261: \t\t\tif attributes.get(\"node_type\") == \"function\" and isinstance(attributes.get(\"name\"), str)\n262: \t\t}\n263: \n264: \t\tfor node_id, attributes in list(graph.nodes(data=True)):\n265: \t\t\tif attributes.get(\"node_type\") != \"module\":\n266: \t\t\t\tcontinue\n267: \t\t\tfor import_path in attributes.get(\"import_paths\", []):\n268: \t\t\t\tif isinstance(import_path, str) and graph.has_node(import_path):\n269: \t\t\t\t\tmodule_graph.add_edge(node_id, import_path, EdgeType.IMPORTS)\n270: \n271: \t\t\tfor function_definition in attributes.get(\"function_definitions\", []):\n272: \t\t\t\tfunction_name = function_definition.get(\"name\") if isinstance(function_definition, dict) else None\n273: \t\t\t\tif not isinstance(function_name, str):\n274: \t\t\t\t\tcontinue\n275: \t\t\t\tcaller_id = function_index.get((node_id, function_name))\n276: \t\t\t\tif caller_id is None:\n277: \t\t\t\t\tcontinue\n278: \t\t\t\tfor called_name in function_definition.get(\"calls\", []):\n279: \t\t\t\t\tif not isinstance(called_name, str):\n280: \t\t\t\t\t\tcontinue"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 276,
         "line_end": 305,
-        "excerpt": "276: \n277: \t\tfor relative_path in relevant_changes:\n278: \t\t\tabsolute_path = self.repo_path / relative_path\n279: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n280: \t\t\t\tcontinue\n281: \t\t\tif absolute_path.suffix.lower() == \".py\":\n282: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n283: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.python_data_flow_analyzer.analyze_file(absolute_path))\n284: \t\t\t\tself.hydrologist._register_airflow_topology(absolute_path)\n285: \t\t\telif absolute_path.suffix.lower() == \".sql\":\n286: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n287: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.sql_lineage_analyzer.analyze_file(absolute_path))\n288: \n289: \t\tself._prune_orphan_lineage_nodes(lineage_graph)\n290: \n291: \tdef _remove_lineage_contribution(self, lineage_graph: KnowledgeGraph, relative_path: str) -> None:\n292: \t\tgraph = lineage_graph.graph\n293: \t\tnodes_to_remove = {\n294: \t\t\tnode_id\n295: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n296: \t\t\tif node_id == relative_path\n297: \t\t\tor node_id.startswith(f\"airflow:{relative_path}:\")\n298: \t\t\tor attributes.get(\"source_file\") == relative_path\n299: \t\t}\n300: \n301: \t\tfor node_id in nodes_to_remove:\n302: \t\t\tif graph.has_node(node_id):\n303: \t\t\t\tgraph.remove_node(node_id)\n304: \n305: \tdef _prune_orphan_lineage_nodes(self, lineage_graph: KnowledgeGraph) -> None:"
+        "excerpt": "276: \t\t\t\tif caller_id is None:\n277: \t\t\t\t\tcontinue\n278: \t\t\t\tfor called_name in function_definition.get(\"calls\", []):\n279: \t\t\t\t\tif not isinstance(called_name, str):\n280: \t\t\t\t\t\tcontinue\n281: \t\t\t\t\tcallee_id = function_index.get((node_id, called_name.split(\".\")[-1]))\n282: \t\t\t\t\tif callee_id is not None:\n283: \t\t\t\t\t\tmodule_graph.add_edge(caller_id, callee_id, EdgeType.CALLS)\n284: \n285: \tdef _refresh_module_metadata(self, module_graph: KnowledgeGraph, velocity_map: dict[str, int]) -> None:\n286: \t\tself.surveyor.knowledge_graph = module_graph\n287: \t\tpagerank_scores = self.surveyor.calculate_pagerank()\n288: \t\tarchitectural_hubs = sorted(pagerank_scores.items(), key=lambda item: item[1], reverse=True)\n289: \t\tstrongly_connected_components = self.surveyor.identify_strongly_connected_components()\n290: \t\tmodule_graph.graph.graph.update(\n291: \t\t\t{\n292: \t\t\t\t\"git_velocity_days\": 30,\n293: \t\t\t\t\"git_velocity\": velocity_map,\n294: \t\t\t\t\"high_velocity_core\": self.surveyor.identify_high_velocity_core(velocity_map),\n295: \t\t\t\t\"architectural_hubs\": [\n296: \t\t\t\t\t{\"path\": path, \"pagerank\": score}\n297: \t\t\t\t\tfor path, score in architectural_hubs\n298: \t\t\t\t],\n299: \t\t\t\t\"strongly_connected_components\": strongly_connected_components,\n300: \t\t\t}\n301: \t\t)\n302: \n303: \tdef _refresh_lineage_graph(self, lineage_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n304: \t\trelevant_changes = [\n305: \t\t\trelative_path"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 301,
         "line_end": 330,
-        "excerpt": "301: \t\tfor node_id in nodes_to_remove:\n302: \t\t\tif graph.has_node(node_id):\n303: \t\t\t\tgraph.remove_node(node_id)\n304: \n305: \tdef _prune_orphan_lineage_nodes(self, lineage_graph: KnowledgeGraph) -> None:\n306: \t\tgraph = lineage_graph.graph\n307: \t\torphan_nodes = [\n308: \t\t\tnode_id\n309: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n310: \t\t\tif attributes.get(\"node_type\") in {\"dataset\", \"transformation\"}\n311: \t\t\tand graph.in_degree(node_id) == 0\n312: \t\t\tand graph.out_degree(node_id) == 0\n313: \t\t]\n314: \t\tgraph.remove_nodes_from(orphan_nodes)\n315: \n316: \tdef _enrich_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str], *, force: bool) -> dict[str, Any]:\n317: \t\tgraph = module_graph.graph\n318: \t\tchanged_python_files = {relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"}\n319: \t\tmodule_payloads: list[tuple[str, ModuleNode]] = []\n320: \n321: \t\tfor node_id, attributes in graph.nodes(data=True):\n322: \t\t\tif attributes.get(\"node_type\") != \"module\":\n323: \t\t\t\tcontinue\n324: \t\t\tmodule_payloads.append((node_id, self._module_node_from_attributes(node_id, attributes)))\n325: \n326: \t\tstatements_updated = False\n327: \t\tfor node_id, module_node in module_payloads:\n328: \t\t\tneeds_regeneration = force or node_id in changed_python_files or not graph.nodes[node_id].get(\"purpose_statement\")\n329: \t\t\tif not needs_regeneration:\n330: \t\t\t\tcontinue"
+        "excerpt": "301: \t\t)\n302: \n303: \tdef _refresh_lineage_graph(self, lineage_graph: KnowledgeGraph, changed_files: list[str]) -> None:\n304: \t\trelevant_changes = [\n305: \t\t\trelative_path\n306: \t\t\tfor relative_path in changed_files\n307: \t\t\tif Path(relative_path).suffix.lower() in {\".py\", \".sql\"}\n308: \t\t]\n309: \t\tfor relative_path in relevant_changes:\n310: \t\t\tself._remove_lineage_contribution(lineage_graph, relative_path)\n311: \n312: \t\tfor relative_path in relevant_changes:\n313: \t\t\tabsolute_path = self.repo_path / relative_path\n314: \t\t\tif not absolute_path.exists() or not absolute_path.is_file():\n315: \t\t\t\tcontinue\n316: \t\t\tif absolute_path.suffix.lower() == \".py\":\n317: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n318: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.python_data_flow_analyzer.analyze_file(absolute_path))\n319: \t\t\t\tself.hydrologist._register_airflow_topology(absolute_path)\n320: \t\t\telif absolute_path.suffix.lower() == \".sql\":\n321: \t\t\t\tself.hydrologist.knowledge_graph = lineage_graph\n322: \t\t\t\tself.hydrologist._register_lineage_edges(absolute_path, self.hydrologist.sql_lineage_analyzer.analyze_file(absolute_path))\n323: \n324: \t\tself._prune_orphan_lineage_nodes(lineage_graph)\n325: \n326: \tdef _remove_lineage_contribution(self, lineage_graph: KnowledgeGraph, relative_path: str) -> None:\n327: \t\tgraph = lineage_graph.graph\n328: \t\tnodes_to_remove = {\n329: \t\t\tnode_id\n330: \t\t\tfor node_id, attributes in graph.nodes(data=True)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 326,
         "line_end": 355,
-        "excerpt": "326: \t\tstatements_updated = False\n327: \t\tfor node_id, module_node in module_payloads:\n328: \t\t\tneeds_regeneration = force or node_id in changed_python_files or not graph.nodes[node_id].get(\"purpose_statement\")\n329: \t\t\tif not needs_regeneration:\n330: \t\t\t\tcontinue\n331: \t\t\tpurpose_result = self.semanticist.generate_purpose_statement(module_node)\n332: \t\t\tgraph.nodes[node_id][\"purpose_statement\"] = purpose_result.purpose_statement\n333: \t\t\tgraph.nodes[node_id][\"documentation_drift\"] = purpose_result.documentation_drift\n334: \t\t\tstatements_updated = True\n335: \n336: \t\tshould_recluster = force or statements_updated or changed_python_files or any(\n337: \t\t\tnot attributes.get(\"domain_cluster\")\n338: \t\t\tfor _, attributes in graph.nodes(data=True)\n339: \t\t\tif attributes.get(\"node_type\") == \"module\"\n340: \t\t)\n341: \n342: \t\tcluster_summary: dict[str, Any] = {\"clusters\": [], \"assignments\": []}\n343: \t\tif should_recluster:\n344: \t\t\tmodule_ids: list[str] = []\n345: \t\t\tpurpose_statements: list[str] = []\n346: \t\t\tfor node_id, attributes in graph.nodes(data=True):\n347: \t\t\t\tif attributes.get(\"node_type\") != \"module\":\n348: \t\t\t\t\tcontinue\n349: \t\t\t\tpurpose_statement = attributes.get(\"purpose_statement\")\n350: \t\t\t\tif isinstance(purpose_statement, str) and purpose_statement.strip():\n351: \t\t\t\t\tmodule_ids.append(node_id)\n352: \t\t\t\t\tpurpose_statements.append(purpose_statement)\n353: \n354: \t\t\tcluster_summary = self.semanticist.cluster_into_domains(purpose_statements)\n355: \t\t\tcluster_lookup = {"
+        "excerpt": "326: \tdef _remove_lineage_contribution(self, lineage_graph: KnowledgeGraph, relative_path: str) -> None:\n327: \t\tgraph = lineage_graph.graph\n328: \t\tnodes_to_remove = {\n329: \t\t\tnode_id\n330: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n331: \t\t\tif node_id == relative_path\n332: \t\t\tor node_id.startswith(f\"airflow:{relative_path}:\")\n333: \t\t\tor attributes.get(\"source_file\") == relative_path\n334: \t\t}\n335: \n336: \t\tfor node_id in nodes_to_remove:\n337: \t\t\tif graph.has_node(node_id):\n338: \t\t\t\tgraph.remove_node(node_id)\n339: \n340: \tdef _prune_orphan_lineage_nodes(self, lineage_graph: KnowledgeGraph) -> None:\n341: \t\tgraph = lineage_graph.graph\n342: \t\torphan_nodes = [\n343: \t\t\tnode_id\n344: \t\t\tfor node_id, attributes in graph.nodes(data=True)\n345: \t\t\tif attributes.get(\"node_type\") in {\"dataset\", \"transformation\"}\n346: \t\t\tand graph.in_degree(node_id) == 0\n347: \t\t\tand graph.out_degree(node_id) == 0\n348: \t\t]\n349: \t\tgraph.remove_nodes_from(orphan_nodes)\n350: \n351: \tdef _enrich_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str], *, force: bool) -> dict[str, Any]:\n352: \t\tgraph = module_graph.graph\n353: \t\tchanged_python_files = {relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"}\n354: \t\tmodule_payloads: list[tuple[str, ModuleNode]] = []\n355: "
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 351,
         "line_end": 380,
-        "excerpt": "351: \t\t\t\t\tmodule_ids.append(node_id)\n352: \t\t\t\t\tpurpose_statements.append(purpose_statement)\n353: \n354: \t\t\tcluster_summary = self.semanticist.cluster_into_domains(purpose_statements)\n355: \t\t\tcluster_lookup = {\n356: \t\t\t\tcluster[\"cluster_id\"]: cluster[\"domain_label\"]\n357: \t\t\t\tfor cluster in cluster_summary.get(\"clusters\", [])\n358: \t\t\t\tif isinstance(cluster, dict)\n359: \t\t\t}\n360: \t\t\tfor index, module_id in enumerate(module_ids):\n361: \t\t\t\tcluster_id = cluster_summary.get(\"assignments\", [])[index]\n362: \t\t\t\tgraph.nodes[module_id][\"domain_cluster\"] = cluster_lookup.get(cluster_id)\n363: \t\t\tgraph.graph[\"domain_clusters\"] = cluster_summary.get(\"clusters\", [])\n364: \n365: \t\tif statements_updated or should_recluster:\n366: \t\t\tself.archivist.log_trace(\n367: \t\t\t\taction=\"semantic_enrichment\",\n368: \t\t\t\tevidence=[{\"source_file\": module_id, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"} for module_id, _ in module_payloads],\n369: \t\t\t\tconfidence=0.82,\n370: \t\t\t)\n371: \n372: \t\treturn cluster_summary\n373: \n374: \tdef _module_node_from_attributes(self, node_id: str, attributes: dict[str, Any]) -> ModuleNode:\n375: \t\tmodule_fields = set(ModuleNode.model_fields)\n376: \t\tpayload = {key: value for key, value in attributes.items() if key in module_fields}\n377: \t\tpayload.setdefault(\"id\", node_id)\n378: \t\tpayload.setdefault(\"path\", str(attributes.get(\"path\") or node_id))\n379: \t\treturn ModuleNode.model_validate(payload)\n380: "
+        "excerpt": "351: \tdef _enrich_module_graph(self, module_graph: KnowledgeGraph, changed_files: list[str], *, force: bool) -> dict[str, Any]:\n352: \t\tgraph = module_graph.graph\n353: \t\tchanged_python_files = {relative_path for relative_path in changed_files if Path(relative_path).suffix.lower() == \".py\"}\n354: \t\tmodule_payloads: list[tuple[str, ModuleNode]] = []\n355: \n356: \t\tfor node_id, attributes in graph.nodes(data=True):\n357: \t\t\tif attributes.get(\"node_type\") != \"module\":\n358: \t\t\t\tcontinue\n359: \t\t\tmodule_payloads.append((node_id, self._module_node_from_attributes(node_id, attributes)))\n360: \n361: \t\tstatements_updated = False\n362: \t\tfor node_id, module_node in module_payloads:\n363: \t\t\tneeds_regeneration = force or node_id in changed_python_files or not graph.nodes[node_id].get(\"purpose_statement\")\n364: \t\t\tif not needs_regeneration:\n365: \t\t\t\tcontinue\n366: \t\t\tpurpose_result = self.semanticist.generate_purpose_statement(module_node)\n367: \t\t\tgraph.nodes[node_id][\"purpose_statement\"] = purpose_result.purpose_statement\n368: \t\t\tgraph.nodes[node_id][\"documentation_drift\"] = purpose_result.documentation_drift\n369: \t\t\tstatements_updated = True\n370: \n371: \t\tshould_recluster = force or statements_updated or changed_python_files or any(\n372: \t\t\tnot attributes.get(\"domain_cluster\")\n373: \t\t\tfor _, attributes in graph.nodes(data=True)\n374: \t\t\tif attributes.get(\"node_type\") == \"module\"\n375: \t\t)\n376: \n377: \t\tcluster_summary: dict[str, Any] = {\"clusters\": [], \"assignments\": []}\n378: \t\tif should_recluster:\n379: \t\t\tmodule_ids: list[str] = []\n380: \t\t\tpurpose_statements: list[str] = []"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 376,
         "line_end": 405,
-        "excerpt": "376: \t\tpayload = {key: value for key, value in attributes.items() if key in module_fields}\n377: \t\tpayload.setdefault(\"id\", node_id)\n378: \t\tpayload.setdefault(\"path\", str(attributes.get(\"path\") or node_id))\n379: \t\treturn ModuleNode.model_validate(payload)\n380: \n381: \tdef _generate_day_one_answers(\n382: \t\tself,\n383: \t\tmodule_graph: KnowledgeGraph,\n384: \t\tlineage_graph: KnowledgeGraph,\n385: \t\tsemantic_summary: dict[str, Any],\n386: \t\tused_incremental: bool,\n387: \t\tchanged_files: list[str],\n388: \t\tprevious_metadata: dict[str, Any],\n389: \t) -> dict[str, Any]:\n390: \t\tprompt_version_changed = previous_metadata.get(\"day_one_prompt_version\") != self.DAY_ONE_PROMPT_VERSION\n391: \t\tneeds_refresh = (\n392: \t\t\tnot used_incremental\n393: \t\t\tor bool(changed_files)\n394: \t\t\tor not self.day_one_answers_path.exists()\n395: \t\t\tor bool(semantic_summary.get(\"clusters\"))\n396: \t\t\tor prompt_version_changed\n397: \t\t)\n398: \t\tif not needs_refresh:\n399: \t\t\treturn json.loads(self.day_one_answers_path.read_text(encoding=\"utf-8\"))\n400: \n401: \t\tday_one_answers = self.semanticist.answer_day_one_questions(module_graph, lineage_graph)\n402: \t\tself.archivist.log_trace(\n403: \t\t\taction=\"day_one_questions\",\n404: \t\t\tevidence={\"source_file\": \".cartography/day_one_answers.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"},\n405: \t\t\tconfidence=0.8,"
+        "excerpt": "376: \n377: \t\tcluster_summary: dict[str, Any] = {\"clusters\": [], \"assignments\": []}\n378: \t\tif should_recluster:\n379: \t\t\tmodule_ids: list[str] = []\n380: \t\t\tpurpose_statements: list[str] = []\n381: \t\t\tfor node_id, attributes in graph.nodes(data=True):\n382: \t\t\t\tif attributes.get(\"node_type\") != \"module\":\n383: \t\t\t\t\tcontinue\n384: \t\t\t\tpurpose_statement = attributes.get(\"purpose_statement\")\n385: \t\t\t\tif isinstance(purpose_statement, str) and purpose_statement.strip():\n386: \t\t\t\t\tmodule_ids.append(node_id)\n387: \t\t\t\t\tpurpose_statements.append(purpose_statement)\n388: \n389: \t\t\tcluster_summary = self.semanticist.cluster_into_domains(purpose_statements)\n390: \t\t\tcluster_lookup = {\n391: \t\t\t\tcluster[\"cluster_id\"]: cluster[\"domain_label\"]\n392: \t\t\t\tfor cluster in cluster_summary.get(\"clusters\", [])\n393: \t\t\t\tif isinstance(cluster, dict)\n394: \t\t\t}\n395: \t\t\tfor index, module_id in enumerate(module_ids):\n396: \t\t\t\tcluster_id = cluster_summary.get(\"assignments\", [])[index]\n397: \t\t\t\tgraph.nodes[module_id][\"domain_cluster\"] = cluster_lookup.get(cluster_id)\n398: \t\t\tgraph.graph[\"domain_clusters\"] = cluster_summary.get(\"clusters\", [])\n399: \n400: \t\tif statements_updated or should_recluster:\n401: \t\t\tself.archivist.log_trace(\n402: \t\t\t\taction=\"semantic_enrichment\",\n403: \t\t\t\tevidence=[{\"source_file\": module_id, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"} for module_id, _ in module_payloads],\n404: \t\t\t\tconfidence=0.82,\n405: \t\t\t)"
       },
       {
         "path": "src/orchestrator.py",
         "line_start": 401,
-        "line_end": 412,
-        "excerpt": "401: \t\tday_one_answers = self.semanticist.answer_day_one_questions(module_graph, lineage_graph)\n402: \t\tself.archivist.log_trace(\n403: \t\t\taction=\"day_one_questions\",\n404: \t\t\tevidence={\"source_file\": \".cartography/day_one_answers.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"},\n405: \t\t\tconfidence=0.8,\n406: \t\t)\n407: \t\treturn day_one_answers\n408: \n409: \tdef _write_text_file(self, destination: Path, content: str) -> None:\n410: \t\tdestination.write_text(content, encoding=\"utf-8\")\n411: \n412: __all__ = [\"Orchestrator\", \"get_changed_files\"]"
+        "line_end": 430,
+        "excerpt": "401: \t\t\tself.archivist.log_trace(\n402: \t\t\t\taction=\"semantic_enrichment\",\n403: \t\t\t\tevidence=[{\"source_file\": module_id, \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"} for module_id, _ in module_payloads],\n404: \t\t\t\tconfidence=0.82,\n405: \t\t\t)\n406: \n407: \t\treturn cluster_summary\n408: \n409: \tdef _module_node_from_attributes(self, node_id: str, attributes: dict[str, Any]) -> ModuleNode:\n410: \t\tmodule_fields = set(ModuleNode.model_fields)\n411: \t\tpayload = {key: value for key, value in attributes.items() if key in module_fields}\n412: \t\tpayload.setdefault(\"id\", node_id)\n413: \t\tpayload.setdefault(\"path\", str(attributes.get(\"path\") or node_id))\n414: \t\treturn ModuleNode.model_validate(payload)\n415: \n416: \tdef _generate_day_one_answers(\n417: \t\tself,\n418: \t\tmodule_graph: KnowledgeGraph,\n419: \t\tlineage_graph: KnowledgeGraph,\n420: \t\tsemantic_summary: dict[str, Any],\n421: \t\tused_incremental: bool,\n422: \t\tchanged_files: list[str],\n423: \t\tprevious_metadata: dict[str, Any],\n424: \t) -> dict[str, Any]:\n425: \t\tprompt_version_changed = previous_metadata.get(\"day_one_prompt_version\") != self.DAY_ONE_PROMPT_VERSION\n426: \t\tneeds_refresh = (\n427: \t\t\tnot used_incremental\n428: \t\t\tor bool(changed_files)\n429: \t\t\tor not self.day_one_answers_path.exists()\n430: \t\t\tor bool(semantic_summary.get(\"clusters\"))"
+      },
+      {
+        "path": "src/orchestrator.py",
+        "line_start": 426,
+        "line_end": 447,
+        "excerpt": "426: \t\tneeds_refresh = (\n427: \t\t\tnot used_incremental\n428: \t\t\tor bool(changed_files)\n429: \t\t\tor not self.day_one_answers_path.exists()\n430: \t\t\tor bool(semantic_summary.get(\"clusters\"))\n431: \t\t\tor prompt_version_changed\n432: \t\t)\n433: \t\tif not needs_refresh:\n434: \t\t\treturn json.loads(self.day_one_answers_path.read_text(encoding=\"utf-8\"))\n435: \n436: \t\tday_one_answers = self.semanticist.answer_day_one_questions(module_graph, lineage_graph)\n437: \t\tself.archivist.log_trace(\n438: \t\t\taction=\"day_one_questions\",\n439: \t\t\tevidence={\"source_file\": \".cartography/day_one_answers.json\", \"line_start\": 1, \"line_end\": 1, \"analysis_method\": \"llm-inference\"},\n440: \t\t\tconfidence=0.8,\n441: \t\t)\n442: \t\treturn day_one_answers\n443: \n444: \tdef _write_text_file(self, destination: Path, content: str) -> None:\n445: \t\tdestination.write_text(content, encoding=\"utf-8\")\n446: \n447: __all__ = [\"Orchestrator\", \"get_changed_files\"]"
       },
       {
         "path": "src/analyzers/sql_lineage.py",
@@ -342,31 +343,31 @@
         "path": "src/cli.py",
         "line_start": 1,
         "line_end": 30,
-        "excerpt": "1: from __future__ import annotations\n2: \n3: import argparse\n4: from contextlib import contextmanager\n5: from pathlib import Path\n6: import shutil\n7: import subprocess\n8: import tempfile\n9: \n10: from orchestrator import Orchestrator\n11: \n12: \n13: def build_parser() -> argparse.ArgumentParser:\n14: \tparser = argparse.ArgumentParser(description=\"Analyze a repository and export cartography graphs.\")\n15: \tsubparsers = parser.add_subparsers(dest=\"command\")\n16: \n17: \tanalyze_parser = subparsers.add_parser(\"analyze\", help=\"Run repository analysis and export cartography graphs.\")\n18: \tanalyze_parser.add_argument(\"--repo-path\", required=True, help=\"Path or GitHub URL of the repository to analyze.\")\n19: \n20: \tparser.add_argument(\"--repo-path\", help=\"Path or GitHub URL of the repository to analyze.\")\n21: \treturn parser\n22: \n23: \n24: def is_remote_repo_path(repo_path: str) -> bool:\n25: \treturn repo_path.startswith((\"http://\", \"https://\", \"github.com/\"))\n26: \n27: \n28: def normalize_repo_url(repo_path: str) -> str:\n29: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path\n30: "
+        "excerpt": "1: from __future__ import annotations\n2: \n3: import argparse\n4: from contextlib import contextmanager\n5: from pathlib import Path\n6: import shutil\n7: import subprocess\n8: import tempfile\n9: \n10: from orchestrator import Orchestrator\n11: from terminal_logger import TerminalLogger\n12: \n13: \n14: def build_parser() -> argparse.ArgumentParser:\n15: \tparser = argparse.ArgumentParser(description=\"Analyze a repository and export cartography graphs.\")\n16: \tsubparsers = parser.add_subparsers(dest=\"command\")\n17: \n18: \tanalyze_parser = subparsers.add_parser(\"analyze\", help=\"Run repository analysis and export cartography graphs.\")\n19: \tanalyze_parser.add_argument(\"--repo-path\", required=True, help=\"Path or GitHub URL of the repository to analyze.\")\n20: \n21: \tparser.add_argument(\"--repo-path\", help=\"Path or GitHub URL of the repository to analyze.\")\n22: \treturn parser\n23: \n24: \n25: def is_remote_repo_path(repo_path: str) -> bool:\n26: \treturn repo_path.startswith((\"http://\", \"https://\", \"github.com/\"))\n27: \n28: \n29: def normalize_repo_url(repo_path: str) -> str:\n30: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path"
       },
       {
         "path": "src/cli.py",
         "line_start": 26,
         "line_end": 55,
-        "excerpt": "26: \n27: \n28: def normalize_repo_url(repo_path: str) -> str:\n29: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path\n30: \n31: \n32: def remote_output_directory(repo_path: str, base_directory: str | Path = \".cartography/remotes\") -> Path:\n33: \trepo_url = normalize_repo_url(repo_path).removesuffix(\"/\")\n34: \trepo_slug = repo_url.removeprefix(\"https://\").removeprefix(\"http://\")\n35: \tsafe_slug = repo_slug.replace(\"/\", \"__\")\n36: \treturn Path(base_directory) / safe_slug\n37: \n38: \n39: @contextmanager\n40: def resolve_repo_path(repo_path: str):\n41: \tif not is_remote_repo_path(repo_path):\n42: \t\tyield Path(repo_path)\n43: \t\treturn\n44: \n45: \trepo_url = normalize_repo_url(repo_path)\n46: \twith tempfile.TemporaryDirectory(prefix=\"brownfield-cartographer-\", dir=\"/tmp\") as tmp_dir:\n47: \t\tclone_destination = Path(tmp_dir) / \"repo\"\n48: \t\tsubprocess.run(\n49: \t\t\t[\"git\", \"clone\", repo_url, str(clone_destination)],\n50: \t\t\tcheck=True,\n51: \t\t\tcwd=tmp_dir,\n52: \t\t\tcapture_output=True,\n53: \t\t\ttext=True,\n54: \t\t)\n55: \t\tyield clone_destination"
+        "excerpt": "26: \treturn repo_path.startswith((\"http://\", \"https://\", \"github.com/\"))\n27: \n28: \n29: def normalize_repo_url(repo_path: str) -> str:\n30: \treturn f\"https://{repo_path}\" if repo_path.startswith(\"github.com/\") else repo_path\n31: \n32: \n33: def remote_output_directory(repo_path: str, base_directory: str | Path = \".cartography/remotes\") -> Path:\n34: \trepo_url = normalize_repo_url(repo_path).removesuffix(\"/\")\n35: \trepo_slug = repo_url.removeprefix(\"https://\").removeprefix(\"http://\")\n36: \tsafe_slug = repo_slug.replace(\"/\", \"__\")\n37: \treturn Path(base_directory) / safe_slug\n38: \n39: \n40: @contextmanager\n41: def resolve_repo_path(repo_path: str):\n42: \tif not is_remote_repo_path(repo_path):\n43: \t\tyield Path(repo_path)\n44: \t\treturn\n45: \n46: \trepo_url = normalize_repo_url(repo_path)\n47: \twith tempfile.TemporaryDirectory(prefix=\"brownfield-cartographer-\", dir=\"/tmp\") as tmp_dir:\n48: \t\tclone_destination = Path(tmp_dir) / \"repo\"\n49: \t\tsubprocess.run(\n50: \t\t\t[\"git\", \"clone\", repo_url, str(clone_destination)],\n51: \t\t\tcheck=True,\n52: \t\t\tcwd=tmp_dir,\n53: \t\t\tcapture_output=True,\n54: \t\t\ttext=True,\n55: \t\t)"
       },
       {
         "path": "src/cli.py",
         "line_start": 51,
         "line_end": 80,
-        "excerpt": "51: \t\t\tcwd=tmp_dir,\n52: \t\t\tcapture_output=True,\n53: \t\t\ttext=True,\n54: \t\t)\n55: \t\tyield clone_destination\n56: \n57: \n58: def persist_remote_outputs(outputs: dict[str, str], repo_path: str) -> dict[str, str]:\n59: \tdestination_dir = remote_output_directory(repo_path)\n60: \tdestination_dir.mkdir(parents=True, exist_ok=True)\n61: \n62: \tpersisted_outputs: dict[str, str] = {}\n63: \tfor output_name, output_path in outputs.items():\n64: \t\tsource_path = Path(output_path)\n65: \t\tdestination_path = destination_dir / source_path.name\n66: \t\tshutil.copy2(source_path, destination_path)\n67: \t\tpersisted_outputs[output_name] = str(destination_path.resolve())\n68: \n69: \treturn persisted_outputs\n70: \n71: \n72: def main() -> int:\n73: \targs = build_parser().parse_args()\n74: \trepo_path = args.repo_path\n75: \n76: \tif getattr(args, \"command\", None) == \"analyze\":\n77: \t\trepo_path = args.repo_path\n78: \n79: \tif not repo_path:\n80: \t\traise SystemExit(\"A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.\")"
+        "excerpt": "51: \t\t\tcheck=True,\n52: \t\t\tcwd=tmp_dir,\n53: \t\t\tcapture_output=True,\n54: \t\t\ttext=True,\n55: \t\t)\n56: \t\tyield clone_destination\n57: \n58: \n59: def persist_remote_outputs(outputs: dict[str, str], repo_path: str) -> dict[str, str]:\n60: \tdestination_dir = remote_output_directory(repo_path)\n61: \tdestination_dir.mkdir(parents=True, exist_ok=True)\n62: \n63: \tpersisted_outputs: dict[str, str] = {}\n64: \tfor output_name, output_path in outputs.items():\n65: \t\tsource_path = Path(output_path)\n66: \t\tdestination_path = destination_dir / source_path.name\n67: \t\tshutil.copy2(source_path, destination_path)\n68: \t\tpersisted_outputs[output_name] = str(destination_path.resolve())\n69: \n70: \treturn persisted_outputs\n71: \n72: \n73: def main() -> int:\n74: \targs = build_parser().parse_args()\n75: \trepo_path = args.repo_path\n76: \tlogger = TerminalLogger()\n77: \n78: \tif getattr(args, \"command\", None) == \"analyze\":\n79: \t\trepo_path = args.repo_path\n80: "
       },
       {
         "path": "src/cli.py",
         "line_start": 76,
         "line_end": 105,
-        "excerpt": "76: \tif getattr(args, \"command\", None) == \"analyze\":\n77: \t\trepo_path = args.repo_path\n78: \n79: \tif not repo_path:\n80: \t\traise SystemExit(\"A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.\")\n81: \n82: \twith resolve_repo_path(repo_path) as resolved_repo_path:\n83: \t\toutputs = Orchestrator(resolved_repo_path).run()\n84: \t\tif is_remote_repo_path(repo_path):\n85: \t\t\toutputs = persist_remote_outputs(outputs, repo_path)\n86: \n87: \tprint(f\"Module graph saved to {outputs['module_graph']}\")\n88: \tprint(f\"Lineage graph saved to {outputs['lineage_graph']}\")\n89: \tif \"codebase\" in outputs:\n90: \t\tprint(f\"CODEBASE brief saved to {outputs['codebase']}\")\n91: \tif \"onboarding_brief\" in outputs:\n92: \t\tprint(f\"Onboarding brief saved to {outputs['onboarding_brief']}\")\n93: \treturn 0\n94: \n95: __all__ = [\n96: \t\"build_parser\",\n97: \t\"is_remote_repo_path\",\n98: \t\"main\",\n99: \t\"normalize_repo_url\",\n100: \t\"persist_remote_outputs\",\n101: \t\"remote_output_directory\",\n102: \t\"resolve_repo_path\",\n103: ]\n104: \n105: "
+        "excerpt": "76: \tlogger = TerminalLogger()\n77: \n78: \tif getattr(args, \"command\", None) == \"analyze\":\n79: \t\trepo_path = args.repo_path\n80: \n81: \tif not repo_path:\n82: \t\traise SystemExit(\"A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.\")\n83: \n84: \tlogger.section(\"CLI input\")\n85: \tlogger.step(\"Resolving repository target\", repo_path)\n86: \tlogger.detail(\"Remote repository cloning will be logged when a URL is provided\")\n87: \n88: \twith resolve_repo_path(repo_path) as resolved_repo_path:\n89: \t\tlogger.success(f\"Repository ready: {resolved_repo_path}\")\n90: \t\toutputs = Orchestrator(resolved_repo_path).run()\n91: \t\tif is_remote_repo_path(repo_path):\n92: \t\t\tlogger.section(\"Persisting remote artifacts\")\n93: \t\t\tlogger.step(\"Copying outputs from temporary clone\", \"Saving generated artifacts into .cartography/remotes\")\n94: \t\t\toutputs = persist_remote_outputs(outputs, repo_path)\n95: \n96: \tlogger.section(\"CLI outputs\")\n97: \tlogger.artifact(\"module graph\", outputs[\"module_graph\"])\n98: \tlogger.artifact(\"lineage graph\", outputs[\"lineage_graph\"])\n99: \tif \"codebase\" in outputs:\n100: \t\tlogger.artifact(\"codebase brief\", outputs[\"codebase\"])\n101: \tif \"onboarding_brief\" in outputs:\n102: \t\tlogger.artifact(\"onboarding brief\", outputs[\"onboarding_brief\"])\n103: \treturn 0\n104: \n105: __all__ = ["
       },
       {
         "path": "src/cli.py",
         "line_start": 101,
-        "line_end": 107,
-        "excerpt": "101: \t\"remote_output_directory\",\n102: \t\"resolve_repo_path\",\n103: ]\n104: \n105: \n106: if __name__ == \"__main__\":\n107: \traise SystemExit(main())"
+        "line_end": 117,
+        "excerpt": "101: \tif \"onboarding_brief\" in outputs:\n102: \t\tlogger.artifact(\"onboarding brief\", outputs[\"onboarding_brief\"])\n103: \treturn 0\n104: \n105: __all__ = [\n106: \t\"build_parser\",\n107: \t\"is_remote_repo_path\",\n108: \t\"main\",\n109: \t\"normalize_repo_url\",\n110: \t\"persist_remote_outputs\",\n111: \t\"remote_output_directory\",\n112: \t\"resolve_repo_path\",\n113: ]\n114: \n115: \n116: if __name__ == \"__main__\":\n117: \traise SystemExit(main())"
       },
       {
         "path": "src/agents/semanticist.py",
@@ -615,6 +616,36 @@
         "excerpt": "26:   \"tree-sitter-typescript\",\n27:   \"sqlglot\",\n28: ]\n29: \n30: [project.scripts]\n31: brownfield-cartographer = \"brownfield_cartographer.cli:main\"\n32: \n33: [tool.hatch.build.targets.wheel]\n34: packages = [\"src/agents\", \"src/analyzers\", \"src/brownfield_cartographer\", \"src/graph\", \"src/models\"]\n35: \n36: [dependency-groups]\n37: dev = []"
       },
       {
+        "path": "README.md",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: # Brownfield Cartographer\n2: \n3: Brownfield Cartographer analyzes an existing codebase and produces JSON graph artifacts for:\n4: \n5: - module-level import relationships\n6: - data-lineage relationships across Python pipelines, SQL, dbt, and Airflow assets\n7: - semantic enrichment for module purpose, domain clustering, and day-one onboarding synthesis\n8: \n9: The tool writes its outputs into a `.cartography/` directory inside the analyzed repository.\n10: \n11: ## Requirements\n12: \n13: - Python 3.10+\n14: - `uv`\n15: - `git` available on your `PATH`\n16: \n17: ## Install with uv\n18: \n19: From the project root:\n20: \n21: ```bash\n22: uv sync\n23: ```\n24: \n25: This creates or updates the local virtual environment and installs all project dependencies from `pyproject.toml`.\n26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: "
+      },
+      {
+        "path": "README.md",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: \n31: ```bash\n32: uv run brownfield-cartographer analyze --repo-path <path-or-url>\n33: ```\n34: \n35: You can also still use the backward-compatible form without the subcommand:\n36: \n37: ```bash\n38: uv run brownfield-cartographer --repo-path <path-or-url>\n39: ```\n40: \n41: ## Analyze a local repository\n42: \n43: Example using a local directory path:\n44: \n45: ```bash\n46: uv run brownfield-cartographer analyze --repo-path .\n47: ```\n48: \n49: Or point at any other local repository:\n50: \n51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository"
+      },
+      {
+        "path": "README.md",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository\n56: \n57: If `--repo-path` starts with `http`, `https`, or `github.com/`, the CLI temporarily clones the repository into `/tmp` before running analysis.\n58: \n59: Examples:\n60: \n61: ```bash\n62: uv run brownfield-cartographer analyze --repo-path https://github.com/octocat/Hello-World\n63: ```\n64: \n65: ```bash\n66: uv run brownfield-cartographer analyze --repo-path github.com/octocat/Hello-World\n67: ```\n68: \n69: ## Output files\n70: \n71: After a successful run, Brownfield Cartographer writes:\n72: \n73: - `.cartography/module_graph.json`\n74: - `.cartography/lineage_graph.json`\n75: - Semanticist-enriched module metadata inside the generated graph payloads when Phase 3 runs\n76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: "
+      },
+      {
+        "path": "README.md",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: \n81: - Python imports and module relationships\n82: - Python data reads, writes, and SQL execution paths\n83: - SQL lineage and write targets\n84: - dbt schema metadata and dependencies\n85: - Airflow DAG task topology\n86: - LLM-generated module purpose statements\n87: - Domain clusters derived from semantic embeddings\n88: - Five evidence-backed day-one onboarding answers\n89: \n90: ## Semanticist configuration\n91: \n92: Phase 3 uses Gemini and local Ollama together:\n93: \n94: - Gemini handles fast summarization and embeddings\n95: - Ollama handles heavier synthesis for day-one answers\n96: \n97: Copy the example configuration if needed:\n98: \n99: ```bash\n100: cp .env.example .env\n101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`"
+      },
+      {
+        "path": "README.md",
+        "line_start": 101,
+        "line_end": 129,
+        "excerpt": "101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`\n106: - `OLLAMA_BASE_URL` if your Ollama server is not running on the default `http://localhost:11434`\n107: \n108: Default model routing in `.env` is:\n109: \n110: - `SEMANTICIST_FAST_PROVIDER=gemini`\n111: - `SEMANTICIST_FAST_MODEL=gemini-2.5-flash`\n112: - `SEMANTICIST_HEAVY_PROVIDER=ollama`\n113: - `SEMANTICIST_HEAVY_MODEL=llama3.2:latest`\n114: - `SEMANTICIST_EMBEDDING_PROVIDER=gemini`\n115: - `SEMANTICIST_EMBEDDING_MODEL=gemini-embedding-001`\n116: \n117: To use the local Ollama model, make sure it is available before running analysis, for example:\n118: \n119: ```bash\n120: ollama pull llama3.2:latest\n121: ```\n122: \n123: If you want a different Gemini or Ollama model, update the related `.env` values without changing application code.\n124: \n125: ## Notes\n126: \n127: - Remote repositories are cloned into a temporary directory under `/tmp` for the duration of the run.\n128: - The analyzed repository must be cloneable with your local `git` configuration.\n129: - If a repository has no SQL or dbt assets, `.cartography/lineage_graph.json` may be empty."
+      },
+      {
         "path": "src/agents/hydrologist.py",
         "line_start": 1,
         "line_end": 30,
@@ -667,36 +698,6 @@
         "line_start": 1,
         "line_end": 19,
         "excerpt": "1: from cli import (\n2: \tbuild_parser,\n3: \tis_remote_repo_path,\n4: \tmain,\n5: \tnormalize_repo_url,\n6: \tpersist_remote_outputs,\n7: \tremote_output_directory,\n8: \tresolve_repo_path,\n9: )\n10: \n11: __all__ = [\n12: \t\"build_parser\",\n13: \t\"is_remote_repo_path\",\n14: \t\"main\",\n15: \t\"normalize_repo_url\",\n16: \t\"persist_remote_outputs\",\n17: \t\"remote_output_directory\",\n18: \t\"resolve_repo_path\",\n19: ]"
-      },
-      {
-        "path": "README.md",
-        "line_start": 1,
-        "line_end": 30,
-        "excerpt": "1: # Brownfield Cartographer\n2: \n3: Brownfield Cartographer analyzes an existing codebase and produces JSON graph artifacts for:\n4: \n5: - module-level import relationships\n6: - data-lineage relationships across Python pipelines, SQL, dbt, and Airflow assets\n7: - semantic enrichment for module purpose, domain clustering, and day-one onboarding synthesis\n8: \n9: The tool writes its outputs into a `.cartography/` directory inside the analyzed repository.\n10: \n11: ## Requirements\n12: \n13: - Python 3.10+\n14: - `uv`\n15: - `git` available on your `PATH`\n16: \n17: ## Install with uv\n18: \n19: From the project root:\n20: \n21: ```bash\n22: uv sync\n23: ```\n24: \n25: This creates or updates the local virtual environment and installs all project dependencies from `pyproject.toml`.\n26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: "
-      },
-      {
-        "path": "README.md",
-        "line_start": 26,
-        "line_end": 55,
-        "excerpt": "26: \n27: ## CLI usage\n28: \n29: The main command is:\n30: \n31: ```bash\n32: uv run brownfield-cartographer analyze --repo-path <path-or-url>\n33: ```\n34: \n35: You can also still use the backward-compatible form without the subcommand:\n36: \n37: ```bash\n38: uv run brownfield-cartographer --repo-path <path-or-url>\n39: ```\n40: \n41: ## Analyze a local repository\n42: \n43: Example using a local directory path:\n44: \n45: ```bash\n46: uv run brownfield-cartographer analyze --repo-path .\n47: ```\n48: \n49: Or point at any other local repository:\n50: \n51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository"
-      },
-      {
-        "path": "README.md",
-        "line_start": 51,
-        "line_end": 80,
-        "excerpt": "51: ```bash\n52: uv run brownfield-cartographer analyze --repo-path /path/to/repository\n53: ```\n54: \n55: ## Analyze a GitHub repository\n56: \n57: If `--repo-path` starts with `http`, `https`, or `github.com/`, the CLI temporarily clones the repository into `/tmp` before running analysis.\n58: \n59: Examples:\n60: \n61: ```bash\n62: uv run brownfield-cartographer analyze --repo-path https://github.com/octocat/Hello-World\n63: ```\n64: \n65: ```bash\n66: uv run brownfield-cartographer analyze --repo-path github.com/octocat/Hello-World\n67: ```\n68: \n69: ## Output files\n70: \n71: After a successful run, Brownfield Cartographer writes:\n72: \n73: - `.cartography/module_graph.json`\n74: - `.cartography/lineage_graph.json`\n75: - Semanticist-enriched module metadata inside the generated graph payloads when Phase 3 runs\n76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: "
-      },
-      {
-        "path": "README.md",
-        "line_start": 76,
-        "line_end": 105,
-        "excerpt": "76: \n77: These files are created in the analyzed repository.\n78: \n79: ## What gets analyzed\n80: \n81: - Python imports and module relationships\n82: - Python data reads, writes, and SQL execution paths\n83: - SQL lineage and write targets\n84: - dbt schema metadata and dependencies\n85: - Airflow DAG task topology\n86: - LLM-generated module purpose statements\n87: - Domain clusters derived from semantic embeddings\n88: - Five evidence-backed day-one onboarding answers\n89: \n90: ## Semanticist configuration\n91: \n92: Phase 3 uses Gemini and local Ollama together:\n93: \n94: - Gemini handles fast summarization and embeddings\n95: - Ollama handles heavier synthesis for day-one answers\n96: \n97: Copy the example configuration if needed:\n98: \n99: ```bash\n100: cp .env.example .env\n101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`"
-      },
-      {
-        "path": "README.md",
-        "line_start": 101,
-        "line_end": 129,
-        "excerpt": "101: ```\n102: \n103: Then set at least:\n104: \n105: - `GEMINI_API_KEY`\n106: - `OLLAMA_BASE_URL` if your Ollama server is not running on the default `http://localhost:11434`\n107: \n108: Default model routing in `.env` is:\n109: \n110: - `SEMANTICIST_FAST_PROVIDER=gemini`\n111: - `SEMANTICIST_FAST_MODEL=gemini-2.5-flash`\n112: - `SEMANTICIST_HEAVY_PROVIDER=ollama`\n113: - `SEMANTICIST_HEAVY_MODEL=llama3.2:latest`\n114: - `SEMANTICIST_EMBEDDING_PROVIDER=gemini`\n115: - `SEMANTICIST_EMBEDDING_MODEL=gemini-embedding-001`\n116: \n117: To use the local Ollama model, make sure it is available before running analysis, for example:\n118: \n119: ```bash\n120: ollama pull llama3.2:latest\n121: ```\n122: \n123: If you want a different Gemini or Ollama model, update the related `.env` values without changing application code.\n124: \n125: ## Notes\n126: \n127: - Remote repositories are cloned into a temporary directory under `/tmp` for the duration of the run.\n128: - The analyzed repository must be cloneable with your local `git` configuration.\n129: - If a repository has no SQL or dbt assets, `.cartography/lineage_graph.json` may be empty."
       },
       {
         "path": "src/analyzers/python_data_flow.py",
@@ -932,6 +933,14 @@
         "files": [
           {
             "path": "pyproject.toml",
+            "change_count": 6
+          },
+          {
+            "path": "README.md",
+            "change_count": 5
+          },
+          {
+            "path": "src/cli.py",
             "change_count": 5
           },
           {
@@ -947,7 +956,7 @@
             "change_count": 5
           },
           {
-            "path": "README.md",
+            "path": "src/agents/__init__.py",
             "change_count": 4
           },
           {
@@ -955,11 +964,11 @@
             "change_count": 4
           },
           {
-            "path": "src/cli.py",
-            "change_count": 4
+            "path": ".env.example",
+            "change_count": 3
           },
           {
-            "path": "src/agents/__init__.py",
+            "path": "src/orchestrator.py",
             "change_count": 3
           },
           {
@@ -971,41 +980,52 @@
             "change_count": 3
           },
           {
-            "path": ".env.example",
+            "path": "src/agents/archivist.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/agents/navigator.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/agents/semanticist.py",
+            "change_count": 2
+          },
+          {
+            "path": "src/graph/knowledge_graph.py",
             "change_count": 2
           },
           {
             "path": "src/agents/surveyor.py",
             "change_count": 2
-          },
-          {
-            "path": "src/analyzers/tree_sitter_analyzer.py",
-            "change_count": 2
-          },
-          {
-            "path": "src/brownfield_cartographer/orchestrator.py",
-            "change_count": 2
-          },
-          {
-            "path": "src/models/schemas.py",
-            "change_count": 2
-          },
-          {
-            "path": "src/orchestrator.py",
-            "change_count": 2
           }
         ],
-        "change_share": 0.8153846153846154,
-        "file_share": 0.5714285714285714,
+        "change_share": 0.8133333333333334,
+        "file_share": 0.6071428571428571,
         "days": 30
       },
       "strongly_connected_components": [],
       "domain_clusters": [
         {
           "cluster_id": 0,
-          "domain_label": "dependency analysis",
+          "domain_label": "orchestration",
           "purpose_statements": [
-            "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
+            "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
+            "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
+            "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies.",
+            "This module serves as the command-line interface (CLI) for the application, enabling users to initiate the analysis of software repositories. It manages the process of acquiring the target repository, whether local or remote, and then orchestrates the generation and presentation of various architectural and code-level insights. The module ensures that analysis outputs are properly handled and persisted, especially for remote repositories."
+          ],
+          "member_indices": [
+            5,
+            6,
+            7,
+            17
+          ]
+        },
+        {
+          "cluster_id": 1,
+          "domain_label": "data lineage",
+          "purpose_statements": [
             "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
             "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
             "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
@@ -1013,80 +1033,57 @@
             "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing."
           ],
           "member_indices": [
+            0,
             1,
             2,
             3,
-            4,
-            5,
-            6
-          ]
-        },
-        {
-          "cluster_id": 1,
-          "domain_label": "orchestration",
-          "purpose_statements": [
-            "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
-            "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
-            "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
-            "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies."
-          ],
-          "member_indices": [
-            0,
-            7,
-            8,
-            9
+            4
           ]
         },
         {
           "cluster_id": 2,
-          "domain_label": "system model",
+          "domain_label": "knowledge graph",
           "purpose_statements": [
-            "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
-            "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture."
+            "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access.",
+            "This module provides a robust mechanism for representing and managing a knowledge graph. It enables the creation of a graph by adding distinct entities as nodes and defining their relationships as directed edges. Furthermore, it facilitates the persistence of this graph structure to JSON files and its reconstruction from them."
           ],
           "member_indices": [
-            18,
-            19
+            8,
+            18
           ]
         },
         {
           "cluster_id": 3,
-          "domain_label": "knowledge graph",
-          "purpose_statements": [
-            "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
-            "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access."
-          ],
-          "member_indices": [
-            10,
-            11
-          ]
-        },
-        {
-          "cluster_id": 4,
-          "domain_label": "agent services",
-          "purpose_statements": [
-            "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure."
-          ],
-          "member_indices": [
-            14
-          ]
-        },
-        {
-          "cluster_id": 5,
           "domain_label": "software intelligence",
           "purpose_statements": [
             "The SurveyorAgent module is designed to analyze a software repository to construct a comprehensive knowledge graph. It identifies module dependencies, function call relationships, and historical change velocity for files within the repository. This analysis provides insights into the codebase's structure, evolution, and key architectural components, such as high-velocity areas and central modules.",
             "The HydrologistAgent module is designed to automatically discover and map data lineage across an entire code repository. It achieves this by analyzing diverse code artifacts like dbt configurations, Python scripts, and SQL files to build a unified knowledge graph of datasets and transformations. This graph enables users to understand data dependencies, perform impact analysis, and identify the ultimate sources and sinks of data within their systems.",
-            "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
-            "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
-            "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation."
+            "The ArchivistAgent module is responsible for synthesizing complex codebase information, typically derived from a knowledge graph, into structured, human-readable reports. It generates documents such as a comprehensive codebase overview (CODEBASE.md) and tailored onboarding briefs for new engineers. Additionally, it maintains a trace log of its analytical actions and their supporting evidence.",
+            "The NavigatorAgent serves as an intelligent interface for exploring and understanding complex software repositories, particularly brownfield codebases. It allows users to query a knowledge graph to discover module implementations, trace data lineage, analyze the blast radius of changes, and obtain explanations for specific modules. This agent acts as a guide, providing structured answers and evidence to help engineers navigate and comprehend the codebase effectively.",
+            "This module provides a 'SemanticistAgent' responsible for analyzing software codebases using large language models and embedding techniques. It generates high-level architectural insights, including module purpose statements, domain clusters, and answers to critical 'day-one' onboarding questions for new engineers. The agent integrates with various LLM and embedding providers to extract and synthesize semantic information from code.",
+            "This module serves as the central control unit for analyzing a software repository to generate comprehensive documentation and insights. It orchestrates specialized agents to construct knowledge graphs of module dependencies and data lineage, semantically enrich these graphs with purpose statements and domain clusters, and synthesize this information into developer onboarding artifacts. The module supports both full repository analysis and efficient incremental updates based on code changes."
           ],
           "member_indices": [
-            12,
-            13,
+            9,
+            10,
+            14,
             15,
             16,
-            17
+            19
+          ]
+        },
+        {
+          "cluster_id": 4,
+          "domain_label": "system definition",
+          "purpose_statements": [
+            "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+            "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture.",
+            "This module serves as the entry point for the `agents` package, consolidating and exposing various specialized agent types. Its primary business function is to provide a unified interface for accessing distinct agents like the Archivist, Hydrologist, and Navigator, each likely responsible for specific operational tasks or data interactions within the system. This organization simplifies the integration and management of these diverse agent functionalities across the application."
+          ],
+          "member_indices": [
+            11,
+            12,
+            13
           ]
         }
       ]

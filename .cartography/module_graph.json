@@ -4,13 +4,16 @@
   "graph": {
     "git_velocity_days": 30,
     "git_velocity": {
-      ".env.example": 2,
-      "README.md": 4,
-      "pyproject.toml": 5,
-      "src/agents/__init__.py": 3,
-      "src/agents/archivist.py": 1,
-      "src/agents/navigator.py": 1,
-      "src/agents/semanticist.py": 1,
+      ".env.example": 3,
+      "README.md": 5,
+      "pyproject.toml": 6,
+      "src/agents/__init__.py": 4,
+      "src/agents/archivist.py": 2,
+      "src/agents/navigator.py": 2,
+      "src/agents/semanticist.py": 2,
+      "src/cli.py": 5,
+      "src/graph/knowledge_graph.py": 2,
+      "src/orchestrator.py": 3,
       "RECONNAISSANCE.md": 1,
       "RECONNAISSANCE.pdf": 1,
       "src/agents/hydrologist.py": 5,
@@ -22,13 +25,10 @@
       "src/analyzers/tree_sitter_analyzer.py": 2,
       "src/brownfield_cartographer/cli.py": 5,
       "src/brownfield_cartographer/orchestrator.py": 2,
-      "src/cli.py": 4,
       "src/models/schemas.py": 2,
-      "src/orchestrator.py": 2,
       "uv.lock": 3,
       "src/brownfield_cartographer/__init__.py": 1,
       "src/graph/__init__.py": 1,
-      "src/graph/knowledge_graph.py": 1,
       "src/models/__init__.py": 1,
       ".github/copilot-instructions.md": 1,
       ".gitignore": 1
@@ -37,6 +37,14 @@
       "files": [
         {
           "path": "pyproject.toml",
+          "change_count": 6
+        },
+        {
+          "path": "README.md",
+          "change_count": 5
+        },
+        {
+          "path": "src/cli.py",
           "change_count": 5
         },
         {
@@ -52,7 +60,7 @@
           "change_count": 5
         },
         {
-          "path": "README.md",
+          "path": "src/agents/__init__.py",
           "change_count": 4
         },
         {
@@ -60,11 +68,11 @@
           "change_count": 4
         },
         {
-          "path": "src/cli.py",
-          "change_count": 4
+          "path": ".env.example",
+          "change_count": 3
         },
         {
-          "path": "src/agents/__init__.py",
+          "path": "src/orchestrator.py",
           "change_count": 3
         },
         {
@@ -76,32 +84,28 @@
           "change_count": 3
         },
         {
-          "path": ".env.example",
+          "path": "src/agents/archivist.py",
+          "change_count": 2
+        },
+        {
+          "path": "src/agents/navigator.py",
+          "change_count": 2
+        },
+        {
+          "path": "src/agents/semanticist.py",
+          "change_count": 2
+        },
+        {
+          "path": "src/graph/knowledge_graph.py",
           "change_count": 2
         },
         {
           "path": "src/agents/surveyor.py",
           "change_count": 2
-        },
-        {
-          "path": "src/analyzers/tree_sitter_analyzer.py",
-          "change_count": 2
-        },
-        {
-          "path": "src/brownfield_cartographer/orchestrator.py",
-          "change_count": 2
-        },
-        {
-          "path": "src/models/schemas.py",
-          "change_count": 2
-        },
-        {
-          "path": "src/orchestrator.py",
-          "change_count": 2
         }
       ],
-      "change_share": 0.8153846153846154,
-      "file_share": 0.5714285714285714,
+      "change_share": 0.8133333333333334,
+      "file_share": 0.6071428571428571,
       "days": 30
     },
     "architectural_hubs": [
@@ -174,15 +178,15 @@
         "pagerank": 0.025352006289239865
       },
       {
+        "path": "src/models/__init__.py",
+        "pagerank": 0.025352006289239865
+      },
+      {
         "path": "src/agents/__init__.py",
         "pagerank": 0.025352006289239865
       },
       {
         "path": "src/agents/navigator.py",
-        "pagerank": 0.025352006289239865
-      },
-      {
-        "path": "src/models/__init__.py",
         "pagerank": 0.025352006289239865
       }
     ],
@@ -190,9 +194,24 @@
     "domain_clusters": [
       {
         "cluster_id": 0,
-        "domain_label": "dependency analysis",
+        "domain_label": "orchestration",
         "purpose_statements": [
-          "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
+          "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
+          "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
+          "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies.",
+          "This module serves as the command-line interface (CLI) for the application, enabling users to initiate the analysis of software repositories. It manages the process of acquiring the target repository, whether local or remote, and then orchestrates the generation and presentation of various architectural and code-level insights. The module ensures that analysis outputs are properly handled and persisted, especially for remote repositories."
+        ],
+        "member_indices": [
+          5,
+          6,
+          7,
+          17
+        ]
+      },
+      {
+        "cluster_id": 1,
+        "domain_label": "data lineage",
+        "purpose_statements": [
           "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
           "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
           "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
@@ -200,728 +219,62 @@
           "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing."
         ],
         "member_indices": [
+          0,
           1,
           2,
           3,
-          4,
-          5,
-          6
-        ]
-      },
-      {
-        "cluster_id": 1,
-        "domain_label": "orchestration",
-        "purpose_statements": [
-          "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
-          "This module serves as the entry point for the `brownfield_cartographer` package. Its primary business function is to declare the package's official version, which is crucial for release management, dependency resolution, and ensuring users are running a specific, tested iteration of the software.",
-          "This module defines the command-line interface (CLI) for the brownfield cartographer tool. It provides the necessary functions to parse user arguments, resolve repository paths (whether local or remote), and manage the persistence of analysis outputs. Its core business function is to enable users to interact with the cartographer tool via the command line to initiate and configure repository analysis.",
-          "This module serves as the central coordinator for the `brownfield_cartographer` system, managing the overall process of discovering and mapping existing software architectures. Its business function is to orchestrate the various steps involved in analyzing brownfield systems, ensuring a coherent and comprehensive understanding of their structure and dependencies."
-        ],
-        "member_indices": [
-          0,
-          7,
-          8,
-          9
+          4
         ]
       },
       {
         "cluster_id": 2,
-        "domain_label": "system model",
+        "domain_label": "knowledge graph",
         "purpose_statements": [
-          "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
-          "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture."
+          "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access.",
+          "This module provides a robust mechanism for representing and managing a knowledge graph. It enables the creation of a graph by adding distinct entities as nodes and defining their relationships as directed edges. Furthermore, it facilitates the persistence of this graph structure to JSON files and its reconstruction from them."
         ],
         "member_indices": [
-          18,
-          19
+          8,
+          18
         ]
       },
       {
         "cluster_id": 3,
-        "domain_label": "knowledge graph",
-        "purpose_statements": [
-          "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
-          "This module serves as the public interface for the graph package, primarily exposing the core `KnowledgeGraph` class. It allows other parts of the application to easily import and utilize the knowledge graph functionality without needing to access deeper submodules. This centralizes the primary graph component for convenient access."
-        ],
-        "member_indices": [
-          10,
-          11
-        ]
-      },
-      {
-        "cluster_id": 4,
-        "domain_label": "agent services",
-        "purpose_statements": [
-          "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure."
-        ],
-        "member_indices": [
-          14
-        ]
-      },
-      {
-        "cluster_id": 5,
         "domain_label": "software intelligence",
         "purpose_statements": [
           "The SurveyorAgent module is designed to analyze a software repository to construct a comprehensive knowledge graph. It identifies module dependencies, function call relationships, and historical change velocity for files within the repository. This analysis provides insights into the codebase's structure, evolution, and key architectural components, such as high-velocity areas and central modules.",
           "The HydrologistAgent module is designed to automatically discover and map data lineage across an entire code repository. It achieves this by analyzing diverse code artifacts like dbt configurations, Python scripts, and SQL files to build a unified knowledge graph of datasets and transformations. This graph enables users to understand data dependencies, perform impact analysis, and identify the ultimate sources and sinks of data within their systems.",
-          "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
-          "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
-          "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation."
+          "The ArchivistAgent module is responsible for synthesizing complex codebase information, typically derived from a knowledge graph, into structured, human-readable reports. It generates documents such as a comprehensive codebase overview (CODEBASE.md) and tailored onboarding briefs for new engineers. Additionally, it maintains a trace log of its analytical actions and their supporting evidence.",
+          "The NavigatorAgent serves as an intelligent interface for exploring and understanding complex software repositories, particularly brownfield codebases. It allows users to query a knowledge graph to discover module implementations, trace data lineage, analyze the blast radius of changes, and obtain explanations for specific modules. This agent acts as a guide, providing structured answers and evidence to help engineers navigate and comprehend the codebase effectively.",
+          "This module provides a 'SemanticistAgent' responsible for analyzing software codebases using large language models and embedding techniques. It generates high-level architectural insights, including module purpose statements, domain clusters, and answers to critical 'day-one' onboarding questions for new engineers. The agent integrates with various LLM and embedding providers to extract and synthesize semantic information from code.",
+          "This module serves as the central control unit for analyzing a software repository to generate comprehensive documentation and insights. It orchestrates specialized agents to construct knowledge graphs of module dependencies and data lineage, semantically enrich these graphs with purpose statements and domain clusters, and synthesize this information into developer onboarding artifacts. The module supports both full repository analysis and efficient incremental updates based on code changes."
         ],
         "member_indices": [
-          12,
-          13,
+          9,
+          10,
+          14,
           15,
           16,
-          17
+          19
+        ]
+      },
+      {
+        "cluster_id": 4,
+        "domain_label": "system definition",
+        "purpose_statements": [
+          "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+          "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture.",
+          "This module serves as the entry point for the `agents` package, consolidating and exposing various specialized agent types. Its primary business function is to provide a unified interface for accessing distinct agents like the Archivist, Hydrologist, and Navigator, each likely responsible for specific operational tasks or data interactions within the system. This organization simplifies the integration and management of these diverse agent functionalities across the application."
+        ],
+        "member_indices": [
+          11,
+          12,
+          13
         ]
       }
     ]
   },
   "nodes": [
-    {
-      "node_type": "module",
-      "path": "src/cli.py",
-      "language": "python",
-      "imports": [
-        "import argparse",
-        "from contextlib import contextmanager",
-        "from pathlib import Path",
-        "import shutil",
-        "import subprocess",
-        "import tempfile",
-        "from orchestrator import Orchestrator"
-      ],
-      "import_paths": [
-        "src/orchestrator.py"
-      ],
-      "public_functions": [
-        "build_parser",
-        "is_remote_repo_path",
-        "normalize_repo_url",
-        "remote_output_directory",
-        "resolve_repo_path",
-        "persist_remote_outputs",
-        "main"
-      ],
-      "function_definitions": [
-        {
-          "name": "build_parser",
-          "original_name": "build_parser",
-          "decorators": [],
-          "calls": [
-            "argparse.ArgumentParser",
-            "parser.add_subparsers",
-            "subparsers.add_parser",
-            "analyze_parser.add_argument",
-            "parser.add_argument"
-          ]
-        },
-        {
-          "name": "is_remote_repo_path",
-          "original_name": "is_remote_repo_path",
-          "decorators": [],
-          "calls": [
-            "repo_path.startswith"
-          ]
-        },
-        {
-          "name": "normalize_repo_url",
-          "original_name": "normalize_repo_url",
-          "decorators": [],
-          "calls": [
-            "repo_path.startswith"
-          ]
-        },
-        {
-          "name": "remote_output_directory",
-          "original_name": "remote_output_directory",
-          "decorators": [],
-          "calls": [
-            "normalize_repo_url(repo_path).removesuffix",
-            "normalize_repo_url",
-            "repo_url.removeprefix(\"https://\").removeprefix",
-            "repo_url.removeprefix",
-            "repo_slug.replace",
-            "Path"
-          ]
-        },
-        {
-          "name": "resolve_repo_path",
-          "original_name": "resolve_repo_path",
-          "decorators": [],
-          "calls": [
-            "is_remote_repo_path",
-            "Path",
-            "normalize_repo_url",
-            "tempfile.TemporaryDirectory",
-            "subprocess.run",
-            "str"
-          ]
-        },
-        {
-          "name": "persist_remote_outputs",
-          "original_name": "persist_remote_outputs",
-          "decorators": [],
-          "calls": [
-            "remote_output_directory",
-            "destination_dir.mkdir",
-            "outputs.items",
-            "Path",
-            "shutil.copy2",
-            "str",
-            "destination_path.resolve"
-          ]
-        },
-        {
-          "name": "main",
-          "original_name": "main",
-          "decorators": [],
-          "calls": [
-            "build_parser().parse_args",
-            "build_parser",
-            "getattr",
-            "SystemExit",
-            "resolve_repo_path",
-            "Orchestrator(resolved_repo_path).run",
-            "Orchestrator",
-            "is_remote_repo_path",
-            "persist_remote_outputs",
-            "print"
-          ]
-        }
-      ],
-      "class_definitions": [],
-      "purpose_statement": "This module implements the command-line interface for the brownfield-cartographer application. It allows users to initiate repository analysis by specifying a local path or a remote Git URL. The module handles the setup of the repository for analysis, orchestrates the execution of the core analysis logic, and manages the persistence of generated output artifacts.",
-      "domain_cluster": "orchestration",
-      "complexity_score": null,
-      "change_velocity_30d": 4.0,
-      "is_dead_code_candidate": false,
-      "last_modified": "2026-03-14T01:09:21.692394",
-      "documentation_drift": false,
-      "id": "src/cli.py"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "build_parser",
-      "id": "src/cli.py::build_parser"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "is_remote_repo_path",
-      "id": "src/cli.py::is_remote_repo_path"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "normalize_repo_url",
-      "id": "src/cli.py::normalize_repo_url"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "remote_output_directory",
-      "id": "src/cli.py::remote_output_directory"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "resolve_repo_path",
-      "id": "src/cli.py::resolve_repo_path"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "persist_remote_outputs",
-      "id": "src/cli.py::persist_remote_outputs"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/cli.py",
-      "name": "main",
-      "id": "src/cli.py::main"
-    },
-    {
-      "node_type": "module",
-      "path": "src/orchestrator.py",
-      "language": "python",
-      "imports": [
-        "import json",
-        "from pathlib import Path",
-        "import subprocess",
-        "from typing import Any",
-        "from agents.archivist import ArchivistAgent",
-        "from agents.hydrologist import HydrologistAgent",
-        "from agents.semanticist import SemanticistAgent",
-        "from agents.surveyor import SurveyorAgent",
-        "from graph.knowledge_graph import KnowledgeGraph",
-        "from models.schemas import EdgeType, FunctionNode, ModuleNode"
-      ],
-      "import_paths": [
-        "src/agents/archivist.py",
-        "src/agents/hydrologist.py",
-        "src/agents/semanticist.py",
-        "src/agents/surveyor.py",
-        "src/graph/knowledge_graph.py",
-        "src/models/schemas.py"
-      ],
-      "public_functions": [
-        "get_changed_files",
-        "run",
-        "load_changed_files",
-        "has_saved_graphs",
-        "is_git_repository",
-        "load_run_metadata",
-        "save_run_metadata",
-        "current_commit_hash",
-        "load_or_build_incremental_lineage_graph",
-        "requires_full_lineage_rebuild",
-        "refresh_module_graph",
-        "remove_module_nodes",
-        "rebuild_module_edges",
-        "refresh_module_metadata",
-        "refresh_lineage_graph",
-        "remove_lineage_contribution",
-        "prune_orphan_lineage_nodes",
-        "enrich_module_graph",
-        "module_node_from_attributes",
-        "generate_day_one_answers",
-        "write_text_file"
-      ],
-      "function_definitions": [
-        {
-          "name": "get_changed_files",
-          "original_name": "get_changed_files",
-          "decorators": [],
-          "calls": [
-            "Path(repo_path).resolve",
-            "Path",
-            "(last_run_commit_hash or \"\").strip",
-            "subprocess.run",
-            "result.stdout.splitlines",
-            "raw_line.strip",
-            "any",
-            "changed_files.append"
-          ]
-        },
-        {
-          "name": "run",
-          "original_name": "run",
-          "decorators": [],
-          "calls": [
-            "self.output_dir.mkdir",
-            "self._load_run_metadata",
-            "self._load_changed_files",
-            "self._has_saved_graphs",
-            "self._is_git_repository",
-            "KnowledgeGraph.load_from_json",
-            "self._requires_full_lineage_rebuild",
-            "self._load_or_build_incremental_lineage_graph",
-            "self._refresh_module_graph",
-            "self.hydrologist.build_lineage_graph",
-            "self._refresh_lineage_graph",
-            "self.archivist.log_trace",
-            "self.surveyor.build_import_graph",
-            "self._enrich_module_graph",
-            "self._generate_day_one_answers",
-            "module_graph.save_to_json",
-            "lineage_graph.save_to_json",
-            "self._write_text_file",
-            "self.archivist.generate_CODEBASE_md",
-            "self.archivist.generate_onboarding_brief",
-            "self.day_one_answers_path.write_text",
-            "json.dumps",
-            "self._save_run_metadata",
-            "str"
-          ]
-        },
-        {
-          "name": "load_changed_files",
-          "original_name": "_load_changed_files",
-          "decorators": [],
-          "calls": [
-            "self._is_git_repository",
-            "self._has_saved_graphs",
-            "get_changed_files",
-            "previous_metadata.get"
-          ]
-        },
-        {
-          "name": "has_saved_graphs",
-          "original_name": "_has_saved_graphs",
-          "decorators": [],
-          "calls": [
-            "self.module_graph_path.exists",
-            "self.lineage_graph_path.exists"
-          ]
-        },
-        {
-          "name": "is_git_repository",
-          "original_name": "_is_git_repository",
-          "decorators": [],
-          "calls": [
-            "subprocess.run",
-            "result.stdout.strip"
-          ]
-        },
-        {
-          "name": "load_run_metadata",
-          "original_name": "_load_run_metadata",
-          "decorators": [],
-          "calls": [
-            "self.run_metadata_path.exists",
-            "json.loads",
-            "self.run_metadata_path.read_text"
-          ]
-        },
-        {
-          "name": "save_run_metadata",
-          "original_name": "_save_run_metadata",
-          "decorators": [],
-          "calls": [
-            "self._current_commit_hash",
-            "self.run_metadata_path.write_text",
-            "json.dumps"
-          ]
-        },
-        {
-          "name": "current_commit_hash",
-          "original_name": "_current_commit_hash",
-          "decorators": [],
-          "calls": [
-            "self._is_git_repository",
-            "subprocess.run",
-            "result.stdout.strip"
-          ]
-        },
-        {
-          "name": "load_or_build_incremental_lineage_graph",
-          "original_name": "_load_or_build_incremental_lineage_graph",
-          "decorators": [],
-          "calls": [
-            "self._requires_full_lineage_rebuild",
-            "self.hydrologist.build_lineage_graph",
-            "KnowledgeGraph.load_from_json"
-          ]
-        },
-        {
-          "name": "requires_full_lineage_rebuild",
-          "original_name": "_requires_full_lineage_rebuild",
-          "decorators": [],
-          "calls": [
-            "any",
-            "Path(relative_path).suffix.lower",
-            "Path"
-          ]
-        },
-        {
-          "name": "refresh_module_graph",
-          "original_name": "_refresh_module_graph",
-          "decorators": [],
-          "calls": [
-            "Path(relative_path).suffix.lower",
-            "Path",
-            "self.surveyor.extract_git_velocity",
-            "self._is_git_repository",
-            "self._remove_module_nodes",
-            "absolute_path.exists",
-            "absolute_path.is_file",
-            "self.surveyor.analyze_module",
-            "module_graph.add_node",
-            "FunctionNode",
-            "module_graph.graph.nodes",
-            "attributes.get",
-            "float",
-            "velocity_map.get",
-            "self._rebuild_module_edges",
-            "self._refresh_module_metadata"
-          ]
-        },
-        {
-          "name": "remove_module_nodes",
-          "original_name": "_remove_module_nodes",
-          "decorators": [],
-          "calls": [
-            "node_id.startswith",
-            "graph.has_node",
-            "graph.remove_node"
-          ]
-        },
-        {
-          "name": "rebuild_module_edges",
-          "original_name": "_rebuild_module_edges",
-          "decorators": [],
-          "calls": [
-            "graph.edges",
-            "attributes.get",
-            "graph.remove_edges_from",
-            "node_id.rsplit",
-            "graph.nodes",
-            "isinstance",
-            "list",
-            "graph.has_node",
-            "module_graph.add_edge",
-            "function_definition.get",
-            "function_index.get",
-            "called_name.split"
-          ]
-        },
-        {
-          "name": "refresh_module_metadata",
-          "original_name": "_refresh_module_metadata",
-          "decorators": [],
-          "calls": [
-            "self.surveyor.calculate_pagerank",
-            "sorted",
-            "pagerank_scores.items",
-            "self.surveyor.identify_strongly_connected_components",
-            "module_graph.graph.graph.update",
-            "self.surveyor.identify_high_velocity_core"
-          ]
-        },
-        {
-          "name": "refresh_lineage_graph",
-          "original_name": "_refresh_lineage_graph",
-          "decorators": [],
-          "calls": [
-            "Path(relative_path).suffix.lower",
-            "Path",
-            "self._remove_lineage_contribution",
-            "absolute_path.exists",
-            "absolute_path.is_file",
-            "absolute_path.suffix.lower",
-            "self.hydrologist._register_lineage_edges",
-            "self.hydrologist.python_data_flow_analyzer.analyze_file",
-            "self.hydrologist._register_airflow_topology",
-            "self.hydrologist.sql_lineage_analyzer.analyze_file",
-            "self._prune_orphan_lineage_nodes"
-          ]
-        },
-        {
-          "name": "remove_lineage_contribution",
-          "original_name": "_remove_lineage_contribution",
-          "decorators": [],
-          "calls": [
-            "graph.nodes",
-            "node_id.startswith",
-            "attributes.get",
-            "graph.has_node",
-            "graph.remove_node"
-          ]
-        },
-        {
-          "name": "prune_orphan_lineage_nodes",
-          "original_name": "_prune_orphan_lineage_nodes",
-          "decorators": [],
-          "calls": [
-            "graph.nodes",
-            "attributes.get",
-            "graph.in_degree",
-            "graph.out_degree",
-            "graph.remove_nodes_from"
-          ]
-        },
-        {
-          "name": "enrich_module_graph",
-          "original_name": "_enrich_module_graph",
-          "decorators": [],
-          "calls": [
-            "Path(relative_path).suffix.lower",
-            "Path",
-            "graph.nodes",
-            "attributes.get",
-            "module_payloads.append",
-            "self._module_node_from_attributes",
-            "graph.nodes[node_id].get",
-            "self.semanticist.generate_purpose_statement",
-            "any",
-            "isinstance",
-            "purpose_statement.strip",
-            "module_ids.append",
-            "purpose_statements.append",
-            "self.semanticist.cluster_into_domains",
-            "cluster_summary.get",
-            "enumerate",
-            "cluster_lookup.get",
-            "self.archivist.log_trace"
-          ]
-        },
-        {
-          "name": "module_node_from_attributes",
-          "original_name": "_module_node_from_attributes",
-          "decorators": [],
-          "calls": [
-            "set",
-            "attributes.items",
-            "ModuleNode.model_validate"
-          ]
-        },
-        {
-          "name": "generate_day_one_answers",
-          "original_name": "_generate_day_one_answers",
-          "decorators": [],
-          "calls": [
-            "bool",
-            "self.day_one_answers_path.exists",
-            "semantic_summary.get",
-            "json.loads",
-            "self.day_one_answers_path.read_text",
-            "self.semanticist.answer_day_one_questions",
-            "self.archivist.log_trace"
-          ]
-        },
-        {
-          "name": "write_text_file",
-          "original_name": "_write_text_file",
-          "decorators": [],
-          "calls": [
-            "destination.write_text"
-          ]
-        }
-      ],
-      "class_definitions": [
-        {
-          "name": "Orchestrator",
-          "bases": []
-        }
-      ],
-      "purpose_statement": "This module orchestrates the analysis of a codebase to generate various architectural and operational insights. It systematically builds and maintains knowledge graphs representing module dependencies and data lineage, leveraging incremental updates when possible. The module then enriches these graphs with semantic information and generates human-readable documentation and answers to common onboarding questions.",
-      "domain_cluster": "dependency analysis",
-      "complexity_score": null,
-      "change_velocity_30d": 2.0,
-      "is_dead_code_candidate": false,
-      "last_modified": "2026-03-14T01:09:21.035731",
-      "documentation_drift": false,
-      "id": "src/orchestrator.py"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "get_changed_files",
-      "id": "src/orchestrator.py::get_changed_files"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "run",
-      "id": "src/orchestrator.py::run"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "load_changed_files",
-      "id": "src/orchestrator.py::load_changed_files"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "has_saved_graphs",
-      "id": "src/orchestrator.py::has_saved_graphs"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "is_git_repository",
-      "id": "src/orchestrator.py::is_git_repository"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "load_run_metadata",
-      "id": "src/orchestrator.py::load_run_metadata"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "save_run_metadata",
-      "id": "src/orchestrator.py::save_run_metadata"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "current_commit_hash",
-      "id": "src/orchestrator.py::current_commit_hash"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "load_or_build_incremental_lineage_graph",
-      "id": "src/orchestrator.py::load_or_build_incremental_lineage_graph"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "requires_full_lineage_rebuild",
-      "id": "src/orchestrator.py::requires_full_lineage_rebuild"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "refresh_module_graph",
-      "id": "src/orchestrator.py::refresh_module_graph"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "remove_module_nodes",
-      "id": "src/orchestrator.py::remove_module_nodes"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "rebuild_module_edges",
-      "id": "src/orchestrator.py::rebuild_module_edges"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "refresh_module_metadata",
-      "id": "src/orchestrator.py::refresh_module_metadata"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "refresh_lineage_graph",
-      "id": "src/orchestrator.py::refresh_lineage_graph"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "remove_lineage_contribution",
-      "id": "src/orchestrator.py::remove_lineage_contribution"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "prune_orphan_lineage_nodes",
-      "id": "src/orchestrator.py::prune_orphan_lineage_nodes"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "enrich_module_graph",
-      "id": "src/orchestrator.py::enrich_module_graph"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "module_node_from_attributes",
-      "id": "src/orchestrator.py::module_node_from_attributes"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "generate_day_one_answers",
-      "id": "src/orchestrator.py::generate_day_one_answers"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/orchestrator.py",
-      "name": "write_text_file",
-      "id": "src/orchestrator.py::write_text_file"
-    },
     {
       "node_type": "module",
       "path": "src/analyzers/python_data_flow.py",
@@ -1186,7 +539,7 @@
         }
       ],
       "purpose_statement": "This module provides a static analysis tool for Python code to identify data lineage. It parses Python scripts to detect operations that read from or write to external data sources, including files, SQL databases, and Spark dataframes. The analyzer then generates a graph of data flow edges, showing which datasets are consumed by or produced by a given Python transformation.",
-      "domain_cluster": "dependency analysis",
+      "domain_cluster": "data lineage",
       "complexity_score": null,
       "change_velocity_30d": 1.0,
       "is_dead_code_candidate": false,
@@ -1448,7 +801,7 @@
         }
       ],
       "purpose_statement": "This module is designed to analyze SQL code to determine data lineage, identifying the upstream data sources consumed and the downstream data products produced by a given SQL transformation. It supports both standard SQL queries and dbt (data build tool) specific SQL files, extracting dependencies to build a comprehensive view of data flow. The module outputs these relationships as a list of directed edges, facilitating the understanding and visualization of data pipelines.",
-      "domain_cluster": "dependency analysis",
+      "domain_cluster": "data lineage",
       "complexity_score": null,
       "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
@@ -1745,7 +1098,7 @@
         }
       ],
       "purpose_statement": "This module is responsible for parsing configuration files from data orchestration and modeling tools, specifically dbt and Apache Airflow. It extracts structured metadata about data assets, such as dbt models and sources, including their schemas and dependencies, as well as Airflow DAG tasks and their inter-task dependencies. The parsed information provides a foundational understanding of data lineage and workflow orchestration, enabling further analysis or visualization of data pipelines.",
-      "domain_cluster": "dependency analysis",
+      "domain_cluster": "data lineage",
       "complexity_score": null,
       "change_velocity_30d": 3.0,
       "is_dead_code_candidate": false,
@@ -1852,7 +1205,7 @@
       "function_definitions": [],
       "class_definitions": [],
       "purpose_statement": "This module serves as the primary entry point for a collection of code analysis tools. It aggregates and exposes functionalities for parsing configuration files like Airflow DAGs and DBT YAML, analyzing Python data flow, and extracting SQL lineage from DBT projects. Its business function is to provide a unified interface for understanding the structure, dependencies, and data movement within various software components.",
-      "domain_cluster": "dependency analysis",
+      "domain_cluster": "data lineage",
       "complexity_score": null,
       "change_velocity_30d": 5.0,
       "is_dead_code_candidate": false,
@@ -2058,7 +1411,7 @@
         }
       ],
       "purpose_statement": "This module provides capabilities for statically analyzing source code files across multiple programming languages. It leverages Tree-sitter to parse code into abstract syntax trees and extract key structural information. The module identifies and organizes details such as import statements, function definitions, and class definitions into a structured ModuleNode representation for further processing.",
-      "domain_cluster": "dependency analysis",
+      "domain_cluster": "data lineage",
       "complexity_score": null,
       "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
@@ -2205,112 +1558,6 @@
       "last_modified": "2026-03-12T18:49:55.179620",
       "documentation_drift": false,
       "id": "src/brownfield_cartographer/orchestrator.py"
-    },
-    {
-      "node_type": "module",
-      "path": "src/graph/knowledge_graph.py",
-      "language": "python",
-      "imports": [
-        "import json",
-        "from pathlib import Path",
-        "from typing import Any",
-        "import networkx as nx",
-        "from models.schemas import EdgeType, Node"
-      ],
-      "import_paths": [
-        "src/models/schemas.py"
-      ],
-      "public_functions": [
-        "add_node",
-        "add_edge",
-        "save_to_json",
-        "load_from_json"
-      ],
-      "function_definitions": [
-        {
-          "name": "add_node",
-          "original_name": "add_node",
-          "decorators": [],
-          "calls": [
-            "node.model_dump",
-            "self.graph.add_node"
-          ]
-        },
-        {
-          "name": "add_edge",
-          "original_name": "add_edge",
-          "decorators": [],
-          "calls": [
-            "isinstance",
-            "self.graph.add_edge"
-          ]
-        },
-        {
-          "name": "save_to_json",
-          "original_name": "save_to_json",
-          "decorators": [],
-          "calls": [
-            "Path",
-            "destination.parent.mkdir",
-            "nx.node_link_data",
-            "graph_payload.pop",
-            "destination.open",
-            "json.dump"
-          ]
-        },
-        {
-          "name": "load_from_json",
-          "original_name": "load_from_json",
-          "decorators": [],
-          "calls": [
-            "Path",
-            "source.open",
-            "json.load",
-            "cls",
-            "nx.node_link_graph",
-            "dict",
-            "graph_payload.pop"
-          ]
-        }
-      ],
-      "class_definitions": [
-        {
-          "name": "KnowledgeGraph",
-          "bases": []
-        }
-      ],
-      "purpose_statement": "This module provides a `KnowledgeGraph` class designed to model and manage complex relationships between various entities. It enables the creation, storage, and retrieval of a graph structure composed of nodes and directed edges, representing a knowledge domain. This facilitates the organization and querying of interconnected information.",
-      "domain_cluster": "knowledge graph",
-      "complexity_score": null,
-      "change_velocity_30d": 1.0,
-      "is_dead_code_candidate": false,
-      "last_modified": "2026-03-14T01:09:20.413000",
-      "documentation_drift": false,
-      "id": "src/graph/knowledge_graph.py"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/graph/knowledge_graph.py",
-      "name": "add_node",
-      "id": "src/graph/knowledge_graph.py::add_node"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/graph/knowledge_graph.py",
-      "name": "add_edge",
-      "id": "src/graph/knowledge_graph.py::add_edge"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/graph/knowledge_graph.py",
-      "name": "save_to_json",
-      "id": "src/graph/knowledge_graph.py::save_to_json"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/graph/knowledge_graph.py",
-      "name": "load_from_json",
-      "id": "src/graph/knowledge_graph.py::load_from_json"
     },
     {
       "node_type": "module",
@@ -3025,6 +2272,99 @@
     },
     {
       "node_type": "module",
+      "path": "src/models/__init__.py",
+      "language": "python",
+      "imports": [
+        "from .schemas import DatasetNode, EdgeType, FunctionNode, ModuleNode, Node, TransformationNode"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [],
+      "purpose_statement": "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
+      "domain_cluster": "system definition",
+      "complexity_score": null,
+      "change_velocity_30d": 1.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-11T17:24:24.329693",
+      "documentation_drift": false,
+      "id": "src/models/__init__.py"
+    },
+    {
+      "node_type": "module",
+      "path": "src/models/schemas.py",
+      "language": "python",
+      "imports": [
+        "from datetime import datetime",
+        "from enum import Enum",
+        "from typing import Literal",
+        "from pydantic import BaseModel, ConfigDict, Field"
+      ],
+      "import_paths": [],
+      "public_functions": [],
+      "function_definitions": [],
+      "class_definitions": [
+        {
+          "name": "EdgeType",
+          "bases": [
+            "str",
+            "Enum"
+          ]
+        },
+        {
+          "name": "Node",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "ClassDefinition",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "FunctionDefinition",
+          "bases": [
+            "BaseModel"
+          ]
+        },
+        {
+          "name": "ModuleNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "DatasetNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "FunctionNode",
+          "bases": [
+            "Node"
+          ]
+        },
+        {
+          "name": "TransformationNode",
+          "bases": [
+            "Node"
+          ]
+        }
+      ],
+      "purpose_statement": "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture.",
+      "domain_cluster": "system definition",
+      "complexity_score": null,
+      "change_velocity_30d": 2.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-13T10:08:10.318625",
+      "documentation_drift": false,
+      "id": "src/models/schemas.py"
+    },
+    {
+      "node_type": "module",
       "path": "src/agents/__init__.py",
       "language": "python",
       "imports": [
@@ -3038,14 +2378,274 @@
       "public_functions": [],
       "function_definitions": [],
       "class_definitions": [],
-      "purpose_statement": "This module serves as the public interface for the `agents` package, making various specialized agent implementations directly accessible. These agents likely encapsulate distinct business functions, such as data archiving, hydrological analysis, navigation, semantic interpretation, and data surveying, providing a structured way to interact with these capabilities. It simplifies the import process for consumers of the `agents` package by centralizing their exposure.",
-      "domain_cluster": "agent services",
+      "purpose_statement": "This module serves as the entry point for the `agents` package, consolidating and exposing various specialized agent types. Its primary business function is to provide a unified interface for accessing distinct agents like the Archivist, Hydrologist, and Navigator, each likely responsible for specific operational tasks or data interactions within the system. This organization simplifies the integration and management of these diverse agent functionalities across the application.",
+      "domain_cluster": "system definition",
       "complexity_score": null,
-      "change_velocity_30d": 3.0,
+      "change_velocity_30d": 4.0,
       "is_dead_code_candidate": false,
       "last_modified": "2026-03-14T00:56:58.582070",
       "documentation_drift": false,
       "id": "src/agents/__init__.py"
+    },
+    {
+      "node_type": "module",
+      "path": "src/agents/archivist.py",
+      "language": "python",
+      "imports": [
+        "from datetime import datetime, timezone",
+        "import json",
+        "from pathlib import Path",
+        "from typing import Any",
+        "import networkx as nx",
+        "from graph.knowledge_graph import KnowledgeGraph"
+      ],
+      "import_paths": [
+        "src/graph/knowledge_graph.py"
+      ],
+      "public_functions": [
+        "generate_CODEBASE_md",
+        "generate_onboarding_brief",
+        "log_trace",
+        "coerce_graph",
+        "architecture_overview",
+        "critical_path",
+        "data_sources_and_sinks",
+        "known_debt",
+        "high_velocity_files",
+        "normalize_evidence",
+        "fallback_list"
+      ],
+      "function_definitions": [
+        {
+          "name": "generate_CODEBASE_md",
+          "original_name": "generate_CODEBASE_md",
+          "decorators": [],
+          "calls": [
+            "self._coerce_graph",
+            "self._architecture_overview",
+            "self._critical_path",
+            "self._data_sources_and_sinks",
+            "self._known_debt",
+            "self._high_velocity_files",
+            "markdown_lines.extend",
+            "\"\\n\".join",
+            "self.log_trace"
+          ]
+        },
+        {
+          "name": "generate_onboarding_brief",
+          "original_name": "generate_onboarding_brief",
+          "decorators": [],
+          "calls": [
+            "day_one_answers.get",
+            "isinstance",
+            "str(answer.get(\"question\", \"Untitled question\")).strip",
+            "str",
+            "answer.get",
+            "str(answer.get(\"answer\", \"\")).strip",
+            "lines.extend",
+            "lines.append",
+            "citation.get",
+            "\"\\n\".join(lines).rstrip",
+            "\"\\n\".join",
+            "self.log_trace",
+            "self._normalize_evidence"
+          ]
+        },
+        {
+          "name": "log_trace",
+          "original_name": "log_trace",
+          "decorators": [],
+          "calls": [
+            "self.output_dir.mkdir",
+            "datetime.now(timezone.utc).isoformat",
+            "datetime.now",
+            "float",
+            "self._normalize_evidence",
+            "self.trace_path.open",
+            "trace_file.write",
+            "json.dumps"
+          ]
+        },
+        {
+          "name": "coerce_graph",
+          "original_name": "_coerce_graph",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "TypeError"
+          ]
+        },
+        {
+          "name": "architecture_overview",
+          "original_name": "_architecture_overview",
+          "decorators": [],
+          "calls": [
+            "sum",
+            "graph.nodes",
+            "attrs.get",
+            "graph.number_of_edges",
+            "len",
+            "graph.graph.get"
+          ]
+        },
+        {
+          "name": "critical_path",
+          "original_name": "_critical_path",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "isinstance",
+            "nx.DiGraph",
+            "graph.edges",
+            "attrs.get",
+            "graph.nodes",
+            "module_graph.add_node",
+            "nx.pagerank",
+            "sorted",
+            "ranks.items"
+          ]
+        },
+        {
+          "name": "data_sources_and_sinks",
+          "original_name": "_data_sources_and_sinks",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "attrs.get",
+            "graph.in_degree",
+            "graph.out_degree",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "known_debt",
+          "original_name": "_known_debt",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "isinstance",
+            "debt_items.append",
+            "' -> '.join",
+            "graph.nodes",
+            "attrs.get",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "high_velocity_files",
+          "original_name": "_high_velocity_files",
+          "decorators": [],
+          "calls": [
+            "graph.graph.get",
+            "high_velocity_core.get",
+            "isinstance",
+            "graph.nodes",
+            "attrs.get",
+            "module_entries.append",
+            "float",
+            "module_entries.sort",
+            "self._fallback_list"
+          ]
+        },
+        {
+          "name": "normalize_evidence",
+          "original_name": "_normalize_evidence",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "normalized.append",
+            "item.get",
+            "int"
+          ]
+        },
+        {
+          "name": "fallback_list",
+          "original_name": "_fallback_list",
+          "decorators": [],
+          "calls": []
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "ArchivistAgent",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "The ArchivistAgent module is responsible for synthesizing complex codebase information, typically derived from a knowledge graph, into structured, human-readable reports. It generates documents such as a comprehensive codebase overview (CODEBASE.md) and tailored onboarding briefs for new engineers. Additionally, it maintains a trace log of its analytical actions and their supporting evidence.",
+      "domain_cluster": "software intelligence",
+      "complexity_score": null,
+      "change_velocity_30d": 2.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T01:36:20.031415",
+      "documentation_drift": false,
+      "id": "src/agents/archivist.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "generate_CODEBASE_md",
+      "id": "src/agents/archivist.py::generate_CODEBASE_md"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "generate_onboarding_brief",
+      "id": "src/agents/archivist.py::generate_onboarding_brief"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "log_trace",
+      "id": "src/agents/archivist.py::log_trace"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "coerce_graph",
+      "id": "src/agents/archivist.py::coerce_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "architecture_overview",
+      "id": "src/agents/archivist.py::architecture_overview"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "critical_path",
+      "id": "src/agents/archivist.py::critical_path"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "data_sources_and_sinks",
+      "id": "src/agents/archivist.py::data_sources_and_sinks"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "known_debt",
+      "id": "src/agents/archivist.py::known_debt"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "high_velocity_files",
+      "id": "src/agents/archivist.py::high_velocity_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "normalize_evidence",
+      "id": "src/agents/archivist.py::normalize_evidence"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/agents/archivist.py",
+      "name": "fallback_list",
+      "id": "src/agents/archivist.py::fallback_list"
     },
     {
       "node_type": "module",
@@ -3420,10 +3020,10 @@
           "bases": []
         }
       ],
-      "purpose_statement": "The NavigatorAgent acts as an intelligent interface for exploring and understanding a software repository, particularly in brownfield environments. Its primary business function is to provide actionable insights by enabling users to semantically search for code implementations, trace data lineage, determine the impact of changes, and obtain explanations for specific modules. This facilitates faster onboarding, impact analysis, and overall comprehension of complex codebases.",
+      "purpose_statement": "The NavigatorAgent serves as an intelligent interface for exploring and understanding complex software repositories, particularly brownfield codebases. It allows users to query a knowledge graph to discover module implementations, trace data lineage, analyze the blast radius of changes, and obtain explanations for specific modules. This agent acts as a guide, providing structured answers and evidence to help engineers navigate and comprehend the codebase effectively.",
       "domain_cluster": "software intelligence",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
       "last_modified": "2026-03-14T00:56:56.369583",
       "documentation_drift": false,
@@ -3560,267 +3160,6 @@
       "module_path": "src/agents/navigator.py",
       "name": "load_langgraph_symbols",
       "id": "src/agents/navigator.py::load_langgraph_symbols"
-    },
-    {
-      "node_type": "module",
-      "path": "src/agents/archivist.py",
-      "language": "python",
-      "imports": [
-        "from datetime import datetime, timezone",
-        "import json",
-        "from pathlib import Path",
-        "from typing import Any",
-        "import networkx as nx",
-        "from graph.knowledge_graph import KnowledgeGraph"
-      ],
-      "import_paths": [
-        "src/graph/knowledge_graph.py"
-      ],
-      "public_functions": [
-        "generate_CODEBASE_md",
-        "generate_onboarding_brief",
-        "log_trace",
-        "coerce_graph",
-        "architecture_overview",
-        "critical_path",
-        "data_sources_and_sinks",
-        "known_debt",
-        "high_velocity_files",
-        "normalize_evidence",
-        "fallback_list"
-      ],
-      "function_definitions": [
-        {
-          "name": "generate_CODEBASE_md",
-          "original_name": "generate_CODEBASE_md",
-          "decorators": [],
-          "calls": [
-            "self._coerce_graph",
-            "self._architecture_overview",
-            "self._critical_path",
-            "self._data_sources_and_sinks",
-            "self._known_debt",
-            "self._high_velocity_files",
-            "markdown_lines.extend",
-            "\"\\n\".join",
-            "self.log_trace"
-          ]
-        },
-        {
-          "name": "generate_onboarding_brief",
-          "original_name": "generate_onboarding_brief",
-          "decorators": [],
-          "calls": [
-            "day_one_answers.get",
-            "isinstance",
-            "str(answer.get(\"question\", \"Untitled question\")).strip",
-            "str",
-            "answer.get",
-            "str(answer.get(\"answer\", \"\")).strip",
-            "lines.extend",
-            "lines.append",
-            "citation.get",
-            "\"\\n\".join(lines).rstrip",
-            "\"\\n\".join",
-            "self.log_trace",
-            "self._normalize_evidence"
-          ]
-        },
-        {
-          "name": "log_trace",
-          "original_name": "log_trace",
-          "decorators": [],
-          "calls": [
-            "self.output_dir.mkdir",
-            "datetime.now(timezone.utc).isoformat",
-            "datetime.now",
-            "float",
-            "self._normalize_evidence",
-            "self.trace_path.open",
-            "trace_file.write",
-            "json.dumps"
-          ]
-        },
-        {
-          "name": "coerce_graph",
-          "original_name": "_coerce_graph",
-          "decorators": [],
-          "calls": [
-            "isinstance",
-            "TypeError"
-          ]
-        },
-        {
-          "name": "architecture_overview",
-          "original_name": "_architecture_overview",
-          "decorators": [],
-          "calls": [
-            "sum",
-            "graph.nodes",
-            "attrs.get",
-            "graph.number_of_edges",
-            "len",
-            "graph.graph.get"
-          ]
-        },
-        {
-          "name": "critical_path",
-          "original_name": "_critical_path",
-          "decorators": [],
-          "calls": [
-            "graph.graph.get",
-            "isinstance",
-            "nx.DiGraph",
-            "graph.edges",
-            "attrs.get",
-            "graph.nodes",
-            "module_graph.add_node",
-            "nx.pagerank",
-            "sorted",
-            "ranks.items"
-          ]
-        },
-        {
-          "name": "data_sources_and_sinks",
-          "original_name": "_data_sources_and_sinks",
-          "decorators": [],
-          "calls": [
-            "graph.nodes",
-            "attrs.get",
-            "list",
-            "graph.in_degree",
-            "graph.out_degree",
-            "self._fallback_list"
-          ]
-        },
-        {
-          "name": "known_debt",
-          "original_name": "_known_debt",
-          "decorators": [],
-          "calls": [
-            "graph.graph.get",
-            "isinstance",
-            "debt_items.append",
-            "' -> '.join",
-            "graph.nodes",
-            "attrs.get",
-            "self._fallback_list"
-          ]
-        },
-        {
-          "name": "high_velocity_files",
-          "original_name": "_high_velocity_files",
-          "decorators": [],
-          "calls": [
-            "graph.graph.get",
-            "high_velocity_core.get",
-            "isinstance",
-            "graph.nodes",
-            "attrs.get",
-            "module_entries.append",
-            "float",
-            "module_entries.sort",
-            "self._fallback_list"
-          ]
-        },
-        {
-          "name": "normalize_evidence",
-          "original_name": "_normalize_evidence",
-          "decorators": [],
-          "calls": [
-            "isinstance",
-            "normalized.append",
-            "item.get",
-            "int"
-          ]
-        },
-        {
-          "name": "fallback_list",
-          "original_name": "_fallback_list",
-          "decorators": [],
-          "calls": []
-        }
-      ],
-      "class_definitions": [
-        {
-          "name": "ArchivistAgent",
-          "bases": []
-        }
-      ],
-      "purpose_statement": "This module provides an \"ArchivistAgent\" responsible for synthesizing and presenting key insights about a software codebase. It generates structured reports, such as a detailed Markdown overview of the codebase's architecture, critical paths, and areas of technical debt, as well as an onboarding brief for new engineers. The agent leverages a knowledge graph to extract and format these analytical summaries, while also maintaining a trace log of its activities.",
-      "domain_cluster": "software intelligence",
-      "complexity_score": null,
-      "change_velocity_30d": 1.0,
-      "is_dead_code_candidate": false,
-      "last_modified": "2026-03-14T00:57:00.291092",
-      "documentation_drift": false,
-      "id": "src/agents/archivist.py"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "generate_CODEBASE_md",
-      "id": "src/agents/archivist.py::generate_CODEBASE_md"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "generate_onboarding_brief",
-      "id": "src/agents/archivist.py::generate_onboarding_brief"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "log_trace",
-      "id": "src/agents/archivist.py::log_trace"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "coerce_graph",
-      "id": "src/agents/archivist.py::coerce_graph"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "architecture_overview",
-      "id": "src/agents/archivist.py::architecture_overview"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "critical_path",
-      "id": "src/agents/archivist.py::critical_path"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "data_sources_and_sinks",
-      "id": "src/agents/archivist.py::data_sources_and_sinks"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "known_debt",
-      "id": "src/agents/archivist.py::known_debt"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "high_velocity_files",
-      "id": "src/agents/archivist.py::high_velocity_files"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "normalize_evidence",
-      "id": "src/agents/archivist.py::normalize_evidence"
-    },
-    {
-      "node_type": "function",
-      "module_path": "src/agents/archivist.py",
-      "name": "fallback_list",
-      "id": "src/agents/archivist.py::fallback_list"
     },
     {
       "node_type": "module",
@@ -4329,8 +3668,9 @@
           "calls": [
             "surveyor_graph.nodes",
             "attrs.get",
+            "surveyor_graph.graph.get",
             "len",
-            "surveyor_graph.graph.get"
+            "isinstance"
           ]
         },
         {
@@ -4561,12 +3901,12 @@
           "bases": []
         }
       ],
-      "purpose_statement": "This module provides the SemanticistAgent, an automated software architecture analyst that uses large language models to understand and document a codebase. It generates high-level purpose statements for individual modules, clusters related modules into business domains, and answers key architectural questions for new engineers. The agent aims to accelerate onboarding and improve understanding of complex systems by synthesizing information from code and existing documentation.",
+      "purpose_statement": "This module provides a 'SemanticistAgent' responsible for analyzing software codebases using large language models and embedding techniques. It generates high-level architectural insights, including module purpose statements, domain clusters, and answers to critical 'day-one' onboarding questions for new engineers. The agent integrates with various LLM and embedding providers to extract and synthesize semantic information from code.",
       "domain_cluster": "software intelligence",
       "complexity_score": null,
-      "change_velocity_30d": 1.0,
+      "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-14T01:28:02.520875",
+      "last_modified": "2026-03-14T01:36:20.026904",
       "documentation_drift": false,
       "id": "src/agents/semanticist.py"
     },
@@ -4842,194 +4182,780 @@
     },
     {
       "node_type": "module",
-      "path": "src/models/__init__.py",
+      "path": "src/cli.py",
       "language": "python",
       "imports": [
-        "from .schemas import DatasetNode, EdgeType, FunctionNode, ModuleNode, Node, TransformationNode"
+        "import argparse",
+        "from contextlib import contextmanager",
+        "from pathlib import Path",
+        "import shutil",
+        "import subprocess",
+        "import tempfile",
+        "from orchestrator import Orchestrator",
+        "from terminal_logger import TerminalLogger"
       ],
-      "import_paths": [],
-      "public_functions": [],
-      "function_definitions": [],
-      "class_definitions": [],
-      "purpose_statement": "This module defines the public interface for the application's core data models and schema definitions. It aggregates and exposes various node types (e.g., Dataset, Function, Module, Transformation) and edge types, which represent the fundamental building blocks of the system's data structures. This centralizes access to the primary data entities used throughout the application.",
-      "domain_cluster": "system model",
-      "complexity_score": null,
-      "change_velocity_30d": 1.0,
-      "is_dead_code_candidate": false,
-      "last_modified": "2026-03-11T17:24:24.329693",
-      "documentation_drift": false,
-      "id": "src/models/__init__.py"
-    },
-    {
-      "node_type": "module",
-      "path": "src/models/schemas.py",
-      "language": "python",
-      "imports": [
-        "from datetime import datetime",
-        "from enum import Enum",
-        "from typing import Literal",
-        "from pydantic import BaseModel, ConfigDict, Field"
+      "import_paths": [
+        "src/orchestrator.py",
+        "src/terminal_logger.py"
       ],
-      "import_paths": [],
-      "public_functions": [],
-      "function_definitions": [],
-      "class_definitions": [
+      "public_functions": [
+        "build_parser",
+        "is_remote_repo_path",
+        "normalize_repo_url",
+        "remote_output_directory",
+        "resolve_repo_path",
+        "persist_remote_outputs",
+        "main"
+      ],
+      "function_definitions": [
         {
-          "name": "EdgeType",
-          "bases": [
+          "name": "build_parser",
+          "original_name": "build_parser",
+          "decorators": [],
+          "calls": [
+            "argparse.ArgumentParser",
+            "parser.add_subparsers",
+            "subparsers.add_parser",
+            "analyze_parser.add_argument",
+            "parser.add_argument"
+          ]
+        },
+        {
+          "name": "is_remote_repo_path",
+          "original_name": "is_remote_repo_path",
+          "decorators": [],
+          "calls": [
+            "repo_path.startswith"
+          ]
+        },
+        {
+          "name": "normalize_repo_url",
+          "original_name": "normalize_repo_url",
+          "decorators": [],
+          "calls": [
+            "repo_path.startswith"
+          ]
+        },
+        {
+          "name": "remote_output_directory",
+          "original_name": "remote_output_directory",
+          "decorators": [],
+          "calls": [
+            "normalize_repo_url(repo_path).removesuffix",
+            "normalize_repo_url",
+            "repo_url.removeprefix(\"https://\").removeprefix",
+            "repo_url.removeprefix",
+            "repo_slug.replace",
+            "Path"
+          ]
+        },
+        {
+          "name": "resolve_repo_path",
+          "original_name": "resolve_repo_path",
+          "decorators": [],
+          "calls": [
+            "is_remote_repo_path",
+            "Path",
+            "normalize_repo_url",
+            "tempfile.TemporaryDirectory",
+            "subprocess.run",
+            "str"
+          ]
+        },
+        {
+          "name": "persist_remote_outputs",
+          "original_name": "persist_remote_outputs",
+          "decorators": [],
+          "calls": [
+            "remote_output_directory",
+            "destination_dir.mkdir",
+            "outputs.items",
+            "Path",
+            "shutil.copy2",
             "str",
-            "Enum"
+            "destination_path.resolve"
           ]
         },
         {
-          "name": "Node",
-          "bases": [
-            "BaseModel"
-          ]
-        },
-        {
-          "name": "ClassDefinition",
-          "bases": [
-            "BaseModel"
-          ]
-        },
-        {
-          "name": "FunctionDefinition",
-          "bases": [
-            "BaseModel"
-          ]
-        },
-        {
-          "name": "ModuleNode",
-          "bases": [
-            "Node"
-          ]
-        },
-        {
-          "name": "DatasetNode",
-          "bases": [
-            "Node"
-          ]
-        },
-        {
-          "name": "FunctionNode",
-          "bases": [
-            "Node"
-          ]
-        },
-        {
-          "name": "TransformationNode",
-          "bases": [
-            "Node"
+          "name": "main",
+          "original_name": "main",
+          "decorators": [],
+          "calls": [
+            "build_parser().parse_args",
+            "build_parser",
+            "TerminalLogger",
+            "getattr",
+            "SystemExit",
+            "logger.section",
+            "logger.step",
+            "logger.detail",
+            "resolve_repo_path",
+            "logger.success",
+            "Orchestrator(resolved_repo_path).run",
+            "Orchestrator",
+            "is_remote_repo_path",
+            "persist_remote_outputs",
+            "logger.artifact"
           ]
         }
       ],
-      "purpose_statement": "This module defines the data structures and schemas used to represent various architectural entities within a software system, such as modules, datasets, functions, and their interconnections. It provides a standardized way to model and exchange information about the system's components and their relationships. These schemas are crucial for building a consistent graph representation of the software architecture.",
-      "domain_cluster": "system model",
+      "class_definitions": [],
+      "purpose_statement": "This module serves as the command-line interface (CLI) for the application, enabling users to initiate the analysis of software repositories. It manages the process of acquiring the target repository, whether local or remote, and then orchestrates the generation and presentation of various architectural and code-level insights. The module ensures that analysis outputs are properly handled and persisted, especially for remote repositories.",
+      "domain_cluster": "orchestration",
+      "complexity_score": null,
+      "change_velocity_30d": 5.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T01:44:22.787626",
+      "documentation_drift": false,
+      "id": "src/cli.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "build_parser",
+      "id": "src/cli.py::build_parser"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "is_remote_repo_path",
+      "id": "src/cli.py::is_remote_repo_path"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "normalize_repo_url",
+      "id": "src/cli.py::normalize_repo_url"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "remote_output_directory",
+      "id": "src/cli.py::remote_output_directory"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "resolve_repo_path",
+      "id": "src/cli.py::resolve_repo_path"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "persist_remote_outputs",
+      "id": "src/cli.py::persist_remote_outputs"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/cli.py",
+      "name": "main",
+      "id": "src/cli.py::main"
+    },
+    {
+      "node_type": "module",
+      "path": "src/graph/knowledge_graph.py",
+      "language": "python",
+      "imports": [
+        "import json",
+        "from pathlib import Path",
+        "from typing import Any",
+        "import networkx as nx",
+        "from models.schemas import EdgeType, Node"
+      ],
+      "import_paths": [
+        "src/models/schemas.py"
+      ],
+      "public_functions": [
+        "add_node",
+        "add_edge",
+        "save_to_json",
+        "load_from_json"
+      ],
+      "function_definitions": [
+        {
+          "name": "add_node",
+          "original_name": "add_node",
+          "decorators": [],
+          "calls": [
+            "node.model_dump",
+            "self.graph.add_node"
+          ]
+        },
+        {
+          "name": "add_edge",
+          "original_name": "add_edge",
+          "decorators": [],
+          "calls": [
+            "isinstance",
+            "self.graph.add_edge"
+          ]
+        },
+        {
+          "name": "save_to_json",
+          "original_name": "save_to_json",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "destination.parent.mkdir",
+            "nx.node_link_data",
+            "graph_payload.pop",
+            "destination.open",
+            "json.dump"
+          ]
+        },
+        {
+          "name": "load_from_json",
+          "original_name": "load_from_json",
+          "decorators": [],
+          "calls": [
+            "Path",
+            "source.open",
+            "json.load",
+            "cls",
+            "nx.node_link_graph",
+            "dict",
+            "graph_payload.pop"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "KnowledgeGraph",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "This module provides a robust mechanism for representing and managing a knowledge graph. It enables the creation of a graph by adding distinct entities as nodes and defining their relationships as directed edges. Furthermore, it facilitates the persistence of this graph structure to JSON files and its reconstruction from them.",
+      "domain_cluster": "knowledge graph",
       "complexity_score": null,
       "change_velocity_30d": 2.0,
       "is_dead_code_candidate": false,
-      "last_modified": "2026-03-13T10:08:10.318625",
+      "last_modified": "2026-03-14T01:09:20.413000",
       "documentation_drift": false,
-      "id": "src/models/schemas.py"
+      "id": "src/graph/knowledge_graph.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "add_node",
+      "id": "src/graph/knowledge_graph.py::add_node"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "add_edge",
+      "id": "src/graph/knowledge_graph.py::add_edge"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "save_to_json",
+      "id": "src/graph/knowledge_graph.py::save_to_json"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/graph/knowledge_graph.py",
+      "name": "load_from_json",
+      "id": "src/graph/knowledge_graph.py::load_from_json"
+    },
+    {
+      "node_type": "module",
+      "path": "src/orchestrator.py",
+      "language": "python",
+      "imports": [
+        "import json",
+        "from pathlib import Path",
+        "import subprocess",
+        "from typing import Any",
+        "from agents.archivist import ArchivistAgent",
+        "from agents.hydrologist import HydrologistAgent",
+        "from agents.semanticist import SemanticistAgent",
+        "from agents.surveyor import SurveyorAgent",
+        "from graph.knowledge_graph import KnowledgeGraph",
+        "from models.schemas import EdgeType, FunctionNode, ModuleNode",
+        "from terminal_logger import TerminalLogger"
+      ],
+      "import_paths": [
+        "src/agents/archivist.py",
+        "src/agents/hydrologist.py",
+        "src/agents/semanticist.py",
+        "src/agents/surveyor.py",
+        "src/graph/knowledge_graph.py",
+        "src/models/schemas.py",
+        "src/terminal_logger.py"
+      ],
+      "public_functions": [
+        "get_changed_files",
+        "run",
+        "load_changed_files",
+        "has_saved_graphs",
+        "is_git_repository",
+        "load_run_metadata",
+        "save_run_metadata",
+        "current_commit_hash",
+        "load_or_build_incremental_lineage_graph",
+        "requires_full_lineage_rebuild",
+        "refresh_module_graph",
+        "remove_module_nodes",
+        "rebuild_module_edges",
+        "refresh_module_metadata",
+        "refresh_lineage_graph",
+        "remove_lineage_contribution",
+        "prune_orphan_lineage_nodes",
+        "enrich_module_graph",
+        "module_node_from_attributes",
+        "generate_day_one_answers",
+        "write_text_file"
+      ],
+      "function_definitions": [
+        {
+          "name": "get_changed_files",
+          "original_name": "get_changed_files",
+          "decorators": [],
+          "calls": [
+            "Path(repo_path).resolve",
+            "Path",
+            "(last_run_commit_hash or \"\").strip",
+            "subprocess.run",
+            "result.stdout.splitlines",
+            "raw_line.strip",
+            "any",
+            "changed_files.append"
+          ]
+        },
+        {
+          "name": "run",
+          "original_name": "run",
+          "decorators": [],
+          "calls": [
+            "self.logger.start_run",
+            "self.output_dir.mkdir",
+            "self.logger.section",
+            "self.logger.step",
+            "str",
+            "self._load_run_metadata",
+            "self._load_changed_files",
+            "self._has_saved_graphs",
+            "self.logger.detail",
+            "len",
+            "self._is_git_repository",
+            "KnowledgeGraph.load_from_json",
+            "self._requires_full_lineage_rebuild",
+            "self._load_or_build_incremental_lineage_graph",
+            "self._refresh_module_graph",
+            "self.logger.warning",
+            "self.hydrologist.build_lineage_graph",
+            "self._refresh_lineage_graph",
+            "self.logger.success",
+            "self.archivist.log_trace",
+            "self.surveyor.build_import_graph",
+            "self._enrich_module_graph",
+            "semantic_summary.get",
+            "isinstance",
+            "self._generate_day_one_answers",
+            "module_graph.save_to_json",
+            "lineage_graph.save_to_json",
+            "self._write_text_file",
+            "self.archivist.generate_CODEBASE_md",
+            "self.archivist.generate_onboarding_brief",
+            "self.day_one_answers_path.write_text",
+            "json.dumps",
+            "self._save_run_metadata",
+            "self.logger.artifact",
+            "self.logger.finish_run"
+          ]
+        },
+        {
+          "name": "load_changed_files",
+          "original_name": "_load_changed_files",
+          "decorators": [],
+          "calls": [
+            "self._is_git_repository",
+            "self._has_saved_graphs",
+            "self.logger.warning",
+            "get_changed_files",
+            "previous_metadata.get"
+          ]
+        },
+        {
+          "name": "has_saved_graphs",
+          "original_name": "_has_saved_graphs",
+          "decorators": [],
+          "calls": [
+            "self.module_graph_path.exists",
+            "self.lineage_graph_path.exists"
+          ]
+        },
+        {
+          "name": "is_git_repository",
+          "original_name": "_is_git_repository",
+          "decorators": [],
+          "calls": [
+            "subprocess.run",
+            "result.stdout.strip"
+          ]
+        },
+        {
+          "name": "load_run_metadata",
+          "original_name": "_load_run_metadata",
+          "decorators": [],
+          "calls": [
+            "self.run_metadata_path.exists",
+            "json.loads",
+            "self.run_metadata_path.read_text"
+          ]
+        },
+        {
+          "name": "save_run_metadata",
+          "original_name": "_save_run_metadata",
+          "decorators": [],
+          "calls": [
+            "self._current_commit_hash",
+            "self.run_metadata_path.write_text",
+            "json.dumps"
+          ]
+        },
+        {
+          "name": "current_commit_hash",
+          "original_name": "_current_commit_hash",
+          "decorators": [],
+          "calls": [
+            "self._is_git_repository",
+            "subprocess.run",
+            "result.stdout.strip"
+          ]
+        },
+        {
+          "name": "load_or_build_incremental_lineage_graph",
+          "original_name": "_load_or_build_incremental_lineage_graph",
+          "decorators": [],
+          "calls": [
+            "self._requires_full_lineage_rebuild",
+            "self.hydrologist.build_lineage_graph",
+            "KnowledgeGraph.load_from_json"
+          ]
+        },
+        {
+          "name": "requires_full_lineage_rebuild",
+          "original_name": "_requires_full_lineage_rebuild",
+          "decorators": [],
+          "calls": [
+            "any",
+            "Path(relative_path).suffix.lower",
+            "Path"
+          ]
+        },
+        {
+          "name": "refresh_module_graph",
+          "original_name": "_refresh_module_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "self.surveyor.extract_git_velocity",
+            "self._is_git_repository",
+            "self._remove_module_nodes",
+            "absolute_path.exists",
+            "absolute_path.is_file",
+            "self.surveyor.analyze_module",
+            "module_graph.add_node",
+            "FunctionNode",
+            "module_graph.graph.nodes",
+            "attributes.get",
+            "float",
+            "velocity_map.get",
+            "self._rebuild_module_edges",
+            "self._refresh_module_metadata"
+          ]
+        },
+        {
+          "name": "remove_module_nodes",
+          "original_name": "_remove_module_nodes",
+          "decorators": [],
+          "calls": [
+            "node_id.startswith",
+            "graph.has_node",
+            "graph.remove_node"
+          ]
+        },
+        {
+          "name": "rebuild_module_edges",
+          "original_name": "_rebuild_module_edges",
+          "decorators": [],
+          "calls": [
+            "graph.edges",
+            "attributes.get",
+            "graph.remove_edges_from",
+            "node_id.rsplit",
+            "graph.nodes",
+            "isinstance",
+            "list",
+            "graph.has_node",
+            "module_graph.add_edge",
+            "function_definition.get",
+            "function_index.get",
+            "called_name.split"
+          ]
+        },
+        {
+          "name": "refresh_module_metadata",
+          "original_name": "_refresh_module_metadata",
+          "decorators": [],
+          "calls": [
+            "self.surveyor.calculate_pagerank",
+            "sorted",
+            "pagerank_scores.items",
+            "self.surveyor.identify_strongly_connected_components",
+            "module_graph.graph.graph.update",
+            "self.surveyor.identify_high_velocity_core"
+          ]
+        },
+        {
+          "name": "refresh_lineage_graph",
+          "original_name": "_refresh_lineage_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "self._remove_lineage_contribution",
+            "absolute_path.exists",
+            "absolute_path.is_file",
+            "absolute_path.suffix.lower",
+            "self.hydrologist._register_lineage_edges",
+            "self.hydrologist.python_data_flow_analyzer.analyze_file",
+            "self.hydrologist._register_airflow_topology",
+            "self.hydrologist.sql_lineage_analyzer.analyze_file",
+            "self._prune_orphan_lineage_nodes"
+          ]
+        },
+        {
+          "name": "remove_lineage_contribution",
+          "original_name": "_remove_lineage_contribution",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "node_id.startswith",
+            "attributes.get",
+            "graph.has_node",
+            "graph.remove_node"
+          ]
+        },
+        {
+          "name": "prune_orphan_lineage_nodes",
+          "original_name": "_prune_orphan_lineage_nodes",
+          "decorators": [],
+          "calls": [
+            "graph.nodes",
+            "attributes.get",
+            "graph.in_degree",
+            "graph.out_degree",
+            "graph.remove_nodes_from"
+          ]
+        },
+        {
+          "name": "enrich_module_graph",
+          "original_name": "_enrich_module_graph",
+          "decorators": [],
+          "calls": [
+            "Path(relative_path).suffix.lower",
+            "Path",
+            "graph.nodes",
+            "attributes.get",
+            "module_payloads.append",
+            "self._module_node_from_attributes",
+            "graph.nodes[node_id].get",
+            "self.semanticist.generate_purpose_statement",
+            "any",
+            "isinstance",
+            "purpose_statement.strip",
+            "module_ids.append",
+            "purpose_statements.append",
+            "self.semanticist.cluster_into_domains",
+            "cluster_summary.get",
+            "enumerate",
+            "cluster_lookup.get",
+            "self.archivist.log_trace"
+          ]
+        },
+        {
+          "name": "module_node_from_attributes",
+          "original_name": "_module_node_from_attributes",
+          "decorators": [],
+          "calls": [
+            "set",
+            "attributes.items",
+            "payload.setdefault",
+            "str",
+            "attributes.get",
+            "ModuleNode.model_validate"
+          ]
+        },
+        {
+          "name": "generate_day_one_answers",
+          "original_name": "_generate_day_one_answers",
+          "decorators": [],
+          "calls": [
+            "previous_metadata.get",
+            "bool",
+            "self.day_one_answers_path.exists",
+            "semantic_summary.get",
+            "json.loads",
+            "self.day_one_answers_path.read_text",
+            "self.semanticist.answer_day_one_questions",
+            "self.archivist.log_trace"
+          ]
+        },
+        {
+          "name": "write_text_file",
+          "original_name": "_write_text_file",
+          "decorators": [],
+          "calls": [
+            "destination.write_text"
+          ]
+        }
+      ],
+      "class_definitions": [
+        {
+          "name": "Orchestrator",
+          "bases": []
+        }
+      ],
+      "purpose_statement": "This module serves as the central control unit for analyzing a software repository to generate comprehensive documentation and insights. It orchestrates specialized agents to construct knowledge graphs of module dependencies and data lineage, semantically enrich these graphs with purpose statements and domain clusters, and synthesize this information into developer onboarding artifacts. The module supports both full repository analysis and efficient incremental updates based on code changes.",
+      "domain_cluster": "software intelligence",
+      "complexity_score": null,
+      "change_velocity_30d": 3.0,
+      "is_dead_code_candidate": false,
+      "last_modified": "2026-03-14T01:44:22.787160",
+      "documentation_drift": false,
+      "id": "src/orchestrator.py"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "get_changed_files",
+      "id": "src/orchestrator.py::get_changed_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "run",
+      "id": "src/orchestrator.py::run"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_changed_files",
+      "id": "src/orchestrator.py::load_changed_files"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "has_saved_graphs",
+      "id": "src/orchestrator.py::has_saved_graphs"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "is_git_repository",
+      "id": "src/orchestrator.py::is_git_repository"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_run_metadata",
+      "id": "src/orchestrator.py::load_run_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "save_run_metadata",
+      "id": "src/orchestrator.py::save_run_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "current_commit_hash",
+      "id": "src/orchestrator.py::current_commit_hash"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "load_or_build_incremental_lineage_graph",
+      "id": "src/orchestrator.py::load_or_build_incremental_lineage_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "requires_full_lineage_rebuild",
+      "id": "src/orchestrator.py::requires_full_lineage_rebuild"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_module_graph",
+      "id": "src/orchestrator.py::refresh_module_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "remove_module_nodes",
+      "id": "src/orchestrator.py::remove_module_nodes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "rebuild_module_edges",
+      "id": "src/orchestrator.py::rebuild_module_edges"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_module_metadata",
+      "id": "src/orchestrator.py::refresh_module_metadata"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "refresh_lineage_graph",
+      "id": "src/orchestrator.py::refresh_lineage_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "remove_lineage_contribution",
+      "id": "src/orchestrator.py::remove_lineage_contribution"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "prune_orphan_lineage_nodes",
+      "id": "src/orchestrator.py::prune_orphan_lineage_nodes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "enrich_module_graph",
+      "id": "src/orchestrator.py::enrich_module_graph"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "module_node_from_attributes",
+      "id": "src/orchestrator.py::module_node_from_attributes"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "generate_day_one_answers",
+      "id": "src/orchestrator.py::generate_day_one_answers"
+    },
+    {
+      "node_type": "function",
+      "module_path": "src/orchestrator.py",
+      "name": "write_text_file",
+      "id": "src/orchestrator.py::write_text_file"
     }
   ],
   "links": [
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/cli.py",
-      "target": "src/orchestrator.py"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::remote_output_directory",
-      "target": "src/cli.py::normalize_repo_url"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::resolve_repo_path",
-      "target": "src/cli.py::is_remote_repo_path"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::resolve_repo_path",
-      "target": "src/cli.py::normalize_repo_url"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::persist_remote_outputs",
-      "target": "src/cli.py::remote_output_directory"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::main",
-      "target": "src/cli.py::build_parser"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::main",
-      "target": "src/cli.py::resolve_repo_path"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::main",
-      "target": "src/cli.py::is_remote_repo_path"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/cli.py::main",
-      "target": "src/cli.py::persist_remote_outputs"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/agents/archivist.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/agents/hydrologist.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/agents/semanticist.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/agents/surveyor.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/graph/knowledge_graph.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/orchestrator.py",
-      "target": "src/models/schemas.py"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/orchestrator.py::get_changed_files",
-      "target": "src/orchestrator.py::run"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/orchestrator.py::load_changed_files",
-      "target": "src/orchestrator.py::get_changed_files"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/orchestrator.py::is_git_repository",
-      "target": "src/orchestrator.py::run"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/orchestrator.py::current_commit_hash",
-      "target": "src/orchestrator.py::run"
-    },
     {
       "edge_type": "IMPORTS",
       "source": "src/analyzers/python_data_flow.py",
@@ -5257,21 +5183,6 @@
     },
     {
       "edge_type": "IMPORTS",
-      "source": "src/graph/knowledge_graph.py",
-      "target": "src/models/schemas.py"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/graph/knowledge_graph.py::add_node",
-      "target": "src/graph/knowledge_graph.py::add_node"
-    },
-    {
-      "edge_type": "CALLS",
-      "source": "src/graph/knowledge_graph.py::add_edge",
-      "target": "src/graph/knowledge_graph.py::add_edge"
-    },
-    {
-      "edge_type": "IMPORTS",
       "source": "src/agents/surveyor.py",
       "target": "src/analyzers/tree_sitter_analyzer.py"
     },
@@ -5352,21 +5263,6 @@
     },
     {
       "edge_type": "IMPORTS",
-      "source": "src/agents/navigator.py",
-      "target": "src/agents/semanticist.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/agents/navigator.py",
-      "target": "src/graph/knowledge_graph.py"
-    },
-    {
-      "edge_type": "IMPORTS",
-      "source": "src/agents/navigator.py",
-      "target": "src/models/schemas.py"
-    },
-    {
-      "edge_type": "IMPORTS",
       "source": "src/agents/archivist.py",
       "target": "src/graph/knowledge_graph.py"
     },
@@ -5379,6 +5275,21 @@
       "edge_type": "CALLS",
       "source": "src/agents/archivist.py::generate_onboarding_brief",
       "target": "src/agents/archivist.py::log_trace"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/agents/semanticist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/agents/navigator.py",
+      "target": "src/models/schemas.py"
     },
     {
       "edge_type": "IMPORTS",
@@ -5519,6 +5430,116 @@
       "edge_type": "CALLS",
       "source": "src/agents/semanticist.py::build_evidence_bundle",
       "target": "src/agents/semanticist.py::as_dict"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/cli.py",
+      "target": "src/orchestrator.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::remote_output_directory",
+      "target": "src/cli.py::normalize_repo_url"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::resolve_repo_path",
+      "target": "src/cli.py::is_remote_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::resolve_repo_path",
+      "target": "src/cli.py::normalize_repo_url"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::persist_remote_outputs",
+      "target": "src/cli.py::remote_output_directory"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::build_parser"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::resolve_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::is_remote_repo_path"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/cli.py::main",
+      "target": "src/cli.py::persist_remote_outputs"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/graph/knowledge_graph.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/graph/knowledge_graph.py::add_node",
+      "target": "src/graph/knowledge_graph.py::add_node"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/graph/knowledge_graph.py::add_edge",
+      "target": "src/graph/knowledge_graph.py::add_edge"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/agents/archivist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/agents/hydrologist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/agents/semanticist.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/agents/surveyor.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/graph/knowledge_graph.py"
+    },
+    {
+      "edge_type": "IMPORTS",
+      "source": "src/orchestrator.py",
+      "target": "src/models/schemas.py"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::get_changed_files",
+      "target": "src/orchestrator.py::run"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::load_changed_files",
+      "target": "src/orchestrator.py::get_changed_files"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::is_git_repository",
+      "target": "src/orchestrator.py::run"
+    },
+    {
+      "edge_type": "CALLS",
+      "source": "src/orchestrator.py::current_commit_hash",
+      "target": "src/orchestrator.py::run"
     }
   ]
 }
