@@ -5,6 +5,8 @@ from pathlib import Path
 import re
 from typing import Any, TypedDict
 
+import yaml
+
 from models.schemas import DatasetNode
 
 
@@ -92,135 +94,126 @@ def parse_dbt_yaml(file_path: str | Path) -> list[DatasetNode]:
 
 
 def parse_dbt_schema_file(file_path: str | Path) -> DbtSchemaParseResult:
-	lines = Path(file_path).read_text(encoding="utf-8").splitlines()
-	models: list[DbtResource] = []
-	sources: list[DbtResource] = []
+	payload = yaml.safe_load(Path(file_path).read_text(encoding="utf-8")) or {}
+	if not isinstance(payload, dict):
+		return {"models": [], "sources": []}
 
-	section: str | None = None
-	source_name: str | None = None
-	current_resource: DbtResource | None = None
-	current_column: DbtColumn | None = None
-	in_tables = False
-	in_columns = False
-	in_depends_on = False
-
-	for raw_line in lines:
-		line = raw_line.rstrip()
-		stripped = line.strip()
-		indent = len(line) - len(line.lstrip(" "))
-
-		if not stripped or stripped.startswith("#"):
-			continue
-
-		if indent == 0 and stripped.endswith(":"):
-			section = stripped[:-1]
-			source_name = None
-			current_resource = None
-			current_column = None
-			in_tables = False
-			in_columns = False
-			in_depends_on = False
-			continue
-
-		if section == "sources" and indent == 4 and stripped == "tables:":
-			in_tables = True
-			in_columns = False
-			in_depends_on = False
-			current_column = None
-			continue
-
-		if current_resource is not None and stripped == "columns:":
-			in_columns = True
-			in_depends_on = False
-			current_column = None
-			continue
-
-		if current_resource is not None and stripped == "depends_on:":
-			in_depends_on = True
-			in_columns = False
-			current_column = None
-			continue
-
-		if section == "sources" and indent == 2 and stripped.startswith("- name:"):
-			source_name = _strip_yaml_scalar(stripped.split(":", 1)[1])
-			current_resource = None
-			current_column = None
-			in_tables = False
-			in_columns = False
-			in_depends_on = False
-			continue
-
-		if section == "sources" and in_tables and indent == 6 and stripped.startswith("- name:"):
-			resource_name = _strip_yaml_scalar(stripped.split(":", 1)[1])
-			current_resource = {
-				"name": resource_name,
-				"resource_type": "source_table",
-				"columns": [],
-				"dependencies": _dedupe([source_name] if source_name else []),
-			}
-			if source_name:
-				current_resource["source_name"] = source_name
-			sources.append(current_resource)
-			current_column = None
-			in_columns = False
-			in_depends_on = False
-			continue
-
-		if section == "models" and indent == 2 and stripped.startswith("- name:"):
-			resource_name = _strip_yaml_scalar(stripped.split(":", 1)[1])
-			current_resource = {
-				"name": resource_name,
-				"resource_type": "model",
-				"columns": [],
-				"dependencies": [],
-			}
-			models.append(current_resource)
-			current_column = None
-			in_tables = False
-			in_columns = False
-			in_depends_on = False
-			continue
-
-		if current_resource is not None and in_columns and stripped.startswith("- name:"):
-			expected_indent = 10 if current_resource["resource_type"] == "source_table" else 6
-			if indent == expected_indent:
-				column_name = _strip_yaml_scalar(stripped.split(":", 1)[1])
-				current_column = {"name": column_name}
-				current_resource.setdefault("columns", []).append(current_column)
-				continue
-
-		if current_resource is not None and in_depends_on and stripped.startswith("- "):
-			item_content = stripped[2:].strip()
-			dependency = _normalize_dependency(item_content)
-			if dependency:
-				current_resource.setdefault("dependencies", []).append(dependency)
-				current_resource["dependencies"] = _dedupe(current_resource["dependencies"])
-			continue
-
-		if current_column is not None and ":" in stripped:
-			key, value = [part.strip() for part in stripped.split(":", 1)]
-			if key in {"description", "data_type", "type"}:
-				normalized_key = "data_type" if key == "type" else key
-				current_column[normalized_key] = _strip_yaml_scalar(value) if value else None
-			if current_resource is not None:
-				_extend_dependencies(current_resource, value)
-			continue
-
-		if current_resource is not None and ":" in stripped:
-			key, value = [part.strip() for part in stripped.split(":", 1)]
-			if key == "description":
-				current_resource["description"] = _strip_yaml_scalar(value) if value else None
-			if key not in {"name", "columns", "depends_on", "tables"}:
-				_extend_dependencies(current_resource, value)
-			continue
-
-		if current_resource is not None:
-			_extend_dependencies(current_resource, stripped)
-
-	for resource in models + sources:
-		resource["dependencies"] = _dedupe(resource.get("dependencies", []))
+	models = _parse_dbt_model_resources(payload.get("models"))
+	sources = _parse_dbt_source_resources(payload.get("sources"))
 
 	return {"models": models, "sources": sources}
+
+
+def _parse_dbt_model_resources(models_payload: Any) -> list[DbtResource]:
+	if not isinstance(models_payload, list):
+		return []
+
+	resources: list[DbtResource] = []
+	for model in models_payload:
+		if not isinstance(model, dict):
+			continue
+
+		resource_name = _string_value(model.get("name"))
+		if not resource_name:
+			continue
+
+		resource: DbtResource = {
+			"name": resource_name,
+			"resource_type": "model",
+			"columns": _parse_dbt_columns(model.get("columns")),
+			"dependencies": _collect_dependencies(model),
+		}
+		description = _string_value(model.get("description"))
+		if description:
+			resource["description"] = description
+		resources.append(resource)
+
+	return resources
+
+
+def _parse_dbt_source_resources(sources_payload: Any) -> list[DbtResource]:
+	if not isinstance(sources_payload, list):
+		return []
+
+	resources: list[DbtResource] = []
+	for source in sources_payload:
+		if not isinstance(source, dict):
+			continue
+
+		source_name = _string_value(source.get("name"))
+		if not source_name:
+			continue
+
+		for table in source.get("tables", []):
+			if not isinstance(table, dict):
+				continue
+
+			resource_name = _string_value(table.get("name"))
+			if not resource_name:
+				continue
+
+			dependencies = _collect_dependencies(table)
+			dependencies.insert(0, source_name)
+			resource: DbtResource = {
+				"name": resource_name,
+				"resource_type": "source_table",
+				"columns": _parse_dbt_columns(table.get("columns")),
+				"dependencies": _dedupe(dependencies),
+				"source_name": source_name,
+			}
+			description = _string_value(table.get("description"))
+			if description:
+				resource["description"] = description
+			resources.append(resource)
+
+	return resources
+
+
+def _parse_dbt_columns(columns_payload: Any) -> list[DbtColumn]:
+	if not isinstance(columns_payload, list):
+		return []
+
+	columns: list[DbtColumn] = []
+	for column in columns_payload:
+		if not isinstance(column, dict):
+			continue
+
+		column_name = _string_value(column.get("name") or column.get("column_name"))
+		if not column_name:
+			continue
+
+		column_payload: DbtColumn = {"name": column_name}
+		data_type = _string_value(column.get("data_type") or column.get("type"))
+		description = _string_value(column.get("description"))
+		if data_type:
+			column_payload["data_type"] = data_type
+		if description:
+			column_payload["description"] = description
+		columns.append(column_payload)
+
+	return columns
+
+
+def _collect_dependencies(payload: Any) -> list[str]:
+	dependencies: list[str] = []
+
+	if isinstance(payload, dict):
+		explicit_dependencies = payload.get("depends_on")
+		if isinstance(explicit_dependencies, list):
+			for item in explicit_dependencies:
+				dependency = _normalize_dependency(item)
+				if dependency:
+					dependencies.append(dependency)
+
+		for value in payload.values():
+			dependencies.extend(_collect_dependencies(value))
+	elif isinstance(payload, list):
+		for item in payload:
+			dependencies.extend(_collect_dependencies(item))
+	elif isinstance(payload, str):
+		dependencies.extend(_extract_embedded_dependencies(payload))
+
+	return _dedupe(dependencies)
 
 
 def parse_airflow_dag_file(file_path: str | Path) -> AirflowDagParseResult:
@@ -315,7 +308,10 @@ def _call_name(node: ast.AST) -> str | None:
 	return None
 
 
-def _normalize_dependency(value: str) -> str | None:
+def _normalize_dependency(value: Any) -> str | None:
+	if not isinstance(value, str):
+		return None
+
 	stripped_value = _strip_yaml_scalar(value)
 	if not stripped_value:
 		return None
@@ -331,7 +327,10 @@ def _normalize_dependency(value: str) -> str | None:
 	if stripped_value.startswith("{{") and stripped_value.endswith("}}"):
 		return None
 
-	return stripped_value if stripped_value.startswith(("source(", "ref(")) is False else None
+	if re.fullmatch(r"[A-Za-z0-9_.-]+", stripped_value):
+		return stripped_value
+
+	return None
 
 
 def _extend_dependencies(resource: DbtResource, value: str) -> None:
@@ -357,6 +356,10 @@ def _dedupe(values: list[str]) -> list[str]:
 
 def _strip_yaml_scalar(value: str) -> str:
 	return value.strip().strip("\"'")
+
+
+def _string_value(value: Any) -> str | None:
+	return _strip_yaml_scalar(value) if isinstance(value, str) and _strip_yaml_scalar(value) else None
 
 
 __all__ = [

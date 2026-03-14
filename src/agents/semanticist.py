@@ -7,6 +7,7 @@ import importlib
 import json
 import os
 from pathlib import Path
+import time
 from typing import Any, Protocol
 from urllib import error, parse, request
 
@@ -120,6 +121,8 @@ class EvidencePacket:
 
 
 class HTTPJsonClient:
+    RETRYABLE_HTTP_CODES = {408, 429, 500, 502, 503, 504}
+
     def _post_json(
         self,
         url: str,
@@ -127,22 +130,41 @@ class HTTPJsonClient:
         *,
         headers: dict[str, str] | None = None,
         timeout: int = 90,
+        max_attempts: int = 3,
     ) -> dict[str, Any]:
         request_headers = {"Content-Type": "application/json"}
         if headers:
             request_headers.update(headers)
 
         body = json.dumps(payload).encode("utf-8")
-        request_object = request.Request(url, data=body, headers=request_headers, method="POST")
 
-        try:
-            with request.urlopen(request_object, timeout=timeout) as response:
-                return json.loads(response.read().decode("utf-8"))
-        except error.HTTPError as exc:  # pragma: no cover - depends on remote service
-            details = exc.read().decode("utf-8", errors="replace")
-            raise RuntimeError(f"HTTP {exc.code} calling {url}: {details}") from exc
-        except error.URLError as exc:  # pragma: no cover - depends on remote service
-            raise RuntimeError(f"Could not reach {url}: {exc.reason}") from exc
+        for attempt in range(1, max_attempts + 1):
+            request_object = request.Request(url, data=body, headers=request_headers, method="POST")
+            try:
+                with request.urlopen(request_object, timeout=timeout) as response:
+                    return json.loads(response.read().decode("utf-8"))
+            except error.HTTPError as exc:  # pragma: no cover - depends on remote service
+                details = exc.read().decode("utf-8", errors="replace")
+                if exc.code in self.RETRYABLE_HTTP_CODES and attempt < max_attempts:
+                    self._sleep_before_retry(attempt, exc.headers.get("Retry-After") if exc.headers is not None else None)
+                    continue
+                raise RuntimeError(f"HTTP {exc.code} calling {url}: {details}") from exc
+            except error.URLError as exc:  # pragma: no cover - depends on remote service
+                if attempt < max_attempts:
+                    self._sleep_before_retry(attempt)
+                    continue
+                raise RuntimeError(f"Could not reach {url}: {exc.reason}") from exc
+
+        raise RuntimeError(f"Failed to reach {url} after {max_attempts} attempts.")
+
+    def _sleep_before_retry(self, attempt: int, retry_after: str | None = None) -> None:
+        if retry_after:
+            try:
+                time.sleep(max(0.0, float(retry_after)))
+                return
+            except ValueError:
+                pass
+        time.sleep(min(8.0, 2 ** (attempt - 1)))
 
 
 class GeminiStructuredLLMClient(HTTPJsonClient):
@@ -178,7 +200,7 @@ class OllamaStructuredLLMClient(HTTPJsonClient):
             "stream": False,
             "options": {"temperature": temperature},
         }
-        response = self._post_json(endpoint, payload)
+        response = self._post_json(endpoint, payload, timeout=300)
         return _parse_json_text(str(response.get("response", "")))
 
 
@@ -339,24 +361,17 @@ class SemanticistAgent:
             token_limit=self.model_config.module_prompt_token_cap,
         )
         prompt = self._purpose_statement_prompt(module_node, trimmed_code, existing_docstring)
-        payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)
-        response_text = json.dumps(payload)
-        usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)
-
-        purpose_statement = str(payload.get("purpose_statement", "")).strip()
-        if not purpose_statement:
-            raise RuntimeError(f"{provider}:{model} did not return a purpose_statement for {module_node.path}.")
-
-        return PurposeStatementResult(
-            module_path=module_node.path,
-            purpose_statement=purpose_statement,
-            documentation_drift=bool(payload.get("documentation_drift", False)),
-            provider_used=provider,
-            model_used=model,
-            prompt_tokens=usage.prompt_tokens,
-            response_tokens=usage.response_tokens,
-            reasoning=str(payload.get("reasoning", "")).strip() or None,
-        )
+        try:
+            return self._generate_purpose_statement_with_provider(module_node, prompt, provider, model)
+        except Exception:
+            fallback_provider = self.model_config.heavy_provider
+            fallback_model = self.model_config.heavy_model
+            if (fallback_provider, fallback_model) != (provider, model):
+                try:
+                    return self._generate_purpose_statement_with_provider(module_node, prompt, fallback_provider, fallback_model)
+                except Exception:
+                    pass
+            return self._heuristic_purpose_statement(module_node, module_source, existing_docstring)
 
     def cluster_into_domains(
         self,
@@ -370,7 +385,12 @@ class SemanticistAgent:
             return {"k": 0, "clusters": [], "assignments": [], "domain_map": {}}
 
         embedding_provider, embedding_model = self.budget.task_descriptor("embedding")
-        embeddings = self._embedding_client_for(embedding_provider).embed_texts(cleaned_statements, model=embedding_model)
+        try:
+            embeddings = self._embedding_client_for(embedding_provider).embed_texts(cleaned_statements, model=embedding_model)
+        except Exception:
+            embeddings = self._lexical_embeddings(cleaned_statements)
+            embedding_provider = "tfidf"
+            embedding_model = "lexical-fallback"
         cluster_count = self._select_cluster_count(embeddings, min_k=min_k, max_k=max_k)
 
         if cluster_count <= 1:
@@ -426,37 +446,53 @@ class SemanticistAgent:
         hydrologist_graph = self._coerce_to_graph(hydrologist_output)
         evidence_bundle = self._build_evidence_bundle(surveyor_graph, hydrologist_graph)
         prompt = self._day_one_prompt(surveyor_graph, hydrologist_graph, evidence_bundle)
-        payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)
-        response_text = json.dumps(payload)
-        usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)
-
         final_provider = provider
         final_model = model
         try:
+            payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)
+            response_text = json.dumps(payload)
+            usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)
             answers = self._normalize_day_one_answers(payload, evidence_bundle)
-        except RuntimeError:
+        except Exception:
             fallback_provider = self.model_config.fast_provider
             fallback_model = self.model_config.fast_model
-            if (fallback_provider, fallback_model) == (provider, model):
-                raise
-
-            fallback_payload = self._llm_client_for(fallback_provider).generate_json(
-                model=fallback_model,
-                prompt=prompt,
-                temperature=0.1,
-            )
-            fallback_response_text = json.dumps(fallback_payload)
-            fallback_usage = self.budget.record_usage(
-                provider=fallback_provider,
-                model=fallback_model,
-                prompt=prompt,
-                response=fallback_response_text,
-            )
-            payload = fallback_payload
-            usage = fallback_usage
-            final_provider = fallback_provider
-            final_model = fallback_model
-            answers = self._normalize_day_one_answers(payload, evidence_bundle)
+            if (fallback_provider, fallback_model) != (provider, model):
+                try:
+                    fallback_payload = self._llm_client_for(fallback_provider).generate_json(
+                        model=fallback_model,
+                        prompt=prompt,
+                        temperature=0.1,
+                    )
+                    fallback_response_text = json.dumps(fallback_payload)
+                    usage = self.budget.record_usage(
+                        provider=fallback_provider,
+                        model=fallback_model,
+                        prompt=prompt,
+                        response=fallback_response_text,
+                    )
+                    answers = self._normalize_day_one_answers(fallback_payload, evidence_bundle)
+                    final_provider = fallback_provider
+                    final_model = fallback_model
+                except Exception:
+                    answers = self._heuristic_day_one_answers(surveyor_graph, hydrologist_graph, evidence_bundle)
+                    final_provider = "heuristic"
+                    final_model = "deterministic"
+                    usage = UsageRecord(
+                        provider=final_provider,
+                        model=final_model,
+                        prompt_tokens=self.budget.estimate_tokens(prompt, model=self.model_config.fast_model),
+                        response_tokens=self.budget.estimate_tokens(json.dumps(answers), model=self.model_config.fast_model),
+                    )
+            else:
+                answers = self._heuristic_day_one_answers(surveyor_graph, hydrologist_graph, evidence_bundle)
+                final_provider = "heuristic"
+                final_model = "deterministic"
+                usage = UsageRecord(
+                    provider=final_provider,
+                    model=final_model,
+                    prompt_tokens=self.budget.estimate_tokens(prompt, model=self.model_config.fast_model),
+                    response_tokens=self.budget.estimate_tokens(json.dumps(answers), model=self.model_config.fast_model),
+                )
 
         return {
             "provider_used": final_provider,
@@ -593,12 +629,148 @@ class SemanticistAgent:
     def _label_cluster(self, cluster_statements: list[str]) -> str:
         provider, model = self.budget.task_descriptor("cluster_label")
         prompt = self._cluster_label_prompt(cluster_statements)
-        payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.0)
-        self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=json.dumps(payload))
-        label = str(payload.get("domain_label", "")).strip().lower()
-        if not label:
-            raise RuntimeError(f"{provider}:{model} did not return a domain label.")
-        return label
+        try:
+            payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.0)
+            self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=json.dumps(payload))
+            label = str(payload.get("domain_label", "")).strip().lower()
+            if label:
+                return label
+        except Exception:
+            pass
+        return self._heuristic_cluster_label(cluster_statements)
+
+    def _generate_purpose_statement_with_provider(
+        self,
+        module_node: ModuleNode,
+        prompt: str,
+        provider: str,
+        model: str,
+    ) -> PurposeStatementResult:
+        payload = self._llm_client_for(provider).generate_json(model=model, prompt=prompt, temperature=0.1)
+        response_text = json.dumps(payload)
+        usage = self.budget.record_usage(provider=provider, model=model, prompt=prompt, response=response_text)
+
+        purpose_statement = str(payload.get("purpose_statement", "")).strip()
+        if not purpose_statement:
+            raise RuntimeError(f"{provider}:{model} did not return a purpose_statement for {module_node.path}.")
+
+        return PurposeStatementResult(
+            module_path=module_node.path,
+            purpose_statement=purpose_statement,
+            documentation_drift=bool(payload.get("documentation_drift", False)),
+            provider_used=provider,
+            model_used=model,
+            prompt_tokens=usage.prompt_tokens,
+            response_tokens=usage.response_tokens,
+            reasoning=str(payload.get("reasoning", "")).strip() or None,
+        )
+
+    def _heuristic_purpose_statement(
+        self,
+        module_node: ModuleNode,
+        module_source: str,
+        existing_docstring: str | None,
+    ) -> PurposeStatementResult:
+        class_count = len(module_node.class_definitions)
+        function_count = len(module_node.function_definitions)
+        public_count = len(module_node.public_functions)
+        path_parts = Path(module_node.path).with_suffix("").parts
+        dominant_area = path_parts[0] if path_parts else "repository"
+        module_name = Path(module_node.path).stem.replace("_", " ")
+        purpose_statement = (
+            f"This module in the {dominant_area} area appears to implement {module_name} responsibilities within the codebase. "
+            f"It defines {class_count} classes, {function_count} functions, and {public_count} public entry points, which suggests it acts as a concrete implementation unit rather than a top-level artifact."
+        )
+        documentation_drift = bool(existing_docstring and module_name.lower() not in existing_docstring.lower())
+        return PurposeStatementResult(
+            module_path=module_node.path,
+            purpose_statement=purpose_statement,
+            documentation_drift=documentation_drift,
+            provider_used="heuristic",
+            model_used="deterministic",
+            prompt_tokens=self.budget.estimate_tokens(module_source, model=self.model_config.fast_model),
+            response_tokens=self.budget.estimate_tokens(purpose_statement, model=self.model_config.fast_model),
+            reasoning="Generated from module path and structural counts because LLM summarization was unavailable.",
+        )
+
+    def _lexical_embeddings(self, texts: list[str]) -> list[list[float]]:
+        try:
+            vectorizer_class = importlib.import_module("sklearn.feature_extraction.text").TfidfVectorizer
+        except ImportError:
+            return [[float(index)] for index, _ in enumerate(texts, start=1)]
+        vectorizer = vectorizer_class(stop_words="english")
+        matrix = vectorizer.fit_transform(texts)
+        return matrix.toarray().tolist()
+
+    def _heuristic_cluster_label(self, cluster_statements: list[str]) -> str:
+        stop_words = {
+            "the", "and", "for", "with", "this", "that", "into", "from", "over", "module", "codebase", "system",
+            "data", "used", "using", "within", "across", "core", "layer", "logic", "service", "services",
+        }
+        token_counts: dict[str, int] = defaultdict(int)
+        for statement in cluster_statements:
+            for raw_token in statement.lower().replace("/", " ").replace("_", " ").split():
+                token = "".join(character for character in raw_token if character.isalpha())
+                if len(token) < 4 or token in stop_words:
+                    continue
+                token_counts[token] += 1
+        if not token_counts:
+            return "general"
+        top_tokens = sorted(token_counts.items(), key=lambda item: (-item[1], item[0]))[:2]
+        return " ".join(token for token, _ in top_tokens)
+
+    def _heuristic_day_one_answers(
+        self,
+        surveyor_graph: nx.DiGraph,
+        hydrologist_graph: nx.DiGraph,
+        evidence_bundle: dict[str, Any],
+    ) -> list[dict[str, Any]]:
+        surveyor_summary = self._summarize_surveyor_graph(surveyor_graph)
+        hydrologist_summary = self._summarize_hydrologist_graph(hydrologist_graph)
+        evidence_files = evidence_bundle.get("files", []) if isinstance(evidence_bundle, dict) else []
+        top_paths = [item.get("path", "unknown") for item in evidence_files[:5] if isinstance(item, dict)]
+        citations = [
+            {
+                "path": item.get("path", "unknown"),
+                "line_start": item.get("line_start", 1),
+                "line_end": item.get("line_end", item.get("line_start", 1)),
+            }
+            for item in evidence_files[:5]
+            if isinstance(item, dict)
+        ]
+        module_count = int(surveyor_summary.get("module_count", 0) or 0)
+        hub_paths = [entry.get("path", "unknown") for entry in surveyor_summary.get("architectural_hubs", [])[:3] if isinstance(entry, dict)]
+        dataset_count = int(hydrologist_summary.get("dataset_count", 0) or 0)
+        transformation_count = int(hydrologist_summary.get("transformation_count", 0) or 0)
+
+        shared_citations = citations or [{"path": "README.md", "line_start": 1, "line_end": 1}]
+        return [
+            {
+                "question": self.FDE_DAY_ONE_QUESTIONS[0],
+                "answer": f"This codebase appears to support a software platform composed of {module_count} analyzed modules and {dataset_count} tracked datasets or data assets. The highest-signal files suggest that responsibilities are concentrated around {', '.join(top_paths[:3]) or 'core repository files' }.",
+                "citations": shared_citations[:3],
+            },
+            {
+                "question": self.FDE_DAY_ONE_QUESTIONS[1],
+                "answer": f"A new engineer should start with the most central files first: {', '.join(hub_paths or top_paths[:3]) or 'the top-level entry points identified in the evidence bundle'}. These files are the best available approximation of the repository critical path when LLM synthesis is unavailable.",
+                "citations": shared_citations[:4],
+            },
+            {
+                "question": self.FDE_DAY_ONE_QUESTIONS[2],
+                "answer": f"The highest-risk change surfaces are likely the central modules and graph hubs, especially files such as {', '.join(hub_paths or top_paths[:3]) or 'the primary orchestrating modules'}. Changes there are most likely to propagate broadly across the repository.",
+                "citations": shared_citations[:4],
+            },
+            {
+                "question": self.FDE_DAY_ONE_QUESTIONS[3],
+                "answer": f"Data and control flow move through {module_count} modules, {dataset_count} datasets, and {transformation_count} transformations captured in the current graph snapshot. The evidence bundle indicates that the system should be read as a combination of code execution paths and data-lineage relationships.",
+                "citations": shared_citations[:4],
+            },
+            {
+                "question": self.FDE_DAY_ONE_QUESTIONS[4],
+                "answer": f"The current graph suggests a split between central orchestration modules and repository-specific implementation areas, with representative files including {', '.join(top_paths[:4]) or 'the highest-signal files in the evidence bundle'}. This should be treated as a conservative fallback architecture map rather than a full semantic synthesis.",
+                "citations": shared_citations[:4],
+            },
+        ]
 
     def _coerce_to_graph(self, output: Any) -> nx.DiGraph:
         if isinstance(output, KnowledgeGraph):
@@ -931,10 +1103,14 @@ def _parse_json_text(text: str) -> dict[str, Any]:
     except json.JSONDecodeError:
         pass
 
-    start = cleaned.find("{")
-    end = cleaned.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        payload = json.loads(cleaned[start:end + 1])
+    decoder = json.JSONDecoder()
+    for index, character in enumerate(cleaned):
+        if character != "{":
+            continue
+        try:
+            payload, _ = decoder.raw_decode(cleaned[index:])
+        except json.JSONDecodeError:
+            continue
         if isinstance(payload, dict):
             return payload
 

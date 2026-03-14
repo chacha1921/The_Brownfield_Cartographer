@@ -1,0 +1,315 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "sql_dialect": "postgres",
+    "unresolved_dynamic_references": [],
+    "lineage_merge_logic": {
+      "python": "Python IO and embedded SQL produce CONSUMES/PRODUCES edges.",
+      "sql": "Standalone SQL and dbt models produce file-backed lineage edges.",
+      "config": "Airflow/dbt YAML config contributes CONFIGURES edges and resource nodes."
+    }
+  },
+  "nodes": [
+    {
+      "id": "runs",
+      "node_type": "dataset",
+      "name": "runs",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0001_add_timeout_to_runs.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0003_simple_retro_girl.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0001_lowly_captain_flint.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "tasks",
+      "node_type": "dataset",
+      "name": "tasks",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "toolErrors",
+      "node_type": "dataset",
+      "name": "toolErrors",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "tasks_run_id_runs_id_fk",
+      "node_type": "dataset",
+      "name": "tasks_run_id_runs_id_fk",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "tasks_task_metrics_id_taskMetrics_id_fk",
+      "node_type": "dataset",
+      "name": "tasks_task_metrics_id_taskMetrics_id_fk",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "toolErrors_run_id_runs_id_fk",
+      "node_type": "dataset",
+      "name": "toolErrors_run_id_runs_id_fk",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "toolErrors_task_id_tasks_id_fk",
+      "node_type": "dataset",
+      "name": "toolErrors_task_id_tasks_id_fk",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "public.runs",
+      "node_type": "dataset",
+      "name": "public.runs",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "public.taskMetrics",
+      "node_type": "dataset",
+      "name": "public.taskMetrics",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "public.tasks",
+      "node_type": "dataset",
+      "name": "public.tasks",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "tasks_language_exercise_idx",
+      "node_type": "dataset",
+      "name": "tasks_language_exercise_idx",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0004_sloppy_black_knight.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0002_bouncy_blazing_skull.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "packages/evals/src/db/migrations/0006_worried_spectrum.sql",
+      "node_type": "transformation"
+    }
+  ],
+  "links": [
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0001_add_timeout_to_runs.sql",
+      "line_start": 1,
+      "line_end": 1,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "runs",
+      "target": "packages/evals/src/db/migrations/0001_add_timeout_to_runs.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0003_simple_retro_girl.sql",
+      "line_start": 1,
+      "line_end": 1,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "runs",
+      "target": "packages/evals/src/db/migrations/0003_simple_retro_girl.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0001_lowly_captain_flint.sql",
+      "line_start": 1,
+      "line_end": 1,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "runs",
+      "target": "packages/evals/src/db/migrations/0001_lowly_captain_flint.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0002_bouncy_blazing_skull.sql",
+      "line_start": 1,
+      "line_end": 6,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "runs",
+      "target": "packages/evals/src/db/migrations/0002_bouncy_blazing_skull.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0006_worried_spectrum.sql",
+      "line_start": 1,
+      "line_end": 1,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "runs",
+      "target": "packages/evals/src/db/migrations/0006_worried_spectrum.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "tasks",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0004_sloppy_black_knight.sql",
+      "line_start": 1,
+      "line_end": 3,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "tasks",
+      "target": "packages/evals/src/db/migrations/0004_sloppy_black_knight.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "toolErrors",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "tasks_run_id_runs_id_fk",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "tasks_task_metrics_id_taskMetrics_id_fk",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "toolErrors_run_id_runs_id_fk",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "toolErrors_task_id_tasks_id_fk",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "public.runs",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "public.taskMetrics",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0005_strong_skrulls.sql",
+      "line_start": 1,
+      "line_end": 12,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "public.tasks",
+      "target": "packages/evals/src/db/migrations/0005_strong_skrulls.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source_file": "/private/tmp/brownfield-cartographer-qvwvs_rz/repo/packages/evals/src/db/migrations/0004_sloppy_black_knight.sql",
+      "line_start": 1,
+      "line_end": 3,
+      "transformation_type": "sql_query",
+      "dialect": "postgres",
+      "source": "tasks_language_exercise_idx",
+      "target": "packages/evals/src/db/migrations/0004_sloppy_black_knight.sql"
+    }
+  ]
+}

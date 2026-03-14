@@ -1,0 +1,2793 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {
+    "git_velocity_days": 30,
+    "git_velocity": {
+      "src/shared/tools.ts": 7,
+      "REPORT.md": 3,
+      "packages/types/src/tool.ts": 5,
+      "src/core/assistant-message/presentAssistantMessage.ts": 7,
+      "src/core/prompts/tools/native-tools/get_curated_context.ts": 1,
+      "src/core/prompts/tools/native-tools/index.ts": 6,
+      "src/core/tools/GetCuratedContextTool.ts": 1,
+      "src/services/orchestration/OrchestrationManager.ts": 3,
+      ".orchestration/shared_brain.md": 1,
+      ".orchestration/active_intents.yaml": 3,
+      ".orchestration/agent_trace.jsonl": 2,
+      ".orchestration/intent_map.md": 2,
+      ".orchestration/technical_context.md": 1,
+      "src/hooks/PostTools/TraceLoggerHook.ts": 2,
+      "src/hooks/types.ts": 3,
+      "src/hooks/HookEngine.ts": 5,
+      "src/hooks/PreTools/IntentValidationHook.ts": 1,
+      "src/hooks/PreTools/ConcurrencyCheck.ts": 1,
+      "src/hooks/PostTools/ContentHasher.ts": 1,
+      "src/hooks/PostTools/TraceLogger.ts": 3,
+      "src/hooks/PreTools/ScopeCheck.ts": 2,
+      "src/core/prompts/sections/rules.ts": 2,
+      "CLAUDE.md": 1,
+      "pnpm-lock.yaml": 6,
+      "src/core/tools/SelectActiveIntentTool.ts": 1,
+      "src/core/tools/WriteToFileTool.ts": 1,
+      "src/package.json": 4,
+      "src/hooks/PreTools/IntentCheck.ts": 3,
+      "src/core/prompts/tools/native-tools/select_active_intent.ts": 2,
+      "ARCHITECTURE_NOTES.md": 1,
+      "src/hooks/PostTools/HashVerifier.ts": 1,
+      "src/hooks/index.ts": 1,
+      "src/services/mcp/McpHub.ts": 1,
+      "src/services/mcp/McpServerManager.ts": 1,
+      ".changeset/changelog-config.js": 1,
+      ".changeset/v3.48.0.md": 2,
+      "CHANGELOG.md": 2,
+      "webview-ui/src/i18n/locales/ca/settings.json": 4,
+      "webview-ui/src/i18n/locales/de/settings.json": 4,
+      "webview-ui/src/i18n/locales/en/settings.json": 4,
+      "webview-ui/src/i18n/locales/es/settings.json": 4,
+      "webview-ui/src/i18n/locales/fr/settings.json": 4,
+      "webview-ui/src/i18n/locales/hi/settings.json": 4,
+      "webview-ui/src/i18n/locales/id/settings.json": 4,
+      "webview-ui/src/i18n/locales/it/settings.json": 4,
+      "webview-ui/src/i18n/locales/ja/settings.json": 4,
+      "webview-ui/src/i18n/locales/ko/settings.json": 4,
+      "webview-ui/src/i18n/locales/nl/settings.json": 4,
+      "webview-ui/src/i18n/locales/pl/settings.json": 4,
+      "webview-ui/src/i18n/locales/pt-BR/settings.json": 4,
+      "webview-ui/src/i18n/locales/ru/settings.json": 4,
+      "webview-ui/src/i18n/locales/tr/settings.json": 4,
+      "webview-ui/src/i18n/locales/vi/settings.json": 4,
+      "webview-ui/src/i18n/locales/zh-CN/settings.json": 4,
+      "webview-ui/src/i18n/locales/zh-TW/settings.json": 4,
+      "apps/cli/CHANGELOG.md": 5,
+      "apps/cli/package.json": 6,
+      "apps/cli/scripts/test-stdin-stream.ts": 1,
+      "apps/cli/src/agent/json-event-emitter.ts": 4,
+      "apps/cli/src/commands/cli/run.ts": 4,
+      "src/core/webview/ClineProvider.ts": 7,
+      "webview-ui/src/components/chat/Announcement.tsx": 2,
+      "webview-ui/src/i18n/locales/ca/chat.json": 5,
+      "webview-ui/src/i18n/locales/de/chat.json": 5,
+      "webview-ui/src/i18n/locales/en/chat.json": 5,
+      "webview-ui/src/i18n/locales/es/chat.json": 5,
+      "webview-ui/src/i18n/locales/fr/chat.json": 5,
+      "webview-ui/src/i18n/locales/hi/chat.json": 5,
+      "webview-ui/src/i18n/locales/id/chat.json": 5,
+      "webview-ui/src/i18n/locales/it/chat.json": 5,
+      "webview-ui/src/i18n/locales/ja/chat.json": 5,
+      "webview-ui/src/i18n/locales/ko/chat.json": 5,
+      "webview-ui/src/i18n/locales/nl/chat.json": 5,
+      "webview-ui/src/i18n/locales/pl/chat.json": 5,
+      "webview-ui/src/i18n/locales/pt-BR/chat.json": 5,
+      "webview-ui/src/i18n/locales/ru/chat.json": 5,
+      "webview-ui/src/i18n/locales/tr/chat.json": 5,
+      "webview-ui/src/i18n/locales/vi/chat.json": 5,
+      "webview-ui/src/i18n/locales/zh-CN/chat.json": 5,
+      "webview-ui/src/i18n/locales/zh-TW/chat.json": 5,
+      "packages/types/src/providers/anthropic.ts": 3,
+      "packages/types/src/providers/bedrock.ts": 4,
+      "packages/types/src/providers/openrouter.ts": 3,
+      "packages/types/src/providers/vercel-ai-gateway.ts": 3,
+      "packages/types/src/providers/vertex.ts": 3,
+      "src/api/providers/__tests__/anthropic-vertex.spec.ts": 4,
+      "src/api/providers/__tests__/anthropic.spec.ts": 4,
+      "src/api/providers/__tests__/bedrock.spec.ts": 3,
+      "src/api/providers/anthropic.ts": 7,
+      "src/api/providers/fetchers/__tests__/openrouter.spec.ts": 1,
+      "src/api/providers/fetchers/openrouter.ts": 3,
+      "webview-ui/src/components/settings/providers/Anthropic.tsx": 3,
+      "webview-ui/src/components/ui/hooks/__tests__/useSelectedModel.spec.ts": 3,
+      "webview-ui/src/components/ui/hooks/useSelectedModel.ts": 4,
+      "apps/web-roo-code/next-sitemap.config.cjs": 1,
+      "apps/web-roo-code/package.json": 3,
+      "apps/web-roo-code/src/app/blog/[slug]/page.tsx": 1,
+      "apps/web-roo-code/src/app/blog/page.tsx": 1,
+      "apps/web-roo-code/src/app/blog/page/[page]/page.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogAnalytics.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogContent.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogFAQ.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogPagination.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogPostCTA.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogPostList.tsx": 1,
+      "apps/web-roo-code/src/components/blog/BlogViewToggle.tsx": 1,
+      "apps/web-roo-code/src/components/blog/YouTubeModal.test.ts": 1,
+      "apps/web-roo-code/src/components/blog/YouTubeModal.tsx": 1,
+      "apps/web-roo-code/src/components/chromes/footer.tsx": 1,
+      "apps/web-roo-code/src/components/chromes/nav-bar.tsx": 3,
+      "apps/web-roo-code/src/components/providers/posthog-provider.tsx": 1,
+      "apps/web-roo-code/src/content/blog/ai-best-practices-spread-through-internal-influencers-not-topdown-mandates.md": 1,
+      "apps/web-roo-code/src/content/blog/manage-ai-spend-by-measuring-return-not-cost.md": 1,
+      "apps/web-roo-code/src/content/blog/non-engineers-stopped-waiting-for-engineers-to-unblock-them.md": 1,
+      "apps/web-roo-code/src/content/blog/over-half-of-googles-production-code-is-now-aigenerated.md": 1,
+      "apps/web-roo-code/src/content/blog/prds-are-becoming-artifacts-of-the-past.md": 1,
+      "apps/web-roo-code/src/content/blog/score-agents-like-employees-not-like-models.md": 1,
+      "apps/web-roo-code/src/lib/blog/analytics.ts": 1,
+      "apps/web-roo-code/src/lib/blog/content.ts": 1,
+      "apps/web-roo-code/src/lib/blog/curated.ts": 1,
+      "apps/web-roo-code/src/lib/blog/index.ts": 1,
+      "apps/web-roo-code/src/lib/blog/time.ts": 1,
+      "apps/web-roo-code/src/lib/blog/types.ts": 1,
+      "apps/web-roo-code/src/lib/blog/validation.ts": 1,
+      "apps/web-roo-code/src/lib/constants.ts": 1,
+      "apps/web-roo-code/vitest.config.ts": 1,
+      "webview-ui/src/components/history/__tests__/HistoryPreview.spec.tsx": 3,
+      "src/core/condense/__tests__/rewind-after-condense.spec.ts": 2,
+      "src/core/task/Task.ts": 7,
+      "src/core/tools/AskFollowupQuestionTool.ts": 1,
+      "src/core/tools/__tests__/askFollowupQuestionTool.spec.ts": 1,
+      "docs/reapplication-plan.md": 2,
+      "apps/cli/README.md": 3,
+      "apps/cli/src/index.ts": 3,
+      "apps/cli/src/types/types.ts": 3,
+      "apps/cli/src/agent/__tests__/extension-client.test.ts": 2,
+      "apps/cli/src/agent/agent-state.ts": 2,
+      "apps/cli/src/agent/ask-dispatcher.ts": 3,
+      "apps/cli/src/agent/extension-host.ts": 4,
+      "apps/cli/src/lib/utils/context-window.ts": 2,
+      "apps/cli/src/ui/components/ChatHistoryItem.tsx": 2,
+      "apps/cli/src/ui/components/tools/BrowserTool.tsx": 2,
+      "apps/cli/src/ui/components/tools/index.ts": 2,
+      "apps/cli/src/ui/components/tools/types.ts": 2,
+      "apps/cli/src/ui/components/tools/utils.ts": 2,
+      "apps/cli/src/ui/types.ts": 2,
+      "apps/cli/src/ui/utils/tools.ts": 2,
+      "apps/web-evals/package.json": 3,
+      "packages/evals/src/db/queries/__tests__/copyRun.spec.ts": 3,
+      "packages/types/src/__tests__/cloud.test.ts": 3,
+      "packages/types/src/global-settings.ts": 4,
+      "packages/types/src/index.ts": 2,
+      "packages/types/src/message.ts": 2,
+      "packages/types/src/mode.ts": 2,
+      "packages/types/src/provider-settings.ts": 2,
+      "packages/types/src/providers/cerebras.ts": 2,
+      "packages/types/src/providers/chutes.ts": 2,
+      "packages/types/src/providers/deepinfra.ts": 2,
+      "packages/types/src/providers/doubao.ts": 2,
+      "packages/types/src/providers/featherless.ts": 2,
+      "packages/types/src/providers/groq.ts": 2,
+      "packages/types/src/providers/huggingface.ts": 2,
+      "packages/types/src/providers/index.ts": 2,
+      "packages/types/src/providers/io-intelligence.ts": 2,
+      "packages/types/src/providers/unbound.ts": 2,
+      "packages/types/src/skills.ts": 2,
+      "packages/types/src/tool-params.ts": 3,
+      "packages/types/src/vscode-extension-host.ts": 5,
+      "progress.txt": 2,
+      "src/__tests__/command-mentions.spec.ts": 3,
+      "src/api/index.ts": 2,
+      "src/api/providers/__tests__/cerebras.spec.ts": 2,
+      "src/api/providers/__tests__/chutes.spec.ts": 2,
+      "src/api/providers/__tests__/deepinfra.spec.ts": 2,
+      "src/api/providers/__tests__/featherless.spec.ts": 2,
+      "src/api/providers/__tests__/groq.spec.ts": 2,
+      "src/api/providers/__tests__/io-intelligence.spec.ts": 2,
+      "src/api/providers/__tests__/unbound.spec.ts": 2,
+      "src/api/providers/cerebras.ts": 2,
+      "src/api/providers/chutes.ts": 2,
+      "src/api/providers/deepinfra.ts": 3,
+      "src/api/providers/doubao.ts": 3,
+      "src/api/providers/featherless.ts": 2,
+      "src/api/providers/fetchers/__tests__/chutes.spec.ts": 2,
+      "src/api/providers/fetchers/__tests__/modelCache.spec.ts": 2,
+      "src/api/providers/fetchers/chutes.ts": 2,
+      "src/api/providers/fetchers/deepinfra.ts": 2,
+      "src/api/providers/fetchers/huggingface.ts": 2,
+      "src/api/providers/fetchers/io-intelligence.ts": 2,
+      "src/api/providers/fetchers/modelCache.ts": 2,
+      "src/api/providers/fetchers/unbound.ts": 2,
+      "src/api/providers/gemini.ts": 3,
+      "src/api/providers/groq.ts": 2,
+      "src/api/providers/huggingface.ts": 2,
+      "src/api/providers/index.ts": 2,
+      "src/api/providers/io-intelligence.ts": 2,
+      "src/api/providers/unbound.ts": 3,
+      "src/core/assistant-message/NativeToolCallParser.ts": 4,
+      "src/core/assistant-message/__tests__/NativeToolCallParser.spec.ts": 3,
+      "src/core/assistant-message/__tests__/presentAssistantMessage-custom-tool.spec.ts": 3,
+      "src/core/assistant-message/__tests__/presentAssistantMessage-images.spec.ts": 2,
+      "src/core/assistant-message/__tests__/presentAssistantMessage-unknown-tool.spec.ts": 2,
+      "src/core/auto-approval/index.ts": 2,
+      "src/core/config/ContextProxy.ts": 2,
+      "src/core/config/ProviderSettingsManager.ts": 2,
+      "src/core/config/__tests__/ContextProxy.spec.ts": 2,
+      "src/core/config/__tests__/CustomModesManager.yamlEdgeCases.spec.ts": 2,
+      "src/core/config/__tests__/CustomModesSettings.spec.ts": 2,
+      "src/core/config/__tests__/ModeConfig.spec.ts": 2,
+      "src/core/config/__tests__/ProviderSettingsManager.spec.ts": 2,
+      "src/core/context/context-management/__tests__/context-error-handling.test.ts": 2,
+      "src/core/context/context-management/context-error-handling.ts": 2,
+      "src/core/environment/__tests__/getEnvironmentDetails.spec.ts": 2,
+      "src/core/environment/getEnvironmentDetails.ts": 3,
+      "src/core/mentions/__tests__/index.spec.ts": 2,
+      "src/core/mentions/__tests__/processUserContentMentions.spec.ts": 3,
+      "src/core/mentions/index.ts": 3,
+      "src/core/mentions/processUserContentMentions.ts": 3,
+      "src/core/prompts/__tests__/add-custom-instructions.spec.ts": 3,
+      "src/core/prompts/__tests__/system-prompt.spec.ts": 3,
+      "src/core/prompts/sections/skills.ts": 2,
+      "src/core/prompts/system.ts": 4,
+      "src/core/prompts/tools/__tests__/filter-tools-for-mode.spec.ts": 3,
+      "src/core/prompts/tools/filter-tools-for-mode.ts": 3,
+      "src/core/prompts/tools/native-tools/browser_action.ts": 2,
+      "src/core/prompts/types.ts": 3,
+      "src/core/task/__tests__/Task.dispose.test.ts": 2,
+      "src/core/task/__tests__/Task.spec.ts": 4,
+      "src/core/task/__tests__/Task.throttle.test.ts": 2,
+      "src/core/task/__tests__/grounding-sources.test.ts": 3,
+      "src/core/task/__tests__/native-tools-filtering.spec.ts": 2,
+      "src/core/task/build-tools.ts": 4,
+      "src/core/tools/BrowserActionTool.ts": 2,
+      "src/core/tools/ToolRepetitionDetector.ts": 2,
+      "src/core/tools/__tests__/BrowserActionTool.coordinateScaling.spec.ts": 2,
+      "src/core/tools/__tests__/BrowserActionTool.screenshot.spec.ts": 2,
+      "src/core/tools/__tests__/ToolRepetitionDetector.spec.ts": 3,
+      "src/core/tools/__tests__/skillTool.spec.ts": 2,
+      "src/core/tools/__tests__/validateToolUse.spec.ts": 3,
+      "src/core/webview/BrowserSessionPanelManager.ts": 2,
+      "src/core/webview/__tests__/ClineProvider.lockApiConfig.spec.ts": 3,
+      "src/core/webview/__tests__/ClineProvider.spec.ts": 5,
+      "src/core/webview/__tests__/ClineProvider.sticky-mode.spec.ts": 3,
+      "src/core/webview/__tests__/ClineProvider.sticky-profile.spec.ts": 3,
+      "src/core/webview/__tests__/ClineProvider.taskHistory.spec.ts": 4,
+      "src/core/webview/__tests__/generateSystemPrompt.browser-capability.spec.ts": 3,
+      "src/core/webview/__tests__/skillsMessageHandler.spec.ts": 2,
+      "src/core/webview/__tests__/webviewMessageHandler.routerModels.spec.ts": 2,
+      "src/core/webview/__tests__/webviewMessageHandler.spec.ts": 2,
+      "src/core/webview/generateSystemPrompt.ts": 3,
+      "src/core/webview/skillsMessageHandler.ts": 2,
+      "src/core/webview/webviewMessageHandler.ts": 5,
+      "src/i18n/locales/ca/common.json": 2,
+      "src/i18n/locales/ca/skills.json": 2,
+      "src/i18n/locales/de/common.json": 2,
+      "src/i18n/locales/de/skills.json": 2,
+      "src/i18n/locales/en/common.json": 2,
+      "src/i18n/locales/en/skills.json": 2,
+      "src/i18n/locales/es/common.json": 2,
+      "src/i18n/locales/es/skills.json": 2,
+      "src/i18n/locales/fr/common.json": 2,
+      "src/i18n/locales/fr/skills.json": 2,
+      "src/i18n/locales/hi/common.json": 2,
+      "src/i18n/locales/hi/skills.json": 2,
+      "src/i18n/locales/id/common.json": 2,
+      "src/i18n/locales/id/skills.json": 2,
+      "src/i18n/locales/it/common.json": 2,
+      "src/i18n/locales/it/skills.json": 2,
+      "src/i18n/locales/ja/common.json": 2,
+      "src/i18n/locales/ja/skills.json": 2,
+      "src/i18n/locales/ko/common.json": 2,
+      "src/i18n/locales/ko/skills.json": 2,
+      "src/i18n/locales/nl/common.json": 2,
+      "src/i18n/locales/nl/skills.json": 2,
+      "src/i18n/locales/pl/common.json": 2,
+      "src/i18n/locales/pl/skills.json": 2,
+      "src/i18n/locales/pt-BR/common.json": 2,
+      "src/i18n/locales/pt-BR/skills.json": 2,
+      "src/i18n/locales/ru/common.json": 2,
+      "src/i18n/locales/ru/skills.json": 2,
+      "src/i18n/locales/tr/common.json": 2,
+      "src/i18n/locales/tr/skills.json": 2,
+      "src/i18n/locales/vi/common.json": 2,
+      "src/i18n/locales/vi/skills.json": 2,
+      "src/i18n/locales/zh-CN/common.json": 2,
+      "src/i18n/locales/zh-CN/skills.json": 2,
+      "src/i18n/locales/zh-TW/common.json": 2,
+      "src/i18n/locales/zh-TW/skills.json": 2,
+      "src/services/browser/BrowserSession.ts": 2,
+      "src/services/browser/UrlContentFetcher.ts": 2,
+      "src/services/browser/__tests__/BrowserSession.spec.ts": 2,
+      "src/services/browser/__tests__/UrlContentFetcher.spec.ts": 2,
+      "src/services/browser/browserDiscovery.ts": 2,
+      "src/services/skills/SkillsManager.ts": 3,
+      "src/services/skills/__tests__/SkillsManager.spec.ts": 3,
+      "src/services/skills/__tests__/generate-built-in-skills.spec.ts": 2,
+      "src/services/skills/built-in-skills.ts": 3,
+      "src/services/skills/built-in/create-mcp-server/SKILL.md": 2,
+      "src/services/skills/built-in/create-mode/SKILL.md": 2,
+      "src/services/skills/generate-built-in-skills.ts": 2,
+      "src/shared/ProfileValidator.ts": 2,
+      "src/shared/__tests__/ProfileValidator.spec.ts": 2,
+      "src/shared/__tests__/checkExistApiConfig.spec.ts": 2,
+      "src/shared/__tests__/modes.spec.ts": 2,
+      "src/shared/api.ts": 2,
+      "src/shared/browserUtils.ts": 2,
+      "src/shared/skills.ts": 2,
+      "webview-ui/browser-panel.html": 2,
+      "webview-ui/src/browser-panel.tsx": 2,
+      "webview-ui/src/components/browser-session/BrowserPanelStateProvider.tsx": 2,
+      "webview-ui/src/components/browser-session/BrowserSessionPanel.tsx": 2,
+      "webview-ui/src/components/chat/AutoApproveDropdown.tsx": 2,
+      "webview-ui/src/components/chat/BrowserActionRow.tsx": 2,
+      "webview-ui/src/components/chat/BrowserSessionRow.tsx": 2,
+      "webview-ui/src/components/chat/BrowserSessionStatusRow.tsx": 2,
+      "webview-ui/src/components/chat/ChatRow.tsx": 4,
+      "webview-ui/src/components/chat/ChatTextArea.tsx": 3,
+      "webview-ui/src/components/chat/ChatView.tsx": 5,
+      "webview-ui/src/components/chat/SlashCommandItem.tsx": 2,
+      "webview-ui/src/components/chat/TaskHeader.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/BrowserSessionRow.aspect-ratio.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/BrowserSessionRow.disconnect-button.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/BrowserSessionRow.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/ChatView.keyboard-fix.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/ChatView.notification-sound.spec.tsx": 3,
+      "webview-ui/src/components/chat/__tests__/ChatView.preserve-images.spec.tsx": 3,
+      "webview-ui/src/components/chat/__tests__/ChatView.spec.tsx": 3,
+      "webview-ui/src/components/settings/ApiOptions.tsx": 3,
+      "webview-ui/src/components/settings/AutoApproveSettings.tsx": 2,
+      "webview-ui/src/components/settings/AutoApproveToggle.tsx": 2,
+      "webview-ui/src/components/settings/BrowserSettings.tsx": 2,
+      "webview-ui/src/components/settings/CreateSkillDialog.tsx": 2,
+      "webview-ui/src/components/settings/CreateSlashCommandDialog.tsx": 2,
+      "webview-ui/src/components/settings/ModelPicker.tsx": 2,
+      "webview-ui/src/components/settings/SettingsView.tsx": 4,
+      "webview-ui/src/components/settings/SkillsSettings.tsx": 2,
+      "webview-ui/src/components/settings/SlashCommandsSettings.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/ApiOptions.provider-filtering.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/ApiOptions.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/AutoApproveToggle.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/CreateSkillDialog.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/SettingsView.change-detection.spec.tsx": 3,
+      "webview-ui/src/components/settings/__tests__/SettingsView.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/SettingsView.unsaved-changes.spec.tsx": 3,
+      "webview-ui/src/components/settings/__tests__/SkillsSettings.spec.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/SlashCommandsSettings.spec.tsx": 2,
+      "webview-ui/src/components/settings/constants.ts": 2,
+      "webview-ui/src/components/settings/providers/Cerebras.tsx": 2,
+      "webview-ui/src/components/settings/providers/Chutes.tsx": 2,
+      "webview-ui/src/components/settings/providers/DeepInfra.tsx": 2,
+      "webview-ui/src/components/settings/providers/Doubao.tsx": 2,
+      "webview-ui/src/components/settings/providers/Featherless.tsx": 2,
+      "webview-ui/src/components/settings/providers/Gemini.tsx": 2,
+      "webview-ui/src/components/settings/providers/Groq.tsx": 2,
+      "webview-ui/src/components/settings/providers/HuggingFace.tsx": 2,
+      "webview-ui/src/components/settings/providers/IOIntelligence.tsx": 2,
+      "webview-ui/src/components/settings/providers/Unbound.tsx": 2,
+      "webview-ui/src/components/settings/providers/Vertex.tsx": 3,
+      "webview-ui/src/components/settings/providers/__tests__/Gemini.spec.tsx": 2,
+      "webview-ui/src/components/settings/providers/__tests__/HuggingFace.spec.tsx": 2,
+      "webview-ui/src/components/settings/providers/__tests__/Vertex.spec.tsx": 2,
+      "webview-ui/src/components/settings/providers/index.ts": 2,
+      "webview-ui/src/components/settings/utils/providerModelConfig.ts": 2,
+      "webview-ui/src/components/ui/checkbox.tsx": 2,
+      "webview-ui/src/components/ui/hooks/useRouterModels.ts": 2,
+      "webview-ui/src/components/ui/input.tsx": 2,
+      "webview-ui/src/components/ui/textarea.tsx": 2,
+      "webview-ui/src/context/ExtensionStateContext.tsx": 5,
+      "webview-ui/src/context/__tests__/ExtensionStateContext.spec.tsx": 4,
+      "webview-ui/src/hooks/__tests__/useAutoApprovalState.spec.ts": 2,
+      "webview-ui/src/hooks/useAutoApprovalState.ts": 2,
+      "webview-ui/src/hooks/useAutoApprovalToggles.ts": 2,
+      "webview-ui/src/i18n/locales/ca/prompts.json": 3,
+      "webview-ui/src/i18n/locales/de/prompts.json": 3,
+      "webview-ui/src/i18n/locales/en/prompts.json": 3,
+      "webview-ui/src/i18n/locales/es/prompts.json": 3,
+      "webview-ui/src/i18n/locales/fr/prompts.json": 3,
+      "webview-ui/src/i18n/locales/hi/prompts.json": 3,
+      "webview-ui/src/i18n/locales/id/prompts.json": 3,
+      "webview-ui/src/i18n/locales/it/prompts.json": 3,
+      "webview-ui/src/i18n/locales/ja/prompts.json": 3,
+      "webview-ui/src/i18n/locales/ko/prompts.json": 3,
+      "webview-ui/src/i18n/locales/nl/prompts.json": 3,
+      "webview-ui/src/i18n/locales/pl/prompts.json": 3,
+      "webview-ui/src/i18n/locales/pt-BR/prompts.json": 3,
+      "webview-ui/src/i18n/locales/ru/prompts.json": 3,
+      "webview-ui/src/i18n/locales/tr/prompts.json": 3,
+      "webview-ui/src/i18n/locales/vi/prompts.json": 3,
+      "webview-ui/src/i18n/locales/zh-CN/prompts.json": 3,
+      "webview-ui/src/i18n/locales/zh-TW/prompts.json": 3,
+      "webview-ui/src/index.css": 2,
+      "webview-ui/src/utils/__tests__/validate.spec.ts": 2,
+      "webview-ui/src/utils/validate.ts": 2,
+      "webview-ui/vite.config.ts": 2,
+      "packages/types/src/events.ts": 3,
+      "packages/types/src/ipc.ts": 3,
+      "packages/types/src/providers/zai.ts": 2,
+      "src/api/providers/__tests__/deepseek.spec.ts": 2,
+      "src/api/providers/__tests__/openai-native.spec.ts": 2,
+      "src/api/providers/anthropic-vertex.ts": 5,
+      "src/api/providers/deepseek.ts": 5,
+      "src/api/providers/moonshot.ts": 3,
+      "src/api/providers/openai-native.ts": 3,
+      "src/api/providers/openai.ts": 5,
+      "src/api/providers/requesty.ts": 5,
+      "src/api/providers/vertex.ts": 3,
+      "src/api/providers/xai.ts": 3,
+      "src/api/providers/zai.ts": 4,
+      "src/api/transform/__tests__/model-params.spec.ts": 2,
+      "src/api/transform/__tests__/reasoning.spec.ts": 2,
+      "src/api/transform/model-params.ts": 2,
+      "src/api/transform/reasoning.ts": 2,
+      "src/core/webview/__tests__/ClineProvider.apiHandlerRebuild.spec.ts": 2,
+      "src/core/webview/__tests__/webviewMessageHandler.lockApiConfig.spec.ts": 2,
+      "src/extension/api.ts": 3,
+      "webview-ui/src/components/chat/ApiConfigSelector.tsx": 2,
+      "webview-ui/src/components/chat/BatchDiffApproval.tsx": 2,
+      "webview-ui/src/components/chat/BatchFilePermission.tsx": 2,
+      "webview-ui/src/components/chat/BatchListFilesPermission.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/ApiConfigSelector.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/BatchListFilesPermission.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/ChatTextArea.lockApiConfig.spec.tsx": 2,
+      "webview-ui/src/utils/__tests__/batchConsecutive.spec.ts": 2,
+      "webview-ui/src/utils/batchConsecutive.ts": 2,
+      ".gitignore": 2,
+      "apps/vscode-e2e/src/suite/tools/read-file.test.ts": 2,
+      "packages/cloud/src/__tests__/CloudSettingsService.parsing.test.ts": 2,
+      "packages/evals/src/cli/runTaskInCli.ts": 3,
+      "packages/evals/src/cli/runTaskInVscode.ts": 3,
+      "packages/types/src/__tests__/ipc.test.ts": 2,
+      "packages/types/src/cloud.ts": 3,
+      "packages/types/src/providers/openai-codex.ts": 2,
+      "packages/types/src/task.ts": 3,
+      "packages/types/src/telemetry.ts": 2,
+      "src/__tests__/extension.spec.ts": 3,
+      "src/__tests__/history-resume-delegation.spec.ts": 3,
+      "src/__tests__/provider-delegation.spec.ts": 3,
+      "src/__tests__/removeClineFromStack-delegation.spec.ts": 3,
+      "src/api/providers/__tests__/bedrock-native-tools.spec.ts": 2,
+      "src/api/providers/__tests__/openai-codex.spec.ts": 2,
+      "src/api/providers/bedrock.ts": 3,
+      "src/core/condense/__tests__/index.spec.ts": 2,
+      "src/core/condense/index.ts": 2,
+      "src/core/prompts/__tests__/__snapshots__/add-custom-instructions/partial-reads-enabled.snap": 2,
+      "src/core/prompts/__tests__/sections.spec.ts": 2,
+      "src/core/prompts/sections/__tests__/custom-instructions.spec.ts": 2,
+      "src/core/prompts/sections/custom-instructions.ts": 2,
+      "src/core/prompts/tools/native-tools/__tests__/converters.spec.ts": 2,
+      "src/core/prompts/tools/native-tools/__tests__/read_file.spec.ts": 2,
+      "src/core/prompts/tools/native-tools/read_file.ts": 2,
+      "src/core/task-persistence/__tests__/apiMessages.spec.ts": 2,
+      "src/core/task-persistence/__tests__/taskMessages.spec.ts": 2,
+      "src/core/task-persistence/apiMessages.ts": 2,
+      "src/core/task-persistence/taskMessages.ts": 2,
+      "src/core/task/__tests__/Task.persistence.spec.ts": 2,
+      "src/core/task/__tests__/flushPendingToolResultsToHistory.spec.ts": 2,
+      "src/core/task/__tests__/grace-retry-errors.spec.ts": 2,
+      "src/core/task/__tests__/reasoning-preservation.test.ts": 2,
+      "src/core/tools/ReadFileTool.ts": 2,
+      "src/core/tools/UseMcpToolTool.ts": 2,
+      "src/core/tools/__tests__/readFileTool.spec.ts": 2,
+      "src/core/tools/__tests__/useMcpToolTool.spec.ts": 2,
+      "src/core/tools/helpers/__tests__/truncateDefinitions.spec.ts": 2,
+      "src/core/tools/helpers/fileTokenBudget.ts": 2,
+      "src/core/tools/helpers/truncateDefinitions.ts": 2,
+      "src/extension.ts": 3,
+      "src/extension/__tests__/api-send-message.spec.ts": 2,
+      "src/integrations/misc/__tests__/extract-text-large-files.spec.ts": 2,
+      "src/integrations/misc/__tests__/indentation-reader.spec.ts": 2,
+      "src/integrations/misc/__tests__/read-file-tool.spec.ts": 2,
+      "src/integrations/misc/__tests__/read-file-with-budget.spec.ts": 2,
+      "src/integrations/misc/extract-text.ts": 2,
+      "src/integrations/misc/indentation-reader.ts": 2,
+      "src/integrations/misc/read-file-with-budget.ts": 2,
+      "src/services/code-index/__tests__/service-factory.spec.ts": 2,
+      "src/services/code-index/embedders/__tests__/gemini.spec.ts": 2,
+      "src/services/code-index/embedders/gemini.ts": 2,
+      "src/shared/__tests__/embeddingModels.spec.ts": 2,
+      "src/shared/embeddingModels.ts": 2,
+      "src/utils/__tests__/json-schema.spec.ts": 4,
+      "src/utils/__tests__/tool-id.spec.ts": 2,
+      "webview-ui/src/components/settings/ContextManagementSettings.tsx": 2,
+      "webview-ui/src/components/settings/__tests__/ContextManagementSettings.spec.tsx": 2,
+      "webview-ui/src/components/settings/providers/Bedrock.tsx": 2,
+      "webview-ui/src/components/welcome/WelcomeViewProvider.tsx": 2,
+      "webview-ui/src/utils/formatPathTooltip.ts": 2,
+      ".github/ISSUE_TEMPLATE/config.yml": 2,
+      ".github/workflows/cli-release.yml": 2,
+      ".roo/commands/cli-release.md": 2,
+      ".roo/rules-docs-extractor/1_extraction_workflow.xml": 2,
+      ".roo/rules-docs-extractor/2_documentation_patterns.xml": 2,
+      ".roo/rules-docs-extractor/2_verification_workflow.xml": 2,
+      ".roo/rules-docs-extractor/3_analysis_techniques.xml": 2,
+      ".roo/rules-docs-extractor/3_output_format.xml": 2,
+      ".roo/rules-docs-extractor/4_communication_guidelines.xml": 2,
+      ".roo/rules-integration-tester/1_workflow.xml": 2,
+      ".roo/rules-integration-tester/2_test_patterns.xml": 2,
+      ".roo/rules-integration-tester/3_best_practices.xml": 2,
+      ".roo/rules-integration-tester/4_common_mistakes.xml": 2,
+      ".roo/rules-integration-tester/5_test_environment.xml": 2,
+      ".roo/rules-issue-investigator/1_workflow.xml": 2,
+      ".roo/rules-issue-investigator/2_best_practices.xml": 2,
+      ".roo/rules-issue-investigator/4_tool_usage.xml": 2,
+      ".roo/rules-issue-investigator/5_examples.xml": 2,
+      ".roo/rules-issue-investigator/6_communication.xml": 2,
+      ".roo/rules-issue-writer/1_workflow.xml": 2,
+      ".roo/rules-issue-writer/2_github_issue_templates.xml": 2,
+      ".roo/rules-issue-writer/3_best_practices.xml": 2,
+      ".roo/rules-issue-writer/4_common_mistakes_to_avoid.xml": 2,
+      ".roo/rules-issue-writer/5_examples.xml": 2,
+      ".roo/rules-issue-writer/5_github_cli_usage.xml": 2,
+      ".roo/rules-mode-writer/1_mode_creation_workflow.xml": 2,
+      ".roo/rules-mode-writer/2_xml_structuring_best_practices.xml": 2,
+      ".roo/rules-mode-writer/3_mode_configuration_patterns.xml": 2,
+      ".roo/rules-mode-writer/4_instruction_file_templates.xml": 2,
+      ".roo/rules-mode-writer/5_complete_mode_examples.xml": 2,
+      ".roo/rules-mode-writer/6_mode_testing_validation.xml": 2,
+      ".roo/rules-mode-writer/7_validation_cohesion_checking.xml": 2,
+      ".roomodes": 2,
+      "apps/cli/docs/AGENT_LOOP.md": 2,
+      "apps/cli/install.sh": 2,
+      "apps/cli/scripts/build.sh": 2,
+      "apps/cli/scripts/release.sh": 2,
+      "apps/cli/src/lib/storage/__tests__/settings.test.ts": 2,
+      "apps/cli/src/lib/utils/__tests__/extension.test.ts": 2,
+      "apps/cli/src/lib/utils/extension.ts": 2,
+      "apps/cli/src/lib/utils/version.ts": 2,
+      "apps/cli/src/types/constants.ts": 2,
+      "apps/web-evals/next-env.d.ts": 2,
+      "apps/web-evals/next.config.ts": 2,
+      "apps/web-roo-code/next.config.ts": 2,
+      "apps/web-roo-code/src/app/cloud/page.tsx": 2,
+      "apps/web-roo-code/src/app/pr-fixer/content-a.tsx": 2,
+      "apps/web-roo-code/src/app/provider/page.tsx": 2,
+      "apps/web-roo-code/src/app/reviewer/content-b.ts": 2,
+      "apps/web-roo-code/src/app/reviewer/content.ts": 2,
+      "apps/web-roo-code/src/components/homepage/features.tsx": 2,
+      "apps/web-roo-code/src/components/homepage/install-section.tsx": 2,
+      "apps/web-roo-code/src/components/homepage/testimonials.tsx": 2,
+      "apps/web-roo-code/src/components/homepage/use-examples-section.tsx": 2,
+      "apps/web-roo-code/src/components/ui/navigation-menu.tsx": 2,
+      "apps/web-roo-code/src/images.d.ts": 2,
+      "package.json": 2,
+      "packages/core/src/custom-tools/__tests__/custom-tool-registry.spec.ts": 2,
+      "packages/core/src/debug-log/index.ts": 2,
+      "packages/evals/README.md": 2,
+      "packages/evals/src/cli/__tests__/messageLogDeduper.test.ts": 2,
+      "packages/evals/src/cli/index.ts": 2,
+      "packages/evals/src/cli/processTask.ts": 2,
+      "packages/evals/src/cli/runCi.ts": 2,
+      "packages/evals/src/cli/runEvals.ts": 2,
+      "packages/evals/src/cli/runUnitTest.ts": 2,
+      "packages/evals/src/cli/types.ts": 2,
+      "packages/evals/src/cli/utils.ts": 2,
+      "packages/evals/src/db/db.ts": 2,
+      "packages/evals/src/db/index.ts": 2,
+      "packages/evals/src/db/queries/__tests__/runs.test.ts": 2,
+      "packages/evals/src/db/queries/copyRun.ts": 2,
+      "packages/evals/src/db/queries/runs.ts": 2,
+      "packages/evals/src/db/queries/taskMetrics.ts": 2,
+      "packages/evals/src/db/queries/tasks.ts": 2,
+      "packages/evals/src/db/queries/toolErrors.ts": 2,
+      "packages/evals/src/db/schema.ts": 2,
+      "packages/evals/src/index.ts": 2,
+      "packages/evals/tsconfig.json": 2,
+      "packages/types/src/providers/fireworks.ts": 2,
+      "scripts/code-server.js": 2,
+      "src/core/auto-approval/__tests__/commands.spec.ts": 2,
+      "src/core/auto-approval/commands.ts": 2,
+      "src/core/prompts/__tests__/custom-system-prompt.spec.ts": 2,
+      "src/core/prompts/sections/__tests__/custom-system-prompt.spec.ts": 2,
+      "src/core/prompts/sections/custom-system-prompt.ts": 2,
+      "src/core/prompts/tools/native-tools/edit.ts": 2,
+      "src/core/prompts/tools/native-tools/search_and_replace.ts": 2,
+      "src/core/tools/ApplyPatchTool.ts": 2,
+      "src/core/tools/EditTool.ts": 2,
+      "src/core/tools/ExecuteCommandTool.ts": 2,
+      "src/core/tools/SearchAndReplaceTool.ts": 2,
+      "src/core/tools/__tests__/applyPatchTool.partial.spec.ts": 2,
+      "src/core/tools/__tests__/editTool.spec.ts": 2,
+      "src/core/tools/__tests__/searchAndReplaceTool.spec.ts": 2,
+      "src/core/tools/validateToolUse.ts": 2,
+      "src/integrations/editor/DiffViewProvider.ts": 2,
+      "src/services/checkpoints/ShadowCheckpointService.ts": 2,
+      "src/services/checkpoints/__tests__/ShadowCheckpointService.spec.ts": 2,
+      "src/services/roo-config/__tests__/index.spec.ts": 2,
+      "src/services/roo-config/index.ts": 2,
+      "webview-ui/src/components/chat/SystemPromptWarning.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/ChatRow.diff-actions.spec.tsx": 2,
+      "webview-ui/src/components/chat/__tests__/FollowUpSuggest.spec.tsx": 2,
+      "webview-ui/src/components/common/CodeBlock.tsx": 2,
+      "webview-ui/src/components/history/HistoryPreview.tsx": 2,
+      "webview-ui/src/components/history/HistoryView.tsx": 2,
+      "webview-ui/src/components/history/SubtaskRow.tsx": 2,
+      "webview-ui/src/components/history/TaskGroupItem.tsx": 2,
+      "webview-ui/src/components/history/__tests__/SubtaskRow.spec.tsx": 2,
+      "webview-ui/src/components/history/__tests__/TaskGroupItem.spec.tsx": 2,
+      "webview-ui/src/components/history/__tests__/useGroupedTasks.spec.ts": 2,
+      "webview-ui/src/components/history/types.ts": 2,
+      "webview-ui/src/components/history/useGroupedTasks.ts": 2,
+      "webview-ui/src/components/modes/ModesView.tsx": 2,
+      "webview-ui/src/components/settings/providers/OpenAICompatible.tsx": 2,
+      ".github/CODEOWNERS": 2,
+      ".env.sample": 1,
+      "apps/cli/tsup.config.ts": 1,
+      "apps/vscode-nightly/esbuild.mjs": 1,
+      "apps/web-evals/src/app/api/runs/[id]/logs/[taskId]/route.ts": 1,
+      "apps/web-evals/src/app/api/runs/[id]/logs/failed/route.ts": 1,
+      "apps/web-roo-code/src/app/linear/page.tsx": 1,
+      "apps/web-roo-code/src/components/linear/linear-issue-demo.tsx": 1,
+      "packages/types/npm/package.metadata.json": 1,
+      "packages/types/src/__tests__/skills.test.ts": 1,
+      "packages/types/src/providers/azure.ts": 1,
+      "packages/types/src/providers/openai.ts": 1,
+      "packages/types/src/providers/xai.ts": 1,
+      "releases/3.46.0-release.png": 1,
+      "releases/3.47.0-release.png": 1,
+      "src/__tests__/nested-delegation-resume.spec.ts": 1,
+      "src/api/providers/__tests__/azure.spec.ts": 1,
+      "src/api/providers/__tests__/base-openai-compatible-provider-timeout.spec.ts": 1,
+      "src/api/providers/__tests__/base-openai-compatible-provider.spec.ts": 1,
+      "src/api/providers/__tests__/base-provider.spec.ts": 1,
+      "src/api/providers/__tests__/baseten.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-custom-arn.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-error-handling.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-inference-profiles.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-invokedModelId.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-reasoning.spec.ts": 1,
+      "src/api/providers/__tests__/bedrock-vpc-endpoint.spec.ts": 1,
+      "src/api/providers/__tests__/fireworks.spec.ts": 1,
+      "src/api/providers/__tests__/gemini-handler.spec.ts": 1,
+      "src/api/providers/__tests__/gemini.spec.ts": 2,
+      "src/api/providers/__tests__/lite-llm.spec.ts": 1,
+      "src/api/providers/__tests__/lm-studio-timeout.spec.ts": 1,
+      "src/api/providers/__tests__/lmstudio-native-tools.spec.ts": 1,
+      "src/api/providers/__tests__/lmstudio.spec.ts": 1,
+      "src/api/providers/__tests__/minimax.spec.ts": 1,
+      "src/api/providers/__tests__/mistral.spec.ts": 1,
+      "src/api/providers/__tests__/moonshot.spec.ts": 1,
+      "src/api/providers/__tests__/native-ollama.spec.ts": 2,
+      "src/api/providers/__tests__/openai-codex-native-tool-calls.spec.ts": 1,
+      "src/api/providers/__tests__/openai-native-reasoning.spec.ts": 1,
+      "src/api/providers/__tests__/openai-native-tools.spec.ts": 1,
+      "src/api/providers/__tests__/openai-native-usage.spec.ts": 2,
+      "src/api/providers/__tests__/openai-timeout.spec.ts": 1,
+      "src/api/providers/__tests__/openai-usage-tracking.spec.ts": 2,
+      "src/api/providers/__tests__/openai.spec.ts": 1,
+      "src/api/providers/__tests__/openrouter.spec.ts": 1,
+      "src/api/providers/__tests__/qwen-code-native-tools.spec.ts": 1,
+      "src/api/providers/__tests__/requesty.spec.ts": 2,
+      "src/api/providers/__tests__/roo.spec.ts": 2,
+      "src/api/providers/__tests__/sambanova.spec.ts": 1,
+      "src/api/providers/__tests__/vercel-ai-gateway.spec.ts": 2,
+      "src/api/providers/__tests__/vertex.spec.ts": 1,
+      "src/api/providers/__tests__/vscode-lm.spec.ts": 1,
+      "src/api/providers/__tests__/xai.spec.ts": 1,
+      "src/api/providers/__tests__/zai.spec.ts": 1,
+      "src/api/providers/azure.ts": 4,
+      "src/api/providers/base-openai-compatible-provider.ts": 1,
+      "src/api/providers/base-provider.ts": 1,
+      "src/api/providers/baseten.ts": 4,
+      "src/api/providers/fake-ai.ts": 1,
+      "src/api/providers/fireworks.ts": 4,
+      "src/api/providers/lite-llm.ts": 2,
+      "src/api/providers/lm-studio.ts": 3,
+      "src/api/providers/minimax.ts": 4,
+      "src/api/providers/mistral.ts": 4,
+      "src/api/providers/native-ollama.ts": 4,
+      "src/api/providers/openai-codex.ts": 2,
+      "src/api/providers/openai-compatible.ts": 4,
+      "src/api/providers/openrouter.ts": 4,
+      "src/api/providers/qwen-code.ts": 1,
+      "src/api/providers/roo.ts": 4,
+      "src/api/providers/router-provider.ts": 1,
+      "src/api/providers/sambanova.ts": 4,
+      "src/api/providers/vercel-ai-gateway.ts": 4,
+      "src/api/providers/vscode-lm.ts": 2,
+      "src/api/transform/__tests__/ai-sdk.spec.ts": 1,
+      "src/api/transform/__tests__/bedrock-converse-format.spec.ts": 1,
+      "src/api/transform/__tests__/cache-breakpoints.spec.ts": 1,
+      "src/api/transform/__tests__/gemini-format.spec.ts": 1,
+      "src/api/transform/__tests__/image-cleaning.spec.ts": 1,
+      "src/api/transform/__tests__/openai-format.spec.ts": 1,
+      "src/api/transform/ai-sdk.ts": 1,
+      "src/api/transform/bedrock-converse-format.ts": 1,
+      "src/api/transform/cache-breakpoints.ts": 1,
+      "src/api/transform/cache-strategy/__tests__/cache-strategy.spec.ts": 1,
+      "src/api/transform/cache-strategy/base-strategy.ts": 1,
+      "src/api/transform/cache-strategy/multi-point-strategy.ts": 1,
+      "src/api/transform/cache-strategy/types.ts": 1,
+      "src/api/transform/caching/__tests__/anthropic.spec.ts": 1,
+      "src/api/transform/caching/__tests__/gemini.spec.ts": 1,
+      "src/api/transform/caching/__tests__/vercel-ai-gateway.spec.ts": 1,
+      "src/api/transform/caching/__tests__/vertex.spec.ts": 1,
+      "src/api/transform/caching/anthropic.ts": 1,
+      "src/api/transform/caching/gemini.ts": 1,
+      "src/api/transform/caching/vercel-ai-gateway.ts": 1,
+      "src/api/transform/caching/vertex.ts": 1,
+      "src/api/transform/gemini-format.ts": 1,
+      "src/api/transform/image-cleaning.ts": 1,
+      "src/api/transform/openai-format.ts": 1,
+      "src/api/transform/stream.ts": 2,
+      "src/api/transform/zai-format.ts": 1,
+      "src/core/condense/__tests__/condense.spec.ts": 1,
+      "src/core/condense/__tests__/foldedFileContext.spec.ts": 1,
+      "src/core/condense/__tests__/nested-condense.spec.ts": 1,
+      "src/core/context-management/__tests__/context-management.spec.ts": 1,
+      "src/core/context-management/__tests__/truncation.spec.ts": 1,
+      "src/core/context-management/index.ts": 1,
+      "src/core/message-manager/index.ts": 1,
+      "src/core/prompts/responses.ts": 1,
+      "src/core/task-persistence/__tests__/delegationMeta.spec.ts": 2,
+      "src/core/task-persistence/__tests__/messageUtils.spec.ts": 1,
+      "src/core/task-persistence/__tests__/rooMessage.spec.ts": 1,
+      "src/core/task-persistence/__tests__/rooMessages.spec.ts": 1,
+      "src/core/task-persistence/converters/__tests__/anthropicToRoo.spec.ts": 1,
+      "src/core/task-persistence/converters/anthropicToRoo.ts": 1,
+      "src/core/task-persistence/delegationMeta.ts": 2,
+      "src/core/task-persistence/index.ts": 2,
+      "src/core/task-persistence/messageUtils.ts": 1,
+      "src/core/task-persistence/rooMessage.ts": 1,
+      "src/core/task-persistence/taskMetadata.ts": 2,
+      "src/core/task/__tests__/mergeConsecutiveApiMessages.spec.ts": 1,
+      "src/core/task/__tests__/task-tool-history.spec.ts": 1,
+      "src/core/task/__tests__/validateToolResultIds.spec.ts": 1,
+      "src/core/task/mergeConsecutiveApiMessages.ts": 1,
+      "src/core/task/validateToolResultIds.ts": 1,
+      "src/core/tools/AttemptCompletionTool.ts": 2,
+      "src/core/tools/NewTaskTool.ts": 2,
+      "src/core/tools/SkillTool.ts": 1,
+      "src/core/tools/__tests__/attemptCompletionDelegation.spec.ts": 2,
+      "src/core/tools/__tests__/attemptCompletionTool.spec.ts": 2,
+      "src/core/tools/__tests__/newTaskTool.spec.ts": 2,
+      "src/core/webview/__tests__/removeClineFromStack-delegation.spec.ts": 2,
+      "src/esbuild.mjs": 1,
+      "src/integrations/misc/__tests__/export-markdown.spec.ts": 1,
+      "src/integrations/misc/export-markdown.ts": 1,
+      "src/integrations/terminal/README.md": 1,
+      "src/shared/checkExistApiConfig.ts": 1,
+      "src/shared/globalFileNames.ts": 2,
+      "src/types/requesty-ai-sdk.d.ts": 1,
+      "webview-ui/src/components/settings/SkillItem.tsx": 1,
+      "webview-ui/src/components/settings/__tests__/SkillItem.spec.tsx": 1,
+      "webview-ui/src/components/settings/providers/Azure.tsx": 1,
+      ".roo/commands/roo-resolve-conflicts.md": 1,
+      ".roo/commands/roo-translate.md": 1,
+      ".roo/guidance/roo-translator.md": 1,
+      ".roo/skills/roo-conflict-resolution/SKILL.md": 1,
+      ".roo/skills/roo-translation/SKILL.md": 1,
+      "src/api/transform/__tests__/sanitize-messages.spec.ts": 2,
+      "src/api/transform/sanitize-messages.ts": 2,
+      "src/utils/json-schema.ts": 2
+    },
+    "high_velocity_core": {
+      "files": [
+        {
+          "path": "src/shared/tools.ts",
+          "change_count": 7
+        },
+        {
+          "path": "src/core/assistant-message/presentAssistantMessage.ts",
+          "change_count": 7
+        },
+        {
+          "path": "src/core/webview/ClineProvider.ts",
+          "change_count": 7
+        },
+        {
+          "path": "src/api/providers/anthropic.ts",
+          "change_count": 7
+        },
+        {
+          "path": "src/core/task/Task.ts",
+          "change_count": 7
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/index.ts",
+          "change_count": 6
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "change_count": 6
+        },
+        {
+          "path": "apps/cli/package.json",
+          "change_count": 6
+        },
+        {
+          "path": "packages/types/src/tool.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/hooks/HookEngine.ts",
+          "change_count": 5
+        },
+        {
+          "path": "apps/cli/CHANGELOG.md",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ca/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/de/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/en/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/es/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/fr/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/hi/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/id/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/it/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ja/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ko/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/nl/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pl/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pt-BR/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ru/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/tr/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/vi/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-CN/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-TW/chat.json",
+          "change_count": 5
+        },
+        {
+          "path": "packages/types/src/vscode-extension-host.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.spec.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/core/webview/webviewMessageHandler.ts",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/components/chat/ChatView.tsx",
+          "change_count": 5
+        },
+        {
+          "path": "webview-ui/src/context/ExtensionStateContext.tsx",
+          "change_count": 5
+        },
+        {
+          "path": "src/api/providers/anthropic-vertex.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/api/providers/deepseek.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/api/providers/openai.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/api/providers/requesty.ts",
+          "change_count": 5
+        },
+        {
+          "path": "src/package.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ca/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/de/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/en/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/es/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/fr/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/hi/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/id/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/it/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ja/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ko/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/nl/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pl/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pt-BR/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ru/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/tr/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/vi/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-CN/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-TW/settings.json",
+          "change_count": 4
+        },
+        {
+          "path": "apps/cli/src/agent/json-event-emitter.ts",
+          "change_count": 4
+        },
+        {
+          "path": "apps/cli/src/commands/cli/run.ts",
+          "change_count": 4
+        },
+        {
+          "path": "packages/types/src/providers/bedrock.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/__tests__/anthropic-vertex.spec.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/__tests__/anthropic.spec.ts",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/components/ui/hooks/useSelectedModel.ts",
+          "change_count": 4
+        },
+        {
+          "path": "apps/cli/src/agent/extension-host.ts",
+          "change_count": 4
+        },
+        {
+          "path": "packages/types/src/global-settings.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/core/assistant-message/NativeToolCallParser.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/core/prompts/system.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/core/task/__tests__/Task.spec.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/core/task/build-tools.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.taskHistory.spec.ts",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/components/chat/ChatRow.tsx",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/components/settings/SettingsView.tsx",
+          "change_count": 4
+        },
+        {
+          "path": "webview-ui/src/context/__tests__/ExtensionStateContext.spec.tsx",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/zai.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/utils/__tests__/json-schema.spec.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/azure.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/baseten.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/fireworks.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/minimax.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/mistral.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/native-ollama.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/openai-compatible.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/openrouter.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/roo.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/sambanova.ts",
+          "change_count": 4
+        },
+        {
+          "path": "src/api/providers/vercel-ai-gateway.ts",
+          "change_count": 4
+        },
+        {
+          "path": "REPORT.md",
+          "change_count": 3
+        },
+        {
+          "path": "src/services/orchestration/OrchestrationManager.ts",
+          "change_count": 3
+        },
+        {
+          "path": ".orchestration/active_intents.yaml",
+          "change_count": 3
+        },
+        {
+          "path": "src/hooks/types.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/hooks/PostTools/TraceLogger.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/hooks/PreTools/IntentCheck.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/providers/anthropic.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/providers/openrouter.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/providers/vercel-ai-gateway.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/providers/vertex.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/__tests__/bedrock.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/fetchers/openrouter.ts",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Anthropic.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/ui/hooks/__tests__/useSelectedModel.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "apps/web-roo-code/package.json",
+          "change_count": 3
+        },
+        {
+          "path": "apps/web-roo-code/src/components/chromes/nav-bar.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/history/__tests__/HistoryPreview.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "apps/cli/README.md",
+          "change_count": 3
+        },
+        {
+          "path": "apps/cli/src/index.ts",
+          "change_count": 3
+        },
+        {
+          "path": "apps/cli/src/types/types.ts",
+          "change_count": 3
+        },
+        {
+          "path": "apps/cli/src/agent/ask-dispatcher.ts",
+          "change_count": 3
+        },
+        {
+          "path": "apps/web-evals/package.json",
+          "change_count": 3
+        },
+        {
+          "path": "packages/evals/src/db/queries/__tests__/copyRun.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/__tests__/cloud.test.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/tool-params.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/__tests__/command-mentions.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/deepinfra.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/doubao.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/gemini.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/unbound.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/assistant-message/__tests__/NativeToolCallParser.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/assistant-message/__tests__/presentAssistantMessage-custom-tool.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/environment/getEnvironmentDetails.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/mentions/__tests__/processUserContentMentions.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/mentions/index.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/mentions/processUserContentMentions.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/prompts/__tests__/add-custom-instructions.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/prompts/__tests__/system-prompt.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/prompts/tools/__tests__/filter-tools-for-mode.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/prompts/tools/filter-tools-for-mode.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/prompts/types.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/task/__tests__/grounding-sources.test.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/tools/__tests__/ToolRepetitionDetector.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/tools/__tests__/validateToolUse.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.lockApiConfig.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.sticky-mode.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.sticky-profile.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/webview/__tests__/generateSystemPrompt.browser-capability.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/core/webview/generateSystemPrompt.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/services/skills/SkillsManager.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/services/skills/__tests__/SkillsManager.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/services/skills/built-in-skills.ts",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/chat/ChatTextArea.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ChatView.notification-sound.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ChatView.preserve-images.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ChatView.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/settings/ApiOptions.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/SettingsView.change-detection.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/SettingsView.unsaved-changes.spec.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Vertex.tsx",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ca/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/de/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/en/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/es/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/fr/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/hi/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/id/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/it/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ja/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ko/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/nl/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pl/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/pt-BR/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/ru/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/tr/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/vi/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-CN/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "webview-ui/src/i18n/locales/zh-TW/prompts.json",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/events.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/ipc.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/moonshot.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/openai-native.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/vertex.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/xai.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/extension/api.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/evals/src/cli/runTaskInCli.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/evals/src/cli/runTaskInVscode.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/cloud.ts",
+          "change_count": 3
+        },
+        {
+          "path": "packages/types/src/task.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/__tests__/extension.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/__tests__/history-resume-delegation.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/__tests__/provider-delegation.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/__tests__/removeClineFromStack-delegation.spec.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/bedrock.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/extension.ts",
+          "change_count": 3
+        },
+        {
+          "path": "src/api/providers/lm-studio.ts",
+          "change_count": 3
+        },
+        {
+          "path": ".orchestration/agent_trace.jsonl",
+          "change_count": 2
+        },
+        {
+          "path": ".orchestration/intent_map.md",
+          "change_count": 2
+        },
+        {
+          "path": "src/hooks/PostTools/TraceLoggerHook.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/hooks/PreTools/ScopeCheck.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/sections/rules.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/select_active_intent.ts",
+          "change_count": 2
+        },
+        {
+          "path": ".changeset/v3.48.0.md",
+          "change_count": 2
+        },
+        {
+          "path": "CHANGELOG.md",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/Announcement.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/condense/__tests__/rewind-after-condense.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "docs/reapplication-plan.md",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/agent/__tests__/extension-client.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/agent/agent-state.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/lib/utils/context-window.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/components/ChatHistoryItem.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/components/tools/BrowserTool.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/components/tools/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/components/tools/types.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/components/tools/utils.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/types.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/ui/utils/tools.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/message.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/mode.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/provider-settings.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/cerebras.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/chutes.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/deepinfra.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/doubao.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/featherless.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/groq.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/huggingface.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/io-intelligence.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/unbound.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/skills.ts",
+          "change_count": 2
+        },
+        {
+          "path": "progress.txt",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/cerebras.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/chutes.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/deepinfra.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/featherless.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/groq.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/io-intelligence.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/unbound.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/cerebras.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/chutes.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/featherless.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/__tests__/chutes.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/__tests__/modelCache.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/chutes.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/deepinfra.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/huggingface.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/io-intelligence.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/modelCache.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/fetchers/unbound.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/groq.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/huggingface.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/io-intelligence.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/assistant-message/__tests__/presentAssistantMessage-images.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/assistant-message/__tests__/presentAssistantMessage-unknown-tool.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/auto-approval/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/ContextProxy.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/ProviderSettingsManager.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/__tests__/ContextProxy.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/__tests__/CustomModesManager.yamlEdgeCases.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/__tests__/CustomModesSettings.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/__tests__/ModeConfig.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/config/__tests__/ProviderSettingsManager.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/context/context-management/__tests__/context-error-handling.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/context/context-management/context-error-handling.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/environment/__tests__/getEnvironmentDetails.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/mentions/__tests__/index.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/sections/skills.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/browser_action.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/Task.dispose.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/Task.throttle.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/native-tools-filtering.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/BrowserActionTool.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/ToolRepetitionDetector.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/__tests__/BrowserActionTool.coordinateScaling.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/__tests__/BrowserActionTool.screenshot.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/__tests__/skillTool.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/BrowserSessionPanelManager.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/__tests__/skillsMessageHandler.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/__tests__/webviewMessageHandler.routerModels.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/__tests__/webviewMessageHandler.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/skillsMessageHandler.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ca/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ca/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/de/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/de/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/en/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/en/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/es/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/es/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/fr/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/fr/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/hi/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/hi/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/id/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/id/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/it/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/it/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ja/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ja/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ko/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ko/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/nl/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/nl/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/pl/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/pl/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/pt-BR/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/pt-BR/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ru/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/ru/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/tr/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/tr/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/vi/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/vi/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/zh-CN/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/zh-CN/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/zh-TW/common.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/i18n/locales/zh-TW/skills.json",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/browser/BrowserSession.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/browser/UrlContentFetcher.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/browser/__tests__/BrowserSession.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/browser/__tests__/UrlContentFetcher.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/browser/browserDiscovery.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/skills/__tests__/generate-built-in-skills.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/skills/built-in/create-mcp-server/SKILL.md",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/skills/built-in/create-mode/SKILL.md",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/skills/generate-built-in-skills.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/ProfileValidator.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/__tests__/ProfileValidator.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/__tests__/checkExistApiConfig.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/__tests__/modes.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/api.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/browserUtils.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/skills.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/browser-panel.html",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/browser-panel.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/browser-session/BrowserPanelStateProvider.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/browser-session/BrowserSessionPanel.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/AutoApproveDropdown.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BrowserActionRow.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BrowserSessionRow.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BrowserSessionStatusRow.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/SlashCommandItem.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/TaskHeader.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/BrowserSessionRow.aspect-ratio.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/BrowserSessionRow.disconnect-button.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/BrowserSessionRow.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ChatView.keyboard-fix.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/AutoApproveSettings.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/AutoApproveToggle.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/BrowserSettings.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/CreateSkillDialog.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/CreateSlashCommandDialog.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/ModelPicker.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/SkillsSettings.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/SlashCommandsSettings.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/ApiOptions.provider-filtering.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/ApiOptions.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/AutoApproveToggle.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/CreateSkillDialog.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/SettingsView.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/SkillsSettings.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/SlashCommandsSettings.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/constants.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Cerebras.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Chutes.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/DeepInfra.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Doubao.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Featherless.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Gemini.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Groq.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/HuggingFace.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/IOIntelligence.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Unbound.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/__tests__/Gemini.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/__tests__/HuggingFace.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/__tests__/Vertex.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/utils/providerModelConfig.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/ui/checkbox.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/ui/hooks/useRouterModels.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/ui/input.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/ui/textarea.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/hooks/__tests__/useAutoApprovalState.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/hooks/useAutoApprovalState.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/hooks/useAutoApprovalToggles.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/index.css",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/utils/__tests__/validate.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/utils/validate.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/vite.config.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/zai.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/deepseek.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/openai-native.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/transform/__tests__/model-params.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/transform/__tests__/reasoning.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/transform/model-params.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/transform/reasoning.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/__tests__/ClineProvider.apiHandlerRebuild.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/webview/__tests__/webviewMessageHandler.lockApiConfig.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/ApiConfigSelector.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BatchDiffApproval.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BatchFilePermission.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/BatchListFilesPermission.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ApiConfigSelector.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/BatchListFilesPermission.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/chat/__tests__/ChatTextArea.lockApiConfig.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/utils/__tests__/batchConsecutive.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/utils/batchConsecutive.ts",
+          "change_count": 2
+        },
+        {
+          "path": ".gitignore",
+          "change_count": 2
+        },
+        {
+          "path": "apps/vscode-e2e/src/suite/tools/read-file.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/cloud/src/__tests__/CloudSettingsService.parsing.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/__tests__/ipc.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/providers/openai-codex.ts",
+          "change_count": 2
+        },
+        {
+          "path": "packages/types/src/telemetry.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/bedrock-native-tools.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/api/providers/__tests__/openai-codex.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/condense/__tests__/index.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/condense/index.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/__tests__/__snapshots__/add-custom-instructions/partial-reads-enabled.snap",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/__tests__/sections.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/sections/__tests__/custom-instructions.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/sections/custom-instructions.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/__tests__/converters.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/__tests__/read_file.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/prompts/tools/native-tools/read_file.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task-persistence/__tests__/apiMessages.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task-persistence/__tests__/taskMessages.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task-persistence/apiMessages.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task-persistence/taskMessages.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/Task.persistence.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/flushPendingToolResultsToHistory.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/grace-retry-errors.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/task/__tests__/reasoning-preservation.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/ReadFileTool.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/UseMcpToolTool.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/__tests__/readFileTool.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/__tests__/useMcpToolTool.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/helpers/__tests__/truncateDefinitions.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/helpers/fileTokenBudget.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/core/tools/helpers/truncateDefinitions.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/extension/__tests__/api-send-message.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/__tests__/extract-text-large-files.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/__tests__/indentation-reader.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/__tests__/read-file-tool.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/__tests__/read-file-with-budget.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/extract-text.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/indentation-reader.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/integrations/misc/read-file-with-budget.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/code-index/__tests__/service-factory.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/code-index/embedders/__tests__/gemini.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/services/code-index/embedders/gemini.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/__tests__/embeddingModels.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/shared/embeddingModels.ts",
+          "change_count": 2
+        },
+        {
+          "path": "src/utils/__tests__/tool-id.spec.ts",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/ContextManagementSettings.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/__tests__/ContextManagementSettings.spec.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/settings/providers/Bedrock.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/components/welcome/WelcomeViewProvider.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "webview-ui/src/utils/formatPathTooltip.ts",
+          "change_count": 2
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/config.yml",
+          "change_count": 2
+        },
+        {
+          "path": ".github/workflows/cli-release.yml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/commands/cli-release.md",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/1_extraction_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/2_documentation_patterns.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/2_verification_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/3_analysis_techniques.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/3_output_format.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-docs-extractor/4_communication_guidelines.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-integration-tester/1_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-integration-tester/2_test_patterns.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-integration-tester/3_best_practices.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-integration-tester/4_common_mistakes.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-integration-tester/5_test_environment.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-investigator/1_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-investigator/2_best_practices.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-investigator/4_tool_usage.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-investigator/5_examples.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-investigator/6_communication.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/1_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/2_github_issue_templates.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/3_best_practices.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/4_common_mistakes_to_avoid.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/5_examples.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-issue-writer/5_github_cli_usage.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/1_mode_creation_workflow.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/2_xml_structuring_best_practices.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/3_mode_configuration_patterns.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/4_instruction_file_templates.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/5_complete_mode_examples.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/6_mode_testing_validation.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roo/rules-mode-writer/7_validation_cohesion_checking.xml",
+          "change_count": 2
+        },
+        {
+          "path": ".roomodes",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/docs/AGENT_LOOP.md",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/install.sh",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/scripts/build.sh",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/scripts/release.sh",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/lib/storage/__tests__/settings.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/lib/utils/__tests__/extension.test.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/lib/utils/extension.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/lib/utils/version.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/cli/src/types/constants.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-evals/next-env.d.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-evals/next.config.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/next.config.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/app/cloud/page.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/app/pr-fixer/content-a.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/app/provider/page.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/app/reviewer/content-b.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/app/reviewer/content.ts",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/components/homepage/features.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/components/homepage/install-section.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/components/homepage/testimonials.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/components/homepage/use-examples-section.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/components/ui/navigation-menu.tsx",
+          "change_count": 2
+        },
+        {
+          "path": "apps/web-roo-code/src/images.d.ts",
+          "change_count": 2
+        },
+        {
+          "path": "package.json",
+          "change_count": 2
+        }
+      ],
+      "change_share": 0.8001204093919325,
+      "file_share": 0.6715425531914894,
+      "days": 30
+    },
+    "architectural_hubs": [],
+    "strongly_connected_components": [],
+    "domain_clusters": []
+  },
+  "nodes": [],
+  "links": []
+}
