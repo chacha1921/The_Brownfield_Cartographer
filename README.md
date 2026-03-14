@@ -26,16 +26,37 @@ This creates or updates the local virtual environment and installs all project d
 
 ## CLI usage
 
-The main command is:
+The main analyze command is:
 
 ```bash
 uv run brownfield-cartographer analyze --repo-path <path-or-url>
 ```
 
+Helpful flags:
+
+```bash
+uv run brownfield-cartographer analyze --repo-path <path-or-url> --force-full --sql-dialect spark
+```
+
+- `--force-full` skips cached graph reuse and runs a clean full analysis.
+- `--sql-dialect` selects the SQLGlot dialect used for SQL parsing. The default remains `postgres`, so existing flows keep working unchanged.
+
 You can also still use the backward-compatible form without the subcommand:
 
 ```bash
 uv run brownfield-cartographer --repo-path <path-or-url>
+```
+
+To inspect existing artifacts with Navigator, use:
+
+```bash
+uv run brownfield-cartographer query --repo-path <local-repo-path>
+```
+
+Or ask a one-shot question:
+
+```bash
+uv run brownfield-cartographer query --repo-path <local-repo-path> --question "blast radius for src/pipeline.py"
 ```
 
 ## Analyze a local repository
@@ -72,20 +93,38 @@ After a successful run, Brownfield Cartographer writes:
 
 - `.cartography/module_graph.json`
 - `.cartography/lineage_graph.json`
-- Semanticist-enriched module metadata inside the generated graph payloads when Phase 3 runs
+- `.cartography/CODEBASE.md`
+- `.cartography/onboarding_brief.md`
+- `.cartography/day_one_answers.json`
+- `.cartography/cartography_trace.jsonl`
+- `.cartography/run_metadata.json`
+- Semanticist-enriched module metadata inside `module_graph.json`
 
 These files are created in the analyzed repository.
+
+For remote GitHub analysis, persisted outputs are copied into `.cartography/remotes/<repo-slug>/` in the invoking workspace.
 
 ## What gets analyzed
 
 - Python imports and module relationships
 - Python data reads, writes, and SQL execution paths
-- SQL lineage and write targets
+- SQL lineage and write targets with per-edge metadata: `transformation_type`, `source_file`, `line_start`, `line_end`, and `dialect`
 - dbt schema metadata and dependencies
 - Airflow DAG task topology
 - LLM-generated module purpose statements
 - Domain clusters derived from semantic embeddings
 - Five evidence-backed day-one onboarding answers
+
+## Merged graph logic
+
+`CODEBASE.md` and Navigator queries use a merged in-memory graph composed from `module_graph.json` and `lineage_graph.json`.
+
+- Surveyor contributes module nodes, import edges, PageRank hubs, SCCs, and high-velocity metadata.
+- Hydrologist contributes dataset/transformation nodes, Python/SQL/config lineage edges, SQL dialect metadata, and unresolved dynamic reference summaries.
+- Semanticist contributes `purpose_statement`, `domain_cluster`, `documentation_drift`, and day-one answer citations.
+- `onboarding_brief.md` preserves the same citation paths and line ranges produced in `day_one_answers.json`.
+
+This keeps module architecture and data lineage queryable together without changing the stored source artifacts.
 
 ## Semanticist configuration
 
@@ -121,6 +160,19 @@ ollama pull llama3.2:latest
 ```
 
 If you want a different Gemini or Ollama model, update the related `.env` values without changing application code.
+
+## Trace logging
+
+Every Archivist action appends a record to `.cartography/cartography_trace.jsonl` with:
+
+- `timestamp`
+- `action`
+- `confidence`
+- `evidence`
+- `analysis_methods`
+- `evidence_sources`
+
+This trace is preserved even if a later stage fails, because graph and day-one intermediate artifacts are written defensively during the run.
 
 ## Notes
 

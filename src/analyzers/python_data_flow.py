@@ -53,11 +53,15 @@ class PythonDataFlowAnalyzer(ast.NodeVisitor):
 		self._variable_values: dict[str, str] = {}
 		self._edges: dict[tuple[str, str, str], PythonDataFlowEdge] = {}
 		self._transformation_id: str | None = None
+		self._source_file: str | None = None
+		self.unresolved_references: list[dict[str, str | int]] = []
 
 	def analyze_file(self, file_path: str | Path) -> list[PythonDataFlowEdge]:
 		self._variable_values = {}
 		self._edges = {}
 		self._transformation_id = Path(file_path).as_posix()
+		self._source_file = Path(file_path).as_posix()
+		self.unresolved_references = []
 
 		source = Path(file_path).read_text(encoding="utf-8")
 		tree = ast.parse(source)
@@ -81,16 +85,22 @@ class PythonDataFlowAnalyzer(ast.NodeVisitor):
 		if call_name is not None and self._transformation_id is not None:
 			if self._matches_suffix(call_name, self.READ_CALL_SUFFIXES | self.SPARK_READ_SUFFIXES):
 				for dataset in self._extract_read_datasets(node, call_name):
-					self._add_edge(dataset, self._transformation_id, "CONSUMES")
+					self._add_edge(dataset, self._transformation_id, "CONSUMES", node=node, transformation_type="python_read")
 			elif self._matches_suffix(call_name, self.WRITE_CALL_SUFFIXES | self.SPARK_WRITE_SUFFIXES):
 				for dataset in self._extract_write_datasets(node, call_name):
-					self._add_edge(self._transformation_id, dataset, "PRODUCES")
+					self._add_edge(self._transformation_id, dataset, "PRODUCES", node=node, transformation_type="python_write")
 			elif self._matches_suffix(call_name, self.SQL_READ_CALL_SUFFIXES):
 				for dataset in self._extract_sql_read_datasets(node, call_name):
-					self._add_edge(dataset, self._transformation_id, "CONSUMES")
+					self._add_edge(dataset, self._transformation_id, "CONSUMES", node=node, transformation_type="python_sql_read")
 			elif self._matches_suffix(call_name, self.SQL_EXECUTE_CALL_SUFFIXES):
 				for edge in self._extract_sql_execution_edges(node):
-					self._add_edge(edge["source"], edge["target"], edge["edge_type"])
+					self._add_edge(
+						edge["source"],
+						edge["target"],
+						edge["edge_type"],
+						node=node,
+						transformation_type="python_sql_execute",
+					)
 
 		self.generic_visit(node)
 
@@ -200,7 +210,7 @@ class PythonDataFlowAnalyzer(ast.NodeVisitor):
 		if isinstance(node, ast.Constant) and isinstance(node.value, str):
 			return node.value
 		if isinstance(node, ast.Name):
-			return self._variable_values.get(node.id, self._dynamic_reference(node.id))
+			return self._variable_values.get(node.id, self._dynamic_reference(node.id, node=node))
 		if isinstance(node, ast.JoinedStr):
 			return self._resolve_joined_str(node)
 		if isinstance(node, ast.Call):
@@ -230,13 +240,21 @@ class PythonDataFlowAnalyzer(ast.NodeVisitor):
 		joined = "".join(parts).strip()
 		if not dynamic:
 			return joined
-		return self._dynamic_reference(joined or ast.unparse(node))
+		return self._dynamic_reference(joined or ast.unparse(node), node=node)
 
 	def _looks_like_sql(self, value: str) -> bool:
 		return bool(re.search(r"\b(select|insert|update|delete|merge|create)\b", value, re.IGNORECASE))
 
-	def _dynamic_reference(self, label: str) -> str:
+	def _dynamic_reference(self, label: str, *, node: ast.AST | None = None) -> str:
 		normalized = re.sub(r"[^a-zA-Z0-9._/-]+", "_", label).strip("_") or "unknown"
+		self.unresolved_references.append(
+			{
+				"label": label,
+				"source_file": self._source_file or self._transformation_id or "unknown",
+				"line_start": getattr(node, "lineno", 1) if node is not None else 1,
+				"line_end": getattr(node, "end_lineno", getattr(node, "lineno", 1)) if node is not None else 1,
+			}
+		)
 		return f"dynamic://{normalized}"
 
 	def _call_name(self, node: ast.AST) -> str | None:
@@ -250,9 +268,18 @@ class PythonDataFlowAnalyzer(ast.NodeVisitor):
 	def _matches_suffix(self, call_name: str, suffixes: set[str]) -> bool:
 		return any(call_name.endswith(suffix) for suffix in suffixes)
 
-	def _add_edge(self, source: str, target: str, edge_type: str) -> None:
+	def _add_edge(self, source: str, target: str, edge_type: str, *, node: ast.AST | None = None, transformation_type: str) -> None:
 		key = (source, target, edge_type)
-		self._edges[key] = {"source": source, "target": target, "edge_type": edge_type}
+		self._edges[key] = {
+			"source": source,
+			"target": target,
+			"edge_type": edge_type,
+			"source_file": self._source_file or self._transformation_id or "unknown",
+			"line_start": getattr(node, "lineno", 1) if node is not None else 1,
+			"line_end": getattr(node, "end_lineno", getattr(node, "lineno", 1)) if node is not None else 1,
+			"transformation_type": transformation_type,
+			"dialect": self.dialect,
+		}
 
 
 __all__ = ["PythonDataFlowAnalyzer", "PythonDataFlowEdge"]

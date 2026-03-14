@@ -86,6 +86,7 @@ class SQLLineageAnalyzer:
 	def analyze_sql(self, sql_text: str, transformation_id: str) -> list[SqlLineageEdge]:
 		dependencies = extract_sql_dependencies(sql_text, dialect=self.dialect)
 		edges: list[SqlLineageEdge] = []
+		line_end = max(1, len(sql_text.splitlines()))
 
 		for source_table in dependencies["source_tables"]:
 			edges.append(
@@ -93,6 +94,10 @@ class SQLLineageAnalyzer:
 					"source": source_table,
 					"target": transformation_id,
 					"edge_type": "CONSUMES",
+					"transformation_type": "sql_query",
+					"line_start": 1,
+					"line_end": line_end,
+					"dialect": self.dialect,
 				}
 			)
 
@@ -102,6 +107,10 @@ class SQLLineageAnalyzer:
 					"source": transformation_id,
 					"target": dependencies["target_table"],
 					"edge_type": "PRODUCES",
+					"transformation_type": "sql_query",
+					"line_start": 1,
+					"line_end": line_end,
+					"dialect": self.dialect,
 				}
 			)
 
@@ -110,12 +119,23 @@ class SQLLineageAnalyzer:
 	def analyze_file(self, file_path: str | Path) -> list[SqlLineageEdge]:
 		sql_file = Path(file_path)
 		sql_text = sql_file.read_text(encoding="utf-8")
+		line_end = max(1, len(sql_text.splitlines()))
 
 		if "{{" in sql_text and ("ref(" in sql_text or "source(" in sql_text):
-			return parse_dbt_sql(sql_file)
+			edges = parse_dbt_sql(sql_file)
+			for edge in edges:
+				edge["source_file"] = sql_file.as_posix()
+				edge["line_start"] = 1
+				edge["line_end"] = line_end
+				edge["transformation_type"] = "dbt_model"
+				edge["dialect"] = self.dialect
+			return edges
 
 		try:
-			return self.analyze_sql(sql_text, transformation_id=sql_file.as_posix())
+			edges = self.analyze_sql(sql_text, transformation_id=sql_file.as_posix())
+			for edge in edges:
+				edge["source_file"] = sql_file.as_posix()
+			return edges
 		except Exception:
 			return []
 

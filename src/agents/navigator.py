@@ -45,6 +45,7 @@ class NavigatorState(TypedDict, total=False):
 	tool_name: str
 	tool_input: dict[str, Any]
 	tool_output: dict[str, Any]
+	tool_sequence: list[str]
 	response: str
 
 
@@ -152,7 +153,9 @@ class NavigatorAgent:
 		tool_name = state["tool_name"]
 		tool = self.tools[tool_name]
 		tool_output = tool.invoke(state.get("tool_input", {}))
-		return {**state, "tool_output": tool_output}
+		sequence = list(state.get("tool_sequence", []))
+		sequence.append(tool_name)
+		return {**state, "tool_output": tool_output, "tool_sequence": sequence}
 
 	def _format_response(self, state: NavigatorState) -> NavigatorState:
 		payload = state.get("tool_output", {})
@@ -168,6 +171,11 @@ class NavigatorAgent:
 			line_end = item.get("line_end", line_start)
 			analysis_method = item.get("analysis_method", "static-analysis")
 			lines.append(f"- {source_file}:L{line_start}-L{line_end} via {analysis_method}")
+
+		tool_sequence = state.get("tool_sequence", [])
+		if tool_sequence:
+			lines.extend(["", "Tool sequence:"])
+			lines.extend(f"- {tool_name}" for tool_name in tool_sequence)
 
 		response = f"{self.SYSTEM_PROMPT}\n\n" + "\n".join(lines)
 		return {**state, "response": response}
@@ -193,7 +201,7 @@ class NavigatorAgent:
 			for entry, _ in top_matches
 		]
 		return {
-			"answer": f"Top implementation matches for '{concept}':\n" + "\n".join(f"- {line}" for line in match_lines),
+			"answer": f"Top implementation matches for '{concept}' using {self._embedding_backend}:\n" + "\n".join(f"- {line}" for line in match_lines),
 			"evidence": evidence,
 		}
 

@@ -3,27 +3,44 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from agents.navigator import NavigatorAgent
+from graph.knowledge_graph import KnowledgeGraph
 from orchestrator import Orchestrator
-from utils import TerminalLogger, is_remote_repo_path, persist_remote_outputs, resolve_repo_path
+from utils import TerminalLogger, is_remote_repo_path, merge_cartography_graphs, persist_remote_outputs, resolve_repo_path
 
 
 def build_parser() -> argparse.ArgumentParser:
-	parser = argparse.ArgumentParser(description="Analyze a repository and export cartography graphs.")
+	parser = argparse.ArgumentParser(
+		description="Analyze brownfield repositories into import, lineage, semantic, and onboarding artifacts.",
+	)
 	subparsers = parser.add_subparsers(dest="command")
 
-	analyze_parser = subparsers.add_parser("analyze", help="Run repository analysis and export cartography graphs.")
+	analyze_parser = subparsers.add_parser("analyze", help="Run the full cartography pipeline and write .cartography artifacts.")
 	analyze_parser.add_argument("--repo-path", required=True, help="Path or GitHub URL of the repository to analyze.")
+	analyze_parser.add_argument("--force-full", action="store_true", help="Ignore cached graphs and re-run the full pipeline.")
+	analyze_parser.add_argument("--sql-dialect", default="postgres", help="SQL dialect for SQLGlot parsing, e.g. postgres, spark, bigquery.")
+
+	query_parser = subparsers.add_parser("query", help="Launch Navigator over existing .cartography artifacts.")
+	query_parser.add_argument("--repo-path", required=True, help="Path to a repository that already contains .cartography artifacts.")
+	query_parser.add_argument("--question", help="Optional one-shot question. If omitted, interactive mode starts.")
 
 	parser.add_argument("--repo-path", help="Path or GitHub URL of the repository to analyze.")
 	return parser
 
 def main() -> int:
 	args = build_parser().parse_args()
+	if getattr(args, "command", None) == "query":
+		return _run_query_command(args.repo_path, getattr(args, "question", None))
+
 	repo_path = args.repo_path
 	logger = TerminalLogger()
+	force_full = False
+	sql_dialect = "postgres"
 
 	if getattr(args, "command", None) == "analyze":
 		repo_path = args.repo_path
+		force_full = bool(getattr(args, "force_full", False))
+		sql_dialect = str(getattr(args, "sql_dialect", "postgres"))
 
 	if not repo_path:
 		raise SystemExit("A --repo-path value is required. Use `brownfield-cartographer analyze --repo-path <path>`.")
@@ -35,7 +52,7 @@ def main() -> int:
 
 	with resolve_repo_path(repo_path) as resolved_repo_path:
 		logger.success(f"Repository ready: {resolved_repo_path}")
-		outputs = Orchestrator(resolved_repo_path, env_path=env_path).run()
+		outputs = Orchestrator(resolved_repo_path, env_path=env_path, force_full=force_full, sql_dialect=sql_dialect).run()
 		if is_remote_repo_path(repo_path):
 			logger.section("Persisting remote artifacts")
 			logger.step("Copying outputs from temporary clone", "Saving generated artifacts into .cartography/remotes")
@@ -48,7 +65,41 @@ def main() -> int:
 		logger.artifact("codebase brief", outputs["codebase"])
 	if "onboarding_brief" in outputs:
 		logger.artifact("onboarding brief", outputs["onboarding_brief"])
+	if "trace" in outputs:
+		logger.artifact("trace log", outputs["trace"])
 	return 0
+
+
+def _run_query_command(repo_path: str, question: str | None) -> int:
+	repository_root = Path(repo_path).resolve()
+	artifact_dir = repository_root / ".cartography"
+	module_graph_path = artifact_dir / "module_graph.json"
+	lineage_graph_path = artifact_dir / "lineage_graph.json"
+	if not module_graph_path.exists() or not lineage_graph_path.exists():
+		raise SystemExit("Navigator requires existing .cartography/module_graph.json and .cartography/lineage_graph.json artifacts.")
+
+	module_graph = KnowledgeGraph.load_from_json(module_graph_path)
+	lineage_graph = KnowledgeGraph.load_from_json(lineage_graph_path)
+	merged_graph = merge_cartography_graphs(module_graph, lineage_graph)
+	navigator = NavigatorAgent(repository_root, merged_graph)
+
+	if question:
+		print(navigator.answer(question))
+		return 0
+
+	print("Navigator interactive mode. Type 'exit' or 'quit' to stop.")
+	while True:
+		try:
+			prompt = input("query> ").strip()
+		except (EOFError, KeyboardInterrupt):
+			print()
+			return 0
+		if not prompt:
+			continue
+		if prompt.lower() in {"exit", "quit"}:
+			return 0
+		print(navigator.answer(prompt))
+		print()
 
 __all__ = [
 	"build_parser",

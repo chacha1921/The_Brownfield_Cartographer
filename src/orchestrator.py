@@ -9,15 +9,17 @@ from agents.semanticist import SemanticistAgent
 from agents.surveyor import SurveyorAgent
 from graph.knowledge_graph import KnowledgeGraph
 from models.schemas import EdgeType, FunctionNode, ModuleNode
-from utils import TerminalLogger, current_commit_hash, get_changed_files, is_git_repository
+from utils import TerminalLogger, current_commit_hash, get_changed_files, is_git_repository, merge_cartography_graphs
 
 
 class Orchestrator:
 	DAY_ONE_PROMPT_VERSION = 2
 
-	def __init__(self, repo_path: str | Path, *, env_path: str | Path | None = None) -> None:
+	def __init__(self, repo_path: str | Path, *, env_path: str | Path | None = None, force_full: bool = False, sql_dialect: str = "postgres") -> None:
 		self.repo_path = Path(repo_path).resolve()
 		self.env_path = Path(env_path).resolve() if env_path is not None else None
+		self.force_full = force_full
+		self.sql_dialect = sql_dialect
 		self.output_dir = self.repo_path / ".cartography"
 		self.module_graph_path = self.output_dir / "module_graph.json"
 		self.lineage_graph_path = self.output_dir / "lineage_graph.json"
@@ -26,7 +28,7 @@ class Orchestrator:
 		self.day_one_answers_path = self.output_dir / "day_one_answers.json"
 		self.run_metadata_path = self.output_dir / "run_metadata.json"
 		self.surveyor = SurveyorAgent(self.repo_path)
-		self.hydrologist = HydrologistAgent(self.repo_path)
+		self.hydrologist = HydrologistAgent(self.repo_path, dialect=sql_dialect)
 		self.semanticist = SemanticistAgent(self.repo_path, env_path=self.env_path)
 		self.archivist = ArchivistAgent(self.repo_path)
 		self.logger = TerminalLogger()
@@ -34,6 +36,12 @@ class Orchestrator:
 	def run(self) -> dict[str, str]:
 		self.logger.start_run("Brownfield Cartographer", f"Repository: {self.repo_path}")
 		self.output_dir.mkdir(parents=True, exist_ok=True)
+		self.archivist.ensure_trace_file()
+		self.archivist.log_trace(
+			action="run_started",
+			evidence={"source_file": str(self.repo_path), "line_start": 1, "line_end": 1, "analysis_method": "orchestration"},
+			confidence=1.0,
+		)
 		self.logger.section("Preparing analysis")
 		self.logger.step("Creating output directory", str(self.output_dir))
 		previous_metadata = self._load_run_metadata()
@@ -41,8 +49,11 @@ class Orchestrator:
 		has_saved_graphs = self._has_saved_graphs()
 		self.logger.detail(f"Saved graphs available: {'yes' if has_saved_graphs else 'no'}")
 		self.logger.detail(f"Changed files detected: {len(incremental_candidates)}")
+		self.logger.detail(f"SQL dialect: {self.sql_dialect}")
+		if self.force_full:
+			self.logger.detail("Force full re-analysis: enabled")
 
-		used_incremental = has_saved_graphs and self._is_git_repository()
+		used_incremental = not self.force_full and has_saved_graphs and self._is_git_repository()
 		if used_incremental:
 			self.logger.section("Incremental execution")
 			self.logger.step("Loading cached graphs", "Reusing previous graph artifacts when possible")
@@ -78,9 +89,13 @@ class Orchestrator:
 				confidence=0.9,
 			)
 
+		module_graph.save_to_json(self.module_graph_path)
+		lineage_graph.save_to_json(self.lineage_graph_path)
+
 		self.logger.section("Semantic enrichment")
 		self.logger.step("Generating purpose statements and domain clusters", "Running Semanticist over module graph nodes")
 		semantic_summary = self._enrich_module_graph(module_graph, incremental_candidates, force=not used_incremental)
+		module_graph.save_to_json(self.module_graph_path)
 		cluster_count = len(semantic_summary.get("clusters", [])) if isinstance(semantic_summary, dict) else 0
 		self.logger.detail(f"Domain clusters available: {cluster_count}")
 
@@ -94,20 +109,20 @@ class Orchestrator:
 			incremental_candidates,
 			previous_metadata,
 		)
+		self.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding="utf-8")
+		merged_graph = merge_cartography_graphs(module_graph, lineage_graph)
 
 		self.logger.section("Writing artifacts")
 		self.logger.step("Persisting graph and markdown outputs", "Saving .cartography artifacts for the repository")
-		module_graph.save_to_json(self.module_graph_path)
-		lineage_graph.save_to_json(self.lineage_graph_path)
-		self._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(module_graph))
+		self._write_text_file(self.codebase_path, self.archivist.generate_CODEBASE_md(merged_graph))
 		self._write_text_file(self.onboarding_brief_path, self.archivist.generate_onboarding_brief(day_one_answers))
-		self.day_one_answers_path.write_text(json.dumps(day_one_answers, indent=2), encoding="utf-8")
 		self._save_run_metadata(changed_files=incremental_candidates, used_incremental=used_incremental)
 		self.logger.artifact("module graph", str(self.module_graph_path))
 		self.logger.artifact("lineage graph", str(self.lineage_graph_path))
 		self.logger.artifact("codebase brief", str(self.codebase_path))
 		self.logger.artifact("onboarding brief", str(self.onboarding_brief_path))
 		self.logger.artifact("day-one answers", str(self.day_one_answers_path))
+		self.logger.artifact("trace log", str(self.archivist.trace_path))
 		self.logger.artifact("run metadata", str(self.run_metadata_path))
 		self.logger.finish_run("Artifacts generated successfully")
 
@@ -117,6 +132,7 @@ class Orchestrator:
 			"codebase": str(self.codebase_path),
 			"onboarding_brief": str(self.onboarding_brief_path),
 			"day_one_answers": str(self.day_one_answers_path),
+			"trace": str(self.archivist.trace_path),
 			"trace": str(self.archivist.trace_path),
 		}
 
@@ -150,6 +166,8 @@ class Orchestrator:
 			"last_run_commit": self._current_commit_hash(),
 			"changed_files": changed_files,
 			"used_incremental": used_incremental,
+			"sql_dialect": self.sql_dialect,
+			"force_full": self.force_full,
 			"day_one_prompt_version": self.DAY_ONE_PROMPT_VERSION,
 		}
 		self.run_metadata_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

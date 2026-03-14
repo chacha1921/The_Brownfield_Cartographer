@@ -17,10 +17,11 @@ class KnowledgeGraph:
 		node_payload = node.model_dump(mode="json")
 		self.graph.add_node(node.id, **node_payload)
 
-	def add_edge(self, source: Node | str, target: Node | str, edge_type: EdgeType) -> None:
+	def add_edge(self, source: Node | str, target: Node | str, edge_type: EdgeType, **metadata: Any) -> None:
 		source_id = source.id if isinstance(source, Node) else source
 		target_id = target.id if isinstance(target, Node) else target
-		self.graph.add_edge(source_id, target_id, edge_type=edge_type.value)
+		edge_payload = {"edge_type": edge_type.value, **metadata}
+		self.graph.add_edge(source_id, target_id, **edge_payload)
 
 	def save_to_json(self, file_path: str | Path) -> None:
 		destination = Path(file_path)

@@ -1,5 +1,6 @@
 from .terminal_logger import TerminalLogger
 from .git import current_commit_hash, get_changed_files, is_git_repository
+from .graph_merge import merge_cartography_graphs
 from .repository import (
 	is_remote_repo_path,
 	normalize_repo_url,
@@ -13,6 +14,7 @@ __all__ = [
 	"current_commit_hash",
 	"get_changed_files",
 	"is_git_repository",
+	"merge_cartography_graphs",
 	"is_remote_repo_path",
 	"normalize_repo_url",
 	"persist_remote_outputs",

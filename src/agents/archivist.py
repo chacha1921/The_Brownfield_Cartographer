@@ -23,15 +23,22 @@ class ArchivistAgent:
         data_sources, data_sinks = self._data_sources_and_sinks(graph)
         known_debt = self._known_debt(graph)
         high_velocity_files = self._high_velocity_files(graph)
+        module_purpose_index = self._module_purpose_index(graph)
+        ai_consumption_notes = self._ai_consumption_notes(graph)
 
         markdown_lines = [
             "# CODEBASE",
+            "",
+            "## AI Consumption Guide",
+        ]
+        markdown_lines.extend(f"- {item}" for item in ai_consumption_notes)
+        markdown_lines.extend([
             "",
             "## Architecture Overview",
             architecture_overview,
             "",
             "## Critical Path",
-        ]
+        ])
         markdown_lines.extend(f"- {item}" for item in critical_path)
         markdown_lines.extend([
             "",
@@ -54,6 +61,11 @@ class ArchivistAgent:
             "## High-Velocity Files",
         ])
         markdown_lines.extend(f"- {item}" for item in high_velocity_files)
+        markdown_lines.extend([
+            "",
+            "## Module Purpose Index",
+        ])
+        markdown_lines.extend(f"- {item}" for item in module_purpose_index)
         markdown = "\n".join(markdown_lines)
 
         self.log_trace(
@@ -69,6 +81,7 @@ class ArchivistAgent:
             "# onboarding_brief",
             "",
             "This brief summarizes the semantic synthesis for a new forward-deployed engineer joining the codebase.",
+            "Citations below are propagated directly from Semanticist day-one answers to keep downstream references stable for AI-assisted onboarding.",
             "",
         ]
 
@@ -111,14 +124,21 @@ class ArchivistAgent:
 
     def log_trace(self, action: str, evidence: Any, confidence: float) -> None:
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        normalized_evidence = self._normalize_evidence(evidence)
         record = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "action": action,
             "confidence": float(confidence),
-            "evidence": self._normalize_evidence(evidence),
+            "evidence": normalized_evidence,
+            "analysis_methods": sorted({item["analysis_method"] for item in normalized_evidence}),
+            "evidence_sources": sorted({item["source_file"] for item in normalized_evidence}),
         }
         with self.trace_path.open("a", encoding="utf-8") as trace_file:
             trace_file.write(json.dumps(record) + "\n")
+
+    def ensure_trace_file(self) -> None:
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.trace_path.touch(exist_ok=True)
 
     def _coerce_graph(self, knowledge_graph: KnowledgeGraph | nx.DiGraph) -> nx.DiGraph:
         if isinstance(knowledge_graph, KnowledgeGraph):
@@ -207,6 +227,30 @@ class ArchivistAgent:
             entries = [f"{path} ({velocity:.0f} changes / 30d)" for path, velocity in module_entries[:5] if velocity > 0]
 
         return self._fallback_list(entries, "No high-velocity file data available.")
+
+    def _module_purpose_index(self, graph: nx.DiGraph) -> list[str]:
+        entries: list[str] = []
+        for node_id, attrs in sorted(graph.nodes(data=True), key=lambda item: str(item[0])):
+            if attrs.get("node_type") != "module":
+                continue
+            purpose_statement = attrs.get("purpose_statement")
+            if not isinstance(purpose_statement, str) or not purpose_statement.strip():
+                continue
+            cluster = attrs.get("domain_cluster") or "Unclustered"
+            entries.append(f"{node_id} [{cluster}] — {purpose_statement.strip()}")
+        return self._fallback_list(entries, "No module purpose statements available.")
+
+    def _ai_consumption_notes(self, graph: nx.DiGraph) -> list[str]:
+        merge_logic = graph.graph.get("graph_merge_logic", {}) if isinstance(graph.graph.get("graph_merge_logic", {}), dict) else {}
+        lineage_attrs = graph.graph.get("lineage_graph_attributes", {}) if isinstance(graph.graph.get("lineage_graph_attributes", {}), dict) else {}
+        return [
+            "Architecture Overview uses graph-level counts plus Surveyor architectural hub and SCC metadata when available.",
+            "Critical Path is driven by architectural_hubs/PageRank from Surveyor-enriched module graph attributes.",
+            "Data Sources & Sinks are derived from merged lineage dataset nodes and edge metadata from Python, SQL, and config analysis.",
+            "Module Purpose Index is grounded in Semanticist purpose_statement and domain_cluster node attributes.",
+            f"Lineage merge logic: {merge_logic.get('strategy', 'composed merged graph')} with dialect {lineage_attrs.get('sql_dialect', 'postgres')}.",
+            f"Onboarding citations flow from day_one_answers into onboarding_brief via preserved source_file/line_range evidence.",
+        ]
 
     def _normalize_evidence(self, evidence: Any) -> list[dict[str, Any]]:
         if evidence is None:

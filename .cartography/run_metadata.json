@@ -1,6 +1,19 @@
 {
-  "last_run_commit": "ad8274c2830b76cb088bb69f39382d34744fcd61",
-  "changed_files": [],
+  "last_run_commit": "0ecc769ddedecdda5310dfe8faec786a6afab23a",
+  "changed_files": [
+    "pyproject.toml",
+    "src/agents/semanticist.py",
+    "src/brownfield_cartographer/cli.py",
+    "src/cli.py",
+    "src/orchestrator.py",
+    "src/utils/__init__.py",
+    "src/utils/git.py",
+    "src/utils/repository.py",
+    "src/utils/terminal_logger.py",
+    "uv.lock"
+  ],
   "used_incremental": true,
+  "sql_dialect": "postgres",
+  "force_full": false,
   "day_one_prompt_version": 2
 }

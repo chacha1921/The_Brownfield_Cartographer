@@ -18,15 +18,27 @@ class LineageEdge(TypedDict):
 
 
 class HydrologistAgent:
-	def __init__(self, repository_path: str | Path) -> None:
+	def __init__(self, repository_path: str | Path, *, dialect: str = "postgres") -> None:
 		self.repository_path = Path(repository_path).resolve()
+		self.dialect = dialect
 		self.knowledge_graph = KnowledgeGraph()
-		self.python_data_flow_analyzer = PythonDataFlowAnalyzer()
-		self.sql_lineage_analyzer = SQLLineageAnalyzer()
+		self.python_data_flow_analyzer = PythonDataFlowAnalyzer(dialect=dialect)
+		self.sql_lineage_analyzer = SQLLineageAnalyzer(dialect=dialect)
 		self.dag_config_analyzer = DAGConfigAnalyzer()
 
 	def build_lineage_graph(self) -> KnowledgeGraph:
 		self.knowledge_graph = KnowledgeGraph()
+		self.knowledge_graph.graph.graph.update(
+			{
+				"sql_dialect": self.dialect,
+				"unresolved_dynamic_references": [],
+				"lineage_merge_logic": {
+					"python": "Python IO and embedded SQL produce CONSUMES/PRODUCES edges.",
+					"sql": "Standalone SQL and dbt models produce file-backed lineage edges.",
+					"config": "Airflow/dbt YAML config contributes CONFIGURES edges and resource nodes.",
+				},
+			}
+		)
 
 		for yaml_file in self._iter_files((".yml", ".yaml")):
 			if yaml_file.name == "dbt_project.yml":
@@ -35,7 +47,9 @@ class HydrologistAgent:
 				self.knowledge_graph.add_node(node)
 
 		for python_file in self._iter_files((".py",)):
-			self._register_lineage_edges(python_file, self.python_data_flow_analyzer.analyze_file(python_file))
+			python_edges = self.python_data_flow_analyzer.analyze_file(python_file)
+			self._register_lineage_edges(python_file, python_edges)
+			self.knowledge_graph.graph.graph["unresolved_dynamic_references"].extend(self.python_data_flow_analyzer.unresolved_references)
 			self._register_airflow_topology(python_file)
 
 		for sql_file in self._iter_files((".sql",)):
@@ -108,7 +122,16 @@ class HydrologistAgent:
 
 			self._ensure_lineage_node(source_id, edge_type=edge_type, is_source=True)
 			self._ensure_lineage_node(target_id, edge_type=edge_type, is_source=False)
-			self.knowledge_graph.add_edge(source_id, target_id, edge_type)
+			self.knowledge_graph.add_edge(
+				source_id,
+				target_id,
+				edge_type,
+				source_file=edge.get("source_file", relative_file_id),
+				line_start=int(edge.get("line_start", 1)),
+				line_end=int(edge.get("line_end", edge.get("line_start", 1) or 1)),
+				transformation_type=edge.get("transformation_type", "unknown"),
+				dialect=edge.get("dialect", self.dialect),
+			)
 
 	def _register_airflow_topology(self, python_file: Path) -> None:
 		parsed_dag = self.dag_config_analyzer.analyze_airflow_dag(python_file)
