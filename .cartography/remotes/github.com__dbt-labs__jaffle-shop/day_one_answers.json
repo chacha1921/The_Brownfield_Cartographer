@@ -1,0 +1,366 @@
+{
+  "provider_used": "gemini",
+  "model_used": "gemini-2.5-flash",
+  "prompt_tokens": 6869,
+  "response_tokens": 1196,
+  "answers": [
+    {
+      "question": "What business capability does this codebase primarily support?",
+      "answer": "This codebase primarily supports the automated transformation and orchestration of raw e-commerce data into a structured analytical data mart. It enables the creation of refined datasets for business intelligence and reporting, such as customer profiles, product information, and order details.",
+      "citations": [
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 26,
+          "line_end": 55
+        },
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 101,
+          "line_end": 130
+        },
+        {
+          "path": "models/staging/stg_products.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "models/marts/customers.sql",
+          "line_start": 26,
+          "line_end": 55
+        }
+      ]
+    },
+    {
+      "question": "Which modules and workflows should a new engineer read first to understand the system's critical path?",
+      "answer": "To grasp the system's critical path, a new engineer should first examine `.github/workflows/scripts/dbt_cloud_run_job.py` to understand the job orchestration and monitoring process. Following this, reviewing `models/staging/stg_orders.sql` and `models/staging/stg_order_items.sql` will clarify how raw order data is initially prepared. Finally, `models/marts/customers.sql` demonstrates the aggregation and enrichment of core business entities.",
+      "citations": [
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 101,
+          "line_end": 130
+        },
+        {
+          "path": "models/staging/stg_orders.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "models/staging/stg_order_items.sql",
+          "line_start": 1,
+          "line_end": 22
+        },
+        {
+          "path": "models/marts/customers.sql",
+          "line_start": 1,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "question": "Where are the highest-risk change surfaces, and why?",
+      "answer": "The highest-risk change surface is the `.github/workflows/scripts/dbt_cloud_run_job.py` module, as it serves as the central orchestration hub for all dbt job executions; any modification here could halt the entire data pipeline. Additionally, core staging models like `models/staging/stg_products.sql` and `models/staging/stg_orders.sql` are high-risk, since changes to their schema or fundamental transformations would propagate errors across numerous dependent downstream mart models.",
+      "citations": [
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "models/staging/stg_products.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "models/staging/stg_orders.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "models/marts/orders.sql",
+          "line_start": 1,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "question": "How does data enter, move through, and exit the system?",
+      "answer": "Data enters the system from raw `ecom` sources, such as `ecom.raw_customers` and `ecom.raw_orders`, which are referenced directly in staging models. The `.github/workflows/scripts/dbt_cloud_run_job.py` script orchestrates the dbt transformations, moving data through staging layers (e.g., `stg_customers`, `stg_orders`) for initial cleaning and standardization. Subsequently, data flows into mart models (e.g., `customers`, `products`) where it is aggregated and enriched, ultimately exiting as refined analytical datasets.",
+      "citations": [
+        {
+          "path": "models/staging/stg_customers.sql",
+          "line_start": 1,
+          "line_end": 23
+        },
+        {
+          "path": "models/staging/stg_orders.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "models/marts/customers.sql",
+          "line_start": 51,
+          "line_end": 58
+        },
+        {
+          "path": "models/marts/products.sql",
+          "line_start": 1,
+          "line_end": 9
+        }
+      ]
+    },
+    {
+      "question": "What domain architecture map best explains how responsibilities are split across the codebase?",
+      "answer": "The codebase's responsibilities are primarily divided into `orchestration` and data transformation. The `orchestration` domain, encapsulated by the `dbt_cloud_run_job.py` module, manages the programmatic initiation and monitoring of dbt Cloud jobs. The remaining components, structured as dbt models within `models/staging` and `models/marts`, are dedicated to the sequential transformation of raw e-commerce data into clean, aggregated, and business-ready analytical datasets.",
+      "citations": [
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 26,
+          "line_end": 55
+        },
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "line_start": 76,
+          "line_end": 105
+        },
+        {
+          "path": "models/staging/stg_products.sql",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "models/marts/customers.sql",
+          "line_start": 26,
+          "line_end": 55
+        }
+      ]
+    }
+  ],
+  "evidence_bundle": {
+    "files": [
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: import os\n2: import time\n3: import requests\n4: \n5: # ------------------------------------------------------------------------------\n6: # get environment variables\n7: # ------------------------------------------------------------------------------\n8: api_base = os.getenv(\n9:     \"DBT_URL\", \"https://cloud.getdbt.com\"\n10: )  # default to multitenant url\n11: job_cause = os.getenv(\n12:     \"DBT_JOB_CAUSE\", \"API-triggered job\"\n13: )  # default to generic message\n14: git_branch = os.getenv(\"DBT_JOB_BRANCH\", None)  # default to None\n15: schema_override = os.getenv(\"DBT_JOB_SCHEMA_OVERRIDE\", None)  # default to None\n16: api_key = os.environ[\n17:     \"DBT_API_KEY\"\n18: ]  # no default here, just throw an error here if key not provided\n19: account_id = os.environ[\n20:     \"DBT_ACCOUNT_ID\"\n21: ]  # no default here, just throw an error here if id not provided\n22: project_id = os.environ[\n23:     \"DBT_PROJECT_ID\"\n24: ]  # no default here, just throw an error here if id not provided\n25: job_id = os.environ[\n26:     \"DBT_PR_JOB_ID\"\n27: ]  # no default here, just throw an error here if id not provided\n28: \n29: print(f\"\"\"\n30: Configuration:"
+      },
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26:     \"DBT_PR_JOB_ID\"\n27: ]  # no default here, just throw an error here if id not provided\n28: \n29: print(f\"\"\"\n30: Configuration:\n31: api_base: {api_base}\n32: job_cause: {job_cause}\n33: git_branch: {git_branch}\n34: schema_override: {schema_override}\n35: account_id: {account_id}\n36: project_id: {project_id}\n37: job_id: {job_id}\n38: \"\"\")\n39: \n40: req_auth_header = {\"Authorization\": f\"Token {api_key}\"}\n41: req_job_url = f\"{api_base}/api/v2/accounts/{account_id}/jobs/{job_id}/run/\"\n42: run_status_map = {  # dbt run statuses are encoded as integers. This map provides a human-readable status\n43:     1: \"Queued\",\n44:     2: \"Starting\",\n45:     3: \"Running\",\n46:     10: \"Success\",\n47:     20: \"Error\",\n48:     30: \"Cancelled\",\n49: }\n50: \n51: type AuthHeader = dict[str, str]\n52: \n53: \n54: def run_job(\n55:     url: str,"
+      },
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 51,
+        "line_end": 80,
+        "excerpt": "51: type AuthHeader = dict[str, str]\n52: \n53: \n54: def run_job(\n55:     url: str,\n56:     headers: AuthHeader,\n57:     cause: str,\n58:     branch: str | None = None,\n59:     schema_override: str | None = None,\n60: ) -> int:\n61:     \"\"\"\n62:     Runs a dbt job\n63:     \"\"\"\n64: \n65:     # build payload\n66:     req_payload = {\"cause\": cause}\n67:     if branch and not branch.startswith(\n68:         \"$(\"\n69:     ):  # starts with '$(' indicates a valid branch name was not provided\n70:         req_payload[\"git_branch\"] = branch.replace(\"refs/heads/\", \"\")\n71:     if schema_override:\n72:         req_payload[\"schema_override\"] = schema_override.replace(\"-\", \"_\").replace(\n73:             \"/\", \"_\"\n74:         )\n75: \n76:     # trigger job\n77:     print(f\"Triggering job:\\n\\turl: {url}\\n\\tpayload: {req_payload}\")\n78: \n79:     response = requests.post(url, headers=headers, json=req_payload)\n80:     run_id: int = response.json()[\"data\"][\"id\"]"
+      },
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 76,
+        "line_end": 105,
+        "excerpt": "76:     # trigger job\n77:     print(f\"Triggering job:\\n\\turl: {url}\\n\\tpayload: {req_payload}\")\n78: \n79:     response = requests.post(url, headers=headers, json=req_payload)\n80:     run_id: int = response.json()[\"data\"][\"id\"]\n81:     return run_id\n82: \n83: \n84: def get_run_status(url: str, headers: AuthHeader) -> str:\n85:     \"\"\"\n86:     gets the status of a running dbt job\n87:     \"\"\"\n88:     # get status\n89:     response = requests.get(url, headers=headers)\n90:     run_status_code: int = response.json()[\"data\"][\"status\"]\n91:     run_status = run_status_map[run_status_code]\n92:     return run_status\n93: \n94: \n95: def main():\n96:     print(\"Beginning request for job run...\")\n97: \n98:     # run job\n99:     run_id: int = 0\n100:     try:\n101:         run_id = run_job(\n102:             req_job_url, req_auth_header, job_cause, git_branch, schema_override\n103:         )\n104:     except Exception as e:\n105:         print(f\"ERROR! - Could not trigger job:\\n {e}\")"
+      },
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 101,
+        "line_end": 130,
+        "excerpt": "101:         run_id = run_job(\n102:             req_job_url, req_auth_header, job_cause, git_branch, schema_override\n103:         )\n104:     except Exception as e:\n105:         print(f\"ERROR! - Could not trigger job:\\n {e}\")\n106:         raise\n107: \n108:     # build status check url and run status link\n109:     req_status_url = f\"{api_base}/api/v2/accounts/{account_id}/runs/{run_id}/\"\n110:     run_status_link = (\n111:         f\"{api_base}/deploy/{account_id}/projects/{project_id}/runs/{run_id}/\"\n112:     )\n113: \n114:     # update user with status link\n115:     print(f\"Job running! See job status at {run_status_link}\")\n116: \n117:     # check status indefinitely with an initial wait period\n118:     time.sleep(30)\n119:     while True:\n120:         status = get_run_status(req_status_url, req_auth_header)\n121:         print(f\"Run status -> {status}\")\n122: \n123:         if status in [\"Error\", \"Cancelled\"]:\n124:             raise Exception(f\"Run failed or canceled. See why at {run_status_link}\")\n125: \n126:         if status == \"Success\":\n127:             print(f\"Job completed successfully! See details at {run_status_link}\")\n128:             return\n129: \n130:         time.sleep(10)"
+      },
+      {
+        "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+        "line_start": 126,
+        "line_end": 134,
+        "excerpt": "126:         if status == \"Success\":\n127:             print(f\"Job completed successfully! See details at {run_status_link}\")\n128:             return\n129: \n130:         time.sleep(10)\n131: \n132: \n133: if __name__ == \"__main__\":\n134:     main()"
+      },
+      {
+        "path": "models/staging/stg_products.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_products') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         sku as product_id,\n15: \n16:         ---------- text\n17:         name as product_name,\n18:         type as product_type,\n19:         description as product_description,\n20: \n21: \n22:         ---------- numerics\n23:         {{ cents_to_dollars('price') }} as product_price,\n24: \n25:         ---------- booleans\n26:         coalesce(type = 'jaffle', false) as is_food_item,\n27: \n28:         coalesce(type = 'beverage', false) as is_drink_item\n29: \n30:     from source"
+      },
+      {
+        "path": "models/staging/stg_products.sql",
+        "line_start": 26,
+        "line_end": 34,
+        "excerpt": "26:         coalesce(type = 'jaffle', false) as is_food_item,\n27: \n28:         coalesce(type = 'beverage', false) as is_drink_item\n29: \n30:     from source\n31: \n32: )\n33: \n34: select * from renamed"
+      },
+      {
+        "path": "models/staging/stg_customers.sql",
+        "line_start": 1,
+        "line_end": 23,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_customers') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         id as customer_id,\n15: \n16:         ---------- text\n17:         name as customer_name\n18: \n19:     from source\n20: \n21: )\n22: \n23: select * from renamed"
+      },
+      {
+        "path": "models/staging/stg_supplies.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_supplies') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,\n15:         id as supply_id,\n16:         sku as product_id,\n17: \n18:         ---------- text\n19:         name as supply_name,\n20: \n21:         ---------- numerics\n22:         {{ cents_to_dollars('cost') }} as supply_cost,\n23: \n24:         ---------- booleans\n25:         perishable as is_perishable_supply\n26: \n27:     from source\n28: \n29: )\n30: "
+      },
+      {
+        "path": "models/staging/stg_supplies.sql",
+        "line_start": 26,
+        "line_end": 31,
+        "excerpt": "26: \n27:     from source\n28: \n29: )\n30: \n31: select * from renamed"
+      },
+      {
+        "path": "models/staging/stg_orders.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_orders') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         id as order_id,\n15:         store_id as location_id,\n16:         customer as customer_id,\n17: \n18:         ---------- numerics\n19:         subtotal as subtotal_cents,\n20:         tax_paid as tax_paid_cents,\n21:         order_total as order_total_cents,\n22:         {{ cents_to_dollars('subtotal') }} as subtotal,\n23:         {{ cents_to_dollars('tax_paid') }} as tax_paid,\n24:         {{ cents_to_dollars('order_total') }} as order_total,\n25: \n26:         ---------- timestamps\n27:         {{ dbt.date_trunc('day','ordered_at') }} as ordered_at\n28: \n29:     from source\n30: "
+      },
+      {
+        "path": "models/staging/stg_orders.sql",
+        "line_start": 26,
+        "line_end": 33,
+        "excerpt": "26:         ---------- timestamps\n27:         {{ dbt.date_trunc('day','ordered_at') }} as ordered_at\n28: \n29:     from source\n30: \n31: )\n32: \n33: select * from renamed"
+      },
+      {
+        "path": "models/staging/stg_order_items.sql",
+        "line_start": 1,
+        "line_end": 22,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_items') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         id as order_item_id,\n15:         order_id,\n16:         sku as product_id\n17: \n18:     from source\n19: \n20: )\n21: \n22: select * from renamed"
+      },
+      {
+        "path": "models/staging/stg_locations.sql",
+        "line_start": 1,
+        "line_end": 29,
+        "excerpt": "1: with\n2: \n3: source as (\n4: \n5:     select * from {{ source('ecom', 'raw_stores') }}\n6: \n7: ),\n8: \n9: renamed as (\n10: \n11:     select\n12: \n13:         ----------  ids\n14:         id as location_id,\n15: \n16:         ---------- text\n17:         name as location_name,\n18: \n19:         ---------- numerics\n20:         tax_rate,\n21: \n22:         ---------- timestamps\n23:         {{ dbt.date_trunc('day', 'opened_at') }} as opened_date\n24: \n25:     from source\n26: \n27: )\n28: \n29: select * from renamed"
+      },
+      {
+        "path": "models/marts/supplies.sql",
+        "line_start": 1,
+        "line_end": 9,
+        "excerpt": "1: with\n2: \n3: supplies as (\n4: \n5:     select * from {{ ref('stg_supplies') }}\n6: \n7: )\n8: \n9: select * from supplies"
+      },
+      {
+        "path": "models/marts/products.sql",
+        "line_start": 1,
+        "line_end": 9,
+        "excerpt": "1: with\n2: \n3: products as (\n4: \n5:     select * from {{ ref('stg_products') }}\n6: \n7: )\n8: \n9: select * from products"
+      },
+      {
+        "path": "models/marts/customers.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: customers as (\n4: \n5:     select * from {{ ref('stg_customers') }}\n6: \n7: ),\n8: \n9: orders as (\n10: \n11:     select * from {{ ref('orders') }}\n12: \n13: ),\n14: \n15: customer_orders_summary as (\n16: \n17:     select\n18:         orders.customer_id,\n19: \n20:         count(distinct orders.order_id) as count_lifetime_orders,\n21:         count(distinct orders.order_id) > 1 as is_repeat_buyer,\n22:         min(orders.ordered_at) as first_ordered_at,\n23:         max(orders.ordered_at) as last_ordered_at,\n24:         sum(orders.subtotal) as lifetime_spend_pretax,\n25:         sum(orders.tax_paid) as lifetime_tax_paid,\n26:         sum(orders.order_total) as lifetime_spend\n27: \n28:     from orders\n29: \n30:     group by 1"
+      },
+      {
+        "path": "models/marts/customers.sql",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26:         sum(orders.order_total) as lifetime_spend\n27: \n28:     from orders\n29: \n30:     group by 1\n31: \n32: ),\n33: \n34: joined as (\n35: \n36:     select\n37:         customers.*,\n38: \n39:         customer_orders_summary.count_lifetime_orders,\n40:         customer_orders_summary.first_ordered_at,\n41:         customer_orders_summary.last_ordered_at,\n42:         customer_orders_summary.lifetime_spend_pretax,\n43:         customer_orders_summary.lifetime_tax_paid,\n44:         customer_orders_summary.lifetime_spend,\n45: \n46:         case\n47:             when customer_orders_summary.is_repeat_buyer then 'returning'\n48:             else 'new'\n49:         end as customer_type\n50: \n51:     from customers\n52: \n53:     left join customer_orders_summary\n54:         on customers.customer_id = customer_orders_summary.customer_id\n55: "
+      },
+      {
+        "path": "models/marts/customers.sql",
+        "line_start": 51,
+        "line_end": 58,
+        "excerpt": "51:     from customers\n52: \n53:     left join customer_orders_summary\n54:         on customers.customer_id = customer_orders_summary.customer_id\n55: \n56: )\n57: \n58: select * from joined"
+      },
+      {
+        "path": "models/marts/orders.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: orders as (\n4: \n5:     select * from {{ ref('stg_orders') }}\n6: \n7: ),\n8: \n9: order_items as (\n10: \n11:     select * from {{ ref('order_items') }}\n12: \n13: ),\n14: \n15: order_items_summary as (\n16: \n17:     select\n18:         order_id,\n19: \n20:         sum(supply_cost) as order_cost,\n21:         sum(product_price) as order_items_subtotal,\n22:         count(order_item_id) as count_order_items,\n23:         sum(\n24:             case\n25:                 when is_food_item then 1\n26:                 else 0\n27:             end\n28:         ) as count_food_items,\n29:         sum(\n30:             case"
+      },
+      {
+        "path": "models/marts/orders.sql",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26:                 else 0\n27:             end\n28:         ) as count_food_items,\n29:         sum(\n30:             case\n31:                 when is_drink_item then 1\n32:                 else 0\n33:             end\n34:         ) as count_drink_items\n35: \n36:     from order_items\n37: \n38:     group by 1\n39: \n40: ),\n41: \n42: compute_booleans as (\n43: \n44:     select\n45:         orders.*,\n46: \n47:         order_items_summary.order_cost,\n48:         order_items_summary.order_items_subtotal,\n49:         order_items_summary.count_food_items,\n50:         order_items_summary.count_drink_items,\n51:         order_items_summary.count_order_items,\n52:         order_items_summary.count_food_items > 0 as is_food_order,\n53:         order_items_summary.count_drink_items > 0 as is_drink_order\n54: \n55:     from orders"
+      },
+      {
+        "path": "models/marts/orders.sql",
+        "line_start": 51,
+        "line_end": 77,
+        "excerpt": "51:         order_items_summary.count_order_items,\n52:         order_items_summary.count_food_items > 0 as is_food_order,\n53:         order_items_summary.count_drink_items > 0 as is_drink_order\n54: \n55:     from orders\n56: \n57:     left join\n58:         order_items_summary\n59:         on orders.order_id = order_items_summary.order_id\n60: \n61: ),\n62: \n63: customer_order_count as (\n64: \n65:     select\n66:         *,\n67: \n68:         row_number() over (\n69:             partition by customer_id\n70:             order by ordered_at asc\n71:         ) as customer_order_number\n72: \n73:     from compute_booleans\n74: \n75: )\n76: \n77: select * from customer_order_count"
+      },
+      {
+        "path": "models/marts/order_items.sql",
+        "line_start": 1,
+        "line_end": 30,
+        "excerpt": "1: with\n2: \n3: order_items as (\n4: \n5:     select * from {{ ref('stg_order_items') }}\n6: \n7: ),\n8: \n9: \n10: orders as (\n11: \n12:     select * from {{ ref('stg_orders') }}\n13: \n14: ),\n15: \n16: products as (\n17: \n18:     select * from {{ ref('stg_products') }}\n19: \n20: ),\n21: \n22: supplies as (\n23: \n24:     select * from {{ ref('stg_supplies') }}\n25: \n26: ),\n27: \n28: order_supplies_summary as (\n29: \n30:     select"
+      },
+      {
+        "path": "models/marts/order_items.sql",
+        "line_start": 26,
+        "line_end": 55,
+        "excerpt": "26: ),\n27: \n28: order_supplies_summary as (\n29: \n30:     select\n31:         product_id,\n32: \n33:         sum(supply_cost) as supply_cost\n34: \n35:     from supplies\n36: \n37:     group by 1\n38: \n39: ),\n40: \n41: joined as (\n42: \n43:     select\n44:         order_items.*,\n45: \n46:         orders.ordered_at,\n47: \n48:         products.product_name,\n49:         products.product_price,\n50:         products.is_food_item,\n51:         products.is_drink_item,\n52: \n53:         order_supplies_summary.supply_cost\n54: \n55:     from order_items"
+      },
+      {
+        "path": "models/marts/order_items.sql",
+        "line_start": 51,
+        "line_end": 66,
+        "excerpt": "51:         products.is_drink_item,\n52: \n53:         order_supplies_summary.supply_cost\n54: \n55:     from order_items\n56: \n57:     left join orders on order_items.order_id = orders.order_id\n58: \n59:     left join products on order_items.product_id = products.product_id\n60: \n61:     left join order_supplies_summary\n62:         on order_items.product_id = order_supplies_summary.product_id\n63: \n64: )\n65: \n66: select * from joined"
+      },
+      {
+        "path": "models/marts/locations.sql",
+        "line_start": 1,
+        "line_end": 9,
+        "excerpt": "1: with\n2: \n3: locations as (\n4: \n5:     select * from {{ ref('stg_locations') }}\n6: \n7: )\n8: \n9: select * from locations"
+      }
+    ],
+    "surveyor_summary": {
+      "module_count": 1,
+      "function_count": 3,
+      "architectural_hubs": [
+        {
+          "path": ".github/workflows/scripts/dbt_cloud_run_job.py",
+          "pagerank": 1.0
+        }
+      ],
+      "high_velocity_core": {
+        "files": [],
+        "change_share": 0.0,
+        "file_share": 0.0,
+        "days": 30
+      },
+      "strongly_connected_components": [],
+      "domain_clusters": [
+        {
+          "cluster_id": 0,
+          "domain_label": "orchestration",
+          "purpose_statements": [
+            "This module is designed to programmatically trigger and monitor dbt Cloud jobs. It initiates a dbt job run through the dbt Cloud API, allowing for dynamic configuration of the job's cause, Git branch, and schema override. The module then continuously polls the API to track the job's status, reporting progress and indicating success or failure."
+          ],
+          "member_indices": [
+            0
+          ]
+        }
+      ]
+    },
+    "hydrologist_summary": {
+      "dataset_count": 18,
+      "transformation_count": 12,
+      "source_nodes": [
+        "ecom.raw_customers",
+        "ecom.raw_items",
+        "ecom.raw_orders",
+        "ecom.raw_products",
+        "ecom.raw_stores",
+        "ecom.raw_supplies"
+      ],
+      "sink_nodes": [
+        "customers",
+        "locations",
+        "products",
+        "supplies"
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from orchestrator import Orchestrator
 from utils import TerminalLogger, is_remote_repo_path, persist_remote_outputs, resolve_repo_path
@@ -30,10 +31,11 @@ def main() -> int:
 	logger.section("CLI input")
 	logger.step("Resolving repository target", repo_path)
 	logger.detail("Remote repository cloning will be logged when a URL is provided")
+	env_path = Path.cwd() / ".env"
 
 	with resolve_repo_path(repo_path) as resolved_repo_path:
 		logger.success(f"Repository ready: {resolved_repo_path}")
-		outputs = Orchestrator(resolved_repo_path).run()
+		outputs = Orchestrator(resolved_repo_path, env_path=env_path).run()
 		if is_remote_repo_path(repo_path):
 			logger.section("Persisting remote artifacts")
 			logger.step("Copying outputs from temporary clone", "Saving generated artifacts into .cartography/remotes")

@@ -15,8 +15,9 @@ from utils import TerminalLogger, current_commit_hash, get_changed_files, is_git
 class Orchestrator:
 	DAY_ONE_PROMPT_VERSION = 2
 
-	def __init__(self, repo_path: str | Path) -> None:
+	def __init__(self, repo_path: str | Path, *, env_path: str | Path | None = None) -> None:
 		self.repo_path = Path(repo_path).resolve()
+		self.env_path = Path(env_path).resolve() if env_path is not None else None
 		self.output_dir = self.repo_path / ".cartography"
 		self.module_graph_path = self.output_dir / "module_graph.json"
 		self.lineage_graph_path = self.output_dir / "lineage_graph.json"
@@ -26,7 +27,7 @@ class Orchestrator:
 		self.run_metadata_path = self.output_dir / "run_metadata.json"
 		self.surveyor = SurveyorAgent(self.repo_path)
 		self.hydrologist = HydrologistAgent(self.repo_path)
-		self.semanticist = SemanticistAgent(self.repo_path)
+		self.semanticist = SemanticistAgent(self.repo_path, env_path=self.env_path)
 		self.archivist = ArchivistAgent(self.repo_path)
 		self.logger = TerminalLogger()
 

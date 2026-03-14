@@ -1,0 +1,560 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "stg_supplies",
+      "node_type": "dataset",
+      "name": "stg_supplies",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "supply_uuid",
+            "description": "The unique key of our supplies per cost."
+          }
+        ],
+        "dependencies": [],
+        "description": ">"
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "stg_orders",
+      "node_type": "dataset",
+      "name": "stg_orders",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "order_id",
+            "description": "The unique key for each order."
+          }
+        ],
+        "dependencies": [],
+        "description": "Order data with basic cleaning and transformation applied, one row per order."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "stg_products",
+      "node_type": "dataset",
+      "name": "stg_products",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "product_id",
+            "description": "The unique key for each product."
+          }
+        ],
+        "dependencies": [],
+        "description": "Product (food and drink items that can be ordered) data with basic cleaning and transformation applied, one row per product."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "stg_customers",
+      "node_type": "dataset",
+      "name": "stg_customers",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "customer_id",
+            "description": "The unique key for each customer."
+          }
+        ],
+        "dependencies": [],
+        "description": "Customer data with basic cleaning and transformation applied, one row per customer."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "ecom.raw_customers",
+      "node_type": "dataset",
+      "name": "ecom.raw_customers",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "ecom.raw_orders",
+      "node_type": "dataset",
+      "name": "ecom.raw_orders",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "ecom.raw_items",
+      "node_type": "dataset",
+      "name": "ecom.raw_items",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "ecom.raw_stores",
+      "node_type": "dataset",
+      "name": "ecom.raw_stores",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "ecom.raw_products",
+      "node_type": "dataset",
+      "name": "ecom.raw_products",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "ecom.raw_supplies",
+      "node_type": "dataset",
+      "name": "ecom.raw_supplies",
+      "storage_type": "dbt_source",
+      "schema_snapshot": {
+        "columns": [],
+        "dependencies": [
+          "ecom"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true
+    },
+    {
+      "id": "stg_order_items",
+      "node_type": "dataset",
+      "name": "stg_order_items",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "order_item_id",
+            "description": "The unique key for each order item."
+          },
+          {
+            "name": "order_id",
+            "description": "The corresponding order each order item belongs to"
+          }
+        ],
+        "dependencies": [
+          "stg_orders"
+        ],
+        "description": "Individual food and drink items that make up our orders, one row per item."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "stg_locations",
+      "node_type": "dataset",
+      "name": "stg_locations",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "location_id",
+            "description": "The unique key for each location."
+          }
+        ],
+        "dependencies": [],
+        "description": "List of open locations with basic cleaning and transformation applied, one row per location."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "customers",
+      "node_type": "dataset",
+      "name": "customers",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "customer_id",
+            "description": "The unique key of the orders mart."
+          },
+          {
+            "name": "customer_name",
+            "description": "Customers' full name."
+          },
+          {
+            "name": "count_lifetime_orders",
+            "description": "Total number of orders a customer has ever placed."
+          },
+          {
+            "name": "first_ordered_at",
+            "description": "The timestamp when a customer placed their first order."
+          },
+          {
+            "name": "last_ordered_at",
+            "description": "The timestamp of a customer's most recent order."
+          },
+          {
+            "name": "lifetime_spend_pretax",
+            "description": "The sum of all the pre-tax subtotals of every order a customer has placed."
+          },
+          {
+            "name": "lifetime_tax_paid",
+            "description": "The sum of all the tax portion of every order a customer has placed."
+          },
+          {
+            "name": "lifetime_spend",
+            "description": "The sum of all the order totals (including tax) that a customer has ever placed."
+          },
+          {
+            "name": "customer_type",
+            "description": "Options are 'new' or 'returning', indicating if a customer has ordered more than once or has only placed their first order to date."
+          }
+        ],
+        "dependencies": [],
+        "description": "Customer overview data mart, offering key details for each unique customer. One row per customer."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "orders",
+      "node_type": "dataset",
+      "name": "orders",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "order_id",
+            "description": "The unique key of the orders mart."
+          },
+          {
+            "name": "customer_id",
+            "description": "The foreign key relating to the customer who placed the order."
+          },
+          {
+            "name": "order_total",
+            "description": "The total amount of the order in USD including tax."
+          },
+          {
+            "name": "ordered_at",
+            "description": "The timestamp the order was placed at."
+          },
+          {
+            "name": "order_cost",
+            "description": "The sum of supply expenses to fulfill the order."
+          },
+          {
+            "name": "is_food_order",
+            "description": "A boolean indicating if this order included any food items."
+          },
+          {
+            "name": "is_drink_order",
+            "description": "A boolean indicating if this order included any drink items."
+          }
+        ],
+        "dependencies": [
+          "stg_customers"
+        ],
+        "description": "Order overview data mart, offering key details for each order inlcluding if it's a customer's first order and a food vs. drink item breakdown. One row per order."
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "order_items",
+      "node_type": "dataset",
+      "name": "order_items",
+      "storage_type": "dbt_model",
+      "schema_snapshot": {
+        "columns": [
+          {
+            "name": "order_item_id"
+          },
+          {
+            "name": "order_id"
+          }
+        ],
+        "dependencies": [
+          "orders"
+        ]
+      },
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "models/staging/stg_products.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/staging/stg_customers.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/staging/stg_supplies.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/staging/stg_orders.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/staging/stg_order_items.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/staging/stg_locations.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/marts/supplies.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "supplies",
+      "node_type": "dataset",
+      "name": "supplies",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "models/marts/products.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "products",
+      "node_type": "dataset",
+      "name": "products",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    },
+    {
+      "id": "models/marts/customers.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/marts/orders.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/marts/order_items.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "models/marts/locations.sql",
+      "node_type": "transformation"
+    },
+    {
+      "id": "locations",
+      "node_type": "dataset",
+      "name": "locations",
+      "storage_type": "table",
+      "schema_snapshot": {},
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false
+    }
+  ],
+  "links": [
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_supplies",
+      "target": "models/marts/supplies.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_supplies",
+      "target": "models/marts/order_items.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_orders",
+      "target": "models/marts/orders.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_orders",
+      "target": "models/marts/order_items.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_products",
+      "target": "models/marts/products.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_products",
+      "target": "models/marts/order_items.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_customers",
+      "target": "models/marts/customers.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_customers",
+      "target": "models/staging/stg_customers.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_orders",
+      "target": "models/staging/stg_orders.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_items",
+      "target": "models/staging/stg_order_items.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_stores",
+      "target": "models/staging/stg_locations.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_products",
+      "target": "models/staging/stg_products.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "ecom.raw_supplies",
+      "target": "models/staging/stg_supplies.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_order_items",
+      "target": "models/marts/order_items.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "stg_locations",
+      "target": "models/marts/locations.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "orders",
+      "target": "models/marts/customers.sql"
+    },
+    {
+      "edge_type": "CONSUMES",
+      "source": "order_items",
+      "target": "models/marts/orders.sql"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_products.sql",
+      "target": "stg_products"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_customers.sql",
+      "target": "stg_customers"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_supplies.sql",
+      "target": "stg_supplies"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_orders.sql",
+      "target": "stg_orders"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_order_items.sql",
+      "target": "stg_order_items"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/staging/stg_locations.sql",
+      "target": "stg_locations"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/supplies.sql",
+      "target": "supplies"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/products.sql",
+      "target": "products"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/customers.sql",
+      "target": "customers"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/orders.sql",
+      "target": "orders"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/order_items.sql",
+      "target": "order_items"
+    },
+    {
+      "edge_type": "PRODUCES",
+      "source": "models/marts/locations.sql",
+      "target": "locations"
+    }
+  ]
+}

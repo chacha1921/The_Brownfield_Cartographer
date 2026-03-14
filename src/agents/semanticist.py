@@ -47,19 +47,20 @@ class ModelTierConfig:
 
     @classmethod
     def from_env(cls, env: dict[str, str]) -> ModelTierConfig:
+        defaults = cls()
         return cls(
-            fast_provider=_normalize_provider(env.get("SEMANTICIST_FAST_PROVIDER", cls.fast_provider)),
-            fast_model=env.get("SEMANTICIST_FAST_MODEL", cls.fast_model),
-            heavy_provider=_normalize_provider(env.get("SEMANTICIST_HEAVY_PROVIDER", cls.heavy_provider)),
-            heavy_model=env.get("SEMANTICIST_HEAVY_MODEL", cls.heavy_model),
-            embedding_provider=_normalize_provider(env.get("SEMANTICIST_EMBEDDING_PROVIDER", cls.embedding_provider)),
-            embedding_model=env.get("SEMANTICIST_EMBEDDING_MODEL", cls.embedding_model),
-            bulk_budget_tokens=_coerce_env_int(env.get("SEMANTICIST_BULK_BUDGET_TOKENS"), cls.bulk_budget_tokens),
-            synthesis_budget_tokens=_coerce_env_int(env.get("SEMANTICIST_SYNTHESIS_BUDGET_TOKENS"), cls.synthesis_budget_tokens),
-            module_prompt_token_cap=_coerce_env_int(env.get("SEMANTICIST_MODULE_PROMPT_TOKEN_CAP"), cls.module_prompt_token_cap),
-            evidence_chunk_lines=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_CHUNK_LINES"), cls.evidence_chunk_lines),
-            evidence_chunk_overlap=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_CHUNK_OVERLAP"), cls.evidence_chunk_overlap),
-            evidence_file_limit=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_FILE_LIMIT"), cls.evidence_file_limit),
+            fast_provider=_normalize_provider(env.get("SEMANTICIST_FAST_PROVIDER", defaults.fast_provider)),
+            fast_model=env.get("SEMANTICIST_FAST_MODEL", defaults.fast_model),
+            heavy_provider=_normalize_provider(env.get("SEMANTICIST_HEAVY_PROVIDER", defaults.heavy_provider)),
+            heavy_model=env.get("SEMANTICIST_HEAVY_MODEL", defaults.heavy_model),
+            embedding_provider=_normalize_provider(env.get("SEMANTICIST_EMBEDDING_PROVIDER", defaults.embedding_provider)),
+            embedding_model=env.get("SEMANTICIST_EMBEDDING_MODEL", defaults.embedding_model),
+            bulk_budget_tokens=_coerce_env_int(env.get("SEMANTICIST_BULK_BUDGET_TOKENS"), defaults.bulk_budget_tokens),
+            synthesis_budget_tokens=_coerce_env_int(env.get("SEMANTICIST_SYNTHESIS_BUDGET_TOKENS"), defaults.synthesis_budget_tokens),
+            module_prompt_token_cap=_coerce_env_int(env.get("SEMANTICIST_MODULE_PROMPT_TOKEN_CAP"), defaults.module_prompt_token_cap),
+            evidence_chunk_lines=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_CHUNK_LINES"), defaults.evidence_chunk_lines),
+            evidence_chunk_overlap=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_CHUNK_OVERLAP"), defaults.evidence_chunk_overlap),
+            evidence_file_limit=_coerce_env_int(env.get("SEMANTICIST_EVIDENCE_FILE_LIMIT"), defaults.evidence_file_limit),
         )
 
 
