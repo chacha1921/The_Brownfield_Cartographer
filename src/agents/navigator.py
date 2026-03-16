@@ -5,6 +5,7 @@ from collections import deque
 from dataclasses import dataclass
 import json
 from pathlib import Path
+import re
 from typing import Any, TypedDict
 
 import networkx as nx
@@ -142,7 +143,11 @@ class NavigatorAgent:
 		lowered = query.lower()
 		if "lineage" in lowered or "upstream" in lowered or "downstream" in lowered:
 			direction = "upstream" if "upstream" in lowered else "downstream"
-			return {**state, "tool_name": "trace_lineage", "tool_input": {"dataset": query, "direction": direction}}
+			return {
+				**state,
+				"tool_name": "trace_lineage",
+				"tool_input": {"dataset": self._extract_dataset_name(query), "direction": direction},
+			}
 		if "blast radius" in lowered or "dependents" in lowered or "impact" in lowered:
 			return {**state, "tool_name": "blast_radius", "tool_input": {"module_path": self._extract_last_path_token(query)}}
 		if "explain" in lowered:
@@ -436,6 +441,19 @@ class NavigatorAgent:
 			if "/" in cleaned or cleaned.endswith(".py"):
 				return cleaned
 		return query.strip()
+
+	def _extract_dataset_name(self, query: str) -> str:
+		cleaned = query.strip()
+		patterns = [
+			r"^(?:what are |show )?upstream(?: sources| lineage)? for (?P<dataset>.+)$",
+			r"^(?:what are |show )?downstream(?: sources| lineage)? for (?P<dataset>.+)$",
+			r"^(?:show )?lineage for (?P<dataset>.+)$",
+		]
+		for pattern in patterns:
+			match = re.match(pattern, cleaned, flags=re.IGNORECASE)
+			if match:
+				return match.group("dataset").strip("`'\"?. ")
+		return cleaned.strip("`'\"?. ")
 
 	def _load_structured_tool(self):
 		if importlib is None:

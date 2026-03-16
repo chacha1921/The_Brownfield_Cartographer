@@ -59,6 +59,18 @@ Or ask a one-shot question:
 uv run brownfield-cartographer query --repo-path <local-repo-path> --question "blast radius for src/pipeline.py"
 ```
 
+To generate a presentation-friendly HTML dashboard from existing artifacts, use:
+
+```bash
+uv run brownfield-cartographer dashboard --repo-path <repo-path-or-remote-url>
+```
+
+You can also point directly at a persisted artifact directory, or choose an explicit HTML output path:
+
+```bash
+uv run brownfield-cartographer dashboard --repo-path .cartography/remotes/github.com__mitodl__ol-data-platform --output tmp/mitodl-dashboard.html
+```
+
 ## Analyze a local repository
 
 Example using a local directory path:
@@ -103,6 +115,8 @@ After a successful run, Brownfield Cartographer writes:
 These files are created in the analyzed repository.
 
 For remote GitHub analysis, persisted outputs are copied into `.cartography/remotes/<repo-slug>/` in the invoking workspace.
+
+The `dashboard` command reads those existing outputs and creates a self-contained `dashboard.html` file next to the artifacts by default.
 
 ## What gets analyzed
 
@@ -173,6 +187,18 @@ Every Archivist action appends a record to `.cartography/cartography_trace.jsonl
 - `evidence_sources`
 
 This trace is preserved even if a later stage fails, because graph and day-one intermediate artifacts are written defensively during the run.
+
+## Dashboard features
+
+The generated HTML dashboard is designed for demos and quick inspection of prior runs. It includes:
+
+- sidebar switching between Surveyor, Hydrologist, Semanticist, Archivist, and Navigator views
+- node count, edge count, dominant node type, and most-connected-node metrics per view
+- searchable graph nodes
+- click-to-inspect node metadata
+- pan and zoom controls for graph exploration
+- Hydrologist source/sink hints so initial lineage sources and terminal sinks stand out visually
+- built-in viewers for `CODEBASE.md`, `onboarding_brief.md`, `day_one_answers.json`, trace logs, and raw graph JSON
 
 ## Notes
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from brownfield_cartographer.dashboard import generate_dashboard, resolve_artifact_directory
 from agents.navigator import NavigatorAgent
 from graph.knowledge_graph import KnowledgeGraph
 from orchestrator import Orchestrator
@@ -21,8 +22,12 @@ def build_parser() -> argparse.ArgumentParser:
 	analyze_parser.add_argument("--sql-dialect", default="postgres", help="SQL dialect for SQLGlot parsing, e.g. postgres, spark, bigquery.")
 
 	query_parser = subparsers.add_parser("query", help="Launch Navigator over existing .cartography artifacts.")
-	query_parser.add_argument("--repo-path", required=True, help="Path to a repository that already contains .cartography artifacts.")
+	query_parser.add_argument("--repo-path", required=True, help="Repository path, remote URL, or artifact directory containing generated Cartographer outputs.")
 	query_parser.add_argument("--question", help="Optional one-shot question. If omitted, interactive mode starts.")
+
+	dashboard_parser = subparsers.add_parser("dashboard", help="Generate an interactive HTML dashboard from existing .cartography artifacts.")
+	dashboard_parser.add_argument("--repo-path", required=True, help="Repository path, remote URL, or artifact directory containing generated Cartographer outputs.")
+	dashboard_parser.add_argument("--output", help="Optional output path for the generated HTML dashboard.")
 
 	parser.add_argument("--repo-path", help="Path or GitHub URL of the repository to analyze.")
 	return parser
@@ -31,6 +36,8 @@ def main() -> int:
 	args = build_parser().parse_args()
 	if getattr(args, "command", None) == "query":
 		return _run_query_command(args.repo_path, getattr(args, "question", None))
+	if getattr(args, "command", None) == "dashboard":
+		return _run_dashboard_command(args.repo_path, getattr(args, "output", None))
 
 	repo_path = args.repo_path
 	logger = TerminalLogger()
@@ -71,12 +78,12 @@ def main() -> int:
 
 
 def _run_query_command(repo_path: str, question: str | None) -> int:
-	repository_root = Path(repo_path).resolve()
-	artifact_dir = repository_root / ".cartography"
+	artifact_dir = resolve_artifact_directory(repo_path)
+	repository_root = artifact_dir.parent if artifact_dir.name == ".cartography" else artifact_dir
 	module_graph_path = artifact_dir / "module_graph.json"
 	lineage_graph_path = artifact_dir / "lineage_graph.json"
 	if not module_graph_path.exists() or not lineage_graph_path.exists():
-		raise SystemExit("Navigator requires existing .cartography/module_graph.json and .cartography/lineage_graph.json artifacts.")
+		raise SystemExit("Navigator requires Cartographer artifacts containing module_graph.json and lineage_graph.json.")
 
 	module_graph = KnowledgeGraph.load_from_json(module_graph_path)
 	lineage_graph = KnowledgeGraph.load_from_json(lineage_graph_path)
@@ -100,6 +107,12 @@ def _run_query_command(repo_path: str, question: str | None) -> int:
 			return 0
 		print(navigator.answer(prompt))
 		print()
+
+
+def _run_dashboard_command(repo_path: str, output_path: str | None) -> int:
+	dashboard_path = generate_dashboard(repo_path, output_path=output_path)
+	print(f"Dashboard generated: {dashboard_path}")
+	return 0
 
 __all__ = [
 	"build_parser",
